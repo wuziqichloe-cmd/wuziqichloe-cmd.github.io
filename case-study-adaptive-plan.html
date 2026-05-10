@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adaptive Plan Feature — Chloe Wu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FAFAFA;--bg-2:#F2F2F2;--surf:#FFFFFF;--ink:#0A0A0A;--ink-2:#555555;--ink-3:#AAAAAA;--border:rgba(10,10,10,0.08);--border-h:rgba(10,10,10,0.16);--accent:#2563EB;--glow-r:37,99,235;--nav-bg:rgba(250,250,250,0.88);}
+[data-theme="dark"]{--bg:#0A0A0A;--bg-2:#141414;--surf:#1A1A1A;--ink:#F5F5F5;--ink-2:#888888;--ink-3:#444444;--border:rgba(245,245,245,0.08);--border-h:rgba(245,245,245,0.16);--accent:#3B82F6;--glow-r:59,130,246;--nav-bg:rgba(10,10,10,0.88);}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;font-size:120%;}
+body{background:var(--bg);color:var(--ink);font-family:-apple-system,'SF Pro Text','SF Pro Display',BlinkMacSystemFont,'Segoe UI','Figtree',system-ui,sans-serif;overflow-x:hidden;cursor:none;-webkit-font-smoothing:antialiased;transition:background .4s,color .4s;}
+
+/* CURSOR */
+#cur{position:fixed;z-index:9999;pointer-events:none;width:12px;height:12px;border-radius:100px;background:var(--accent);transform:translate(-50%,-50%);transition:width .22s cubic-bezier(.34,1.56,.64,1),height .22s,border-radius .22s,background .2s;}
+#cur.hover{width:52px;height:22px;border-radius:100px;background:var(--ink);}
+
+/* NAV — exact portfolio */
+nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:var(--nav-bg);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:background .4s,border-color .4s;}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.06em;color:var(--ink);text-decoration:none;transition:color .2s;}
+.nav-logo:hover{color:var(--accent);}
+.nav-r{display:flex;align-items:center;gap:28px;}
+.nav-links{display:flex;gap:28px;list-style:none;}
+.nav-links a{font-size:16px;font-weight:500;letter-spacing:.04em;color:var(--ink-2);text-decoration:none;transition:color .2s;}
+.nav-links a:hover{color:var(--ink);}
+.nav-cta{color:#fff!important;background:var(--accent)!important;padding:7px 18px;border-radius:100px;transition:opacity .2s!important;}
+.nav-cta:hover{opacity:.88;}
+.t-tog{position:relative;width:44px;height:24px;cursor:none;}
+.t-tog input{position:absolute;opacity:0;width:0;height:0;}
+.t-track{position:absolute;inset:0;background:var(--border-h);border-radius:100px;transition:background .3s;display:flex;align-items:center;justify-content:space-between;padding:0 5px;}
+.t-tog input:checked~.t-track{background:var(--accent);}
+.t-icon{font-size:9px;z-index:1;}
+.t-sun{opacity:1;}.t-moon{opacity:.4;}
+[data-theme="dark"] .t-sun{opacity:.4;}[data-theme="dark"] .t-moon{opacity:1;}
+.t-knob{position:absolute;top:3px;left:3px;width:18px;height:18px;background:var(--surf);border-radius:50%;transition:transform .28s cubic-bezier(.4,0,.2,1);pointer-events:none;z-index:2;box-shadow:0 1px 3px rgba(0,0,0,.2);}
+.t-tog input:checked~.t-knob{transform:translateX(20px);}
+.hamburger{display:none;flex-direction:column;gap:4.5px;width:24px;cursor:pointer;padding:4px 0;border:none;background:none;}
+.hamburger span{display:block;height:1.5px;width:100%;background:var(--ink);border-radius:2px;transition:transform .3s ease,opacity .3s ease;}
+
+/* LAYOUT */
+.page-wrap{display:grid;grid-template-columns:260px 1fr;min-height:100vh;padding-top:54px;}
+
+/* LEFT PANEL — matches portfolio work-left exactly */
+.cs-left {
+  position: sticky; top: 54px; height: calc(100vh - 54px);
+  display: flex; flex-direction: column;
+  justify-content: center;
+  padding: 40px 40px;
+  border-right: 1px solid var(--border);
+  overflow: hidden;
+  background: var(--bg);
+  transition: background .4s, border-color .4s;
+}
+
+/* Back link — sits above the centered content */
+.cs-back {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 600; letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--ink-3); text-decoration: none;
+  transition: color .2s;
+  margin-bottom: 32px; flex-shrink: 0;
+}
+.cs-back:hover { color: var(--accent); }
+.cs-back svg { transition: transform .2s; }
+.cs-back:hover svg { transform: translateX(-3px); }
+
+/* Project label above index */
+.cs-left-label { margin-bottom: 4px; }
+.cs-left-eyebrow {
+  font-size: 12px; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--accent);
+  display: block; margin-bottom: 6px;
+}
+.cs-left-project {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px; letter-spacing: .04em; color: var(--ink);
+  line-height: 1.1; margin-bottom: 20px;
+}
+
+/* Section index rows — exact portfolio style */
+.cs-index {
+  display: flex; flex-direction: column; gap: 0;
+  border-top: 1px solid var(--border);
+}
+.cs-idx-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 0; border-bottom: 1px solid var(--border);
+  cursor: none; text-decoration: none;
+  transition: opacity .3s, padding-left .3s;
+  opacity: .28;
+}
+.cs-idx-row:hover { opacity: .65; }
+.cs-idx-row.active { opacity: 1; padding-left: 4px; }
+.cs-idx-num {
+  font-family: 'Figtree', sans-serif; font-size: 16px; font-weight: 600;
+  letter-spacing: .02em; color: var(--ink-3); width: 36px;
+  flex-shrink: 0; transition: color .3s;
+}
+.cs-idx-row.active .cs-idx-num { color: var(--accent); }
+.cs-idx-label {
+  font-size: 24px; font-weight: 500; color: var(--ink-2);
+  letter-spacing: -.02em; flex: 1; transition: color .3s;
+  line-height: 1.1;
+}
+.cs-idx-row.active .cs-idx-label { color: var(--ink); }
+.cs-idx-tick {
+  height: 1.5px; width: 0; background: var(--accent);
+  border-radius: 1px;
+  transition: width .4s cubic-bezier(.22,1,.36,1);
+}
+.cs-idx-row.active .cs-idx-tick { width: 24px; }
+
+/* Progress bar at bottom */
+.cs-progress {
+  margin-top: 28px; flex-shrink: 0;
+}
+.cs-progress-label {
+  font-size: 10px; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px;
+}
+.cs-progress-track {
+  height: 2px; background: var(--border-h); border-radius: 2px;
+}
+.cs-progress-fill {
+  height: 100%; background: var(--accent);
+  border-radius: 2px; transition: width .3s ease; width: 0%;
+}
+
+/* HERO */
+.cs-hero{min-height:72vh;background:linear-gradient(145deg,#0f172a 0%,#1e3a8a 55%,#1d4ed8 100%);position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:72px 64px;}
+.cs-hero::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom,transparent 25%,rgba(0,0,0,.6) 100%);}
+.cs-hero-watermark{position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);font-family:'Bebas Neue',sans-serif;font-size:220px;letter-spacing:-.02em;color:rgba(255,255,255,.04);pointer-events:none;user-select:none;white-space:nowrap;line-height:1;}
+.cs-hero-inner{position:relative;z-index:1;}
+.cs-hero-tags{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+.cs-hero-tag{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.2);padding:3px 12px;border-radius:100px;backdrop-filter:blur(8px);}
+.cs-hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,7vw,92px);line-height:.92;letter-spacing:.02em;color:#fff;margin-bottom:16px;}
+.cs-hero-sub{font-size:18px;font-weight:300;color:rgba(255,255,255,.72);line-height:1.7;max-width:52ch;}
+
+/* METRICS */
+.cs-metrics{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--border);border-top:1px solid var(--border);}
+.cs-metric{padding:44px 52px;border-right:1px solid var(--border);}
+.cs-metric:last-child{border-right:none;}
+.cs-metric-val{font-family:'Bebas Neue',sans-serif;font-size:56px;letter-spacing:.02em;color:var(--accent);line-height:1;margin-bottom:6px;}
+.cs-metric-lbl{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);}
+.cs-metric-desc{font-size:14px;color:var(--ink-2);margin-top:6px;line-height:1.55;}
+
+/* SECTIONS */
+.cs-section{padding:96px 0;border-bottom:1px solid var(--border);}
+.cs-section:last-child{border-bottom:none;}
+
+/* Max-width inner wrapper for all section content */
+.cs-inner{max-width:1080px;width:100%;}
+
+.cs-eyebrow{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;display:block;}
+.cs-section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,5.5vw,72px);line-height:.9;letter-spacing:.02em;color:var(--ink);margin-bottom:32px;}
+.cs-body{font-size:17px;font-weight:300;color:var(--ink-2);line-height:1.8;letter-spacing:-.02em;max-width:680px;}
+.cs-body p+p{margin-top:16px;}
+.cs-body strong{color:var(--ink);font-weight:600;}
+.cs-body em{font-style:italic;color:var(--ink-2);}
+
+/* OVERVIEW GRID */
+.cs-overview-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--border);border-radius:20px;overflow:hidden;margin-top:36px;}
+.cs-ov-cell{padding:24px 28px;border-right:1px solid var(--border);}
+.cs-ov-cell:last-child{border-right:none;}
+.cs-ov-label{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px;display:block;}
+.cs-ov-val{font-size:16px;font-weight:500;color:var(--ink);line-height:1.45;}
+
+/* GRIDS */
+.cs-two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px;}
+.cs-three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:24px;}
+
+/* IMAGE PLACEHOLDER */
+.cs-img-ph{border-radius:14px;border:1px solid var(--border);background:var(--bg-2);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;transition:background .4s;}
+.cs-img-ph-icon{font-size:28px;opacity:.28;}
+.cs-img-ph-label{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);}
+.h-tall{height:520px;}.h-mid{height:380px;}.h-sm{height:260px;}
+
+/* CALLOUT */
+.cs-callout{border-left:3px solid var(--accent);background:rgba(37,99,235,.05);border-radius:0 16px 16px 0;padding:24px 28px;margin-top:32px;}
+[data-theme="dark"] .cs-callout{background:rgba(59,130,246,.08);}
+.cs-callout-label{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
+.cs-callout-text{font-size:16px;color:var(--ink-2);line-height:1.7;}
+
+/* CARDS */
+.cs-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px;}
+.cs-card{background:var(--surf);border:1px solid var(--border);border-radius:20px;padding:32px 32px;transition:background .4s,border-color .4s,transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s;}
+.cs-card:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.08);}
+[data-theme="dark"] .cs-card:hover{box-shadow:0 12px 40px rgba(0,0,0,.45);}
+.cs-card-icon{font-size:28px;line-height:1;}
+.cs-card-title{font-size:15px;font-weight:700;color:var(--ink);letter-spacing:-.01em;line-height:1.3;}
+.cs-card-text{font-size:14px;color:var(--ink-2);line-height:1.65;margin-top:2px;}
+
+/* DIRECTION CARDS */
+.cs-direction{border-radius:20px;padding:28px 28px;border:1px solid var(--border);background:var(--surf);transition:background .4s,border-color .4s;}
+.cs-direction.chosen{border-top:3px solid var(--accent);}
+.cs-direction-icon{font-size:22px;margin-bottom:10px;}
+.cs-direction-title{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:6px;letter-spacing:-.01em;}
+.cs-direction-text{font-size:14px;color:var(--ink-2);line-height:1.7;}
+
+/* PROCESS STEPS */
+.cs-steps{display:flex;flex-direction:column;gap:0;margin-top:36px;}
+.cs-step{display:grid;grid-template-columns:48px 1fr;gap:0 20px;padding-bottom:28px;position:relative;}
+.cs-step-aside{display:flex;flex-direction:column;align-items:center;}
+.cs-step-dot{width:32px;height:32px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:.04em;color:#fff;flex-shrink:0;}
+.cs-step-line{width:2px;flex:1;background:var(--border-h);margin-top:8px;}
+.cs-step:last-child .cs-step-line{display:none;}
+.cs-step-body{padding-top:4px;}
+.cs-step-title{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:.04em;color:var(--ink);margin-bottom:10px;}
+.cs-step-text{font-size:15px;color:var(--ink-2);line-height:1.75;}
+
+/* PULL QUOTE */
+.cs-pull-quote{border-left:3px solid var(--accent);padding:12px 28px;margin:36px 0;}
+.cs-pull-quote-text{font-size:24px;font-weight:300;font-style:italic;color:var(--ink);line-height:1.55;letter-spacing:-.02em;}
+.cs-pull-quote-attr{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-top:10px;}
+
+/* OUTCOMES */
+.cs-outcomes{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px;}
+.cs-outcome-pill{display:flex;align-items:center;gap:8px;background:var(--bg-2);border:1px solid var(--border);border-radius:100px;padding:10px 18px;font-size:14px;color:var(--ink-2);transition:background .4s;}
+.cs-outcome-val{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.02em;color:var(--accent);line-height:1;}
+
+/* DIVIDER */
+.cs-divider{height:1px;background:var(--border);margin:28px 0;}
+
+/* NEXT */
+.cs-next-section{
+  background:var(--bg-2);
+  padding:96px 0;
+  border-top:1px solid var(--border);
+  transition:background .4s;
+}
+.cs-next-heading{
+  display:flex; align-items:flex-end; justify-content:space-between;
+  margin-bottom:36px;
+}
+.cs-next-eyebrow{
+  font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:8px;display:block;
+}
+.cs-next-section-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(36px,5vw,56px);line-height:.92;letter-spacing:.02em;color:var(--ink);
+}
+.cs-all-link{
+  font-size:13px;font-weight:600;letter-spacing:.04em;
+  color:var(--ink-2);text-decoration:none;
+  display:flex;align-items:center;gap:6px;
+  transition:color .2s;flex-shrink:0;margin-bottom:4px;
+}
+.cs-all-link:hover{color:var(--accent);}
+
+/* Project cards grid */
+.cs-proj-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:20px;
+}
+.cs-proj-card{
+  border-radius:24px;overflow:hidden;
+  text-decoration:none;
+  background:var(--surf);
+  border:1px solid var(--border);
+  transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s,border-color .3s;
+  display:flex;flex-direction:column;
+}
+.cs-proj-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 16px 48px rgba(0,0,0,.1);
+  border-color:var(--border-h);
+}
+[data-theme="dark"] .cs-proj-card:hover{box-shadow:0 16px 48px rgba(0,0,0,.5);}
+.cs-proj-card-thumb{
+  height:240px;
+  position:relative;overflow:hidden;
+  flex-shrink:0;
+}
+.cs-proj-card-thumb::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to bottom,transparent 40%,rgba(0,0,0,.5) 100%);
+}
+.cs-proj-thumb-bg{
+  position:absolute;inset:0;background-size:cover;background-position:center;
+  transition:transform .5s cubic-bezier(.22,1,.36,1);
+}
+.cs-proj-card:hover .cs-proj-thumb-bg{transform:scale(1.04);}
+.cs-proj-card-num{
+  position:absolute;top:16px;right:16px;z-index:2;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:48px;letter-spacing:-.02em;color:rgba(255,255,255,.12);
+  line-height:1;user-select:none;
+}
+.cs-proj-card-body{padding:24px 28px;flex:1;display:flex;flex-direction:column;gap:10px;}
+.cs-proj-card-tags{display:flex;gap:6px;flex-wrap:wrap;}
+.cs-proj-card-tag{
+  font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--accent);border:1px solid rgba(37,99,235,.2);
+  background:rgba(37,99,235,.06);
+  padding:2px 8px;border-radius:100px;
+}
+[data-theme="dark"] .cs-proj-card-tag{color:var(--accent);border-color:rgba(59,130,246,.25);background:rgba(59,130,246,.08);}
+.cs-proj-card-name{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:28px;letter-spacing:.02em;color:var(--ink);
+  line-height:1.05;
+}
+.cs-proj-card-metric{
+  font-size:13px;color:var(--ink-3);margin-top:auto;
+  display:flex;align-items:center;gap:6px;
+}
+.cs-proj-card-metric strong{
+  font-family:'Bebas Neue',sans-serif;font-size:18px;
+  letter-spacing:.02em;color:var(--accent);
+}
+.cs-proj-card-arrow{
+  margin-top:auto;margin-left:auto;
+  width:28px;height:28px;border-radius:50%;
+  border:1.5px solid var(--border-h);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;color:var(--ink-2);
+  transition:background .2s,border-color .2s,color .2s,transform .2s;
+}
+.cs-proj-card:hover .cs-proj-card-arrow{
+  background:var(--accent);border-color:var(--accent);color:#fff;transform:rotate(45deg);
+}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease;}
+.reveal.in{opacity:1;transform:none;}
+
+/* RESPONSIVE — 3 breakpoints */
+
+/* ── Tablet 768–1100px: hide left panel, single col ── */
+@media(max-width:1100px){
+  .page-wrap{grid-template-columns:1fr;}
+  .cs-left{display:none;}
+  .cs-section{padding:72px 0;}
+}
+
+/* ── Tablet 768–960px ── */
+@media(max-width:960px){
+  .cs-proj-grid{grid-template-columns:1fr 1fr;}
+  .cs-next-section{padding:56px 40px;}
+  .cs-section{padding:64px 0;}
+  nav{padding:0 20px;}
+  .cs-hero{padding:40px 32px;}
+  .cs-hero-watermark{font-size:140px;}
+  .cs-metrics{grid-template-columns:1fr 1fr;}
+  .cs-metric:nth-child(2){border-right:none;}
+  .cs-metric:nth-child(3){grid-column:span 2;border-right:none;border-top:1px solid var(--border);}
+  .cs-section{padding:56px 48px;}
+  .cs-next{padding:48px 48px;flex-direction:column;align-items:flex-start;gap:24px;}
+}
+
+/* ── Mobile < 768px ── */
+@media(max-width:767px){
+  .cs-proj-grid{grid-template-columns:1fr;}
+  .cs-next-section{padding:44px 20px;}
+  .cs-next-heading{flex-direction:column;align-items:flex-start;gap:12px;}
+  .cs-section{padding:52px 0;}
+  .cs-cards{grid-template-columns:1fr;}
+  .cs-three-col{grid-template-columns:1fr;}
+  nav{padding:0 20px;height:52px;}
+  .cs-hero{padding:32px 20px;min-height:44vh;}
+  .cs-hero-watermark{display:none;}
+  .cs-hero-title{font-size:clamp(40px,10vw,64px);}
+  .cs-hero-sub{font-size:15px;max-width:100%;}
+  .cs-metrics{grid-template-columns:1fr;}
+  .cs-metric{border-right:none;border-bottom:1px solid var(--border);}
+  .cs-metric:last-child{border-bottom:none;}
+  .cs-section{padding:44px 20px;}
+  .cs-two-col,.cs-three-col,.cs-cards{grid-template-columns:1fr;}
+  .cs-overview-grid{grid-template-columns:1fr 1fr;}
+  .cs-next{padding:36px 20px;}
+  .cs-next-btn{width:100%;justify-content:center;}
+}
+
+/* ── Very small < 420px ── */
+@media(max-width:420px){
+  .cs-overview-grid{grid-template-columns:1fr;}
+  .cs-section{padding:36px 16px;}
+}
+
+/* ── Apple-style content wrapping ──
+   980px grid, text at 660px, cards fill the column */
+.cs-wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 52px;
+}
+/* Narrow text block — prose stays at comfortable reading width */
+.cs-text-block {
+  max-width: 660px;
+}
+/* Hero inner */
+.cs-hero-inner { max-width: 980px; width: 100%; }
+/* Next section */
+.cs-next-section .cs-next-heading { max-width: 980px; margin: 0 auto; padding: 0 40px; }
+.cs-next-section .cs-proj-grid   { max-width: 980px; margin: 0 auto; padding: 0 40px; }
+
+/* Responsive wrap */
+@media(max-width:1100px){ .cs-wrap { padding: 0 32px; } }
+@media(max-width:767px){
+  .cs-wrap { padding: 0 20px; }
+  .cs-hero-inner { padding: 0; }
+  .cs-next-section .cs-next-heading,
+.cs-next-section .cs-proj-grid {
+  max-width: 1080px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 52px;
+}
+}
+</style>
+</head>
+<body>
+<div id="cur"></div>
+
+<!-- NAV — exact portfolio -->
+<nav>
+  <a href="/" class="nav-logo">CW.</a>
+  <div class="nav-r">
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/#work">Work</a></li>
+      <li><a href="/#about">About</a></li>
+      <li><a href="/" class="nav-cta">Resume &#8599;</a></li>
+    </ul>
+    <label class="t-tog" aria-label="Toggle theme">
+      <input type="checkbox" id="themeToggle">
+      <span class="t-track"><span class="t-icon t-sun">&#9728;</span><span class="t-icon t-moon">&#9789;</span></span>
+      <span class="t-knob"></span>
+    </label>
+    <button class="hamburger" id="hamburger" aria-label="Toggle navigation" style="display:none;">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- LEFT STICKY PANEL — matches portfolio work-left style -->
+  <aside class="cs-left">
+
+    <!-- Back link -->
+    <a href="/" class="cs-back">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Back
+    </a>
+
+    <!-- Project label -->
+    <div class="cs-left-label">
+      <span class="cs-left-eyebrow">Case Study &middot; 01</span>
+      <div class="cs-left-project">Adaptive Plan</div>
+    </div>
+
+    <!-- Section index rows -->
+    <div class="cs-index" id="csIndex">
+      <a href="#overview"   class="cs-idx-row active" data-section="overview">
+        <span class="cs-idx-num">00</span>
+        <span class="cs-idx-label">Overview</span>
+        <span class="cs-idx-tick"></span>
+      </a>
+      <a href="#problem"    class="cs-idx-row" data-section="problem">
+        <span class="cs-idx-num">01</span>
+        <span class="cs-idx-label">Problem</span>
+        <span class="cs-idx-tick"></span>
+      </a>
+      <a href="#research"   class="cs-idx-row" data-section="research">
+        <span class="cs-idx-num">02</span>
+        <span class="cs-idx-label">Research</span>
+        <span class="cs-idx-tick"></span>
+      </a>
+      <a href="#ideation"   class="cs-idx-row" data-section="ideation">
+        <span class="cs-idx-num">03</span>
+        <span class="cs-idx-label">Ideation</span>
+        <span class="cs-idx-tick"></span>
+      </a>
+      <a href="#design"     class="cs-idx-row" data-section="design">
+        <span class="cs-idx-num">04</span>
+        <span class="cs-idx-label">Design</span>
+        <span class="cs-idx-tick"></span>
+      </a>
+      <a href="#prototype"  class="cs-idx-row" data-section="prototype">
+        <span class="cs-idx-num">05</span>
+        <span class="cs-idx-label">Prototype</span>
+        <span class="cs-idx-tick"></span>
+      </a>
+      <a href="#outcomes"   class="cs-idx-row" data-section="outcomes">
+        <span class="cs-idx-num">06</span>
+        <span class="cs-idx-label">Outcomes</span>
+        <span class="cs-idx-tick"></span>
+      </a>
+      <a href="#reflection" class="cs-idx-row" data-section="reflection">
+        <span class="cs-idx-num">07</span>
+        <span class="cs-idx-label">Reflection</span>
+        <span class="cs-idx-tick"></span>
+      </a>
+    </div>
+
+    <!-- Reading progress -->
+    <div class="cs-progress">
+      <div class="cs-progress-label">Progress</div>
+      <div class="cs-progress-track">
+        <div class="cs-progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- RIGHT CONTENT -->
+  <main class="cs-content">
+
+    <!-- HERO -->
+    <div class="cs-hero">
+      <div class="cs-hero-watermark">ADAPTIVE</div>
+      <div class="cs-hero-inner reveal">
+        <div class="cs-hero-tags">
+          <span class="cs-hero-tag">0&rarr;1 Feature</span>
+          <span class="cs-hero-tag">iOS &middot; Android</span>
+          <span class="cs-hero-tag">Jefit &middot; 2024&ndash;2025</span>
+        </div>
+        <h1 class="cs-hero-title">AI-Powered<br>Adaptive Plan</h1>
+        <p class="cs-hero-sub">Replacing static, one-size-fits-all workout plans with a fully personalized, AI-driven experience &mdash; Jefit&apos;s highest-impact feature to date.</p>
+      </div>
+    </div>
+
+    <!-- METRICS -->
+    <div class="cs-metrics reveal">
+      <div class="cs-metric">
+        <div class="cs-metric-val">+42%</div>
+        <div class="cs-metric-lbl">Feature Adoption</div>
+        <div class="cs-metric-desc">Highest adoption of any feature at Jefit</div>
+      </div>
+      <div class="cs-metric">
+        <div class="cs-metric-val">+28%</div>
+        <div class="cs-metric-lbl">D30 Retention</div>
+        <div class="cs-metric-desc">Users active 30 days post-adoption</div>
+      </div>
+      <div class="cs-metric">
+        <div class="cs-metric-val">14%</div>
+        <div class="cs-metric-lbl">Paywall CVR</div>
+        <div class="cs-metric-desc">#1 conversion rate across all premium features</div>
+      </div>
+    </div>
+
+    <!-- 00 OVERVIEW -->
+    <section class="cs-section" id="overview">
+      <div class="cs-wrap">
+      <span class="cs-eyebrow">Overview</span>
+      <h2 class="cs-section-title">Project at a Glance</h2>
+      <div class="cs-body reveal">
+        <p>Jefit&apos;s 13M+ users were all receiving the same static workout plans regardless of their fitness level, equipment, or schedule. I led the end-to-end design of an AI-powered adaptive plan system &mdash; from 0 to launch &mdash; that became the company&apos;s most successful feature to date.</p>
+      </div>
+      <div class="cs-overview-grid reveal">
+        <div class="cs-ov-cell">
+          <span class="cs-ov-label">My Role</span>
+          <div class="cs-ov-val">Product Designer<br>(End-to-end)</div>
+        </div>
+        <div class="cs-ov-cell">
+          <span class="cs-ov-label">Timeline</span>
+          <div class="cs-ov-val">1 month</div>
+        </div>
+        <div class="cs-ov-cell">
+          <span class="cs-ov-label">Platform</span>
+          <div class="cs-ov-val">iOS &middot; Android<br>Wearables</div>
+        </div>
+        <div class="cs-ov-cell">
+          <span class="cs-ov-label">Team</span>
+          <div class="cs-ov-val">PM &middot; Engineers<br>Designer</div>
+        </div>
+      </div>
+          </div>
+    </section>
+
+    <!-- 01 PROBLEM -->
+    <section class="cs-section" id="problem">
+      <div class="cs-wrap">
+      <span class="cs-eyebrow">01 &middot; Problem</span>
+      <h2 class="cs-section-title">One Plan.<br>Millions of People.</h2>
+      <div class="cs-body reveal">
+        <p>Jefit&apos;s 13M+ users were handed the same static workout plans &mdash; regardless of fitness level, equipment access, schedule, or goals. The result: high drop-off within the first two weeks, and a product that felt built for an imaginary average person.</p>
+        <p>The core tension: <strong>personalization at scale without overwhelming the user.</strong> How do you make every user feel like Jefit was built for them, while keeping onboarding frictionless?</p>
+      </div>
+      <div class="cs-callout reveal">
+        <div class="cs-callout-label">Problem Statement</div>
+        <div class="cs-callout-text">&ldquo;How might we replace generic, static plans with an adaptive experience that responds to each user&apos;s real-world fitness context &mdash; without adding cognitive load?&rdquo;</div>
+      </div>
+      <div class="cs-two-col">
+        <div class="cs-img-ph h-sm reveal"><span class="cs-img-ph-icon">&#128202;</span><span class="cs-img-ph-label">Drop-off funnel data</span></div>
+        <div class="cs-img-ph h-sm reveal"><span class="cs-img-ph-icon">&#128172;</span><span class="cs-img-ph-label">User complaint themes</span></div>
+      </div>
+          </div>
+    </section>
+
+    <!-- 02 RESEARCH -->
+    <section class="cs-section" id="research">
+      <div class="cs-wrap">
+      <span class="cs-eyebrow">02 &middot; Research</span>
+      <h2 class="cs-section-title">Understanding<br>the Real User</h2>
+      <div class="cs-body reveal">
+        <p>I led a mixed-methods research sprint over 3 weeks: in-depth interviews with 12 active users, analysis of Amplitude drop-off funnels, and a competitive audit across personalized fitness apps. Three core failure modes emerged.</p>
+      </div>
+      <div class="cs-cards reveal">
+        <div class="cs-card"><div class="cs-card-icon">&#128548;</div><div class="cs-card-title">Plans feel irrelevant fast</div><div class="cs-card-text">Within 2 weeks a plan no longer reflected actual schedule or energy levels, leading to abandonment.</div></div>
+        <div class="cs-card"><div class="cs-card-icon">&#127947;</div><div class="cs-card-title">Equipment mismatch</div><div class="cs-card-text">34% of users traveled frequently or worked out at home, but plans assumed full gym access every session.</div></div>
+        <div class="cs-card"><div class="cs-card-icon">&#128200;</div><div class="cs-card-title">No sense of progression</div><div class="cs-card-text">Static plans don&apos;t acknowledge improvement &mdash; removing a key motivational trigger for continued use.</div></div>
+        <div class="cs-card"><div class="cs-card-icon">&#129327;</div><div class="cs-card-title">Configuration anxiety</div><div class="cs-card-text">When asked to &ldquo;customize&rdquo; a plan, 61% of users felt overwhelmed and defaulted to a preset &mdash; then abandoned it within a week.</div></div>
+      </div>
+      <div class="cs-pull-quote reveal">
+        <div class="cs-pull-quote-text">&ldquo;I keep restarting the same plan because I feel like I&apos;m failing it &mdash; not that it&apos;s wrong for me.&rdquo;</div>
+        <div class="cs-pull-quote-attr">&mdash; Interview participant, 28, intermediate lifter</div>
+      </div>
+      <div class="cs-img-ph h-mid reveal" style="margin-top:28px;"><span class="cs-img-ph-icon">&#128506;</span><span class="cs-img-ph-label">Journey map &mdash; current plan experience</span></div>
+          </div>
+    </section>
+
+    <!-- 03 IDEATION -->
+    <section class="cs-section" id="ideation">
+      <div class="cs-wrap">
+      <span class="cs-eyebrow">03 &middot; Ideation</span>
+      <h2 class="cs-section-title">From Insight<br>to Direction</h2>
+      <div class="cs-body reveal">
+        <p>I ran a cross-functional workshop with product and engineering teams using HMW &rarr; Crazy 8s &rarr; Dot Vote. Three viable directions emerged, scored against user need, engineering feasibility, and business value.</p>
+      </div>
+      <div class="cs-three-col reveal">
+        <div class="cs-direction chosen"><div class="cs-direction-icon">&#129302;</div><div class="cs-direction-title">AI-Adaptive Engine &mdash; Chosen</div><div class="cs-direction-text">Fully automated plan adjustment based on workout history, recovery signals, and schedule inputs. High impact, high complexity.</div></div>
+        <div class="cs-direction"><div class="cs-direction-icon">&#127917;</div><div class="cs-direction-title">Manual Customization+</div><div class="cs-direction-text">Enhanced editing tools to swap exercises or adjust frequency. Lower lift, but doesn&apos;t solve the core &ldquo;I don&apos;t know what to change&rdquo; problem.</div></div>
+        <div class="cs-direction"><div class="cs-direction-icon">&#128172;</div><div class="cs-direction-title">Coach-Guided Prompts</div><div class="cs-direction-text">Weekly check-in moments where users report how the week went, and the plan adjusts accordingly. Hybrid AI + human voice.</div></div>
+      </div>
+      <div class="cs-callout reveal">
+        <div class="cs-callout-label">Decision</div>
+        <div class="cs-callout-text">Direction 1 as north star, with direction 3&apos;s &ldquo;check-in moment&rdquo; as the primary user-facing interaction. The AI adapts in the background; the UX feels like a coaching conversation &mdash; not a settings page.</div>
+      </div>
+          </div>
+    </section>
+
+    <!-- 04 DESIGN PROCESS -->
+    <section class="cs-section" id="design">
+      <div class="cs-wrap">
+      <span class="cs-eyebrow">04 &middot; Design Process</span>
+      <h2 class="cs-section-title">Designing the<br>Experience</h2>
+      <div class="cs-steps reveal">
+        <div class="cs-step">
+          <div class="cs-step-aside"><div class="cs-step-dot">01</div><div class="cs-step-line"></div></div>
+          <div class="cs-step-body">
+            <div class="cs-step-title">Information Architecture</div>
+            <div class="cs-step-text">Mapped the full plan ecosystem. Identified three critical moments to inject adaptation: plan start, mid-week check-in, and post-workout feedback.</div>
+            <div class="cs-img-ph h-sm reveal" style="margin-top:16px;"><span class="cs-img-ph-icon">&#128193;</span><span class="cs-img-ph-label">IA diagram &mdash; plan ecosystem</span></div>
+          </div>
+        </div>
+        <div class="cs-step">
+          <div class="cs-step-aside"><div class="cs-step-dot">02</div><div class="cs-step-line"></div></div>
+          <div class="cs-step-body">
+            <div class="cs-step-title">Wireframes &amp; Flow</div>
+            <div class="cs-step-text">Three distinct user flows: onboarding without form-fatigue, weekly adaptation with clear rationale, and manual override when the AI&apos;s suggestion doesn&apos;t fit.</div>
+            <div class="cs-two-col">
+              <div class="cs-img-ph h-sm reveal"><span class="cs-img-ph-icon">&#9998;</span><span class="cs-img-ph-label">Onboarding wireframes</span></div>
+              <div class="cs-img-ph h-sm reveal"><span class="cs-img-ph-icon">&#9998;</span><span class="cs-img-ph-label">Adaptation flow wireframes</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="cs-step">
+          <div class="cs-step-aside"><div class="cs-step-dot">03</div><div class="cs-step-line"></div></div>
+          <div class="cs-step-body">
+            <div class="cs-step-title">Visual Design</div>
+            <div class="cs-step-text">High-fidelity screens across iOS and Android. The adaptation notification used a distinct &ldquo;coach card&rdquo; pattern &mdash; warm, conversational, not algorithmic. Every change explained in plain language.</div>
+            <div class="cs-img-ph h-tall reveal" style="margin-top:16px;"><span class="cs-img-ph-icon">&#128241;</span><span class="cs-img-ph-label">High-fidelity screens &mdash; iOS &amp; Android</span></div>
+          </div>
+        </div>
+        <div class="cs-step">
+          <div class="cs-step-aside"><div class="cs-step-dot">04</div></div>
+          <div class="cs-step-body">
+            <div class="cs-step-title">Design System Integration</div>
+            <div class="cs-step-text">Built new components (coach card, adaptation badge, progress ring) into Jefit&apos;s cross-platform design system &mdash; reducing future engineering overhead by 30%.</div>
+            <div class="cs-img-ph h-sm reveal" style="margin-top:16px;"><span class="cs-img-ph-icon">&#129513;</span><span class="cs-img-ph-label">New design system components</span></div>
+          </div>
+        </div>
+      </div>
+          </div>
+    </section>
+
+    <!-- 05 PROTOTYPE & TEST -->
+    <section class="cs-section" id="prototype">
+      <div class="cs-wrap">
+      <span class="cs-eyebrow">05 &middot; Prototype &amp; Test</span>
+      <h2 class="cs-section-title">5 Rounds of<br>Usability Testing</h2>
+      <div class="cs-body reveal">
+        <p>I ran 5 rounds of moderated usability testing across 3 months, iterating after each round. Sessions included 4&ndash;6 participants representing beginner, intermediate, and advanced fitness levels.</p>
+      </div>
+      <div class="cs-cards reveal">
+        <div class="cs-card"><div class="cs-card-icon">&#128260;</div><div class="cs-card-title">Rounds 1&ndash;2: Trust</div><div class="cs-card-text">Users didn&apos;t trust AI-generated changes without explanation. Added plain-language rationale cards &mdash; &ldquo;here&apos;s why we changed this.&rdquo;</div></div>
+        <div class="cs-card"><div class="cs-card-icon">&#127919;</div><div class="cs-card-title">Round 3: Control</div><div class="cs-card-text">Users wanted an easy override option. Added &ldquo;Edit anyway&rdquo; below every AI suggestion without making it the primary action.</div></div>
+        <div class="cs-card"><div class="cs-card-icon">&#9201;</div><div class="cs-card-title">Round 4: Timing</div><div class="cs-card-text">The weekly check-in at Sunday night outperformed Monday morning by 2.3x &mdash; users were more reflective at week&apos;s end.</div></div>
+        <div class="cs-card"><div class="cs-card-icon">&#127942;</div><div class="cs-card-title">Round 5: Delight</div><div class="cs-card-text">Added a subtle progress visualization showing adaptation history. Users described the plan as feeling &ldquo;alive.&rdquo;</div></div>
+      </div>
+      <div class="cs-img-ph h-mid reveal" style="margin-top:28px;"><span class="cs-img-ph-icon">&#129514;</span><span class="cs-img-ph-label">Usability testing session recordings</span></div>
+          </div>
+    </section>
+
+    <!-- 06 OUTCOMES -->
+    <section class="cs-section" id="outcomes">
+      <div class="cs-wrap">
+      <span class="cs-eyebrow">06 &middot; Outcomes</span>
+      <h2 class="cs-section-title">Impact at Scale</h2>
+      <div class="cs-body reveal">
+        <p>Adaptive Plan launched to all 13M+ Jefit users in Q1 2025. It became the highest-performing feature in Jefit&apos;s history across adoption, retention, and revenue metrics.</p>
+      </div>
+      <div class="cs-outcomes reveal">
+        <div class="cs-outcome-pill"><span class="cs-outcome-val">+42%</span>Feature adoption</div>
+        <div class="cs-outcome-pill"><span class="cs-outcome-val">+28%</span>D30 retention</div>
+        <div class="cs-outcome-pill"><span class="cs-outcome-val">14%</span>Paywall CVR</div>
+        <div class="cs-outcome-pill"><span class="cs-outcome-val">13M+</span>Users reached</div>
+        <div class="cs-outcome-pill"><span class="cs-outcome-val">#1</span>Highest CVR feature</div>
+      </div>
+      <div class="cs-callout reveal" style="margin-top:32px;">
+        <div class="cs-callout-label">Business Impact</div>
+        <div class="cs-callout-text">The 14% paywall CVR made Adaptive Plan Jefit&apos;s single most profitable premium feature &mdash; directly influencing the roadmap to prioritize AI-powered personalization across the entire platform.</div>
+      </div>
+      <div class="cs-img-ph h-mid reveal" style="margin-top:28px;"><span class="cs-img-ph-icon">&#128200;</span><span class="cs-img-ph-label">Adoption &amp; retention metrics dashboard</span></div>
+          </div>
+    </section>
+
+    <!-- 07 REFLECTION -->
+    <section class="cs-section" id="reflection">
+      <div class="cs-wrap">
+      <span class="cs-eyebrow">07 &middot; Reflection</span>
+      <h2 class="cs-section-title">What I Learned</h2>
+      <div class="cs-body reveal">
+        <p><strong>Trust is the product.</strong> The AI engine was sophisticated, but the design challenge was entirely about making users feel in control of it. The plain-language rationale was the highest-impact design decision &mdash; not the algorithm.</p>
+        <p><strong>Timing is a design decision.</strong> Discovering that Sunday outperformed Monday for check-ins reminded me that when you interrupt a user matters as much as how.</p>
+        <p><strong>0&rarr;1 requires protecting the vision.</strong> Stakeholders pushed to simplify the check-in to a single tap. I advocated for the conversational model based on research, and the retention data validated that choice.</p>
+      </div>
+      <div class="cs-pull-quote reveal">
+        <div class="cs-pull-quote-text">&ldquo;I didn&apos;t know a fitness app could feel like it actually knows me.&rdquo;</div>
+        <div class="cs-pull-quote-attr">&mdash; Post-launch user review, App Store</div>
+      </div>
+          </div>
+    </section>
+
+    <!-- NEXT PROJECTS -->
+    <section class="cs-next-section reveal">
+      <div class="cs-next-heading">
+        <div>
+          <span class="cs-next-eyebrow">More Work</span>
+          <div class="cs-next-section-title">Other Projects</div>
+        </div>
+        <a href="/#work" class="cs-all-link">View all &rarr;</a>
+      </div>
+
+      <div class="cs-proj-grid">
+
+        <!-- Project 02: Year in Review -->
+        <a href="/#work" class="cs-proj-card reveal">
+          <div class="cs-proj-card-thumb">
+            <div class="cs-proj-thumb-bg" style="background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);"></div>
+            <div class="cs-proj-card-num">02</div>
+          </div>
+          <div class="cs-proj-card-body">
+            <div class="cs-proj-card-tags">
+              <span class="cs-proj-card-tag">Motion</span>
+              <span class="cs-proj-card-tag">Engagement</span>
+            </div>
+            <div class="cs-proj-card-name">Year in Review 2025</div>
+            <div class="cs-proj-card-metric"><strong>+78%</strong> Revenue &middot; <strong>+124%</strong> Shares</div>
+            <div class="cs-proj-card-arrow">&#8599;</div>
+          </div>
+        </a>
+
+        <!-- Project 03: Design System -->
+        <a href="/#work" class="cs-proj-card reveal">
+          <div class="cs-proj-card-thumb">
+            <div class="cs-proj-thumb-bg" style="background:linear-gradient(135deg,#0a1628 0%,#1e2d45 50%,#0e4b6b 100%);"></div>
+            <div class="cs-proj-card-num">03</div>
+          </div>
+          <div class="cs-proj-card-body">
+            <div class="cs-proj-card-tags">
+              <span class="cs-proj-card-tag">Systems</span>
+              <span class="cs-proj-card-tag">4 Platforms</span>
+            </div>
+            <div class="cs-proj-card-name">Cross-Platform Design System</div>
+            <div class="cs-proj-card-metric"><strong>30%</strong> Efficiency gain</div>
+            <div class="cs-proj-card-arrow">&#8599;</div>
+          </div>
+        </a>
+
+        <!-- Project 04: Mobile to TV -->
+        <a href="/#work" class="cs-proj-card reveal">
+          <div class="cs-proj-card-thumb">
+            <div class="cs-proj-thumb-bg" style="background:linear-gradient(135deg,#1c1c2e 0%,#2d1b69 50%,#11998e 100%);"></div>
+            <div class="cs-proj-card-num">04</div>
+          </div>
+          <div class="cs-proj-card-body">
+            <div class="cs-proj-card-tags">
+              <span class="cs-proj-card-tag">0&rarr;1</span>
+              <span class="cs-proj-card-tag">Whatnot</span>
+            </div>
+            <div class="cs-proj-card-name">Mobile to TV Experience</div>
+            <div class="cs-proj-card-metric"><strong>+35%</strong> User satisfaction</div>
+            <div class="cs-proj-card-arrow">&#8599;</div>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+(()=>{
+  const isNight=()=>{const h=new Date().getHours();return h<7||h>=19;};
+  const root=document.documentElement,tog=document.getElementById('themeToggle'),KEY='pf-v12';
+  const apply=d=>{root.setAttribute('data-theme',d?'dark':'light');tog.checked=d;};
+  apply(localStorage.getItem(KEY)?localStorage.getItem(KEY)==='dark':isNight());
+  tog.addEventListener('change',()=>{const d=tog.checked;localStorage.setItem(KEY,d?'dark':'light');apply(d);});
+})();
+
+const cur=document.getElementById('cur');
+document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';});
+document.querySelectorAll('a,button,label').forEach(el=>{
+  el.addEventListener('mouseenter',()=>cur.classList.add('hover'));
+  el.addEventListener('mouseleave',()=>cur.classList.remove('hover'));
+});
+
+const rows=document.querySelectorAll('.cs-idx-row');
+const progFill=document.getElementById('progressFill');
+function onScroll(){
+  const pct=Math.min(100,Math.max(0,(window.scrollY/(document.body.scrollHeight-window.innerHeight))*100));
+  if(progFill)progFill.style.width=pct+'%';
+  let active=null;
+  rows.forEach(row=>{
+    const el=document.getElementById(row.getAttribute('data-section'));
+    if(el&&el.getBoundingClientRect().top<=120)active=row;
+  });
+  rows.forEach(r=>r.classList.remove('active'));
+  if(active)active.classList.add('active');
+}
+window.addEventListener('scroll',onScroll,{passive:true});
+onScroll();
+
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});
+},{threshold:0.06});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
