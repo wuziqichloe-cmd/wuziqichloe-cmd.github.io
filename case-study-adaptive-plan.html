@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Adaptive Plan Feature — Chloe Wu</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="tokens.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -82,6 +82,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-index {
   display: flex; flex-direction: column; gap: 0;
   border-top: 1px solid var(--border);
+  margin-top: auto;
 }
 .cs-idx-row {
   display: flex; align-items: center; gap: 10px;
@@ -113,7 +114,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 
 /* Progress bar at bottom */
 .cs-progress {
-  margin-top: 28px; flex-shrink: 0;
+  margin-top: auto; flex-shrink: 0;
 }
 .cs-progress-label {
   font-size:var(--fs-xs); font-weight:var(--fw-bold); letter-spacing: .1em;
@@ -154,7 +155,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 
 .cs-eyebrow{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;display:block;}
 .cs-section-title{font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:clamp(40px,5vw,64px);line-height:1.05;letter-spacing:-.03em;color:var(--ink);margin-bottom:32px;}
-.cs-body{font-size:var(--fs-base);font-weight:var(--fw-light);color:var(--ink-2);line-height:1.8;letter-spacing:-.02em;max-width:680px;}
+.cs-body{font-size:var(--p1-size);font-weight:var(--p1-weight);color:var(--p1-color);line-height:var(--p1-line);letter-spacing:var(--p1-tracking);max-width:var(--p1-max-width);}
 .cs-body p+p{margin-top:16px;}
 .cs-body strong{color:var(--ink);font-weight:var(--fw-semibold);}
 .cs-body em{font-style:italic;color:var(--ink-2);}
@@ -188,6 +189,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 
 /* CALLOUT */
 .cs-callout{border-left:3px solid var(--accent);background:rgba(37,99,235,.05);border-radius:0 16px 16px 0;padding:24px 28px;margin-top:32px;}
+
+/* Prominent variant — solid filled bg, large statement type */
+.cs-callout--hero{border-left:none;background:var(--accent);border-radius:20px;padding:48px 56px;margin-top:48px;color:#fff;}
+.cs-callout--hero .cs-callout-label{color:rgba(255,255,255,.65);margin-bottom:14px;}
+.cs-callout--hero .cs-callout-text{font-size:var(--fs-md);font-weight:var(--fw-medium);color:#fff;line-height:1.4;letter-spacing:-.02em;}
+@media(max-width:767px){
+  .cs-callout--hero{padding:32px 24px;border-radius:16px;}
+  .cs-callout--hero .cs-callout-text{font-size:var(--fs-base);}
+}
 [data-theme="dark"] .cs-callout{background:rgba(59,130,246,.08);}
 .cs-callout-label{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
 .cs-callout-text{font-size:var(--fs-base);color:var(--ink-2);line-height:1.7;}
@@ -222,7 +232,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 /* PULL QUOTE */
 .cs-pull-quote{border-left:3px solid var(--accent);padding:12px 28px;margin:36px 0;}
 .cs-pull-quote-text{font-size:var(--fs-md);font-weight:var(--fw-light);font-style:italic;color:var(--ink);line-height:1.55;letter-spacing:-.02em;}
-.cs-pull-quote-attr{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-top:10px;}
+.cs-pull-quote-attr{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-top:10px;}
 
 /* OUTCOMES */
 .cs-outcomes{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px;}
@@ -233,8 +243,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-goals-row{display:grid;grid-template-columns:repeat(3,1fr);gap:48px;margin-top:24px;}
 .cs-goal{display:flex;flex-direction:column;align-items:flex-start;}
 .cs-goal-num{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-bottom:8px;}
-.cs-goal-title{font-size:var(--fs-base);font-weight:var(--fw-semibold);color:var(--ink);line-height:1.35;margin-bottom:6px;}
-.cs-goal-desc{font-size:var(--fs-sm);font-weight:var(--fw-regular);color:var(--ink-3);line-height:1.65;}
+.cs-goal-title{font-size:var(--fs-md);font-weight:var(--fw-semibold);color:var(--ink);line-height:1.35;margin-bottom:6px;}
+.cs-goal-desc{font-size:var(--fs-base);font-weight:var(--fw-regular);color:var(--ink-2);line-height:1.65;}
 
 /* STATS ROW */
 .cs-stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:64px;margin-top:48px;}
@@ -245,6 +255,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-stat-sub{font-size:var(--fs-sm);font-weight:var(--fw-regular);color:var(--ink-3);line-height:1.5;}
 
 .cs-transition{font-size:var(--fs-base);font-weight:var(--fw-medium);color:var(--ink);line-height:1.7;margin-top:40px;}
+
+/* Editorial problem block — transition lead + muted body */
+.cs-problem-block{margin-top:48px;}
+.cs-problem-lead{font-size:var(--fs-base);font-weight:var(--fw-semibold);color:var(--ink);line-height:1.5;margin-bottom:1rem;letter-spacing:-.01em;}
 
 /* DIVIDER */
 .cs-divider{height:1px;background:var(--border);margin:28px 0;}
@@ -391,7 +405,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
   .cs-stats-row .cs-stat-val{font-size:var(--fs-md);margin-bottom:4px;}
   .cs-stats-row .cs-stat-val[style]{font-size:var(--fs-sm)!important;line-height:1.15;}
   .cs-stats-row .cs-stat-stars{font-size:var(--fs-sm);}
-  .cs-stats-row .cs-stat-sub{font-size:var(--fs-2xs);line-height:1.3;}
+  .cs-stats-row .cs-stat-sub{font-size:var(--fs-xs);line-height:1.3;}
   .cs-three-col{grid-template-columns:1fr;}
   nav{padding:0 20px;height:52px;}
   .cs-hero{padding:32px 20px;min-height:44vh;}
@@ -647,12 +661,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
           <div class="cs-stat-sub">Forbes Health</div>
         </div>
       </div>
-      <p class="cs-transition reveal">But behind the numbers, something wasn&rsquo;t working.</p>
-      <div class="cs-body reveal" style="margin-top:16px;">
-        <p>Paid users were given a static 28-day plan &mdash; identical exercises every week, no matter their goals or progress. The product wasn&rsquo;t growing with them.</p>
-      </div>
-      <div class="cs-pull-quote reveal" style="border-left-width:2px;">
-        <div class="cs-pull-quote-text" style="font-size:var(--fs-md);font-weight:var(--fw-medium);font-style:normal;">Low activation. Low retention. One root cause.</div>
+      <div class="cs-problem-block reveal">
+        <p class="cs-problem-lead">But behind the numbers, something wasn&rsquo;t working.</p>
+        <p class="cs-body">Paid users were given a static 28-day plan &mdash; identical exercises every week, no matter their goals or progress. The plan they paid for wasn&rsquo;t growing with them, resulting in low activation and low retention.</p>
       </div>
       <div class="cs-divider reveal"></div>
       <span class="cs-eyebrow reveal">Business Goals</span>
@@ -682,11 +693,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
       <h2 class="cs-section-title">Too Generic to Keep Anyone</h2>
       <div class="cs-body reveal">
         <p>Jefit&rsquo;s paid users were leaving before they ever found value — and the drop-off happened at two stages. Most abandoned their plan during onboarding, never reaching the activation point. Those who did stick around soon realized the plan wasn’t keeping up with them — too static, too generic, and never tailored to their progress or preferences. Either way, it was easy to walk away.</p>
-        <p>The core tension: <strong>personalization at scale without overwhelming the user.</strong> How do you make every user feel like Jefit was built for them, while keeping onboarding frictionless?</p>
       </div>
-      <div class="cs-callout reveal">
+      <div class="cs-callout cs-callout--hero reveal">
         <div class="cs-callout-label">Problem Statement</div>
-        <div class="cs-callout-text">&ldquo;How might we replace generic, static plans with an adaptive experience that responds to each user&rsquo;s real fitness context &mdash; so every user feels confident, trusts the algorithm, and can get started without a steep learning curve?&rdquo;</div>
+        <div class="cs-callout-text">&ldquo;How might we create an adaptive plan that feels personal and trustworthy &mdash; without overwhelming the user?&rdquo;</div>
       </div>
       <div class="cs-two-col">
         <figure class="cs-media h-sm reveal">

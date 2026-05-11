@@ -37,9 +37,9 @@
 /* ── TYPOGRAPHY ── */
 :root {
   /* Font stacks */
-  --font-body:    -apple-system,'SF Pro Text','SF Pro Display',BlinkMacSystemFont,'Segoe UI','Figtree',system-ui,sans-serif;
+  --font-body:    'Figtree',-apple-system,'SF Pro Text','SF Pro Display',BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
   --font-display: 'Figtree', sans-serif;
-  --font-accent:  'Bebas Neue', sans-serif;
+  --font-accent:  'Figtree', sans-serif;
 
   /* Weights */
   --fw-light:    300;
@@ -64,4 +64,15 @@
   --fs-display:    96px;
   --fs-display-lg: 144px;
   --fs-display-xl: 224px;
+
+  /* ── PARAGRAPH ROLES ──
+     p1 = default body paragraph. Use these tokens for all prose unless
+     the paragraph needs explicit emphasis (lead/quote/bold). Change
+     these to retune every paragraph across the site at once. */
+  --p1-size:        var(--fs-base);     /* 16px */
+  --p1-weight:      var(--fw-regular);  /* 400 */
+  --p1-line:        1.8;
+  --p1-tracking:    -.02em;
+  --p1-color:       var(--ink-2);
+  --p1-max-width:   680px;
 }
