@@ -44,7 +44,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-left {
   position: sticky; top: 54px; height: calc(100vh - 54px);
   display: flex; flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 40px 40px;
   border-right: 1px solid var(--border);
   overflow: hidden;
@@ -84,8 +84,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
   border-top: 1px solid var(--border);
 }
 .cs-idx-row {
-  display: flex; align-items: center; gap: 12px;
-  padding: 14px 0; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 0; border-bottom: 1px solid var(--border);
   cursor: none; text-decoration: none;
   transition: opacity .3s, padding-left .3s;
   opacity: .28;
@@ -93,15 +93,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-idx-row:hover { opacity: .65; }
 .cs-idx-row.active { opacity: 1; padding-left: 4px; }
 .cs-idx-num {
-  font-family: var(--font-display); font-size:var(--fs-base); font-weight:var(--fw-semibold);
-  letter-spacing: .02em; color: var(--ink-3); width: 36px;
+  font-family: var(--font-display); font-size:var(--fs-sm); font-weight:var(--fw-semibold);
+  letter-spacing: .02em; color: var(--ink-3); width: 28px;
   flex-shrink: 0; transition: color .3s;
 }
 .cs-idx-row.active .cs-idx-num { color: var(--accent); }
 .cs-idx-label {
-  font-size:var(--fs-md); font-weight:var(--fw-medium); color: var(--ink-2);
+  font-size:var(--fs-base); font-weight:var(--fw-medium); color: var(--ink-2);
   letter-spacing: -.02em; flex: 1; transition: color .3s;
-  line-height: 1.1;
+  line-height: 1.2;
 }
 .cs-idx-row.active .cs-idx-label { color: var(--ink); }
 .cs-idx-tick {
@@ -562,7 +562,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
           <span class="cs-hero-tag">B2C</span>
         </div>
         <h1 class="cs-hero-title">AI-Powered<br>Adaptive Plan</h1>
-        <p class="cs-hero-sub">Replacing static, one-size-fits-all workout plans with a fully personalized, AI-driven experience &mdash; Jefit&apos;s highest-impact feature to date.</p>
+        <p class="cs-hero-sub">Replacing static, one-size-fits-all workout plans with a fully personalized, AI-driven experience &mdash; Jefit&rsquo;s highest-impact feature to date.</p>
       </div>
     </div>
 
@@ -591,7 +591,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
       <span class="cs-eyebrow">Overview</span>
       <h2 class="cs-section-title">Project at a Glance</h2>
       <div class="cs-body reveal">
-        <p>It started with a pattern I couldn&apos;t ignore &mdash; paid new users dropping off before they saw real value. I brought it to a growth meeting, made the case with app store reviews, competitor analysis, and user research, and got the green light to build from scratch. That became Jefit&apos;s AI Adaptive Training Plan. Launched and still continuously iterating, it&apos;s now Jefit&apos;s top paid feature to date.</p>
+        <p>It started with a pattern I couldn&rsquo;t ignore &mdash; paid new users dropping off before they saw real value. I brought it to a growth meeting, made the case with app store reviews, competitor analysis, and user research, and got the green light to build from scratch. That became Jefit&rsquo;s AI Adaptive Training Plan. Launched and still continuously iterating, it&rsquo;s now Jefit&rsquo;s top paid feature to date.</p>
       </div>
       <div class="cs-overview-grid reveal">
         <div class="cs-ov-cell">
@@ -621,7 +621,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
     <section class="cs-section" id="context">
       <div class="cs-wrap">
       <span class="cs-eyebrow">01 &middot; Context</span>
-      <h2 class="cs-section-title">ABOUT JEFIT</h2>
+      <h2 class="cs-section-title">About Jefit</h2>
       <div class="cs-body reveal">
         <p>Jefit is a strength training app built around one of the largest exercise databases in the world, with a global community of lifters at its core. When I joined the team, I began my own strength training journey &mdash; wanting both a healthier lifestyle and a firsthand understanding of the people I was designing for.</p>
       </div>
@@ -647,9 +647,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
           <div class="cs-stat-sub">Forbes Health</div>
         </div>
       </div>
-      <p class="cs-transition reveal">But behind the numbers, something wasn&apos;t working.</p>
+      <p class="cs-transition reveal">But behind the numbers, something wasn&rsquo;t working.</p>
       <div class="cs-body reveal" style="margin-top:16px;">
-        <p>Paid users were given a static 28-day plan &mdash; identical exercises every week, no matter their goals or progress. The product wasn&apos;t growing with them.</p>
+        <p>Paid users were given a static 28-day plan &mdash; identical exercises every week, no matter their goals or progress. The product wasn&rsquo;t growing with them.</p>
       </div>
       <div class="cs-pull-quote reveal" style="border-left-width:2px;">
         <div class="cs-pull-quote-text" style="font-size:var(--fs-md);font-weight:var(--fw-medium);font-style:normal;">Low activation. Low retention. One root cause.</div>
@@ -681,12 +681,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
       <span class="cs-eyebrow">02 &middot; Problem</span>
       <h2 class="cs-section-title">Too Generic to Keep Anyone</h2>
       <div class="cs-body reveal">
-        <p>Jefit&apos;s Paid users were leaving before they ever found value — and the drop-off happened at two stages. Most abandoned their plan during onboarding, never reaching the activation point. Those who did stick around soon realized the plan wasn't keeping up with them — too static, too generic, and never tailored to their progress or preferences. Either way, it was easy to walk away.</p>
+        <p>Jefit&rsquo;s paid users were leaving before they ever found value — and the drop-off happened at two stages. Most abandoned their plan during onboarding, never reaching the activation point. Those who did stick around soon realized the plan wasn’t keeping up with them — too static, too generic, and never tailored to their progress or preferences. Either way, it was easy to walk away.</p>
         <p>The core tension: <strong>personalization at scale without overwhelming the user.</strong> How do you make every user feel like Jefit was built for them, while keeping onboarding frictionless?</p>
       </div>
       <div class="cs-callout reveal">
         <div class="cs-callout-label">Problem Statement</div>
-        <div class="cs-callout-text">&ldquo;How might we replace generic, static plans with an adaptive experience that responds to each user&apos;s real fitness context &mdash; so every user feels confident, trusts the algorithm, and can get started without a steep learning curve?&rdquo;</div>
+        <div class="cs-callout-text">&ldquo;How might we replace generic, static plans with an adaptive experience that responds to each user&rsquo;s real fitness context &mdash; so every user feels confident, trusts the algorithm, and can get started without a steep learning curve?&rdquo;</div>
       </div>
       <div class="cs-two-col">
         <figure class="cs-media h-sm reveal">
@@ -712,11 +712,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
       <div class="cs-cards reveal">
         <div class="cs-card"><div class="cs-card-icon">&#128548;</div><div class="cs-card-title">Plans feel irrelevant fast</div><div class="cs-card-text">Within 2 weeks a plan no longer reflected actual schedule or energy levels, leading to abandonment.</div></div>
         <div class="cs-card"><div class="cs-card-icon">&#127947;</div><div class="cs-card-title">Equipment mismatch</div><div class="cs-card-text">34% of users traveled frequently or worked out at home, but plans assumed full gym access every session.</div></div>
-        <div class="cs-card"><div class="cs-card-icon">&#128200;</div><div class="cs-card-title">No sense of progression</div><div class="cs-card-text">Static plans don&apos;t acknowledge improvement &mdash; removing a key motivational trigger for continued use.</div></div>
+        <div class="cs-card"><div class="cs-card-icon">&#128200;</div><div class="cs-card-title">No sense of progression</div><div class="cs-card-text">Static plans don&rsquo;t acknowledge improvement &mdash; removing a key motivational trigger for continued use.</div></div>
         <div class="cs-card"><div class="cs-card-icon">&#129327;</div><div class="cs-card-title">Configuration anxiety</div><div class="cs-card-text">When asked to &ldquo;customize&rdquo; a plan, 61% of users felt overwhelmed and defaulted to a preset &mdash; then abandoned it within a week.</div></div>
       </div>
       <div class="cs-pull-quote reveal">
-        <div class="cs-pull-quote-text">&ldquo;I keep restarting the same plan because I feel like I&apos;m failing it &mdash; not that it&apos;s wrong for me.&rdquo;</div>
+        <div class="cs-pull-quote-text">&ldquo;I keep restarting the same plan because I feel like I&rsquo;m failing it &mdash; not that it&rsquo;s wrong for me.&rdquo;</div>
         <div class="cs-pull-quote-attr">&mdash; Interview participant, 28, intermediate lifter</div>
       </div>
       <figure class="cs-media h-mid reveal" style="margin-top:28px;">
@@ -736,12 +736,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
       </div>
       <div class="cs-three-col reveal">
         <div class="cs-direction chosen"><div class="cs-direction-icon">&#129302;</div><div class="cs-direction-title">AI-Adaptive Engine &mdash; Chosen</div><div class="cs-direction-text">Fully automated plan adjustment based on workout history, recovery signals, and schedule inputs. High impact, high complexity.</div></div>
-        <div class="cs-direction"><div class="cs-direction-icon">&#127917;</div><div class="cs-direction-title">Manual Customization+</div><div class="cs-direction-text">Enhanced editing tools to swap exercises or adjust frequency. Lower lift, but doesn&apos;t solve the core &ldquo;I don&apos;t know what to change&rdquo; problem.</div></div>
+        <div class="cs-direction"><div class="cs-direction-icon">&#127917;</div><div class="cs-direction-title">Manual Customization+</div><div class="cs-direction-text">Enhanced editing tools to swap exercises or adjust frequency. Lower lift, but doesn&rsquo;t solve the core &ldquo;I don&rsquo;t know what to change&rdquo; problem.</div></div>
         <div class="cs-direction"><div class="cs-direction-icon">&#128172;</div><div class="cs-direction-title">Coach-Guided Prompts</div><div class="cs-direction-text">Weekly check-in moments where users report how the week went, and the plan adjusts accordingly. Hybrid AI + human voice.</div></div>
       </div>
       <div class="cs-callout reveal">
         <div class="cs-callout-label">Decision</div>
-        <div class="cs-callout-text">Direction 1 as north star, with direction 3&apos;s &ldquo;check-in moment&rdquo; as the primary user-facing interaction. The AI adapts in the background; the UX feels like a coaching conversation &mdash; not a settings page.</div>
+        <div class="cs-callout-text">Direction 1 as north star, with direction 3&rsquo;s &ldquo;check-in moment&rdquo; as the primary user-facing interaction. The AI adapts in the background; the UX feels like a coaching conversation &mdash; not a settings page.</div>
       </div>
           </div>
     </section>
@@ -758,7 +758,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
       </div>
       <div class="cs-cards reveal">
         <div class="cs-card"><div class="cs-card-icon">&#127919;</div><div class="cs-card-title">Freemium Model</div><div class="cs-card-text">Core plan generation free. Advanced personalization, recovery-based adjustments, and priority modes behind a single paywall tier &mdash; simple, clear upgrade path.</div></div>
-        <div class="cs-card"><div class="cs-card-icon">&#128200;</div><div class="cs-card-title">Habit-First Flow</div><div class="cs-card-text">Paywall delayed until week 2, after users experience at least one adaptation cycle. Data showed peak value perception at day 10&ndash;14, not day 1.</div></div>
+        <div class="cs-card"><div class="cs-card-icon">&#128200;</div><div class="cs-card-title">Habit-First Flow</div><div class="cs-card-text">Paywall delayed until week 2, after users experience at least one adaptation cycle. Data showed peak value perception at days 10&ndash;14, not day 1.</div></div>
         <div class="cs-card"><div class="cs-card-icon">&#128260;</div><div class="cs-card-title">Feedback Flywheel</div><div class="cs-card-text">Every completed workout feeds the engine: better data &rarr; better adaptations &rarr; higher retention &rarr; more data. A self-reinforcing loop.</div></div>
         <div class="cs-card"><div class="cs-card-icon">&#128640;</div><div class="cs-card-title">Phased Rollout</div><div class="cs-card-text">Launched to 5% of new users, iterated on conversion data for two weeks, then scaled to 100% &mdash; de-risking paywall timing and adaptation quality.</div></div>
       </div>
@@ -785,7 +785,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
           <div class="cs-step-aside"><div class="cs-step-dot">02</div><div class="cs-step-line"></div></div>
           <div class="cs-step-body">
             <div class="cs-step-title">Wireframes &amp; Flow</div>
-            <div class="cs-step-text">Three distinct user flows: onboarding without form-fatigue, weekly adaptation with clear rationale, and manual override when the AI&apos;s suggestion doesn&apos;t fit.</div>
+            <div class="cs-step-text">Three distinct user flows: onboarding without form-fatigue, weekly adaptation with clear rationale, and manual override when the AI&rsquo;s suggestion doesn&rsquo;t fit.</div>
             <div class="cs-two-col">
               <figure class="cs-media h-sm reveal">
                 <img src="assets/images/adaptive-plan/wireframes-onboarding.png" alt="Onboarding wireframes" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
@@ -803,15 +803,21 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
           <div class="cs-step-body">
             <div class="cs-step-title">Visual Design</div>
             <div class="cs-step-text">High-fidelity screens across iOS and Android. The adaptation notification used a distinct &ldquo;coach card&rdquo; pattern &mdash; warm, conversational, not algorithmic. Every change explained in plain language.</div>
-            <div class="cs-img-ph h-tall reveal" style="margin-top:16px;"><span class="cs-img-ph-icon">&#128241;</span><span class="cs-img-ph-label">High-fidelity screens &mdash; iOS &amp; Android</span></div>
+            <figure class="cs-media h-tall reveal" style="margin-top:16px;">
+              <img src="assets/images/adaptive-plan/hi-fi-screens.png" alt="High-fidelity screens for iOS and Android" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
+              <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#128241;</span><span class="cs-img-ph-label">High-fidelity screens &mdash; iOS &amp; Android</span></span>
+            </figure>
           </div>
         </div>
         <div class="cs-step">
           <div class="cs-step-aside"><div class="cs-step-dot">04</div></div>
           <div class="cs-step-body">
             <div class="cs-step-title">Design System Integration</div>
-            <div class="cs-step-text">Built new components (coach card, adaptation badge, progress ring) into Jefit&apos;s cross-platform design system &mdash; reducing future engineering overhead by 30%.</div>
-            <div class="cs-img-ph h-sm reveal" style="margin-top:16px;"><span class="cs-img-ph-icon">&#129513;</span><span class="cs-img-ph-label">New design system components</span></div>
+            <div class="cs-step-text">Built new components (coach card, adaptation badge, progress ring) into Jefit&rsquo;s cross-platform design system &mdash; reducing future engineering overhead by 30%.</div>
+            <figure class="cs-media h-sm reveal" style="margin-top:16px;">
+              <img src="assets/images/adaptive-plan/design-system.png" alt="New design system components" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
+              <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#129513;</span><span class="cs-img-ph-label">New design system components</span></span>
+            </figure>
           </div>
         </div>
       </div>
@@ -824,7 +830,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
       <span class="cs-eyebrow">07 &middot; Outcomes</span>
       <h2 class="cs-section-title">Impact at Scale</h2>
       <div class="cs-body reveal">
-        <p>Adaptive Plan launched to all 13M+ Jefit users in Q1 2025. It became the highest-performing feature in Jefit&apos;s history across adoption, retention, and revenue metrics.</p>
+        <p>Adaptive Plan launched to all 13M+ Jefit users in Q1 2025. It became the highest-performing feature in Jefit&rsquo;s history across adoption, retention, and revenue metrics.</p>
       </div>
       <div class="cs-outcomes reveal">
         <div class="cs-outcome-pill"><span class="cs-outcome-val">+42%</span>Feature adoption</div>
@@ -835,9 +841,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
       </div>
       <div class="cs-callout reveal" style="margin-top:32px;">
         <div class="cs-callout-label">Business Impact</div>
-        <div class="cs-callout-text">The 14% paywall CVR made Adaptive Plan Jefit&apos;s single most profitable premium feature &mdash; directly influencing the roadmap to prioritize AI-powered personalization across the entire platform.</div>
+        <div class="cs-callout-text">The 14% paywall CVR made Adaptive Plan Jefit&rsquo;s single most profitable premium feature &mdash; directly influencing the roadmap to prioritize AI-powered personalization across the entire platform.</div>
       </div>
-      <div class="cs-img-ph h-mid reveal" style="margin-top:28px;"><span class="cs-img-ph-icon">&#128200;</span><span class="cs-img-ph-label">Adoption &amp; retention metrics dashboard</span></div>
+      <figure class="cs-media h-mid reveal" style="margin-top:28px;">
+        <img src="assets/images/adaptive-plan/metrics-dashboard.png" alt="Adoption and retention metrics dashboard" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
+        <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#128200;</span><span class="cs-img-ph-label">Adoption &amp; retention metrics dashboard</span></span>
+      </figure>
           </div>
     </section>
 
@@ -852,7 +861,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
         <p><strong>0&rarr;1 requires protecting the vision.</strong> Stakeholders pushed to simplify the check-in to a single tap. I advocated for the conversational model based on research, and the retention data validated that choice.</p>
       </div>
       <div class="cs-pull-quote reveal">
-        <div class="cs-pull-quote-text">&ldquo;I didn&apos;t know a fitness app could feel like it actually knows me.&rdquo;</div>
+        <div class="cs-pull-quote-text">&ldquo;I didn&rsquo;t know a fitness app could feel like it actually knows me.&rdquo;</div>
         <div class="cs-pull-quote-attr">&mdash; Post-launch user review, App Store</div>
       </div>
           </div>
