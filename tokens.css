@@ -1,0 +1,67 @@
+/* ─────────────────────────────────────
+   DESIGN TOKENS
+   Single source of truth for colors,
+   typography, weight, and font stacks.
+───────────────────────────────────── */
+
+/* ── COLOR — light (default) ── */
+:root {
+  --bg:      #FAFAFA;
+  --bg-2:    #F2F2F2;
+  --surf:    #FFFFFF;
+  --ink:     #0A0A0A;
+  --ink-2:   #555555;
+  --ink-3:   #AAAAAA;
+  --border:  rgba(10,10,10,0.08);
+  --border-h:rgba(10,10,10,0.16);
+  --accent:  #2563EB;           /* electric blue */
+  --glow-r:  37, 99, 235;
+  --nav-bg:  rgba(250,250,250,0.85);
+}
+
+/* ── COLOR — dark ── */
+[data-theme="dark"] {
+  --bg:      #0A0A0A;
+  --bg-2:    #141414;
+  --surf:    #1A1A1A;
+  --ink:     #F5F5F5;
+  --ink-2:   #888888;
+  --ink-3:   #444444;
+  --border:  rgba(245,245,245,0.08);
+  --border-h:rgba(245,245,245,0.16);
+  --accent:  #3B82F6;
+  --glow-r:  59, 130, 246;
+  --nav-bg:  rgba(10,10,10,0.85);
+}
+
+/* ── TYPOGRAPHY ── */
+:root {
+  /* Font stacks */
+  --font-body:    -apple-system,'SF Pro Text','SF Pro Display',BlinkMacSystemFont,'Segoe UI','Figtree',system-ui,sans-serif;
+  --font-display: 'Figtree', sans-serif;
+  --font-accent:  'Bebas Neue', sans-serif;
+
+  /* Weights */
+  --fw-light:    300;
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+
+  /* Size scale
+     ≤12px: micro labels, off-grid OK
+     >12px: strict 8px grid */
+  --fs-2xs:         9px;
+  --fs-xs:         11px;
+  --fs-sm:         12px;
+  --fs-base:       16px;
+  --fs-md:         24px;
+  --fs-lg:         32px;
+  --fs-xl:         40px;
+  --fs-2xl:        48px;
+  --fs-3xl:        56px;
+  --fs-4xl:        64px;
+  --fs-display:    96px;
+  --fs-display-lg: 144px;
+  --fs-display-xl: 224px;
+}

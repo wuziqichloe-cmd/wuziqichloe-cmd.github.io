@@ -5,12 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Adaptive Plan Feature — Chloe Wu</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
 <style>
-:root{--bg:#FAFAFA;--bg-2:#F2F2F2;--surf:#FFFFFF;--ink:#0A0A0A;--ink-2:#555555;--ink-3:#AAAAAA;--border:rgba(10,10,10,0.08);--border-h:rgba(10,10,10,0.16);--accent:#2563EB;--glow-r:37,99,235;--nav-bg:rgba(250,250,250,0.88);}
-[data-theme="dark"]{--bg:#0A0A0A;--bg-2:#141414;--surf:#1A1A1A;--ink:#F5F5F5;--ink-2:#888888;--ink-3:#444444;--border:rgba(245,245,245,0.08);--border-h:rgba(245,245,245,0.16);--accent:#3B82F6;--glow-r:59,130,246;--nav-bg:rgba(10,10,10,0.88);}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;font-size:120%;}
-body{background:var(--bg);color:var(--ink);font-family:-apple-system,'SF Pro Text','SF Pro Display',BlinkMacSystemFont,'Segoe UI','Figtree',system-ui,sans-serif;overflow-x:hidden;cursor:none;-webkit-font-smoothing:antialiased;transition:background .4s,color .4s;}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);overflow-x:hidden;cursor:none;-webkit-font-smoothing:antialiased;transition:background .4s,color .4s;}
 
 /* CURSOR */
 #cur{position:fixed;z-index:9999;pointer-events:none;width:12px;height:12px;border-radius:100px;background:var(--accent);transform:translate(-50%,-50%);transition:width .22s cubic-bezier(.34,1.56,.64,1),height .22s,border-radius .22s,background .2s;}
@@ -18,11 +17,11 @@ body{background:var(--bg);color:var(--ink);font-family:-apple-system,'SF Pro Tex
 
 /* NAV — exact portfolio */
 nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:var(--nav-bg);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:background .4s,border-color .4s;}
-.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.06em;color:var(--ink);text-decoration:none;transition:color .2s;}
+.nav-logo{font-family:var(--font-accent);font-size:var(--fs-md);letter-spacing:.06em;color:var(--ink);text-decoration:none;transition:color .2s;}
 .nav-logo:hover{color:var(--accent);}
 .nav-r{display:flex;align-items:center;gap:28px;}
 .nav-links{display:flex;gap:28px;list-style:none;}
-.nav-links a{font-size:16px;font-weight:500;letter-spacing:.04em;color:var(--ink-2);text-decoration:none;transition:color .2s;}
+.nav-links a{font-size:var(--fs-base);font-weight:var(--fw-medium);letter-spacing:.04em;color:var(--ink-2);text-decoration:none;transition:color .2s;}
 .nav-links a:hover{color:var(--ink);}
 .nav-cta{color:#fff!important;background:var(--accent)!important;padding:7px 18px;border-radius:100px;transition:opacity .2s!important;}
 .nav-cta:hover{opacity:.88;}
@@ -30,7 +29,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .t-tog input{position:absolute;opacity:0;width:0;height:0;}
 .t-track{position:absolute;inset:0;background:var(--border-h);border-radius:100px;transition:background .3s;display:flex;align-items:center;justify-content:space-between;padding:0 5px;}
 .t-tog input:checked~.t-track{background:var(--accent);}
-.t-icon{font-size:9px;z-index:1;}
+.t-icon{font-size:var(--fs-2xs);z-index:1;}
 .t-sun{opacity:1;}.t-moon{opacity:.4;}
 [data-theme="dark"] .t-sun{opacity:.4;}[data-theme="dark"] .t-moon{opacity:1;}
 .t-knob{position:absolute;top:3px;left:3px;width:18px;height:18px;background:var(--surf);border-radius:50%;transition:transform .28s cubic-bezier(.4,0,.2,1);pointer-events:none;z-index:2;box-shadow:0 1px 3px rgba(0,0,0,.2);}
@@ -56,7 +55,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 /* Back link — sits above the centered content */
 .cs-back {
   display: flex; align-items: center; gap: 8px;
-  font-size: 13px; font-weight: 600; letter-spacing: .04em;
+  font-size:var(--fs-sm); font-weight:var(--fw-semibold); letter-spacing: .04em;
   text-transform: uppercase;
   color: var(--ink-3); text-decoration: none;
   transition: color .2s;
@@ -69,13 +68,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 /* Project label above index */
 .cs-left-label { margin-bottom: 4px; }
 .cs-left-eyebrow {
-  font-size: 12px; font-weight: 700; letter-spacing: .14em;
+  font-size:var(--fs-sm); font-weight:var(--fw-bold); letter-spacing: .14em;
   text-transform: uppercase; color: var(--accent);
   display: block; margin-bottom: 6px;
 }
 .cs-left-project {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 22px; letter-spacing: .04em; color: var(--ink);
+  font-family: var(--font-display);
+  font-size:var(--fs-md); font-weight:var(--fw-semibold); letter-spacing: -.02em; color: var(--ink);
   line-height: 1.1; margin-bottom: 20px;
 }
 
@@ -94,13 +93,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-idx-row:hover { opacity: .65; }
 .cs-idx-row.active { opacity: 1; padding-left: 4px; }
 .cs-idx-num {
-  font-family: 'Figtree', sans-serif; font-size: 16px; font-weight: 600;
+  font-family: var(--font-display); font-size:var(--fs-base); font-weight:var(--fw-semibold);
   letter-spacing: .02em; color: var(--ink-3); width: 36px;
   flex-shrink: 0; transition: color .3s;
 }
 .cs-idx-row.active .cs-idx-num { color: var(--accent); }
 .cs-idx-label {
-  font-size: 24px; font-weight: 500; color: var(--ink-2);
+  font-size:var(--fs-md); font-weight:var(--fw-medium); color: var(--ink-2);
   letter-spacing: -.02em; flex: 1; transition: color .3s;
   line-height: 1.1;
 }
@@ -117,7 +116,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
   margin-top: 28px; flex-shrink: 0;
 }
 .cs-progress-label {
-  font-size: 10px; font-weight: 700; letter-spacing: .1em;
+  font-size:var(--fs-xs); font-weight:var(--fw-bold); letter-spacing: .1em;
   text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px;
 }
 .cs-progress-track {
@@ -131,20 +130,20 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 /* HERO */
 .cs-hero{min-height:72vh;background:linear-gradient(145deg,#0f172a 0%,#1e3a8a 55%,#1d4ed8 100%);position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:72px 64px;}
 .cs-hero::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom,transparent 25%,rgba(0,0,0,.6) 100%);}
-.cs-hero-watermark{position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);font-family:'Bebas Neue',sans-serif;font-size:220px;letter-spacing:-.02em;color:rgba(255,255,255,.04);pointer-events:none;user-select:none;white-space:nowrap;line-height:1;}
+.cs-hero-watermark{position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);font-family:var(--font-display);font-weight:var(--fw-bold);font-size:var(--fs-display-xl);letter-spacing:-.04em;color:rgba(255,255,255,.04);pointer-events:none;user-select:none;white-space:nowrap;line-height:1;}
 .cs-hero-inner{position:relative;z-index:1;}
 .cs-hero-tags{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
-.cs-hero-tag{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.2);padding:3px 12px;border-radius:100px;backdrop-filter:blur(8px);}
-.cs-hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,7vw,92px);line-height:.92;letter-spacing:.02em;color:#fff;margin-bottom:16px;}
-.cs-hero-sub{font-size:18px;font-weight:300;color:rgba(255,255,255,.72);line-height:1.7;max-width:52ch;}
+.cs-hero-tag{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.2);padding:3px 12px;border-radius:100px;backdrop-filter:blur(8px);}
+.cs-hero-title{font-family:var(--font-display);font-weight:var(--fw-bold);font-size:clamp(56px,7vw,96px);line-height:.95;letter-spacing:-.03em;color:#fff;margin-bottom:16px;}
+.cs-hero-sub{font-size:var(--fs-base);font-weight:var(--fw-light);color:rgba(255,255,255,.72);line-height:1.7;max-width:52ch;}
 
 /* METRICS */
 .cs-metrics{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--border);border-top:1px solid var(--border);}
 .cs-metric{padding:44px 52px;border-right:1px solid var(--border);}
 .cs-metric:last-child{border-right:none;}
-.cs-metric-val{font-family:'Bebas Neue',sans-serif;font-size:56px;letter-spacing:.02em;color:var(--accent);line-height:1;margin-bottom:6px;}
-.cs-metric-lbl{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);}
-.cs-metric-desc{font-size:14px;color:var(--ink-2);margin-top:6px;line-height:1.55;}
+.cs-metric-val{font-family:var(--font-display);font-weight:var(--fw-bold);font-size:var(--fs-3xl);letter-spacing:-.03em;color:var(--accent);line-height:1;margin-bottom:6px;}
+.cs-metric-lbl{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);}
+.cs-metric-desc{font-size:var(--fs-base);color:var(--ink-2);margin-top:6px;line-height:1.55;}
 
 /* SECTIONS */
 .cs-section{padding:96px 0;border-bottom:1px solid var(--border);}
@@ -153,19 +152,20 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 /* Max-width inner wrapper for all section content */
 .cs-inner{max-width:1080px;width:100%;}
 
-.cs-eyebrow{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;display:block;}
-.cs-section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,5.5vw,72px);line-height:.9;letter-spacing:.02em;color:var(--ink);margin-bottom:32px;}
-.cs-body{font-size:17px;font-weight:300;color:var(--ink-2);line-height:1.8;letter-spacing:-.02em;max-width:680px;}
+.cs-eyebrow{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;display:block;}
+.cs-section-title{font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:clamp(40px,5vw,64px);line-height:1.05;letter-spacing:-.03em;color:var(--ink);margin-bottom:32px;}
+.cs-body{font-size:var(--fs-base);font-weight:var(--fw-light);color:var(--ink-2);line-height:1.8;letter-spacing:-.02em;max-width:680px;}
 .cs-body p+p{margin-top:16px;}
-.cs-body strong{color:var(--ink);font-weight:600;}
+.cs-body strong{color:var(--ink);font-weight:var(--fw-semibold);}
 .cs-body em{font-style:italic;color:var(--ink-2);}
 
 /* OVERVIEW GRID */
-.cs-overview-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--border);border-radius:20px;overflow:hidden;margin-top:36px;}
-.cs-ov-cell{padding:24px 28px;border-right:1px solid var(--border);}
-.cs-ov-cell:last-child{border-right:none;}
-.cs-ov-label{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px;display:block;}
-.cs-ov-val{font-size:16px;font-weight:500;color:var(--ink);line-height:1.45;}
+.cs-overview-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:48px;margin-top:36px;border-top:2px solid var(--accent);padding-top:28px;}
+.cs-ov-cell{padding:0;}
+.cs-ov-label{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px;display:block;}
+.cs-ov-val{font-size:var(--fs-base);font-weight:var(--fw-semibold);color:var(--ink);line-height:1.45;}
+.cs-ov-sub{font-size:var(--fs-sm);font-weight:var(--fw-regular);color:var(--ink-3);line-height:1.55;margin-top:2px;}
+.cs-ov-team{font-size:var(--fs-base);font-weight:var(--fw-semibold);color:var(--ink);line-height:1.45;margin-top:2px;}
 
 /* GRIDS */
 .cs-two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px;}
@@ -173,52 +173,78 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 
 /* IMAGE PLACEHOLDER */
 .cs-img-ph{border-radius:14px;border:1px solid var(--border);background:var(--bg-2);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;transition:background .4s;}
-.cs-img-ph-icon{font-size:28px;opacity:.28;}
-.cs-img-ph-label{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);}
+.cs-img-ph-icon{font-size:var(--fs-md);opacity:.28;}
+.cs-img-ph-label{font-size:var(--fs-sm);font-weight:var(--fw-semibold);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);}
 .h-tall{height:520px;}.h-mid{height:380px;}.h-sm{height:260px;}
+
+/* MEDIA SLOT — drop-in image/video; falls back to placeholder when src missing */
+.cs-media{position:relative;border-radius:14px;border:1px solid var(--border);background:var(--bg-2);overflow:hidden;transition:background .4s;}
+.cs-media>img,.cs-media>video{display:block;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .35s ease;}
+.cs-media.is-loaded>img,.cs-media.is-loaded>video{opacity:1;}
+.cs-media.is-loaded .cs-media-fallback{opacity:0;pointer-events:none;}
+.cs-media-fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;transition:opacity .25s ease;}
+.cs-media-fallback .cs-img-ph-icon{font-size:var(--fs-md);opacity:.28;}
+.cs-media-fallback .cs-img-ph-label{font-size:var(--fs-sm);font-weight:var(--fw-semibold);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);text-align:center;padding:0 16px;}
 
 /* CALLOUT */
 .cs-callout{border-left:3px solid var(--accent);background:rgba(37,99,235,.05);border-radius:0 16px 16px 0;padding:24px 28px;margin-top:32px;}
 [data-theme="dark"] .cs-callout{background:rgba(59,130,246,.08);}
-.cs-callout-label{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
-.cs-callout-text{font-size:16px;color:var(--ink-2);line-height:1.7;}
+.cs-callout-label{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
+.cs-callout-text{font-size:var(--fs-base);color:var(--ink-2);line-height:1.7;}
 
 /* CARDS */
 .cs-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px;}
 .cs-card{background:var(--surf);border:1px solid var(--border);border-radius:20px;padding:32px 32px;transition:background .4s,border-color .4s,transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s;}
 .cs-card:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.08);}
 [data-theme="dark"] .cs-card:hover{box-shadow:0 12px 40px rgba(0,0,0,.45);}
-.cs-card-icon{font-size:28px;line-height:1;}
-.cs-card-title{font-size:15px;font-weight:700;color:var(--ink);letter-spacing:-.01em;line-height:1.3;}
-.cs-card-text{font-size:14px;color:var(--ink-2);line-height:1.65;margin-top:2px;}
+.cs-card-icon{font-size:var(--fs-md);line-height:1;}
+.cs-card-title{font-size:var(--fs-base);font-weight:var(--fw-bold);color:var(--ink);letter-spacing:-.01em;line-height:1.3;}
+.cs-card-text{font-size:var(--fs-base);color:var(--ink-2);line-height:1.65;margin-top:2px;}
 
 /* DIRECTION CARDS */
 .cs-direction{border-radius:20px;padding:28px 28px;border:1px solid var(--border);background:var(--surf);transition:background .4s,border-color .4s;}
 .cs-direction.chosen{border-top:3px solid var(--accent);}
-.cs-direction-icon{font-size:22px;margin-bottom:10px;}
-.cs-direction-title{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:6px;letter-spacing:-.01em;}
-.cs-direction-text{font-size:14px;color:var(--ink-2);line-height:1.7;}
+.cs-direction-icon{font-size:var(--fs-md);margin-bottom:10px;}
+.cs-direction-title{font-size:var(--fs-base);font-weight:var(--fw-bold);color:var(--ink);margin-bottom:6px;letter-spacing:-.01em;}
+.cs-direction-text{font-size:var(--fs-base);color:var(--ink-2);line-height:1.7;}
 
 /* PROCESS STEPS */
 .cs-steps{display:flex;flex-direction:column;gap:0;margin-top:36px;}
 .cs-step{display:grid;grid-template-columns:48px 1fr;gap:0 20px;padding-bottom:28px;position:relative;}
 .cs-step-aside{display:flex;flex-direction:column;align-items:center;}
-.cs-step-dot{width:32px;height:32px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:.04em;color:#fff;flex-shrink:0;}
+.cs-step-dot{width:32px;height:32px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:var(--fw-bold);font-size:var(--fs-sm);letter-spacing:.04em;color:#fff;flex-shrink:0;}
 .cs-step-line{width:2px;flex:1;background:var(--border-h);margin-top:8px;}
 .cs-step:last-child .cs-step-line{display:none;}
 .cs-step-body{padding-top:4px;}
-.cs-step-title{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:.04em;color:var(--ink);margin-bottom:10px;}
-.cs-step-text{font-size:15px;color:var(--ink-2);line-height:1.75;}
+.cs-step-title{font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:var(--fs-md);letter-spacing:-.02em;color:var(--ink);margin-bottom:10px;}
+.cs-step-text{font-size:var(--fs-base);color:var(--ink-2);line-height:1.75;}
 
 /* PULL QUOTE */
 .cs-pull-quote{border-left:3px solid var(--accent);padding:12px 28px;margin:36px 0;}
-.cs-pull-quote-text{font-size:24px;font-weight:300;font-style:italic;color:var(--ink);line-height:1.55;letter-spacing:-.02em;}
-.cs-pull-quote-attr{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-top:10px;}
+.cs-pull-quote-text{font-size:var(--fs-md);font-weight:var(--fw-light);font-style:italic;color:var(--ink);line-height:1.55;letter-spacing:-.02em;}
+.cs-pull-quote-attr{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-top:10px;}
 
 /* OUTCOMES */
 .cs-outcomes{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px;}
-.cs-outcome-pill{display:flex;align-items:center;gap:8px;background:var(--bg-2);border:1px solid var(--border);border-radius:100px;padding:10px 18px;font-size:14px;color:var(--ink-2);transition:background .4s;}
-.cs-outcome-val{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.02em;color:var(--accent);line-height:1;}
+.cs-outcome-pill{display:flex;align-items:center;gap:8px;background:var(--bg-2);border:1px solid var(--border);border-radius:100px;padding:10px 18px;font-size:var(--fs-base);color:var(--ink-2);transition:background .4s;}
+.cs-outcome-val{font-family:var(--font-display);font-weight:var(--fw-bold);font-size:var(--fs-md);letter-spacing:-.02em;color:var(--accent);line-height:1;}
+
+/* GOALS ROW */
+.cs-goals-row{display:grid;grid-template-columns:repeat(3,1fr);gap:48px;margin-top:24px;}
+.cs-goal{display:flex;flex-direction:column;align-items:flex-start;}
+.cs-goal-num{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-bottom:8px;}
+.cs-goal-title{font-size:var(--fs-base);font-weight:var(--fw-semibold);color:var(--ink);line-height:1.35;margin-bottom:6px;}
+.cs-goal-desc{font-size:var(--fs-sm);font-weight:var(--fw-regular);color:var(--ink-3);line-height:1.65;}
+
+/* STATS ROW */
+.cs-stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:64px;margin-top:48px;}
+.cs-stat{display:flex;flex-direction:column;align-items:flex-start;}
+.cs-stat-label{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-bottom:8px;}
+.cs-stat-val{font-size:var(--fs-lg);font-weight:var(--fw-medium);color:var(--ink);letter-spacing:-.02em;line-height:1;margin-bottom:8px;}
+.cs-stat-stars{display:flex;gap:2px;color:#E9A500;font-size:var(--fs-base);line-height:1;}
+.cs-stat-sub{font-size:var(--fs-sm);font-weight:var(--fw-regular);color:var(--ink-3);line-height:1.5;}
+
+.cs-transition{font-size:var(--fs-base);font-weight:var(--fw-medium);color:var(--ink);line-height:1.7;margin-top:40px;}
 
 /* DIVIDER */
 .cs-divider{height:1px;background:var(--border);margin:28px 0;}
@@ -235,15 +261,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
   margin-bottom:36px;
 }
 .cs-next-eyebrow{
-  font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.16em;text-transform:uppercase;
   color:var(--accent);margin-bottom:8px;display:block;
 }
 .cs-next-section-title{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(36px,5vw,56px);line-height:.92;letter-spacing:.02em;color:var(--ink);
+  font-family:var(--font-display);font-weight:var(--fw-semibold);
+  font-size:clamp(40px,5vw,56px);line-height:1.05;letter-spacing:-.03em;color:var(--ink);
 }
 .cs-all-link{
-  font-size:13px;font-weight:600;letter-spacing:.04em;
+  font-size:var(--fs-sm);font-weight:var(--fw-semibold);letter-spacing:.04em;
   color:var(--ink-2);text-decoration:none;
   display:flex;align-items:center;gap:6px;
   transition:color .2s;flex-shrink:0;margin-bottom:4px;
@@ -284,30 +310,30 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-proj-card:hover .cs-proj-thumb-bg{transform:scale(1.04);}
 .cs-proj-card-num{
   position:absolute;top:16px;right:16px;z-index:2;
-  font-family:'Bebas Neue',sans-serif;
-  font-size:48px;letter-spacing:-.02em;color:rgba(255,255,255,.12);
+  font-family:var(--font-accent);
+  font-size:var(--fs-2xl);letter-spacing:-.02em;color:rgba(255,255,255,.12);
   line-height:1;user-select:none;
 }
 .cs-proj-card-body{padding:24px 28px;flex:1;display:flex;flex-direction:column;gap:10px;}
 .cs-proj-card-tags{display:flex;gap:6px;flex-wrap:wrap;}
 .cs-proj-card-tag{
-  font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.08em;text-transform:uppercase;
   color:var(--accent);border:1px solid rgba(37,99,235,.2);
   background:rgba(37,99,235,.06);
   padding:2px 8px;border-radius:100px;
 }
 [data-theme="dark"] .cs-proj-card-tag{color:var(--accent);border-color:rgba(59,130,246,.25);background:rgba(59,130,246,.08);}
 .cs-proj-card-name{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:28px;letter-spacing:.02em;color:var(--ink);
+  font-family:var(--font-accent);
+  font-size:var(--fs-md);letter-spacing:.02em;color:var(--ink);
   line-height:1.05;
 }
 .cs-proj-card-metric{
-  font-size:13px;color:var(--ink-3);margin-top:auto;
+  font-size:var(--fs-sm);color:var(--ink-3);margin-top:auto;
   display:flex;align-items:center;gap:6px;
 }
 .cs-proj-card-metric strong{
-  font-family:'Bebas Neue',sans-serif;font-size:18px;
+  font-family:var(--font-accent);font-size:var(--fs-base);
   letter-spacing:.02em;color:var(--accent);
 }
 .cs-proj-card-arrow{
@@ -315,7 +341,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
   width:28px;height:28px;border-radius:50%;
   border:1.5px solid var(--border-h);
   display:flex;align-items:center;justify-content:center;
-  font-size:13px;color:var(--ink-2);
+  font-size:var(--fs-sm);color:var(--ink-2);
   transition:background .2s,border-color .2s,color .2s,transform .2s;
 }
 .cs-proj-card:hover .cs-proj-card-arrow{
@@ -342,8 +368,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
   .cs-section{padding:64px 0;}
   nav{padding:0 20px;}
   .cs-hero{padding:40px 32px;}
-  .cs-hero-watermark{font-size:140px;}
+  .cs-hero-watermark{font-size:var(--fs-display-lg);}
   .cs-metrics{grid-template-columns:1fr 1fr;}
+	  .cs-stats-row{grid-template-columns:repeat(4,1fr);gap:24px;}
+	  .cs-stats-row .cs-stat-val{font-size:var(--fs-md);}
+	  .cs-stats-row .cs-stat-val[style]{font-size:var(--fs-base)!important;}
   .cs-metric:nth-child(2){border-right:none;}
   .cs-metric:nth-child(3){grid-column:span 2;border-right:none;border-top:1px solid var(--border);}
   .cs-section{padding:56px 48px;}
@@ -356,19 +385,25 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
   .cs-next-section{padding:44px 20px;}
   .cs-next-heading{flex-direction:column;align-items:flex-start;gap:12px;}
   .cs-section{padding:52px 0;}
-  .cs-cards{grid-template-columns:1fr;}
+  .cs-cards,.cs-goals-row{grid-template-columns:1fr;}
+  .cs-stats-row{grid-template-columns:repeat(4,1fr);gap:12px;}
+  .cs-stats-row .cs-stat-label{font-size:var(--fs-2xs);letter-spacing:.06em;margin-bottom:6px;}
+  .cs-stats-row .cs-stat-val{font-size:var(--fs-md);margin-bottom:4px;}
+  .cs-stats-row .cs-stat-val[style]{font-size:var(--fs-sm)!important;line-height:1.15;}
+  .cs-stats-row .cs-stat-stars{font-size:var(--fs-sm);}
+  .cs-stats-row .cs-stat-sub{font-size:var(--fs-2xs);line-height:1.3;}
   .cs-three-col{grid-template-columns:1fr;}
   nav{padding:0 20px;height:52px;}
   .cs-hero{padding:32px 20px;min-height:44vh;}
   .cs-hero-watermark{display:none;}
   .cs-hero-title{font-size:clamp(40px,10vw,64px);}
-  .cs-hero-sub{font-size:15px;max-width:100%;}
+  .cs-hero-sub{font-size:var(--fs-base);max-width:100%;}
   .cs-metrics{grid-template-columns:1fr;}
   .cs-metric{border-right:none;border-bottom:1px solid var(--border);}
   .cs-metric:last-child{border-bottom:none;}
   .cs-section{padding:44px 20px;}
-  .cs-two-col,.cs-three-col,.cs-cards{grid-template-columns:1fr;}
-  .cs-overview-grid{grid-template-columns:1fr 1fr;}
+  .cs-two-col,.cs-three-col,.cs-cards,.cs-goals-row{grid-template-columns:1fr;}
+  .cs-overview-grid{grid-template-columns:1fr 1fr;gap:32px;}
   .cs-next{padding:36px 20px;}
   .cs-next-btn{width:100%;justify-content:center;}
 }
@@ -416,12 +451,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 
 <!-- NAV — exact portfolio -->
 <nav>
-  <a href="/" class="nav-logo">CW.</a>
+  <a href="index.html#home" class="nav-logo">CW.</a>
   <div class="nav-r">
     <ul class="nav-links" id="navLinks">
-      <li><a href="/#work">Work</a></li>
-      <li><a href="/#about">About</a></li>
-      <li><a href="/" class="nav-cta">Resume &#8599;</a></li>
+      <li><a href="index.html#work">Work</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html" class="nav-cta">Resume &#8599;</a></li>
     </ul>
     <label class="t-tog" aria-label="Toggle theme">
       <input type="checkbox" id="themeToggle">
@@ -440,7 +475,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
   <aside class="cs-left">
 
     <!-- Back link -->
-    <a href="/" class="cs-back">
+    <a href="index.html#work" class="cs-back">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
         <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
@@ -460,39 +495,45 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
         <span class="cs-idx-label">Overview</span>
         <span class="cs-idx-tick"></span>
       </a>
-      <a href="#problem"    class="cs-idx-row" data-section="problem">
+
+      <a href="#context"    class="cs-idx-row" data-section="context">
         <span class="cs-idx-num">01</span>
+        <span class="cs-idx-label">Context</span>
+        <span class="cs-idx-tick"></span>
+      </a>
+      <a href="#problem"    class="cs-idx-row" data-section="problem">
+        <span class="cs-idx-num">02</span>
         <span class="cs-idx-label">Problem</span>
         <span class="cs-idx-tick"></span>
       </a>
       <a href="#research"   class="cs-idx-row" data-section="research">
-        <span class="cs-idx-num">02</span>
+        <span class="cs-idx-num">03</span>
         <span class="cs-idx-label">Research</span>
         <span class="cs-idx-tick"></span>
       </a>
       <a href="#ideation"   class="cs-idx-row" data-section="ideation">
-        <span class="cs-idx-num">03</span>
+        <span class="cs-idx-num">04</span>
         <span class="cs-idx-label">Ideation</span>
         <span class="cs-idx-tick"></span>
       </a>
 
       <a href="#strategy"   class="cs-idx-row" data-section="strategy">
-        <span class="cs-idx-num">04</span>
+        <span class="cs-idx-num">05</span>
         <span class="cs-idx-label">Strategy</span>
         <span class="cs-idx-tick"></span>
       </a>
       <a href="#design"     class="cs-idx-row" data-section="design">
-        <span class="cs-idx-num">05</span>
+        <span class="cs-idx-num">06</span>
         <span class="cs-idx-label">Design</span>
         <span class="cs-idx-tick"></span>
       </a>
       <a href="#outcomes"   class="cs-idx-row" data-section="outcomes">
-        <span class="cs-idx-num">06</span>
+        <span class="cs-idx-num">07</span>
         <span class="cs-idx-label">Outcomes</span>
         <span class="cs-idx-tick"></span>
       </a>
       <a href="#reflection" class="cs-idx-row" data-section="reflection">
-        <span class="cs-idx-num">07</span>
+        <span class="cs-idx-num">08</span>
         <span class="cs-idx-label">Reflection</span>
         <span class="cs-idx-tick"></span>
       </a>
@@ -550,33 +591,94 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
       <span class="cs-eyebrow">Overview</span>
       <h2 class="cs-section-title">Project at a Glance</h2>
       <div class="cs-body reveal">
-        <p>It started with a pattern I couldn&apos;t ignore &mdash; paid users dropping off before they saw real value. I brought it to a growth meeting, made the case with app store reviews, competitor analysis, and user research, and got the green light to build from scratch. That became Jefit&apos;s AI Adaptive Training Plan, which I led design end-to-end. Launched and still continuously iterating, it&apos;s now Jefit&apos;s top paid feature to date.</p>
+        <p>It started with a pattern I couldn&apos;t ignore &mdash; paid new users dropping off before they saw real value. I brought it to a growth meeting, made the case with app store reviews, competitor analysis, and user research, and got the green light to build from scratch. That became Jefit&apos;s AI Adaptive Training Plan. Launched and still continuously iterating, it&apos;s now Jefit&apos;s top paid feature to date.</p>
       </div>
       <div class="cs-overview-grid reveal">
         <div class="cs-ov-cell">
           <span class="cs-ov-label">My Role</span>
-          <div class="cs-ov-val">Product Designer<br>(End-to-end)</div>
+          <div class="cs-ov-val">Product Designer</div>
+          <div class="cs-ov-sub">End-to-end</div>
         </div>
         <div class="cs-ov-cell">
           <span class="cs-ov-label">Timeline</span>
-          <div class="cs-ov-val">3 months from concept<br>to launch &mdash; still iterating</div>
+          <div class="cs-ov-val">3 months to launch</div>
+          <div class="cs-ov-sub">Still iterating</div>
         </div>
         <div class="cs-ov-cell">
           <span class="cs-ov-label">Platform</span>
-          <div class="cs-ov-val">iOS, Android,<br>and Watch App</div>
+          <div class="cs-ov-val">iOS, Android</div>
+          <div class="cs-ov-sub">&amp; Watch App</div>
         </div>
         <div class="cs-ov-cell">
           <span class="cs-ov-label">Team</span>
-          <div class="cs-ov-val">CEO<br>Product Manager<br>iOS &amp; Android FE<br>Back-end Developer<br>Product Designer<br>Growth Marketer</div>
+          <div class="cs-ov-team">CEO, Product Manager, iOS &amp; Android &amp; Backend Engineers, Growth Marketer</div>
         </div>
       </div>
           </div>
     </section>
 
-    <!-- 01 PROBLEM -->
+    <!-- 01 CONTEXT -->
+    <section class="cs-section" id="context">
+      <div class="cs-wrap">
+      <span class="cs-eyebrow">01 &middot; Context</span>
+      <h2 class="cs-section-title">ABOUT JEFIT</h2>
+      <div class="cs-body reveal">
+        <p>Jefit is a strength training app built around one of the largest exercise databases in the world, with a global community of lifters at its core. When I joined the team, I began my own strength training journey &mdash; wanting both a healthier lifestyle and a firsthand understanding of the people I was designing for.</p>
+      </div>
+      <div class="cs-stats-row reveal">
+        <div class="cs-stat">
+          <span class="cs-stat-label">App Store Rating</span>
+          <div class="cs-stat-val">4.8</div>
+          <div class="cs-stat-stars">★★★★★</div>
+        </div>
+        <div class="cs-stat">
+          <span class="cs-stat-label">Downloads</span>
+          <div class="cs-stat-val">20M+</div>
+          <div class="cs-stat-sub">iOS &amp; Android</div>
+        </div>
+        <div class="cs-stat">
+          <span class="cs-stat-label">Users</span>
+          <div class="cs-stat-val">12M+</div>
+          <div class="cs-stat-sub">Global community</div>
+        </div>
+        <div class="cs-stat">
+          <span class="cs-stat-label">Award</span>
+          <div class="cs-stat-val" style="font-size:var(--fs-md);line-height:1.2;">Best Workout App of 2026</div>
+          <div class="cs-stat-sub">Forbes Health</div>
+        </div>
+      </div>
+      <p class="cs-transition reveal">But behind the numbers, something wasn&apos;t working.</p>
+      <div class="cs-body reveal" style="margin-top:16px;">
+        <p>Paid users were given a static 28-day plan &mdash; identical exercises every week, no matter their goals or progress. The product wasn&apos;t growing with them.</p>
+      </div>
+      <div class="cs-pull-quote reveal" style="border-left-width:2px;">
+        <div class="cs-pull-quote-text" style="font-size:var(--fs-md);font-weight:var(--fw-medium);font-style:normal;">Low activation. Low retention. One root cause.</div>
+      </div>
+      <div class="cs-divider reveal"></div>
+      <span class="cs-eyebrow reveal">Business Goals</span>
+      <div class="cs-goals-row reveal">
+        <div class="cs-goal">
+          <div class="cs-goal-num">01</div>
+          <div class="cs-goal-title">Retain paid new users</div>
+          <div class="cs-goal-desc">Keep users who converted through the training plan long enough to see real value.</div>
+        </div>
+        <div class="cs-goal">
+          <div class="cs-goal-num">02</div>
+          <div class="cs-goal-title">Drive revenue from free users</div>
+          <div class="cs-goal-desc">Convert existing free users into paying subscribers through a compelling plan experience.</div>
+        </div>
+        <div class="cs-goal">
+          <div class="cs-goal-num">03</div>
+          <div class="cs-goal-title">Improve the core product</div>
+          <div class="cs-goal-desc">Raise the bar on the training experience so Jefit feels built for every individual user.</div>
+        </div>
+      </div>
+          </div>
+    </section>
+    <!-- 02 PROBLEM -->
     <section class="cs-section" id="problem">
       <div class="cs-wrap">
-      <span class="cs-eyebrow">01 &middot; Problem</span>
+      <span class="cs-eyebrow">02 &middot; Problem</span>
       <h2 class="cs-section-title">Too Generic to Keep Anyone</h2>
       <div class="cs-body reveal">
         <p>Jefit&apos;s Paid users were leaving before they ever found value — and the drop-off happened at two stages. Most abandoned their plan during onboarding, never reaching the activation point. Those who did stick around soon realized the plan wasn't keeping up with them — too static, too generic, and never tailored to their progress or preferences. Either way, it was easy to walk away.</p>
@@ -584,19 +686,25 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
       </div>
       <div class="cs-callout reveal">
         <div class="cs-callout-label">Problem Statement</div>
-        <div class="cs-callout-text">&ldquo;How might we replace generic, static plans with an adaptive experience that responds to each user&apos;s real-world fitness context &mdash; without adding cognitive load?&rdquo;</div>
+        <div class="cs-callout-text">&ldquo;How might we replace generic, static plans with an adaptive experience that responds to each user&apos;s real fitness context &mdash; so every user feels confident, trusts the algorithm, and can get started without a steep learning curve?&rdquo;</div>
       </div>
       <div class="cs-two-col">
-        <div class="cs-img-ph h-sm reveal"><span class="cs-img-ph-icon">&#128202;</span><span class="cs-img-ph-label">Drop-off funnel data</span></div>
-        <div class="cs-img-ph h-sm reveal"><span class="cs-img-ph-icon">&#128172;</span><span class="cs-img-ph-label">User complaint themes</span></div>
+        <figure class="cs-media h-sm reveal">
+          <img src="assets/images/adaptive-plan/funnel.png" alt="Paid user drop-off funnel — onboarding to D14" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
+          <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#128202;</span><span class="cs-img-ph-label">Drop-off funnel data</span></span>
+        </figure>
+        <figure class="cs-media h-sm reveal">
+          <img src="assets/images/adaptive-plan/complaint-themes.png" alt="Themes from app store reviews and user complaints" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
+          <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#128172;</span><span class="cs-img-ph-label">User complaint themes</span></span>
+        </figure>
       </div>
           </div>
     </section>
 
-    <!-- 02 RESEARCH -->
+    <!-- 03 RESEARCH -->
     <section class="cs-section" id="research">
       <div class="cs-wrap">
-      <span class="cs-eyebrow">02 &middot; Research</span>
+      <span class="cs-eyebrow">03 &middot; Research</span>
       <h2 class="cs-section-title">Understanding<br>the Real User</h2>
       <div class="cs-body reveal">
         <p>I led a mixed-methods research sprint over 3 weeks: in-depth interviews with 12 active users, analysis of Amplitude drop-off funnels, and a competitive audit across personalized fitness apps. Three core failure modes emerged.</p>
@@ -611,14 +719,17 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
         <div class="cs-pull-quote-text">&ldquo;I keep restarting the same plan because I feel like I&apos;m failing it &mdash; not that it&apos;s wrong for me.&rdquo;</div>
         <div class="cs-pull-quote-attr">&mdash; Interview participant, 28, intermediate lifter</div>
       </div>
-      <div class="cs-img-ph h-mid reveal" style="margin-top:28px;"><span class="cs-img-ph-icon">&#128506;</span><span class="cs-img-ph-label">Journey map &mdash; current plan experience</span></div>
+      <figure class="cs-media h-mid reveal" style="margin-top:28px;">
+        <img src="assets/images/adaptive-plan/journey-map.png" alt="Journey map of current plan experience" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
+        <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#128506;</span><span class="cs-img-ph-label">Journey map &mdash; current plan experience</span></span>
+      </figure>
           </div>
     </section>
 
-    <!-- 03 IDEATION -->
+    <!-- 04 IDEATION -->
     <section class="cs-section" id="ideation">
       <div class="cs-wrap">
-      <span class="cs-eyebrow">03 &middot; Ideation</span>
+      <span class="cs-eyebrow">04 &middot; Ideation</span>
       <h2 class="cs-section-title">From Insight<br>to Direction</h2>
       <div class="cs-body reveal">
         <p>I ran a cross-functional workshop with product and engineering teams using HMW &rarr; Crazy 8s &rarr; Dot Vote. Three viable directions emerged, scored against user need, engineering feasibility, and business value.</p>
@@ -636,10 +747,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
     </section>
 
 
-    <!-- 04 STRATEGY -->
+    <!-- 05 STRATEGY -->
     <section class="cs-section" id="strategy">
       <div class="cs-wrap">
-      <span class="cs-eyebrow">04 &middot; Strategy</span>
+      <span class="cs-eyebrow">05 &middot; Strategy</span>
       <h2 class="cs-section-title">Positioning for<br>Impact</h2>
       <div class="cs-body reveal">
         <p>With the AI-Adaptive Engine direction chosen, I partnered with product and growth to shape the business strategy. Three principles guided the plan: <strong>freemium entry</strong> with a clear value moment before any paywall, <strong>habit-first onboarding</strong> that lets users experience adaptation before being asked to pay, and <strong>gradual personalization</strong> that deepens as the AI learns each user.</p>
@@ -653,10 +764,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
       </div>
           </div>
     </section>
-    <!-- 05 DESIGN PROCESS -->
+    <!-- 06 DESIGN PROCESS -->
     <section class="cs-section" id="design">
       <div class="cs-wrap">
-      <span class="cs-eyebrow">05 &middot; Design Process</span>
+      <span class="cs-eyebrow">06 &middot; Design Process</span>
       <h2 class="cs-section-title">Designing the<br>Experience</h2>
       <div class="cs-steps reveal">
         <div class="cs-step">
@@ -664,7 +775,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
           <div class="cs-step-body">
             <div class="cs-step-title">Information Architecture</div>
             <div class="cs-step-text">Mapped the full plan ecosystem. Identified three critical moments to inject adaptation: plan start, mid-week check-in, and post-workout feedback.</div>
-            <div class="cs-img-ph h-sm reveal" style="margin-top:16px;"><span class="cs-img-ph-icon">&#128193;</span><span class="cs-img-ph-label">IA diagram &mdash; plan ecosystem</span></div>
+            <figure class="cs-media h-sm reveal" style="margin-top:16px;">
+              <img src="assets/images/adaptive-plan/ia-diagram.png" alt="Information architecture diagram of the plan ecosystem" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
+              <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#128193;</span><span class="cs-img-ph-label">IA diagram &mdash; plan ecosystem</span></span>
+            </figure>
           </div>
         </div>
         <div class="cs-step">
@@ -673,8 +787,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
             <div class="cs-step-title">Wireframes &amp; Flow</div>
             <div class="cs-step-text">Three distinct user flows: onboarding without form-fatigue, weekly adaptation with clear rationale, and manual override when the AI&apos;s suggestion doesn&apos;t fit.</div>
             <div class="cs-two-col">
-              <div class="cs-img-ph h-sm reveal"><span class="cs-img-ph-icon">&#9998;</span><span class="cs-img-ph-label">Onboarding wireframes</span></div>
-              <div class="cs-img-ph h-sm reveal"><span class="cs-img-ph-icon">&#9998;</span><span class="cs-img-ph-label">Adaptation flow wireframes</span></div>
+              <figure class="cs-media h-sm reveal">
+                <img src="assets/images/adaptive-plan/wireframes-onboarding.png" alt="Onboarding wireframes" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
+                <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#9998;</span><span class="cs-img-ph-label">Onboarding wireframes</span></span>
+              </figure>
+              <figure class="cs-media h-sm reveal">
+                <img src="assets/images/adaptive-plan/wireframes-adaptation.png" alt="Weekly adaptation flow wireframes" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
+                <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#9998;</span><span class="cs-img-ph-label">Adaptation flow wireframes</span></span>
+              </figure>
             </div>
           </div>
         </div>
@@ -698,10 +818,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
           </div>
     </section>
 
-    <!-- 06 OUTCOMES -->
+    <!-- 07 OUTCOMES -->
     <section class="cs-section" id="outcomes">
       <div class="cs-wrap">
-      <span class="cs-eyebrow">06 &middot; Outcomes</span>
+      <span class="cs-eyebrow">07 &middot; Outcomes</span>
       <h2 class="cs-section-title">Impact at Scale</h2>
       <div class="cs-body reveal">
         <p>Adaptive Plan launched to all 13M+ Jefit users in Q1 2025. It became the highest-performing feature in Jefit&apos;s history across adoption, retention, and revenue metrics.</p>
@@ -721,10 +841,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
           </div>
     </section>
 
-    <!-- 07 REFLECTION -->
+    <!-- 08 REFLECTION -->
     <section class="cs-section" id="reflection">
       <div class="cs-wrap">
-      <span class="cs-eyebrow">07 &middot; Reflection</span>
+      <span class="cs-eyebrow">08 &middot; Reflection</span>
       <h2 class="cs-section-title">What I Learned</h2>
       <div class="cs-body reveal">
         <p><strong>Trust is the product.</strong> The AI engine was sophisticated, but the design challenge was entirely about making users feel in control of it. The plain-language rationale was the highest-impact design decision &mdash; not the algorithm.</p>
@@ -745,13 +865,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
           <span class="cs-next-eyebrow">More Work</span>
           <div class="cs-next-section-title">Other Projects</div>
         </div>
-        <a href="/#work" class="cs-all-link">View all &rarr;</a>
+        <a href="index.html#work" class="cs-all-link">View all &rarr;</a>
       </div>
 
       <div class="cs-proj-grid">
 
         <!-- Project 02: Year in Review -->
-        <a href="/#work" class="cs-proj-card reveal">
+        <a href="index.html#work" class="cs-proj-card reveal">
           <div class="cs-proj-card-thumb">
             <div class="cs-proj-thumb-bg" style="background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);"></div>
             <div class="cs-proj-card-num">02</div>
@@ -768,7 +888,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
         </a>
 
         <!-- Project 03: Design System -->
-        <a href="/#work" class="cs-proj-card reveal">
+        <a href="index.html#work" class="cs-proj-card reveal">
           <div class="cs-proj-card-thumb">
             <div class="cs-proj-thumb-bg" style="background:linear-gradient(135deg,#0a1628 0%,#1e2d45 50%,#0e4b6b 100%);"></div>
             <div class="cs-proj-card-num">03</div>
@@ -785,7 +905,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
         </a>
 
         <!-- Project 04: Mobile to TV -->
-        <a href="/#work" class="cs-proj-card reveal">
+        <a href="index.html#work" class="cs-proj-card reveal">
           <div class="cs-proj-card-thumb">
             <div class="cs-proj-thumb-bg" style="background:linear-gradient(135deg,#1c1c2e 0%,#2d1b69 50%,#11998e 100%);"></div>
             <div class="cs-proj-card-num">04</div>
