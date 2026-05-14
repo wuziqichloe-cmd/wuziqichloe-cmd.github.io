@@ -25,15 +25,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .nav-links a:hover{color:var(--ink);}
 .nav-cta{color:#fff!important;background:var(--accent)!important;padding:7px 18px;border-radius:100px;transition:opacity .2s!important;}
 .nav-cta:hover{opacity:.88;}
-.t-tog{position:relative;width:44px;height:24px;cursor:none;}
+.t-tog{position:relative;width:56px;height:26px;cursor:none;}
 .t-tog input{position:absolute;opacity:0;width:0;height:0;}
-.t-track{position:absolute;inset:0;background:var(--border-h);border-radius:100px;transition:background .3s;display:flex;align-items:center;justify-content:space-between;padding:0 5px;}
+.t-track{position:absolute;inset:0;background:var(--border-h);border-radius:100px;transition:background .3s;display:flex;align-items:center;justify-content:space-between;padding:0 3px;}
 .t-tog input:checked~.t-track{background:var(--accent);}
-.t-icon{font-size:var(--fs-2xs);z-index:1;}
-.t-sun{opacity:1;}.t-moon{opacity:.4;}
-[data-theme="dark"] .t-sun{opacity:.4;}[data-theme="dark"] .t-moon{opacity:1;}
-.t-knob{position:absolute;top:3px;left:3px;width:18px;height:18px;background:var(--surf);border-radius:50%;transition:transform .28s cubic-bezier(.4,0,.2,1);pointer-events:none;z-index:2;box-shadow:0 1px 3px rgba(0,0,0,.2);}
-.t-tog input:checked~.t-knob{transform:translateX(20px);}
+.t-icon{display:block;width:20px;height:20px;color:var(--ink-3);z-index:1;transition:opacity .25s;flex-shrink:0;}
+.t-sun{opacity:0;}.t-moon{opacity:1;}
+[data-theme="dark"] .t-sun{opacity:1;}[data-theme="dark"] .t-moon{opacity:0;}
+.t-knob{position:absolute;top:3px;left:3px;width:20px;height:20px;background:var(--surf);border-radius:50%;transition:transform .28s cubic-bezier(.4,0,.2,1);pointer-events:none;z-index:2;box-shadow:0 1px 3px rgba(0,0,0,.2);}
+.t-tog input:checked~.t-knob{transform:translateX(30px);}
 .hamburger{display:none;flex-direction:column;gap:4.5px;width:24px;cursor:pointer;padding:4px 0;border:none;background:none;}
 .hamburger span{display:block;height:1.5px;width:100%;background:var(--ink);border-radius:2px;transition:transform .3s ease,opacity .3s ease;}
 
@@ -234,6 +234,35 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-pull-quote-text{font-size:var(--fs-md);font-weight:var(--fw-light);font-style:italic;color:var(--ink);line-height:1.55;letter-spacing:-.02em;}
 .cs-pull-quote-attr{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-top:10px;}
 
+/* DATA INSIGHTS — NDA-safe takeaways */
+.cs-insights{margin-top:28px;border:1px solid var(--border);border-radius:16px;overflow:hidden;background:var(--border);display:flex;flex-direction:column;gap:1px;}
+.cs-insight{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:flex-start;padding:20px 24px;background:var(--surf);transition:background .25s;}
+.cs-insight:hover{background:rgba(37,99,235,.03);}
+[data-theme="dark"] .cs-insight:hover{background:rgba(59,130,246,.05);}
+.cs-insight-num{font-family:var(--font-display);font-size:var(--fs-base);font-weight:var(--fw-bold);color:var(--accent);letter-spacing:.06em;line-height:1.4;min-width:28px;}
+.cs-insight-head{font-size:var(--fs-base);font-weight:var(--fw-semibold);color:var(--ink);line-height:1.4;letter-spacing:-.01em;margin-bottom:6px;}
+.cs-insight-text{font-size:var(--fs-base);color:var(--ink-2);line-height:1.65;}
+
+/* VOICE OF CUSTOMER — chat bubble */
+.cs-voc-list{display:flex;flex-direction:column;gap:18px;margin-top:24px;}
+.cs-voc{display:flex;gap:18px;align-items:flex-start;}
+.cs-voc-avatar{width:64px;height:64px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:var(--fs-lg);flex-shrink:0;border:1px solid var(--border);line-height:1;}
+[data-theme="dark"] .cs-voc-avatar{background:#fff;}
+.cs-voc-bubble{position:relative;background:var(--surf);border:1px solid var(--border);border-radius:18px;padding:20px 24px;box-shadow:0 6px 28px rgba(0,0,0,.05);flex:1;min-width:0;}
+[data-theme="dark"] .cs-voc-bubble{box-shadow:0 6px 28px rgba(0,0,0,.25);}
+.cs-voc-bubble::before{content:"";position:absolute;left:-7px;top:18px;width:14px;height:14px;background:var(--surf);border-left:1px solid var(--border);border-bottom:1px solid var(--border);transform:rotate(45deg);}
+.cs-voc-text{font-size:var(--fs-base);color:var(--ink-2);line-height:1.65;font-style:italic;}
+.cs-voc-text mark{background-image:linear-gradient(transparent 58%, rgba(234,179,8,.45) 58%);background-repeat:no-repeat;background-size:0% 100%;color:var(--ink);font-weight:var(--fw-medium);font-style:normal;padding:0 2px;border-radius:2px;transition:background-size .75s cubic-bezier(.22,1,.36,1);}
+[data-theme="dark"] .cs-voc-text mark{background-image:linear-gradient(transparent 58%, rgba(234,179,8,.35) 58%);color:var(--ink);}
+.cs-voc-list.in .cs-voc-text mark{background-size:100% 100%;}
+.cs-voc-list.in .cs-voc-text mark:nth-of-type(1){transition-delay:.25s;}
+.cs-voc-list.in .cs-voc-text mark:nth-of-type(2){transition-delay:.55s;}
+.cs-voc-list.in .cs-voc-text mark:nth-of-type(3){transition-delay:.85s;}
+@media (prefers-reduced-motion: reduce){
+  .cs-voc-text mark{background-size:100% 100%;transition:none;}
+}
+.cs-voc-attr{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-top:14px;}
+
 /* OUTCOMES */
 .cs-outcomes{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px;}
 .cs-outcome-pill{display:flex;align-items:center;gap:8px;background:var(--bg-2);border:1px solid var(--border);border-radius:100px;padding:10px 18px;font-size:var(--fs-base);color:var(--ink-2);transition:background .4s;}
@@ -259,6 +288,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 /* Editorial problem block — transition lead + muted body */
 .cs-problem-block{margin-top:48px;}
 .cs-problem-lead{font-size:var(--fs-base);font-weight:var(--fw-semibold);color:var(--ink);line-height:1.5;margin-bottom:1rem;letter-spacing:-.01em;}
+
+/* Pain stats — quantitative anchor in Problem section */
+.cs-pain-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:24px 48px;margin:32px 0 28px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:28px 0;}
+.cs-pain-stat{display:flex;flex-direction:column;gap:8px;}
+.cs-pain-stat-val{font-family:var(--font-display);font-weight:var(--fw-bold);font-size:var(--fs-2xl);letter-spacing:-.03em;color:var(--ink);line-height:1;}
+.cs-pain-stat-lbl{font-size:var(--fs-base);font-weight:var(--fw-medium);color:var(--ink-2);letter-spacing:.01em;}
+.cs-pain-stats-source{grid-column:1/-1;font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);}
 
 /* DIVIDER */
 .cs-divider{height:1px;background:var(--border);margin:28px 0;}
@@ -450,13 +486,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 @media(max-width:767px){
   .cs-wrap { padding: 0 20px; }
   .cs-hero-inner { padding: 0; }
-  .cs-next-section .cs-next-heading,
-.cs-next-section .cs-proj-grid {
-  max-width: 1080px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0 52px;
-}
 }
 </style>
 </head>
@@ -474,7 +503,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
     </ul>
     <label class="t-tog" aria-label="Toggle theme">
       <input type="checkbox" id="themeToggle">
-      <span class="t-track"><span class="t-icon t-sun">&#9728;</span><span class="t-icon t-moon">&#9789;</span></span>
+      <span class="t-track"><svg class="t-icon t-sun" aria-hidden="true" viewBox="0 0 512 512" fill="currentColor"><path d="M275,59.25V19a19,19,0,0,0-38,0V59.25a19,19,0,0,0,38,0Z"/><path d="M275,493V452.75a19,19,0,0,0-38,0V493a19,19,0,0,0,38,0Z"/><path d="M408.56,130.31,437,101.85A19,19,0,1,0,410.15,75l-28.46,28.46a19,19,0,0,0,26.87,26.87Z"/><path d="M101.85,437l28.46-28.46a19,19,0,0,0-26.87-26.87L75,410.15A19,19,0,1,0,101.85,437Z"/><path d="M452.75,275H493a19,19,0,0,0,0-38H452.75a19,19,0,0,0,0,38Z"/><path d="M19,275H59.25a19,19,0,0,0,0-38H19a19,19,0,0,0,0,38Z"/><path d="M381.69,408.56,410.15,437A19,19,0,0,0,437,410.15l-28.46-28.46a19,19,0,0,0-26.87,26.87Z"/><path d="M75,101.85l28.46,28.46a19,19,0,0,0,26.87-26.87L101.85,75A19,19,0,1,0,75,101.85Z"/><path d="M256,99.74A156.26,156.26,0,1,0,412.26,256,156.26,156.26,0,0,0,256,99.74Zm47.81,268.49a14,14,0,0,1-11.72-25.43,102.19,102.19,0,0,0,51.64-53.45,14,14,0,0,1,25.82,10.82A130.13,130.13,0,0,1,303.81,368.23Z"/></svg><svg class="t-icon t-moon" aria-hidden="true" viewBox="0 0 512 512" fill="currentColor"><path d="m351 361.68c-110.67 0-200.71-90-200.71-200.71a199.92 199.92 0 0 1 50.8-133.45c11.1-12.43-1.29-31.66-17.19-26.73-106.53 33.04-183.9 132.36-183.9 249.75 0 144 117.46 261.46 261.46 261.46 117.39 0 216.7-77.37 249.75-183.9 4.93-15.9-14.3-28.29-26.73-17.22a199.92 199.92 0 0 1 -133.48 50.8z"/><path d="m329.57 118.69 13 3a47.26 47.26 0 0 1 35.43 35.12l3.09 13c4.69 19.81 32.91 19.7 37.47-.13l3-13a47.24 47.24 0 0 1 35.14-35.39l13-3.09c19.81-4.69 19.7-32.91-.13-37.47l-13-3a47.24 47.24 0 0 1 -35.39-35.14l-3.09-13c-4.69-19.81-32.91-19.7-37.47.14l-3 13a47.27 47.27 0 0 1 -35.14 35.4l-13 3.08c-19.85 4.71-19.74 32.92.09 37.48z"/><path d="m257.49 249.9 8.31 1.91a30.17 30.17 0 0 1 22.6 22.44l2 8.29c3 12.65 21 12.58 23.92-.09l1.91-8.31a30.17 30.17 0 0 1 22.44-22.6l8.29-2c12.65-3 12.58-21-.09-23.93l-8.3-1.91a30.14 30.14 0 0 1 -22.6-22.43l-2-8.3c-3-12.64-21-12.58-23.93.09l-1.9 8.31a30.17 30.17 0 0 1 -22.44 22.63l-8.29 2c-12.65 3-12.58 21 .08 23.9z"/></svg></span>
       <span class="t-knob"></span>
     </label>
     <button class="hamburger" id="hamburger" aria-label="Toggle navigation" style="display:none;">
@@ -595,7 +624,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
       <div class="cs-metric">
         <div class="cs-metric-val">14%</div>
         <div class="cs-metric-lbl">Paywall CVR</div>
-        <div class="cs-metric-desc">#1 conversion rate across all premium features</div>
+        <div class="cs-metric-desc">#1 across Jefit Premium, 7&times; the soft paywall industry average</div>
       </div>
     </div>
 
@@ -605,7 +634,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
       <span class="cs-eyebrow">Overview</span>
       <h2 class="cs-section-title">Project at a Glance</h2>
       <div class="cs-body reveal">
-        <p>It started with a pattern I couldn&rsquo;t ignore &mdash; paid new users dropping off before they saw real value. I brought it to a growth meeting, made the case with app store reviews, competitor analysis, and user research, and got the green light to build from scratch. That became Jefit&rsquo;s AI Adaptive Training Plan. Launched and still continuously iterating, it&rsquo;s now Jefit&rsquo;s top paid feature to date.</p>
+        <p>It started with a pattern I couldn&rsquo;t ignore &mdash; paid new users dropping off before they saw real value. I brought it to a growth meeting, made the case with app store reviews, competitor analysis, and user research, and got the green light to build from scratch. What launched as the Load Progression feature eventually grew into Jefit&rsquo;s AI Adaptive Training Plan &mdash; now the top paid feature to date, and still iterating.</p>
       </div>
       <div class="cs-overview-grid reveal">
         <div class="cs-ov-cell">
@@ -635,7 +664,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
     <section class="cs-section" id="context">
       <div class="cs-wrap">
       <span class="cs-eyebrow">01 &middot; Context</span>
-      <h2 class="cs-section-title">About Jefit</h2>
+      <h2 class="cs-section-title">Who&rsquo;s Jefit</h2>
       <div class="cs-body reveal">
         <p>Jefit is a strength training app built around one of the largest exercise databases in the world, with a global community of lifters at its core. When I joined the team, I began my own strength training journey &mdash; wanting both a healthier lifestyle and a firsthand understanding of the people I was designing for.</p>
       </div>
@@ -660,10 +689,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
           <div class="cs-stat-val" style="font-size:var(--fs-md);line-height:1.2;">Best Workout App of 2026</div>
           <div class="cs-stat-sub">Forbes Health</div>
         </div>
-      </div>
-      <div class="cs-problem-block reveal">
-        <p class="cs-problem-lead">But behind the numbers, something wasn&rsquo;t working.</p>
-        <p class="cs-body">Paid users were given a static 28-day plan &mdash; identical exercises every week, no matter their goals or progress. The plan they paid for wasn&rsquo;t growing with them, resulting in low activation and low retention.</p>
       </div>
       <div class="cs-divider reveal"></div>
       <span class="cs-eyebrow reveal">Business Goals</span>
@@ -691,22 +716,43 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
       <div class="cs-wrap">
       <span class="cs-eyebrow">02 &middot; Problem</span>
       <h2 class="cs-section-title">Too Generic to Keep Anyone</h2>
-      <div class="cs-body reveal">
-        <p>Jefit&rsquo;s paid users were leaving before they ever found value — and the drop-off happened at two stages. Most abandoned their plan during onboarding, never reaching the activation point. Those who did stick around soon realized the plan wasn’t keeping up with them — too static, too generic, and never tailored to their progress or preferences. Either way, it was easy to walk away.</p>
+      <div class="cs-problem-block reveal">
+        <p class="cs-problem-lead">The reviews and research kept pointing to the same thing.</p>
+        <p class="cs-body">Paid users were handed a static 28-day plan &mdash; same exercises every week, no matter their goals or progress. What they paid for wasn&rsquo;t growing with them, and the drop-off happened in two waves. Most never made it through activation. Those who did soon realized the plan couldn&rsquo;t keep up &mdash; too generic to feel personal, too static to reflect their progress. Either way, walking away was the easier choice.</p>
       </div>
-      <div class="cs-callout cs-callout--hero reveal">
-        <div class="cs-callout-label">Problem Statement</div>
-        <div class="cs-callout-text">&ldquo;How might we create an adaptive plan that feels personal and trustworthy &mdash; without overwhelming the user?&rdquo;</div>
+      <div class="cs-pain-stats reveal">
+        <div class="cs-pain-stat">
+          <div class="cs-pain-stat-val">60.7%</div>
+          <div class="cs-pain-stat-lbl">churned by Day 7</div>
+        </div>
+        <div class="cs-pain-stat">
+          <div class="cs-pain-stat-val">78.8%</div>
+          <div class="cs-pain-stat-lbl">churned by Day 30</div>
+        </div>
+        <div class="cs-pain-stats-source">Source &middot; Amplitude funnel, paid users</div>
       </div>
-      <div class="cs-two-col">
-        <figure class="cs-media h-sm reveal">
-          <img src="assets/images/adaptive-plan/funnel.png" alt="Paid user drop-off funnel — onboarding to D14" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
-          <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#128202;</span><span class="cs-img-ph-label">Drop-off funnel data</span></span>
-        </figure>
-        <figure class="cs-media h-sm reveal">
-          <img src="assets/images/adaptive-plan/complaint-themes.png" alt="Themes from app store reviews and user complaints" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
-          <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#128172;</span><span class="cs-img-ph-label">User complaint themes</span></span>
-        </figure>
+      <div class="cs-voc-list reveal">
+        <div class="cs-voc">
+          <div class="cs-voc-avatar" aria-hidden="true"><img src="assets/images/adaptive-plan/sad.svg" alt="" width="44" height="44"></div>
+          <div class="cs-voc-bubble">
+            <div class="cs-voc-text">&ldquo;Are the workouts under workouts 28 day plan set to <mark>what were suppose to do</mark>?&hellip; <mark>Am I supposed to add more sets and reps</mark>? I rather follow it if its set to what im suppose to do only. <mark>Like my personal trainer.</mark>&rdquo;</div>
+            <div class="cs-voc-attr">&mdash; Storm &middot; User review</div>
+          </div>
+        </div>
+        <div class="cs-voc">
+          <div class="cs-voc-avatar" aria-hidden="true"><img src="assets/images/adaptive-plan/very-angry.svg" alt="" width="44" height="44"></div>
+          <div class="cs-voc-bubble">
+            <div class="cs-voc-text">&ldquo;I was just <mark>thrust into a 28 day plan</mark>.. basic bulk plan.. how do you do a new plans or can I just <mark>get plan for each week with verity</mark>?&rdquo;</div>
+            <div class="cs-voc-attr">&mdash; Chaire L. &middot; User review</div>
+          </div>
+        </div>
+        <div class="cs-voc">
+          <div class="cs-voc-avatar" aria-hidden="true"><img src="assets/images/adaptive-plan/angry.svg" alt="" width="44" height="44"></div>
+          <div class="cs-voc-bubble">
+            <div class="cs-voc-text">&ldquo;I&rsquo;m starting my first workout plan with the app tomorrow. It is a 28 day plan. Should I plan on <mark>working out 28 days straight</mark>? That just <mark>does not seem realistic to me to maintain</mark>.&rdquo;</div>
+            <div class="cs-voc-attr">&mdash; Morty G. &middot; User review</div>
+          </div>
+        </div>
       </div>
           </div>
     </section>
@@ -717,7 +763,30 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
       <span class="cs-eyebrow">03 &middot; Research</span>
       <h2 class="cs-section-title">Understanding<br>the Real User</h2>
       <div class="cs-body reveal">
-        <p>I led a mixed-methods research sprint over 3 weeks: in-depth interviews with 12 active users, analysis of Amplitude drop-off funnels, and a competitive audit across personalized fitness apps. Three core failure modes emerged.</p>
+        <p>I led a mixed-methods research sprint over 3 weeks: in-depth interviews with 12 active users, analysis of Amplitude drop-off funnels, and a competitive audit across personalized fitness apps. The funnel showed where users dropped; the interviews revealed why.</p>
+      </div>
+      <div class="cs-insights reveal">
+        <div class="cs-insight">
+          <div class="cs-insight-num">01</div>
+          <div>
+            <div class="cs-insight-head">Week 0 &rarr; Week 1 is the steepest cliff.</div>
+            <div class="cs-insight-text">The bulk of paid users drop off within the first seven days &mdash; before the plan ever gets a chance to deliver value.</div>
+          </div>
+        </div>
+        <div class="cs-insight">
+          <div class="cs-insight-num">02</div>
+          <div>
+            <div class="cs-insight-head">Day 1 remains the single biggest drop.</div>
+            <div class="cs-insight-text">This pattern holds across every other pre-built plan we benchmarked &mdash; activation remains the universal bottleneck.</div>
+          </div>
+        </div>
+        <div class="cs-insight">
+          <div class="cs-insight-num">03</div>
+          <div>
+            <div class="cs-insight-head">The longer users stay, the more they keep staying.</div>
+            <div class="cs-insight-text">Retention curves flatten sharply after week 1. Users who clear the early hurdle compound &mdash; so the work was clear: get them past it.</div>
+          </div>
+        </div>
       </div>
       <div class="cs-cards reveal">
         <div class="cs-card"><div class="cs-card-icon">&#128548;</div><div class="cs-card-title">Plans feel irrelevant fast</div><div class="cs-card-text">Within 2 weeks a plan no longer reflected actual schedule or energy levels, leading to abandonment.</div></div>
@@ -733,6 +802,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
         <img src="assets/images/adaptive-plan/journey-map.png" alt="Journey map of current plan experience" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
         <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#128506;</span><span class="cs-img-ph-label">Journey map &mdash; current plan experience</span></span>
       </figure>
+      <div class="cs-callout cs-callout--hero reveal">
+        <div class="cs-callout-label">How Might We</div>
+        <div class="cs-callout-text">&ldquo;How might we create an adaptive plan that feels personal and trustworthy &mdash; without overwhelming the user?&rdquo;</div>
+      </div>
           </div>
     </section>
 
@@ -982,6 +1055,44 @@ const obs=new IntersectionObserver(entries=>{
   entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});
 },{threshold:0.06});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+(function(){
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const nodes=document.querySelectorAll('.cs-metric-val, .cs-outcome-val');
+  const parsed=[];
+  nodes.forEach(el=>{
+    const m=el.textContent.trim().match(/^([+\-]?)(\d+(?:\.\d+)?)(.*)$/);
+    if(!m)return;
+    el.dataset.prefix=m[1];
+    el.dataset.target=m[2];
+    el.dataset.suffix=m[3];
+    el.dataset.isInt=m[2].includes('.')?'0':'1';
+    if(!reduce)el.textContent=m[1]+'0'+m[3];
+    parsed.push(el);
+  });
+  if(reduce)return;
+  const ease=t=>1-Math.pow(1-t,3);
+  const run=el=>{
+    const target=parseFloat(el.dataset.target);
+    const prefix=el.dataset.prefix;
+    const suffix=el.dataset.suffix;
+    const isInt=el.dataset.isInt==='1';
+    const duration=1400;
+    const t0=performance.now();
+    const step=now=>{
+      const p=Math.min(1,(now-t0)/duration);
+      const v=target*ease(p);
+      el.textContent=prefix+(isInt?Math.round(v):v.toFixed(1))+suffix;
+      if(p<1)requestAnimationFrame(step);
+      else el.textContent=prefix+(isInt?target:target.toFixed(1))+suffix;
+    };
+    requestAnimationFrame(step);
+  };
+  const countObs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){run(e.target);countObs.unobserve(e.target);}});
+  },{threshold:0.4});
+  parsed.forEach(el=>countObs.observe(el));
+})();
 </script>
 </body>
 </html>

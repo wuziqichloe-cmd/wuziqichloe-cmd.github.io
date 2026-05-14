@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chloe Wu — Product Designer</title>
+<title>Chloe Wu — About</title>
 <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="tokens.css">
 <style>
@@ -56,15 +56,15 @@ nav {
 .nav-cta:hover{opacity:.88;}
 
 /* Theme toggle */
-.t-tog{position:relative;width:56px;height:26px;cursor:none;}
+.t-tog{position:relative;width:44px;height:24px;cursor:none;}
 .t-tog input{position:absolute;opacity:0;width:0;height:0;}
-.t-track{position:absolute;inset:0;background:var(--border-h);border-radius:100px;transition:background .3s;display:flex;align-items:center;justify-content:space-between;padding:0 3px;}
+.t-track{position:absolute;inset:0;background:var(--border-h);border-radius:100px;transition:background .3s;display:flex;align-items:center;justify-content:space-between;padding:0 5px;}
 .t-tog input:checked~.t-track{background:var(--accent);}
-.t-icon{display:block;width:20px;height:20px;color:var(--ink-3);z-index:1;transition:opacity .25s;flex-shrink:0;}
-.t-sun{opacity:0;}.t-moon{opacity:1;}
-[data-theme="dark"] .t-sun{opacity:1;}[data-theme="dark"] .t-moon{opacity:0;}
-.t-knob{position:absolute;top:3px;left:3px;width:20px;height:20px;background:var(--surf);border-radius:50%;transition:transform .28s cubic-bezier(.4,0,.2,1);pointer-events:none;z-index:2;box-shadow:0 1px 3px rgba(0,0,0,.2);}
-.t-tog input:checked~.t-knob{transform:translateX(30px);}
+.t-icon{font-size:var(--fs-2xs);z-index:1;}
+.t-sun{opacity:1;}.t-moon{opacity:.4;}
+[data-theme="dark"] .t-sun{opacity:.4;}[data-theme="dark"] .t-moon{opacity:1;}
+.t-knob{position:absolute;top:3px;left:3px;width:18px;height:18px;background:var(--surf);border-radius:50%;transition:transform .28s cubic-bezier(.4,0,.2,1);pointer-events:none;z-index:2;box-shadow:0 1px 3px rgba(0,0,0,.2);}
+.t-tog input:checked~.t-knob{transform:translateX(20px);}
 
 /* ─────────────────────────────────────
    HERO — full page, type-forward
@@ -475,7 +475,7 @@ nav {
 ───────────────────────────────────── */
 #about {
   background: var(--bg-2);
-  padding: 100px 64px;
+  padding: 134px 64px 100px;
   transition: background .4s;
   position: relative;
 }
@@ -795,65 +795,6 @@ img.bt-beh-icon { object-fit: contain; }
 .rdl{display:inline-flex;align-items:center;gap:8px;margin-top:28px;border:1.5px solid var(--border-h);padding:11px 22px;font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.1em;text-transform:uppercase;text-decoration:none;color:var(--ink);border-radius:100px;transition:all .2s;}
 .rdl:hover{background:var(--accent);color:#fff;border-color:var(--accent);}
 
-/* ── Floating assets — ambient collage above Chat ── */
-#floats{position:relative;padding:120px 48px 60px;background:var(--bg);overflow:hidden;transition:background .4s;}
-.fa-wrap{max-width:1200px;margin:0 auto;position:relative;}
-.fa-head{text-align:center;margin-bottom:48px;}
-.fa-head .sec-ey{display:block;font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
-.fa-head h2{font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:clamp(40px,5vw,64px);line-height:1.05;letter-spacing:-.03em;color:var(--ink);}
-.fa-stage{position:relative;height:640px;width:100%;}
-.fa-card{position:absolute;border-radius:24px;background:var(--surf);border:1px solid var(--border);box-shadow:0 8px 30px rgba(0,0,0,.08);overflow:hidden;will-change:transform;transform:translate3d(0,var(--scroll-y,0),0) rotate(var(--rot,0deg));transition:box-shadow .3s,filter .3s;}
-[data-theme="dark"] .fa-card{box-shadow:0 8px 30px rgba(0,0,0,.35);}
-.fa-card:hover{box-shadow:0 20px 60px rgba(0,0,0,.14);z-index:10;}
-[data-theme="dark"] .fa-card:hover{box-shadow:0 20px 60px rgba(0,0,0,.5);}
-.fa-float{width:100%;height:100%;animation:faFloat var(--dur,8s) ease-in-out infinite;animation-delay:var(--delay,0s);display:flex;align-items:center;justify-content:center;position:relative;}
-@keyframes faFloat{0%,100%{transform:translate3d(0,0,0);}50%{transform:translate3d(0,-14px,0);}}
-@media (prefers-reduced-motion: reduce){.fa-float{animation:none;}}
-.fa-emoji{font-size:clamp(48px,7vw,80px);line-height:1;filter:drop-shadow(0 4px 12px rgba(0,0,0,.08));}
-.fa-mockup{width:100%;height:100%;padding:18px;display:flex;flex-direction:column;gap:8px;}
-.fa-mockup-bar{height:10px;border-radius:6px;background:var(--border);}
-.fa-mockup-bar.accent{background:var(--accent);width:60%;}
-.fa-mockup-bar.short{width:40%;}
-.fa-mockup-bar.long{width:85%;}
-.fa-mockup-pill{height:32px;border-radius:100px;background:var(--accent);width:80px;margin-top:auto;align-self:flex-end;}
-.fa-mockup-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:auto;}
-.fa-mockup-grid > div{height:32px;border-radius:8px;background:var(--bg-2);border:1px solid var(--border);}
-.fa-mockup-grid > div:first-child{background:var(--accent);border-color:var(--accent);}
-.fa-label{position:absolute;bottom:14px;left:16px;font-size:var(--fs-2xs);font-weight:var(--fw-bold);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);}
-.fa-card.work .fa-label{color:var(--accent);}
-/* Card placements (desktop) — irregular scatter */
-.fa-c1{left:4%;top:0;width:160px;height:160px;--rot:-4deg;--dur:7s;--delay:0s;}
-.fa-c2{left:20%;top:60px;width:260px;height:200px;--rot:2deg;--dur:9s;--delay:.4s;}
-.fa-c3{left:48%;top:0;width:180px;height:180px;--rot:-2deg;--dur:6.5s;--delay:.8s;}
-.fa-c4{right:18%;top:40px;width:200px;height:160px;--rot:5deg;--dur:8.5s;--delay:.2s;}
-.fa-c5{right:2%;top:200px;width:170px;height:170px;--rot:-3deg;--dur:7.5s;--delay:.6s;}
-.fa-c6{left:8%;top:280px;width:220px;height:180px;--rot:3deg;--dur:9.5s;--delay:1s;}
-.fa-c7{left:34%;top:340px;width:200px;height:200px;--rot:-5deg;--dur:8s;--delay:.3s;}
-.fa-c8{right:24%;top:340px;width:240px;height:200px;--rot:2deg;--dur:7s;--delay:.7s;}
-@media(max-width:1100px){
-  .fa-stage{height:880px;}
-  .fa-c1{left:2%;top:0;width:140px;height:140px;}
-  .fa-c2{left:32%;top:40px;width:220px;height:170px;}
-  .fa-c3{right:4%;top:0;width:150px;height:150px;}
-  .fa-c4{left:4%;top:200px;width:180px;height:150px;}
-  .fa-c5{right:6%;top:200px;width:160px;height:160px;}
-  .fa-c6{left:30%;top:400px;width:200px;height:160px;}
-  .fa-c7{left:2%;top:580px;width:170px;height:170px;}
-  .fa-c8{right:4%;top:560px;width:210px;height:180px;}
-}
-@media(max-width:640px){
-  #floats{padding:80px 20px 40px;}
-  .fa-stage{height:1100px;}
-  .fa-c1{left:6%;top:0;width:130px;height:130px;}
-  .fa-c2{right:6%;top:60px;left:auto;width:160px;height:140px;}
-  .fa-c3{left:6%;top:200px;width:140px;height:140px;}
-  .fa-c4{right:6%;top:240px;left:auto;width:150px;height:130px;}
-  .fa-c5{left:6%;top:400px;width:140px;height:140px;}
-  .fa-c6{right:6%;top:430px;left:auto;width:160px;height:140px;}
-  .fa-c7{left:6%;top:600px;width:150px;height:150px;}
-  .fa-c8{right:6%;top:620px;left:auto;width:170px;height:140px;}
-}
-
 /* ── End CTA — Chat Soon ── */
 #chat{padding:120px 48px 96px;background:var(--bg-2);border-top:1px solid var(--border);transition:background .4s,border-color .4s;}
 .chat-inner{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center;}
@@ -1017,16 +958,16 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
 <div id="cur"></div>
 
 <nav>
-  <a href="#home" class="nav-logo">CW.</a>
+  <a href="index.html#home" class="nav-logo">CW.</a>
   <div class="nav-r">
     <ul class="nav-links" id="navLinks">
-      <li><a href="#work" onclick="closeMenu()">Work</a></li>
-      <li><a href="about.html" onclick="closeMenu()">About</a></li>
+      <li><a href="index.html#work" onclick="closeMenu()">Work</a></li>
+      <li><a href="about.html" onclick="closeMenu()" aria-current="page" style="color:var(--ink);">About</a></li>
       <li><a href="#" class="nav-cta" onclick="openResumePdf();closeMenu();return false;">Resume ↗</a></li>
     </ul>
     <label class="t-tog" aria-label="Toggle theme">
       <input type="checkbox" id="themeToggle">
-      <span class="t-track"><svg class="t-icon t-sun" aria-hidden="true" viewBox="0 0 512 512" fill="currentColor"><path d="M275,59.25V19a19,19,0,0,0-38,0V59.25a19,19,0,0,0,38,0Z"/><path d="M275,493V452.75a19,19,0,0,0-38,0V493a19,19,0,0,0,38,0Z"/><path d="M408.56,130.31,437,101.85A19,19,0,1,0,410.15,75l-28.46,28.46a19,19,0,0,0,26.87,26.87Z"/><path d="M101.85,437l28.46-28.46a19,19,0,0,0-26.87-26.87L75,410.15A19,19,0,1,0,101.85,437Z"/><path d="M452.75,275H493a19,19,0,0,0,0-38H452.75a19,19,0,0,0,0,38Z"/><path d="M19,275H59.25a19,19,0,0,0,0-38H19a19,19,0,0,0,0,38Z"/><path d="M381.69,408.56,410.15,437A19,19,0,0,0,437,410.15l-28.46-28.46a19,19,0,0,0-26.87,26.87Z"/><path d="M75,101.85l28.46,28.46a19,19,0,0,0,26.87-26.87L101.85,75A19,19,0,1,0,75,101.85Z"/><path d="M256,99.74A156.26,156.26,0,1,0,412.26,256,156.26,156.26,0,0,0,256,99.74Zm47.81,268.49a14,14,0,0,1-11.72-25.43,102.19,102.19,0,0,0,51.64-53.45,14,14,0,0,1,25.82,10.82A130.13,130.13,0,0,1,303.81,368.23Z"/></svg><svg class="t-icon t-moon" aria-hidden="true" viewBox="0 0 512 512" fill="currentColor"><path d="m351 361.68c-110.67 0-200.71-90-200.71-200.71a199.92 199.92 0 0 1 50.8-133.45c11.1-12.43-1.29-31.66-17.19-26.73-106.53 33.04-183.9 132.36-183.9 249.75 0 144 117.46 261.46 261.46 261.46 117.39 0 216.7-77.37 249.75-183.9 4.93-15.9-14.3-28.29-26.73-17.22a199.92 199.92 0 0 1 -133.48 50.8z"/><path d="m329.57 118.69 13 3a47.26 47.26 0 0 1 35.43 35.12l3.09 13c4.69 19.81 32.91 19.7 37.47-.13l3-13a47.24 47.24 0 0 1 35.14-35.39l13-3.09c19.81-4.69 19.7-32.91-.13-37.47l-13-3a47.24 47.24 0 0 1 -35.39-35.14l-3.09-13c-4.69-19.81-32.91-19.7-37.47.14l-3 13a47.27 47.27 0 0 1 -35.14 35.4l-13 3.08c-19.85 4.71-19.74 32.92.09 37.48z"/><path d="m257.49 249.9 8.31 1.91a30.17 30.17 0 0 1 22.6 22.44l2 8.29c3 12.65 21 12.58 23.92-.09l1.91-8.31a30.17 30.17 0 0 1 22.44-22.6l8.29-2c12.65-3 12.58-21-.09-23.93l-8.3-1.91a30.14 30.14 0 0 1 -22.6-22.43l-2-8.3c-3-12.64-21-12.58-23.93.09l-1.9 8.31a30.17 30.17 0 0 1 -22.44 22.63l-8.29 2c-12.65 3-12.58 21 .08 23.9z"/></svg></span>
+      <span class="t-track"><span class="t-icon t-sun">☀</span><span class="t-icon t-moon">☽</span></span>
       <span class="t-knob"></span>
     </label>
     <!-- Hamburger — visible only on mobile -->
@@ -1036,200 +977,191 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
   </div>
 </nav>
 
-<section id="home">
 
-  <div class="h-block">
-    <!-- Greeting -->
-    <div class="hero-greeting enter d1"><span class="wave-hand">👋</span><span class="hero-greeting-text">Hi, I’m Chloe Wu.</span></div>
-    <!-- Role eyebrow -->
-    <div class="h-bar-eyebrow enter d2">UI/UX → AI + Product Designer</div>
-    <!-- Glow title -->
-    <div class="glow-stage" id="glowStage">
-      <h1 class="hero-title enter d3" id="heroTitle"></h1>
-    </div>
-    <!-- Tagline — 2 lines, tight -->
-    <p class="h-bar-sub enter d4" style="margin-top:28px;max-width:40ch;text-align:center;">
-      I think in ecosystems, not screens — connecting the dots between what people need, what teams can build, and what businesses can sustain.
-    </p>
-    <!-- CTA -->
-    <div class="h-bar-cta enter d4" style="margin-top:32px;">
-      <a href="#work" class="btn-fill">See My Work</a>
-    </div>
-  </div>
+<section id="about">
+  <div class="about-wrap">
 
+    <div class="about-heading reveal">
+      <span class="sec-ey">About Me</span>
+      <h2>Chloe’s Persona.</h2>
+    </div>
+
+    <div class="bento-card reveal">
+    <div class="bento">
+
+      <!-- ─── ROW 1: Photo(3) · Bio+Details(5) · INFJ(4) ─── -->
+
+      <div class="bt bt-a bt-photo-tile bc-3">
+        <div class="bt-photo-bg"></div>
+        <div class="bt-portrait">
+          <div class="bt-portrait-ph">
+            <svg width="40" height="40" viewBox="0 0 36 36" fill="none">
+              <circle cx="18" cy="13" r="7" stroke="currentColor" stroke-width="1.5" opacity=".3"/>
+              <path d="M4 32c0-7.732 6.268-14 14-14s14 6.268 14 14"
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".3"/>
+            </svg>
+            <span style="color:var(--ink-3);">Add photo</span>
+          </div>
+        </div>
+        <div class="bt-photo-text">
+          <div class="bt-photo-name">Chloe Wu</div>
+          <div class="bt-photo-role">Product Designer</div>
+        </div>
+      </div>
+
+      <div class="bt bt-a bt-bio-tile bc-5">
+        <span class="bt-label">Bio</span>
+        <p class="bt-bio-text">I’m a product designer specializing in 0→1 experiences — turning ambiguous problems into clear, useful, and beautiful products. Currently at Jefit, designing for 13M+ users.</p>
+        <div class="bt-detail-rows">
+          <div class="bt-detail-row">
+            <span class="bt-detail-k">Education</span>
+            <span class="bt-detail-v">M.S. IDBT · B.S. CogSci/HCI</span>
+          </div>
+          <div class="bt-detail-row">
+            <span class="bt-detail-k">Role</span>
+            <span class="bt-detail-v">Product Designer</span>
+          </div>
+          <div class="bt-detail-row">
+            <span class="bt-detail-k">Location</span>
+            <span class="bt-detail-v">San Jose, CA</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- INFJ — Feeling/Thinking: Thinking left, Feeling right -->
+      <div class="bt bt-b bt-infj-tile bc-4">
+        <span class="bt-label">Personality · INFJ</span>
+        <div class="bt-slider-row">
+          <div class="bt-slider-labels"><span>Introvert</span><span>Extrovert</span></div>
+          <div class="bt-slider-track">
+            <div class="bt-slider-fill" style="left:22%;width:28%;"></div>
+            <div class="bt-slider-dot" style="left:calc(22% - 4.5px);"></div>
+          </div>
+        </div>
+        <div class="bt-slider-row">
+          <div class="bt-slider-labels"><span>Intuitive</span><span>Sensing</span></div>
+          <div class="bt-slider-track">
+            <div class="bt-slider-fill" style="left:20%;width:30%;"></div>
+            <div class="bt-slider-dot" style="left:calc(20% - 4.5px);"></div>
+          </div>
+        </div>
+        <!-- Thinking on left, Feeling on right — dot sits right of center (feeling) -->
+        <div class="bt-slider-row">
+          <div class="bt-slider-labels"><span>Thinking</span><span>Feeling</span></div>
+          <div class="bt-slider-track">
+            <!-- Feeling is dominant → dot at 72% (right of center) -->
+            <div class="bt-slider-fill" style="left:50%;width:22%;"></div>
+            <div class="bt-slider-dot" style="left:calc(72% - 4.5px);"></div>
+          </div>
+        </div>
+        <div class="bt-slider-row">
+          <div class="bt-slider-labels"><span>Judging</span><span>Perceiving</span></div>
+          <div class="bt-slider-track">
+            <div class="bt-slider-fill" style="left:18%;width:32%;"></div>
+            <div class="bt-slider-dot" style="left:calc(18% - 4.5px);"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── ROW 2: Behaviors(6) · Motivation(6) ─── -->
+
+      <div class="bt bt-a bt-behaviors-tile bc-6">
+        <span class="bt-label">🌱 Behaviors</span>
+        <div class="bt-beh-grid">
+          <div class="bt-beh-card">
+            <img class="bt-beh-icon" src="assets/images/persona/coffee.svg" alt="" width="48" height="48">
+            <div class="bt-beh-name">Coffee, at least 1×/day</div>
+            <div class="bt-beh-desc">15 minutes of quiet before the day hits—it’s how I calibrate my focus.</div>
+          </div>
+          <div class="bt-beh-card">
+            <img class="bt-beh-icon" src="assets/images/persona/cat.svg" alt="" width="48" height="48">
+            <div class="bt-beh-name">Cats — my mental support</div>
+            <div class="bt-beh-desc">My daily reminder that there’s a world beyond pixels. Empathy starts at home.</div>
+          </div>
+          <div class="bt-beh-card">
+            <img class="bt-beh-icon" src="assets/images/persona/tree.svg" alt="" width="48" height="48">
+            <div class="bt-beh-name">Nature reset</div>
+            <div class="bt-beh-desc">My go-to space for clearing mental clutter and finding clarity.</div>
+          </div>
+          <div class="bt-beh-card">
+            <img class="bt-beh-icon" src="assets/images/persona/dumbbell.svg" alt="" width="48" height="48">
+            <div class="bt-beh-name">Gym, 3–4×/week</div>
+            <div class="bt-beh-desc">Treating design like training. It’s about showing up, staying disciplined, and iterating on the process.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bt bt-b bt-list-tile bc-6">
+        <span class="bt-label">🚀 Motivation</span>
+        <div class="bt-list">
+          <div class="bt-list-item"><strong>The Bridge-Builder:</strong> Thriving at the intersection of product, engineering, and user needs to create a unified vision.</div>
+          <div class="bt-list-item"><strong>Taming Ambiguity:</strong> I love diving into the “messy middle” of a project and emerging with a clear, user-focused path.</div>
+          <div class="bt-list-item"><strong>Crafting for Impact:</strong> I design for trust, turning fleeting user delight into long-term business value.</div>
+          <div class="bt-list-item"><strong>Legacy Mindset:</strong> I don’t just ship features; I leave products and systems more robust and scalable than I found them.</div>
+        </div>
+      </div>
+
+      <!-- ─── ROW 3: Goals(4) · Frustrations(4) · Quote(4) ─── -->
+
+      <div class="bt bt-a bt-list-tile bc-4">
+        <span class="bt-label">🎯 Goals</span>
+        <div class="bt-list">
+          <div class="bt-list-item"><strong>Human-centered at scale:</strong> Real emotional connection, not just task completion.</div>
+          <div class="bt-list-item"><strong>Business-aligned design:</strong> Every pixel tethered to a measurable outcome.</div>
+          <div class="bt-list-item"><strong>Systems-first:</strong> From 0→1 to robust, scalable design systems.</div>
+          <div class="bt-list-item"><strong>Cross-functional synergy:</strong> A culture built on shared data and empathy.</div>
+        </div>
+      </div>
+
+      <div class="bt bt-b bt-list-tile bc-4">
+        <span class="bt-label">⚡ Frustrations</span>
+        <div class="bt-list">
+          <div class="bt-list-item"><strong>Design as decoration:</strong> Aesthetics over solving validated user problems.</div>
+          <div class="bt-list-item"><strong>Designing in a vacuum:</strong> Shipping without data or feedback loops.</div>
+          <div class="bt-list-item"><strong>Team silos:</strong> Misalignment slowing meaningful, user-centric work.</div>
+          <div class="bt-list-item"><strong>Assumption-based decisions:</strong> Skipping the “why” before the “how.”</div>
+        </div>
+      </div>
+
+      <div class="bt bt-quote-tile bc-4">
+        <div class="bt-quote-mark">“</div>
+        <blockquote class="bt-quote-body">I take a holistic approach to design, turning human-centered insights into scalable business value.</blockquote>
+      </div>
+
+    </div><!-- /bento -->
+    </div><!-- /bento-card -->
+
+  </div><!-- /about-wrap -->
 </section>
 
-<div class="ticker" aria-hidden="true">
-  <div class="ticker-inner" id="tickerEl"></div>
-</div>
-
-<section id="work">
-
-  <!-- Section header -->
-  <div class="work-hdr reveal">
-    <div>
-      <span class="sec-ey">Selected Work</span>
-      <h2 class="sec-h">Design with Intent.</h2>
+<section id="resume">
+  <div class="rinner">
+    <div style="margin-bottom:56px;" class="reveal">
+      <span class="sec-ey">Experience</span>
+      <h2 class="sec-h" style="font-size:clamp(40px,5vw,64px);">WHERE I’VE<br>BEEN.</h2>
     </div>
-  </div>
-
-  <!-- 1/3 sticky left · 2/3 scrolling right -->
-  <div class="work-body">
-
-    <!-- LEFT: sticky index + live detail -->
-    <div class="work-left">
-      <div class="proj-index">
-        <div class="proj-idx-row active" data-p="0" onclick="scrollToPanel(0)">
-          <span class="proj-idx-num">01</span>
-          <span class="proj-idx-label">Adaptive Plan</span>
-          <span class="proj-idx-tick"></span>
-        </div>
-        <div class="proj-idx-row" data-p="1" onclick="scrollToPanel(1)">
-          <span class="proj-idx-num">02</span>
-          <span class="proj-idx-label">Year in Review</span>
-          <span class="proj-idx-tick"></span>
-        </div>
-        <div class="proj-idx-row" data-p="2" onclick="scrollToPanel(2)">
-          <span class="proj-idx-num">03</span>
-          <span class="proj-idx-label">Design System</span>
-          <span class="proj-idx-tick"></span>
-        </div>
-        <div class="proj-idx-row" data-p="3" onclick="scrollToPanel(3)">
-          <span class="proj-idx-num">04</span>
-          <span class="proj-idx-label">Mobile to TV</span>
-          <span class="proj-idx-tick"></span>
+    <div class="rg">
+      <div class="reveal">
+        <div class="rct">Work Experience</div>
+        <div class="tl">
+          <div class="tli"><div class="tl-ln"><div class="tl-dot"></div></div><div><div class="tl-per">Mar 2024 — Present</div><div class="tl-role">Product Designer</div><div class="tl-co">Jefit · Full-time</div><div class="tl-desc">End-to-end product design across Android, iOS, web &amp; wearables for 13M+ users. Shipped Year in Review 2025 (+78% revenue, +124% shares). Spearheaded 0→1 plan adaptation (+42% adoption, +28% D30 retention).</div></div></div>
+          <div class="tli"><div class="tl-ln"><div class="tl-dot"></div></div><div><div class="tl-per">Dec 2023 — Mar 2024</div><div class="tl-role">UI/UX Designer</div><div class="tl-co">Aware.ai · Internship</div><div class="tl-desc">Designed and iterated a rewards feature through 5 usability testing rounds, improving task completion by 40%. Delivered end-to-end user flows and wireframes bridging product vision with business objectives.</div></div></div>
+          <div class="tli"><div class="tl-ln"><div class="tl-dot"></div></div><div><div class="tl-per">Oct — Dec 2023</div><div class="tl-role">UX Design Strategist</div><div class="tl-co">Whatnot · Contract</div><div class="tl-desc">Designed mobile-to-TV live event experience (+35% cross-platform satisfaction). Drove UX strategy repositioning marketplace as community-first platform.</div></div></div>
+          <div class="tli"><div class="tl-ln"><div class="tl-dot"></div></div><div><div class="tl-per">May — Aug 2023</div><div class="tl-role">UX Designer</div><div class="tl-co">Hewlett Packard Enterprise · Internship</div><div class="tl-desc">Analytics dashboard prototypes driving 30% adoption increase. Research recommendations to 50+ stakeholders.</div></div></div>
         </div>
       </div>
-    </div>
-
-    <!-- RIGHT: scrolling panels — image + overlaid info -->
-    <div class="work-right" id="workRight">
-
-      <!-- Panel 01 -->
-      <div class="proj-panel" data-p="0" onclick="window.open('case-study-adaptive-plan.html', '_self')" title="View case study">
-        <div class="proj-panel-bg" style="background:linear-gradient(150deg,#0f172a 0%,#1e3a8a 55%,#1d4ed8 100%);"></div>
-        <div class="proj-panel-ph">
-          <div class="proj-panel-icon">🏋️</div>
-          <span class="proj-panel-ph-label">Add your screenshot here</span>
+      <div class="reveal">
+        <div class="rct">Education</div>
+        <div class="tl">
+          <div class="tli"><div class="tl-ln"><div class="tl-dot"></div></div><div><div class="tl-per">Aug 2021 — 2024</div><div class="tl-role">MS, Integrated Design, Business &amp; Technology</div><div class="tl-co">University of Southern California · GPA 3.97</div><div class="tl-desc">Human-centered design and business strategy.</div></div></div>
+          <div class="tli"><div class="tl-ln"><div class="tl-dot"></div></div><div><div class="tl-per">Sep 2015 — 2019</div><div class="tl-role">BS, Cognitive Science in HCI</div><div class="tl-co">University of California, San Diego · GPA 3.51</div><div class="tl-desc">Human-Computer Interaction specialization.</div></div></div>
         </div>
-        <span class="proj-panel-ghost">01</span>
-        <!-- Info overlay at bottom of image -->
-        <div class="proj-panel-info">
-          <div class="proj-panel-tags">
-            <span class="proj-panel-tag">0→1</span>
-            <span class="proj-panel-tag">Mobile</span>
-            <span class="proj-panel-tag">iOS · Android</span>
-          </div>
-          <div class="proj-panel-title">Adaptive Plan Feature</div>
-          <div class="proj-panel-desc">Replaced static pre-built plans with a fully personalized fitness experience — highest-impact feature Jefit has shipped to date.</div>
-          <div class="proj-panel-metrics">
-            <div><div class="proj-panel-met-val">+42%</div><div class="proj-panel-met-lbl">Adoption</div></div>
-            <div><div class="proj-panel-met-val">+28%</div><div class="proj-panel-met-lbl">D30 Retention</div></div>
-            <div><div class="proj-panel-met-val">14%</div><div class="proj-panel-met-lbl">Paywall CVR</div></div>
-          </div>
-          <a href="case-study-adaptive-plan.html" class="proj-panel-link">View Case Study &nbsp;↗</a>
-        </div>
+        <button class="rdl" onclick="openResumePdf()">↗ View Full Resume</button>
       </div>
-
-      <!-- Panel 02 -->
-      <div class="proj-panel" data-p="1" onclick="window.open('#case-study-year-in-review', '_self')" title="View case study">
-        <div class="proj-panel-bg" style="background:linear-gradient(150deg,#1e0730 0%,#6b21a8 55%,#a855f7 100%);"></div>
-        <div class="proj-panel-ph">
-          <div class="proj-panel-icon">🏆</div>
-          <span class="proj-panel-ph-label">Add your screenshot here</span>
-        </div>
-        <span class="proj-panel-ghost">02</span>
-        <div class="proj-panel-info">
-          <div class="proj-panel-tags">
-            <span class="proj-panel-tag">Social</span>
-            <span class="proj-panel-tag">Motion</span>
-            <span class="proj-panel-tag">Web</span>
-          </div>
-          <div class="proj-panel-title">Year in Review 2025</div>
-          <div class="proj-panel-desc">Jefit’s most shareable moment — a personalized annual recap that became the platform’s highest-revenue initiative.</div>
-          <div class="proj-panel-metrics">
-            <div><div class="proj-panel-met-val">+78%</div><div class="proj-panel-met-lbl">Revenue</div></div>
-            <div><div class="proj-panel-met-val">+124%</div><div class="proj-panel-met-lbl">Shares</div></div>
-            <div><div class="proj-panel-met-val">+33%</div><div class="proj-panel-met-lbl">Views</div></div>
-          </div>
-          <a href="#" class="proj-panel-link">View Case Study &nbsp;↗</a>
-        </div>
-      </div>
-
-      <!-- Panel 03 -->
-      <div class="proj-panel" data-p="2" onclick="window.open('#case-study-design-system', '_self')" title="View case study">
-        <div class="proj-panel-bg" style="background:linear-gradient(150deg,#022c22 0%,#065f46 55%,#10b981 100%);"></div>
-        <div class="proj-panel-ph">
-          <div class="proj-panel-icon">🧩</div>
-          <span class="proj-panel-ph-label">Add your screenshot here</span>
-        </div>
-        <span class="proj-panel-ghost">03</span>
-        <div class="proj-panel-info">
-          <div class="proj-panel-tags">
-            <span class="proj-panel-tag">Design System</span>
-            <span class="proj-panel-tag">Cross-platform</span>
-          </div>
-          <div class="proj-panel-title">Scalable Design System</div>
-          <div class="proj-panel-desc">Architected a cross-platform design system spanning Android, iOS, web &amp; wearables — unifying the team and cutting overhead.</div>
-          <div class="proj-panel-metrics">
-            <div><div class="proj-panel-met-val">30%</div><div class="proj-panel-met-lbl">Efficiency Gain</div></div>
-            <div><div class="proj-panel-met-val">4</div><div class="proj-panel-met-lbl">Platforms</div></div>
-            <div><div class="proj-panel-met-val">13M+</div><div class="proj-panel-met-lbl">Users</div></div>
-          </div>
-          <a href="#" class="proj-panel-link">View Case Study &nbsp;↗</a>
-        </div>
-      </div>
-
-      <!-- Panel 04 -->
-      <div class="proj-panel" data-p="3" onclick="window.open('#case-study-mobile-to-tv', '_self')" title="View case study">
-        <div class="proj-panel-bg" style="background:linear-gradient(150deg,#1c0a00 0%,#92400e 55%,#f59e0b 100%);"></div>
-        <div class="proj-panel-ph">
-          <div class="proj-panel-icon">📺</div>
-          <span class="proj-panel-ph-label">Add your screenshot here</span>
-        </div>
-        <span class="proj-panel-ghost">04</span>
-        <div class="proj-panel-info">
-          <div class="proj-panel-tags">
-            <span class="proj-panel-tag">Strategy</span>
-            <span class="proj-panel-tag">UX</span>
-            <span class="proj-panel-tag">Whatnot</span>
-          </div>
-          <div class="proj-panel-title">Mobile to TV Live Experience</div>
-          <div class="proj-panel-desc">Designed Whatnot’s cross-device live event experience and repositioned the marketplace as a community-first platform.</div>
-          <div class="proj-panel-metrics">
-            <div><div class="proj-panel-met-val">+35%</div><div class="proj-panel-met-lbl">Satisfaction</div></div>
-            <div><div class="proj-panel-met-val">2</div><div class="proj-panel-met-lbl">Platforms</div></div>
-            <div><div class="proj-panel-met-val">↑</div><div class="proj-panel-met-lbl">Roadmap Impact</div></div>
-          </div>
-          <a href="#" class="proj-panel-link">View Case Study &nbsp;↗</a>
-        </div>
-      </div>
-
-    </div><!-- /work-right -->
-  </div><!-- /work-body -->
-
-</section>
-
-
-<section id="floats">
-  <div class="fa-wrap">
-    <div class="fa-head reveal">
-      <span class="sec-ey">— A glimpse of me —</span>
-      <h2>Things I love.</h2>
-    </div>
-    <div class="fa-stage" id="faStage">
-      <div class="fa-card fa-c1" data-speed="0.18"><div class="fa-float"><span class="fa-emoji">☕</span><span class="fa-label">Coffee</span></div></div>
-      <div class="fa-card work fa-c2" data-speed="0.10"><div class="fa-float"><div class="fa-mockup"><div class="fa-mockup-bar accent"></div><div class="fa-mockup-bar long"></div><div class="fa-mockup-bar short"></div><div class="fa-mockup-pill"></div></div><span class="fa-label">Adaptive Plan</span></div></div>
-      <div class="fa-card fa-c3" data-speed="0.22"><div class="fa-float"><span class="fa-emoji">🐱</span><span class="fa-label">Cats</span></div></div>
-      <div class="fa-card work fa-c4" data-speed="0.14"><div class="fa-float"><div class="fa-mockup"><div class="fa-mockup-bar long"></div><div class="fa-mockup-bar short"></div><div class="fa-mockup-grid"><div></div><div></div><div></div><div></div></div></div><span class="fa-label">Design System</span></div></div>
-      <div class="fa-card fa-c5" data-speed="0.20"><div class="fa-float"><span class="fa-emoji">🏋️‍♀️</span><span class="fa-label">Gym, 3×/wk</span></div></div>
-      <div class="fa-card fa-c6" data-speed="0.12"><div class="fa-float"><span class="fa-emoji">🌿</span><span class="fa-label">Nature reset</span></div></div>
-      <div class="fa-card work fa-c7" data-speed="0.16"><div class="fa-float"><div class="fa-mockup"><div class="fa-mockup-bar accent short"></div><div class="fa-mockup-bar long"></div><div class="fa-mockup-bar"></div><div class="fa-mockup-bar long"></div><div class="fa-mockup-pill"></div></div><span class="fa-label">Year in Review</span></div></div>
-      <div class="fa-card fa-c8" data-speed="0.24"><div class="fa-float"><span class="fa-emoji">📚</span><span class="fa-label">Books</span></div></div>
     </div>
   </div>
 </section>
-
 
 <section id="chat">
   <div class="chat-inner reveal">
@@ -1284,44 +1216,6 @@ document.querySelectorAll('a,button,label').forEach(el=>{
   el.addEventListener('mouseleave',()=>cur.classList.remove('hover'));
 });
 
-/* ── BUILD TITLE with per-char spans ── */
-const lines=['LET\'S BUILD','TOGETHER.'];
-const titleEl=document.getElementById('heroTitle');
-titleEl.innerHTML=lines.map((line,li)=>
-  line.split('').map(ch=>
-    ch===' '?'<span class="gc"> </span>':`<span class="gc">${ch}</span>`
-  ).join('') + (li<lines.length-1?'<br>':'')
-).join('');
-
-/* ── GLOW STAGE — orb follows mouse + char proximity glow ── */
-const stage=document.getElementById('glowStage');
-const chars=document.querySelectorAll('.gc');
-
-document.addEventListener('mousemove',e=>{
-  /* Move the orb */
-  const rect=stage.getBoundingClientRect();
-  stage.style.setProperty('--mx',(e.clientX-rect.left)+'px');
-  stage.style.setProperty('--my',(e.clientY-rect.top)+'px');
-
-  /* Glow nearby chars */
-  chars.forEach(ch=>{
-    const r=ch.getBoundingClientRect();
-    const cx=r.left+r.width/2, cy=r.top+r.height/2;
-    const dist=Math.hypot(e.clientX-cx,e.clientY-cy);
-    const radius=140;
-    if(dist<radius){
-      ch.classList.add('glow');
-    } else {
-      ch.classList.remove('glow');
-    }
-  });
-});
-
-/* ── TICKER ── */
-const words=['UX Research','Product Design','Design Systems','0→1','User Testing','Interaction Design','Visual Design','Strategy'];
-const el=document.getElementById('tickerEl');
-const items=[...words,...words].map(w=>`<span class="t-item"><span class="t-sep"></span>${w}</span>`).join('');
-el.innerHTML=items+items;
 
 
 
@@ -1364,90 +1258,9 @@ document.addEventListener('click', e => {
   if (!e.target.closest('nav')) closeMenu();
 });
 
-/* ── STICKY SCROLL PROJECT SWITCHER ── */
-const PROJS = [
-  {
-    url:'case-study-adaptive-plan.html',
-    tags:['0→1','Mobile','iOS · Android'],
-    name:'Adaptive Plan\nFeature',
-    desc:'Replaced static pre-built plans with a fully personalized fitness experience — highest-impact feature Jefit has shipped to date.',
-    metrics:[{v:'+42%',l:'Adoption'},{v:'+28%',l:'D30 Retention'},{v:'14%',l:'Paywall CVR'}],
-  },
-  {
-    tags:['Social','Motion','Web'],
-    name:'Year in Review\n2025',
-    desc:"Jefit's most shareable moment — a personalized annual recap that drove the platform's highest-ever revenue.",
-    metrics:[{v:'+78%',l:'Revenue'},{v:'+124%',l:'Shares'},{v:'+33%',l:'Views'}],
-  },
-  {
-    tags:['Design System','Cross-platform'],
-    name:'Scalable Design\nSystem',
-    desc:'Architected a cross-platform system spanning Android, iOS, web, and wearables — unifying design and cutting overhead.',
-    metrics:[{v:'30%',l:'Efficiency Gain'},{v:'4',l:'Platforms'},{v:'13M+',l:'Users'}],
-  },
-  {
-    tags:['Strategy','UX','Whatnot'],
-    name:'Mobile to TV\nLive Experience',
-    desc:"Designed Whatnot's cross-device live event experience and repositioned the marketplace as community-first.",
-    metrics:[{v:'+35%',l:'Satisfaction'},{v:'2',l:'Platforms'},{v:'↑',l:'Roadmap Impact'}],
-  },
-];
-
-const detailEl = document.getElementById('projDetail');
-const idxRows  = document.querySelectorAll('.proj-idx-row');
-const panels   = document.querySelectorAll('.proj-panel');
-let activePi   = 0;
-
-function setActiveProj(i) {
-  if (i === activePi) return;
-  activePi = i;
-  idxRows.forEach((r, ri) => r.classList.toggle('active', ri === i));
-}
-
-function scrollToPanel(i) {
-  panels[i].scrollIntoView({ behavior:'smooth', block:'start' });
-}
-
-
-// IntersectionObserver: sync left panel when right panels enter viewport
-const panelObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting && e.intersectionRatio >= 0.4) {
-      const i = parseInt(e.target.getAttribute('data-p'));
-      setActiveProj(i);
-    }
-  });
-}, { threshold: 0.4 });
-
-panels.forEach(p => panelObs.observe(p));
-
 /* ── REVEAL ── */
 const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});},{threshold:.08});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-
-/* ── FLOATING ASSETS — scroll parallax ── */
-(function(){
-  const stage=document.getElementById('faStage');
-  if(!stage)return;
-  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduce)return;
-  const cards=stage.querySelectorAll('.fa-card');
-  let raf=null;
-  function update(){
-    const rect=stage.getBoundingClientRect();
-    const vh=window.innerHeight;
-    const center=rect.top+rect.height/2;
-    const offset=(vh/2-center);
-    cards.forEach(card=>{
-      const speed=parseFloat(card.dataset.speed)||0.1;
-      card.style.setProperty('--scroll-y',(offset*speed).toFixed(1)+'px');
-    });
-    raf=null;
-  }
-  window.addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(update);},{passive:true});
-  window.addEventListener('resize',()=>{if(!raf)raf=requestAnimationFrame(update);},{passive:true});
-  update();
-})();
 
 /* ── INFJ slider calibration animation ── */
 (function(){
