@@ -10,10 +10,17 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;font-size:120%;}
 body{background:var(--bg);color:var(--ink);font-family:var(--font-body);overflow-x:hidden;cursor:none;-webkit-font-smoothing:antialiased;transition:background .4s,color .4s;}
+html, body, body *, body *::before, body *::after { cursor:none !important; }
+@media(hover:none) and (pointer:coarse) {
+  html, body, body *, body *::before, body *::after { cursor:auto !important; }
+  a, button, label, [role="button"] { cursor:pointer !important; }
+}
 
 /* CURSOR */
-#cur{position:fixed;z-index:9999;pointer-events:none;width:12px;height:12px;border-radius:100px;background:var(--accent);transform:translate(-50%,-50%);transition:width .22s cubic-bezier(.34,1.56,.64,1),height .22s,border-radius .22s,background .2s;}
-#cur.hover{width:52px;height:22px;border-radius:100px;background:var(--ink);}
+#cur{position:fixed;z-index:9999;pointer-events:none;width:26px;height:26px;background:url('assets/images/cursor_default.svg') center / contain no-repeat;transform:translate(-50%,-50%);transition:width .22s cubic-bezier(.34,1.56,.64,1),height .22s;}
+#cur.hover{width:30px;height:30px;background-image:url('assets/images/cursor_tap.svg');}
+[data-theme="dark"] #cur,
+[data-theme="dark"] #cur.hover{filter:brightness(1.15) saturate(1.1);}
 
 /* NAV — exact portfolio */
 nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:var(--nav-bg);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:background .4s,border-color .4s;}
@@ -202,21 +209,37 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-callout-label{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
 .cs-callout-text{font-size:var(--fs-base);color:var(--ink-2);line-height:1.7;}
 
+/* ── HMW full-bleed band ── */
+.cs-hmw-band{position:relative;width:100%;background:var(--spotlight-bg);padding:120px 52px;margin-top:64px;overflow:hidden;--mx:50%;--my:50%;}
+.cs-hmw-band::before{content:'';position:absolute;inset:0;background:radial-gradient(circle 420px at var(--mx) var(--my), rgba(37,99,235,.32), transparent 65%);pointer-events:none;opacity:0;transition:opacity .5s ease;}
+.cs-hmw-band:hover::before{opacity:1;}
+.cs-hmw-inner{max-width:1200px;margin:0 auto;text-align:center;position:relative;z-index:1;}
+.cs-hmw-eyebrow{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:28px;}
+.cs-hmw-question{font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:clamp(32px,4.5vw,56px);line-height:1.25;letter-spacing:-.025em;color:var(--spotlight-ink-mute);margin:0;}
+.cs-hmw-key{font-style:normal;}
+.cs-hmw-word{display:inline-block;opacity:0;transform:translateY(8px);transition:opacity .55s ease, transform .55s ease, color .25s ease;transition-delay:calc(var(--i,0) * 55ms);}
+.cs-hmw-band.in .cs-hmw-word{opacity:1;transform:none;transition-delay:calc(var(--i,0) * 55ms), calc(var(--i,0) * 55ms), 0s;}
+.cs-hmw-band.in .cs-hmw-word:not(.cs-hmw-word-key){color:color-mix(in srgb, var(--spotlight-ink-mute), var(--spotlight-ink) calc(var(--p,0) * 100%));}
+.cs-hmw-word-key{color:var(--spotlight-ink);cursor:default;transition:opacity .55s ease, transform .35s cubic-bezier(.34,1.56,.64,1);}
+.cs-hmw-band.in .cs-hmw-word-key:hover{transform:translateY(-2px) scale(1.04);}
+@media(max-width:767px){.cs-hmw-band{padding:80px 24px;margin-top:48px;}}
+@media (prefers-reduced-motion: reduce){.cs-hmw-band::before{display:none;}.cs-hmw-word{opacity:1;transform:none;transition:none;}}
+
 /* CARDS */
 .cs-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px;}
 .cs-card{background:var(--surf);border:1px solid var(--border);border-radius:20px;padding:32px 32px;transition:background .4s,border-color .4s,transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s;}
 .cs-card:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.08);}
 [data-theme="dark"] .cs-card:hover{box-shadow:0 12px 40px rgba(0,0,0,.45);}
 .cs-card-icon{font-size:var(--fs-md);line-height:1;}
-.cs-card-title{font-size:var(--fs-base);font-weight:var(--fw-bold);color:var(--ink);letter-spacing:-.01em;line-height:1.3;}
-.cs-card-text{font-size:var(--fs-base);color:var(--ink-2);line-height:1.65;margin-top:2px;}
+.cs-card-title{font-size:var(--fs-md);font-weight:var(--fw-semibold);color:var(--ink);letter-spacing:-.02em;line-height:1.2;margin-bottom:8px;}
+.cs-card-text{font-size:var(--fs-base);color:var(--ink-2);line-height:1.55;}
 
 /* DIRECTION CARDS */
 .cs-direction{border-radius:20px;padding:28px 28px;border:1px solid var(--border);background:var(--surf);transition:background .4s,border-color .4s;}
 .cs-direction.chosen{border-top:3px solid var(--accent);}
 .cs-direction-icon{font-size:var(--fs-md);margin-bottom:10px;}
-.cs-direction-title{font-size:var(--fs-base);font-weight:var(--fw-bold);color:var(--ink);margin-bottom:6px;letter-spacing:-.01em;}
-.cs-direction-text{font-size:var(--fs-base);color:var(--ink-2);line-height:1.7;}
+.cs-direction-title{font-size:var(--fs-md);font-weight:var(--fw-semibold);color:var(--ink);margin-bottom:8px;letter-spacing:-.02em;line-height:1.2;}
+.cs-direction-text{font-size:var(--fs-base);color:var(--ink-2);line-height:1.55;}
 
 /* PROCESS STEPS */
 .cs-steps{display:flex;flex-direction:column;gap:0;margin-top:36px;}
@@ -229,39 +252,73 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-step-title{font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:var(--fs-md);letter-spacing:-.02em;color:var(--ink);margin-bottom:10px;}
 .cs-step-text{font-size:var(--fs-base);color:var(--ink-2);line-height:1.75;}
 
+/* SOLUTION SUBHEAD */
+.cs-subhead{font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:var(--fs-lg);letter-spacing:-.02em;color:var(--ink);margin:0 0 12px;}
+
+/* SOLUTION FEATURE SPLIT — text + video side by side */
+.cs-feature-split{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;margin-top:80px;}
+.cs-feature-split.reverse .cs-feature-text{order:2;}
+.cs-feature-split.reverse .cs-feature-video{order:1;}
+.cs-feature-text{display:flex;flex-direction:column;}
+.cs-feature-text h3{font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:var(--fs-lg);line-height:1.15;letter-spacing:-.02em;color:var(--ink);margin:0;}
+.cs-feature-text p{font-size:var(--fs-base);color:var(--ink-2);line-height:1.65;margin:18px 0 0;}
+.cs-feature-eyebrow{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+.cs-feature-video{aspect-ratio:4/5;background:var(--bg-2);border:1px solid var(--border);border-radius:24px;overflow:hidden;position:relative;transition:background .4s,border-color .4s;}
+.cs-feature-video video{width:100%;height:100%;object-fit:cover;display:block;}
+.cs-feature-video-ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--ink-3);}
+.cs-feature-video-ph-icon{font-size:var(--fs-2xl);opacity:.4;line-height:1;}
+.cs-feature-video-ph-label{font-size:var(--fs-sm);letter-spacing:.04em;color:var(--ink-3);}
+@media(max-width:960px){.cs-feature-split{grid-template-columns:1fr;gap:32px;margin-top:56px;}.cs-feature-split.reverse .cs-feature-text{order:initial;}.cs-feature-split.reverse .cs-feature-video{order:initial;}.cs-feature-video{aspect-ratio:5/4;}}
+.cs-feature-divider{display:flex;align-items:center;gap:24px;margin-top:120px;margin-bottom:8px;}
+.cs-feature-divider::before,.cs-feature-divider::after{content:'';flex:1;height:1px;background:var(--border);}
+.cs-feature-divider-label{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);}
+
+/* BEHIND THE SCENES — accordion */
+.cs-bts{display:flex;flex-direction:column;margin-top:40px;border-top:1px solid var(--border);}
+.cs-bts-row{border-bottom:1px solid var(--border);transition:background .35s ease;}
+.cs-bts-row[open]{background:linear-gradient(to bottom, rgba(37,99,235,.02), transparent 40%);}
+.cs-bts-summary{display:flex;align-items:center;gap:24px;padding:28px 4px;cursor:none;list-style:none;}
+.cs-bts-summary::-webkit-details-marker{display:none;}
+.cs-bts-summary::marker{display:none;content:'';}
+.cs-bts-num{font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:var(--fs-sm);letter-spacing:.16em;color:var(--ink-3);min-width:42px;flex-shrink:0;transition:color .35s ease;}
+.cs-bts-title{font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:clamp(22px,2.4vw,30px);line-height:1.2;letter-spacing:-.02em;color:var(--ink-2);flex:1;transition:color .35s ease,transform .35s ease;}
+.cs-bts-toggle{width:34px;height:34px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--ink-3);transition:background .25s ease,color .25s ease,transform .4s cubic-bezier(.34,1.56,.64,1),border-color .25s ease;flex-shrink:0;}
+.cs-bts-toggle svg{width:14px;height:14px;}
+.cs-bts-row:hover .cs-bts-num{color:var(--ink-2);}
+.cs-bts-row:hover .cs-bts-title{color:var(--ink);transform:translateX(4px);}
+.cs-bts-row:hover .cs-bts-toggle{border-color:var(--ink-2);color:var(--ink-2);}
+.cs-bts-row[open] .cs-bts-num{color:var(--accent);}
+.cs-bts-row[open] .cs-bts-title{color:var(--ink);}
+.cs-bts-row[open] .cs-bts-toggle{transform:rotate(45deg);background:var(--accent);border-color:var(--accent);color:#fff;}
+.cs-bts-body{padding:0 4px 36px;padding-left:66px;}
+.cs-bts-body-inner{animation:cs-bts-fade .4s ease;font-size:var(--p1-size);color:var(--ink-2);line-height:var(--p1-line);}
+.cs-bts-body-inner p{margin:0;}
+.cs-bts-body-inner p+p{margin-top:14px;}
+.cs-bts-body-inner strong{color:var(--ink);font-weight:var(--fw-semibold);}
+@keyframes cs-bts-fade{from{opacity:0;transform:translateY(-4px);}to{opacity:1;transform:none;}}
+@media(max-width:767px){
+  .cs-bts-summary{padding:22px 0;gap:14px;}
+  .cs-bts-num{min-width:30px;}
+  .cs-bts-title{font-size:var(--fs-md);}
+  .cs-bts-body{padding-left:0;padding-right:0;padding-bottom:28px;}
+}
+@media (prefers-reduced-motion: reduce){.cs-bts-body-inner{animation:none;}.cs-bts-row,.cs-bts-title,.cs-bts-toggle{transition:none;}}
+
 /* PULL QUOTE */
 .cs-pull-quote{border-left:3px solid var(--accent);padding:12px 28px;margin:36px 0;}
 .cs-pull-quote-text{font-size:var(--fs-md);font-weight:var(--fw-light);font-style:italic;color:var(--ink);line-height:1.55;letter-spacing:-.02em;}
 .cs-pull-quote-attr{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-top:10px;}
 
 /* DATA INSIGHTS — NDA-safe takeaways */
-.cs-insights{margin-top:28px;border:1px solid var(--border);border-radius:16px;overflow:hidden;background:var(--border);display:flex;flex-direction:column;gap:1px;}
-.cs-insight{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:flex-start;padding:20px 24px;background:var(--surf);transition:background .25s;}
-.cs-insight:hover{background:rgba(37,99,235,.03);}
-[data-theme="dark"] .cs-insight:hover{background:rgba(59,130,246,.05);}
-.cs-insight-num{font-family:var(--font-display);font-size:var(--fs-base);font-weight:var(--fw-bold);color:var(--accent);letter-spacing:.06em;line-height:1.4;min-width:28px;}
-.cs-insight-head{font-size:var(--fs-base);font-weight:var(--fw-semibold);color:var(--ink);line-height:1.4;letter-spacing:-.01em;margin-bottom:6px;}
-.cs-insight-text{font-size:var(--fs-base);color:var(--ink-2);line-height:1.65;}
-
-/* VOICE OF CUSTOMER — chat bubble */
-.cs-voc-list{display:flex;flex-direction:column;gap:18px;margin-top:24px;}
-.cs-voc{display:flex;gap:18px;align-items:flex-start;}
-.cs-voc-avatar{width:64px;height:64px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:var(--fs-lg);flex-shrink:0;border:1px solid var(--border);line-height:1;}
-[data-theme="dark"] .cs-voc-avatar{background:#fff;}
-.cs-voc-bubble{position:relative;background:var(--surf);border:1px solid var(--border);border-radius:18px;padding:20px 24px;box-shadow:0 6px 28px rgba(0,0,0,.05);flex:1;min-width:0;}
-[data-theme="dark"] .cs-voc-bubble{box-shadow:0 6px 28px rgba(0,0,0,.25);}
-.cs-voc-bubble::before{content:"";position:absolute;left:-7px;top:18px;width:14px;height:14px;background:var(--surf);border-left:1px solid var(--border);border-bottom:1px solid var(--border);transform:rotate(45deg);}
-.cs-voc-text{font-size:var(--fs-base);color:var(--ink-2);line-height:1.65;font-style:italic;}
-.cs-voc-text mark{background-image:linear-gradient(transparent 58%, rgba(234,179,8,.45) 58%);background-repeat:no-repeat;background-size:0% 100%;color:var(--ink);font-weight:var(--fw-medium);font-style:normal;padding:0 2px;border-radius:2px;transition:background-size .75s cubic-bezier(.22,1,.36,1);}
-[data-theme="dark"] .cs-voc-text mark{background-image:linear-gradient(transparent 58%, rgba(234,179,8,.35) 58%);color:var(--ink);}
-.cs-voc-list.in .cs-voc-text mark{background-size:100% 100%;}
-.cs-voc-list.in .cs-voc-text mark:nth-of-type(1){transition-delay:.25s;}
-.cs-voc-list.in .cs-voc-text mark:nth-of-type(2){transition-delay:.55s;}
-.cs-voc-list.in .cs-voc-text mark:nth-of-type(3){transition-delay:.85s;}
-@media (prefers-reduced-motion: reduce){
-  .cs-voc-text mark{background-size:100% 100%;transition:none;}
-}
-.cs-voc-attr{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-top:14px;}
+.cs-insights{margin-top:28px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.cs-insight{display:flex;flex-direction:column;gap:18px;background:var(--surf);border:1px solid var(--border);border-radius:18px;padding:36px 28px 32px;transition:background .35s, border-color .35s, transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s;}
+.cs-insight:hover{border-color:var(--border-h);transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,.06);}
+[data-theme="dark"] .cs-insight:hover{box-shadow:0 12px 32px rgba(0,0,0,.4);}
+.cs-insight-icon{width:32px;height:32px;color:var(--accent);transition:transform .4s cubic-bezier(.22,1,.36,1);flex-shrink:0;}
+.cs-insight:hover .cs-insight-icon{transform:scale(1.1) rotate(-3deg);}
+.cs-insight-head{font-size:var(--fs-md);font-weight:var(--fw-semibold);color:var(--ink);line-height:1.2;letter-spacing:-.02em;margin:0 0 10px;}
+.cs-insight-text{font-size:var(--fs-base);color:var(--ink-2);line-height:1.55;margin:0;}
+@media(max-width:767px){.cs-insights{grid-template-columns:1fr;gap:12px;}.cs-insight{padding:28px 24px 26px;}}
 
 /* OUTCOMES */
 .cs-outcomes{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px;}
@@ -289,12 +346,78 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-problem-block{margin-top:48px;}
 .cs-problem-lead{font-size:var(--fs-base);font-weight:var(--fw-semibold);color:var(--ink);line-height:1.5;margin-bottom:1rem;letter-spacing:-.01em;}
 
+/* VOICE OF CUSTOMER — testimonial cards */
+.cs-voc-list{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px;align-items:stretch;}
+.cs-voc{position:relative;display:flex;flex-direction:column;gap:18px;background:var(--surf);border:1px solid var(--border);border-radius:18px;padding:36px 28px 24px;transition:background .4s,border-color .4s,transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s;}
+.cs-voc:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,0,0,.06);border-color:var(--border-h);}
+[data-theme="dark"] .cs-voc:hover{box-shadow:0 12px 32px rgba(0,0,0,.35);}
+.cs-voc::before{content:"\201C";position:absolute;top:6px;left:22px;font-family:var(--font-display);font-weight:var(--fw-bold);font-size:var(--fs-3xl);color:var(--accent);opacity:.18;line-height:1;pointer-events:none;}
+.cs-voc-text{flex:1;font-size:var(--fs-base);color:var(--ink-2);line-height:1.6;font-style:italic;letter-spacing:-.005em;}
+.cs-voc-text mark{background-image:linear-gradient(transparent 58%, rgba(234,179,8,.45) 58%);background-repeat:no-repeat;background-size:0% 100%;color:var(--ink);font-weight:var(--fw-medium);font-style:normal;padding:0 2px;border-radius:2px;transition:background-size .75s cubic-bezier(.22,1,.36,1);}
+[data-theme="dark"] .cs-voc-text mark{background-image:linear-gradient(rgba(250,204,21,.92), rgba(250,204,21,.92));color:#0A0A0A;}
+.cs-voc-list.in .cs-voc-text mark{background-size:100% 100%;}
+.cs-voc-list.in .cs-voc:nth-of-type(1) .cs-voc-text mark{transition-delay:.25s;}
+.cs-voc-list.in .cs-voc:nth-of-type(2) .cs-voc-text mark{transition-delay:.45s;}
+.cs-voc-list.in .cs-voc:nth-of-type(3) .cs-voc-text mark{transition-delay:.65s;}
+@media (prefers-reduced-motion: reduce){
+  .cs-voc-text mark{background-size:100% 100%;transition:none;}
+}
+.cs-voc-footer{display:flex;align-items:center;gap:12px;padding-top:18px;border-top:1px solid var(--border);margin-top:auto;}
+.cs-voc-avatar{width:40px;height:40px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid var(--border);overflow:hidden;}
+.cs-voc-avatar img{width:30px;height:30px;}
+[data-theme="dark"] .cs-voc-avatar{background:#fff;}
+.cs-voc-meta{display:flex;flex-direction:column;gap:2px;min-width:0;}
+.cs-voc-name{font-size:var(--fs-base);font-weight:var(--fw-semibold);color:var(--ink);letter-spacing:-.01em;line-height:1.2;}
+.cs-voc-role{font-size:var(--fs-xs);font-weight:var(--fw-medium);color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase;}
+@media(max-width:900px){.cs-voc-list{grid-template-columns:1fr;gap:14px;}.cs-voc{padding:32px 24px 22px;}}
+
 /* Pain stats — quantitative anchor in Problem section */
 .cs-pain-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:24px 48px;margin:32px 0 28px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:28px 0;}
 .cs-pain-stat{display:flex;flex-direction:column;gap:8px;}
 .cs-pain-stat-val{font-family:var(--font-display);font-weight:var(--fw-bold);font-size:var(--fs-2xl);letter-spacing:-.03em;color:var(--ink);line-height:1;}
 .cs-pain-stat-lbl{font-size:var(--fs-base);font-weight:var(--fw-medium);color:var(--ink-2);letter-spacing:.01em;}
 .cs-pain-stats-source{grid-column:1/-1;font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);}
+
+/* Problem · what we'd already tried (inline prose, prior attempts ruled out) */
+.cs-tried{margin-top:48px;padding-top:32px;border-top:1px solid var(--border);}
+.cs-tried-label{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin-bottom:14px;}
+
+/* TABS — apple.com/mac inspired pill nav */
+.cs-tabs{margin-top:32px;}
+.cs-tab-nav{display:inline-flex;gap:4px;background:var(--bg-2);border:1px solid var(--border);border-radius:100px;padding:4px;margin-bottom:32px;transition:background .4s,border-color .4s;}
+.cs-tab-btn{font-family:inherit;font-size:var(--fs-base);font-weight:var(--fw-semibold);letter-spacing:-.01em;color:var(--ink-2);background:none;border:none;border-radius:100px;padding:10px 22px;cursor:none;transition:background .25s,color .25s;white-space:nowrap;}
+.cs-tab-btn:hover{color:var(--ink);}
+.cs-tab-btn.is-active{background:var(--ink);color:var(--bg);}
+.cs-tab-btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+.cs-tab-panel{display:none;}
+.cs-tab-panel.is-active{display:block;animation:csTabIn .35s cubic-bezier(.22,1,.36,1);}
+@keyframes csTabIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+
+/* QUALITATIVE CAROUSEL — horizontal scroll */
+.cs-carousel{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 0;margin-top:24px;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.cs-carousel::-webkit-scrollbar{display:none;}
+
+/* CAROUSEL NAV — prev/next icon buttons */
+.cs-carousel-nav{display:flex;gap:8px;justify-content:flex-end;margin-top:20px;}
+.cs-carousel-btn{width:44px;height:44px;border-radius:50%;background:var(--bg-2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:none;color:var(--ink-2);transition:background .25s,border-color .25s,color .25s,opacity .25s;flex-shrink:0;padding:0;}
+.cs-carousel-btn:hover:not(:disabled){background:var(--ink);color:var(--bg);border-color:var(--ink);}
+.cs-carousel-btn:disabled{opacity:.35;cursor:not-allowed;}
+.cs-carousel-btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+.cs-carousel-btn svg{width:16px;height:16px;display:block;}
+.cs-carousel-card{flex:0 0 380px;scroll-snap-align:start;background:var(--bg-2);border:1px solid var(--border);border-radius:28px;overflow:hidden;display:flex;flex-direction:column;transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s,border-color .3s,background .4s;}
+.cs-carousel-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,.1);border-color:var(--border-h);}
+[data-theme="dark"] .cs-carousel-card:hover{box-shadow:0 16px 48px rgba(0,0,0,.5);}
+.cs-carousel-card-img{aspect-ratio:5/4;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;padding:32px;}
+.cs-carousel-card-img img,.cs-carousel-card-img svg{max-width:100%;max-height:100%;object-fit:contain;display:block;}
+.cs-carousel-card-img-icon{font-size:var(--fs-3xl);opacity:.35;line-height:1;}
+.cs-carousel-card-body{padding:0 36px 36px;display:flex;flex-direction:column;gap:10px;}
+.cs-carousel-card-title{font-size:var(--fs-md);font-weight:var(--fw-semibold);color:var(--ink);letter-spacing:-.02em;line-height:1.2;}
+.cs-carousel-card-text{font-size:var(--fs-base);color:var(--ink-2);line-height:1.55;}
+@media(max-width:767px){
+  .cs-carousel-card{flex:0 0 300px;border-radius:24px;}
+  .cs-carousel-card-img{padding:24px;}
+  .cs-carousel-card-body{padding:0 28px 28px;}
+}
 
 /* DIVIDER */
 .cs-divider{height:1px;background:var(--border);margin:28px 0;}
@@ -487,6 +610,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
   .cs-wrap { padding: 0 20px; }
   .cs-hero-inner { padding: 0; }
 }
+
+/* ── Footer (synced with index.html) ── */
+footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;border-top:1px solid var(--border);transition:background .4s,color .4s;}
+.ft-name{font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:var(--fs-lg);letter-spacing:.04em;}
+.ft-tag{font-size:var(--fs-base);color:rgba(245,245,245,.75);margin-top:4px;}
+.ft-copy{font-size:var(--fs-sm);color:rgba(245,245,245,.45);letter-spacing:.02em;align-self:flex-end;}
+[data-theme="dark"] footer { background:#141414; }
+[data-theme="dark"] .ft-name { color:#F5F5F5; }
+[data-theme="dark"] .ft-tag { color:rgba(245,245,245,.75); }
 </style>
 </head>
 <body>
@@ -554,29 +686,23 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
         <span class="cs-idx-label">Research</span>
         <span class="cs-idx-tick"></span>
       </a>
-      <a href="#ideation"   class="cs-idx-row" data-section="ideation">
+      <a href="#solution"   class="cs-idx-row" data-section="solution">
         <span class="cs-idx-num">04</span>
-        <span class="cs-idx-label">Ideation</span>
+        <span class="cs-idx-label">Solution</span>
         <span class="cs-idx-tick"></span>
       </a>
-
-      <a href="#strategy"   class="cs-idx-row" data-section="strategy">
+      <a href="#behind"     class="cs-idx-row" data-section="behind">
         <span class="cs-idx-num">05</span>
-        <span class="cs-idx-label">Strategy</span>
-        <span class="cs-idx-tick"></span>
-      </a>
-      <a href="#design"     class="cs-idx-row" data-section="design">
-        <span class="cs-idx-num">06</span>
-        <span class="cs-idx-label">Design</span>
+        <span class="cs-idx-label">Behind the Scenes</span>
         <span class="cs-idx-tick"></span>
       </a>
       <a href="#outcomes"   class="cs-idx-row" data-section="outcomes">
-        <span class="cs-idx-num">07</span>
+        <span class="cs-idx-num">06</span>
         <span class="cs-idx-label">Outcomes</span>
         <span class="cs-idx-tick"></span>
       </a>
       <a href="#reflection" class="cs-idx-row" data-section="reflection">
-        <span class="cs-idx-num">08</span>
+        <span class="cs-idx-num">07</span>
         <span class="cs-idx-label">Reflection</span>
         <span class="cs-idx-tick"></span>
       </a>
@@ -733,26 +859,40 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
       </div>
       <div class="cs-voc-list reveal">
         <div class="cs-voc">
-          <div class="cs-voc-avatar" aria-hidden="true"><img src="assets/images/adaptive-plan/sad.svg" alt="" width="44" height="44"></div>
-          <div class="cs-voc-bubble">
-            <div class="cs-voc-text">&ldquo;Are the workouts under workouts 28 day plan set to <mark>what were suppose to do</mark>?&hellip; <mark>Am I supposed to add more sets and reps</mark>? I rather follow it if its set to what im suppose to do only. <mark>Like my personal trainer.</mark>&rdquo;</div>
-            <div class="cs-voc-attr">&mdash; Storm &middot; User review</div>
+          <div class="cs-voc-text">Are the workouts under workouts 28 day plan set to what were suppose to do?&hellip; <mark>Am I supposed to add more sets and reps</mark>? I rather follow it if its set to what im suppose to do only. Like my personal trainer.</div>
+          <div class="cs-voc-footer">
+            <div class="cs-voc-avatar" aria-hidden="true"><img src="assets/images/adaptive-plan/sad.svg" alt="" width="30" height="30"></div>
+            <div class="cs-voc-meta">
+              <div class="cs-voc-name">Storm</div>
+              <div class="cs-voc-role">User review</div>
+            </div>
           </div>
         </div>
         <div class="cs-voc">
-          <div class="cs-voc-avatar" aria-hidden="true"><img src="assets/images/adaptive-plan/very-angry.svg" alt="" width="44" height="44"></div>
-          <div class="cs-voc-bubble">
-            <div class="cs-voc-text">&ldquo;I was just <mark>thrust into a 28 day plan</mark>.. basic bulk plan.. how do you do a new plans or can I just <mark>get plan for each week with verity</mark>?&rdquo;</div>
-            <div class="cs-voc-attr">&mdash; Chaire L. &middot; User review</div>
+          <div class="cs-voc-text">I was just thrust into a 28 day plan.. basic bulk plan.. how do you do a new plans or can I just <mark>get plan for each week with verity</mark>?</div>
+          <div class="cs-voc-footer">
+            <div class="cs-voc-avatar" aria-hidden="true"><img src="assets/images/adaptive-plan/very-angry.svg" alt="" width="30" height="30"></div>
+            <div class="cs-voc-meta">
+              <div class="cs-voc-name">Chaire L.</div>
+              <div class="cs-voc-role">User review</div>
+            </div>
           </div>
         </div>
         <div class="cs-voc">
-          <div class="cs-voc-avatar" aria-hidden="true"><img src="assets/images/adaptive-plan/angry.svg" alt="" width="44" height="44"></div>
-          <div class="cs-voc-bubble">
-            <div class="cs-voc-text">&ldquo;I&rsquo;m starting my first workout plan with the app tomorrow. It is a 28 day plan. Should I plan on <mark>working out 28 days straight</mark>? That just <mark>does not seem realistic to me to maintain</mark>.&rdquo;</div>
-            <div class="cs-voc-attr">&mdash; Morty G. &middot; User review</div>
+          <div class="cs-voc-text">I&rsquo;m starting my first workout plan with the app tomorrow. It is a 28 day plan. Should I plan on working out 28 days straight? That just <mark>does not seem realistic to me to maintain</mark>.</div>
+          <div class="cs-voc-footer">
+            <div class="cs-voc-avatar" aria-hidden="true"><img src="assets/images/adaptive-plan/angry.svg" alt="" width="30" height="30"></div>
+            <div class="cs-voc-meta">
+              <div class="cs-voc-name">Morty G.</div>
+              <div class="cs-voc-role">User review</div>
+            </div>
           </div>
         </div>
+      </div>
+
+      <div class="cs-tried reveal">
+        <div class="cs-tried-label">What we&rsquo;d already tried</div>
+        <p class="cs-body">Tooltips, walkthroughs, video demos, even a UI refresh &mdash; four onboarding investments shipped. Day-1 retention barely moved, and the reviews kept naming the same culprit. The fix wasn&rsquo;t the introduction. <strong>It was the plan itself.</strong></p>
       </div>
           </div>
     </section>
@@ -763,146 +903,370 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
       <span class="cs-eyebrow">03 &middot; Research</span>
       <h2 class="cs-section-title">Understanding<br>the Real User</h2>
       <div class="cs-body reveal">
-        <p>I led a mixed-methods research sprint over 3 weeks: in-depth interviews with 12 active users, analysis of Amplitude drop-off funnels, and a competitive audit across personalized fitness apps. The funnel showed where users dropped; the interviews revealed why.</p>
+        <p>I had two halves of the picture &mdash; when users left, and what they said. The missing piece was <em>why</em>.</p>
+        <p>So I spent three weeks listening at scale. <strong>First, the quantitative:</strong> Amplitude mapped drop-off by cohort and day. Those patterns &mdash; read through my lens as both designer and user of the app &mdash; became the hypotheses to test. <strong>Then the qualitative:</strong> with 12M users, the surface was too wide to read manually, so AI clustered themes across NPS, reviews, community, beta feedback, and Zendesk. 10 in-depth interviews validated and expanded them. The funnel told me where users dropped; the voices told me why.</p>
       </div>
-      <div class="cs-insights reveal">
-        <div class="cs-insight">
-          <div class="cs-insight-num">01</div>
-          <div>
-            <div class="cs-insight-head">Week 0 &rarr; Week 1 is the steepest cliff.</div>
-            <div class="cs-insight-text">The bulk of paid users drop off within the first seven days &mdash; before the plan ever gets a chance to deliver value.</div>
-          </div>
+      <div class="cs-tabs reveal">
+        <div class="cs-tab-nav" role="tablist" aria-label="Research findings">
+          <button class="cs-tab-btn is-active" role="tab" aria-selected="true" id="tab-quant" aria-controls="panel-quant" data-tab="quant">Quantitative</button>
+          <button class="cs-tab-btn" role="tab" aria-selected="false" id="tab-qual" aria-controls="panel-qual" data-tab="qual" tabindex="-1">Qualitative</button>
         </div>
-        <div class="cs-insight">
-          <div class="cs-insight-num">02</div>
-          <div>
-            <div class="cs-insight-head">Day 1 remains the single biggest drop.</div>
-            <div class="cs-insight-text">This pattern holds across every other pre-built plan we benchmarked &mdash; activation remains the universal bottleneck.</div>
-          </div>
-        </div>
-        <div class="cs-insight">
-          <div class="cs-insight-num">03</div>
-          <div>
-            <div class="cs-insight-head">The longer users stay, the more they keep staying.</div>
-            <div class="cs-insight-text">Retention curves flatten sharply after week 1. Users who clear the early hurdle compound &mdash; so the work was clear: get them past it.</div>
-          </div>
-        </div>
-      </div>
-      <div class="cs-cards reveal">
-        <div class="cs-card"><div class="cs-card-icon">&#128548;</div><div class="cs-card-title">Plans feel irrelevant fast</div><div class="cs-card-text">Within 2 weeks a plan no longer reflected actual schedule or energy levels, leading to abandonment.</div></div>
-        <div class="cs-card"><div class="cs-card-icon">&#127947;</div><div class="cs-card-title">Equipment mismatch</div><div class="cs-card-text">34% of users traveled frequently or worked out at home, but plans assumed full gym access every session.</div></div>
-        <div class="cs-card"><div class="cs-card-icon">&#128200;</div><div class="cs-card-title">No sense of progression</div><div class="cs-card-text">Static plans don&rsquo;t acknowledge improvement &mdash; removing a key motivational trigger for continued use.</div></div>
-        <div class="cs-card"><div class="cs-card-icon">&#129327;</div><div class="cs-card-title">Configuration anxiety</div><div class="cs-card-text">When asked to &ldquo;customize&rdquo; a plan, 61% of users felt overwhelmed and defaulted to a preset &mdash; then abandoned it within a week.</div></div>
-      </div>
-      <div class="cs-pull-quote reveal">
-        <div class="cs-pull-quote-text">&ldquo;I keep restarting the same plan because I feel like I&rsquo;m failing it &mdash; not that it&rsquo;s wrong for me.&rdquo;</div>
-        <div class="cs-pull-quote-attr">&mdash; Interview participant, 28, intermediate lifter</div>
-      </div>
-      <figure class="cs-media h-mid reveal" style="margin-top:28px;">
-        <img src="assets/images/adaptive-plan/journey-map.png" alt="Journey map of current plan experience" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
-        <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#128506;</span><span class="cs-img-ph-label">Journey map &mdash; current plan experience</span></span>
-      </figure>
-      <div class="cs-callout cs-callout--hero reveal">
-        <div class="cs-callout-label">How Might We</div>
-        <div class="cs-callout-text">&ldquo;How might we create an adaptive plan that feels personal and trustworthy &mdash; without overwhelming the user?&rdquo;</div>
-      </div>
-          </div>
-    </section>
 
-    <!-- 04 IDEATION -->
-    <section class="cs-section" id="ideation">
-      <div class="cs-wrap">
-      <span class="cs-eyebrow">04 &middot; Ideation</span>
-      <h2 class="cs-section-title">From Insight<br>to Direction</h2>
-      <div class="cs-body reveal">
-        <p>I ran a cross-functional workshop with product and engineering teams using HMW &rarr; Crazy 8s &rarr; Dot Vote. Three viable directions emerged, scored against user need, engineering feasibility, and business value.</p>
-      </div>
-      <div class="cs-three-col reveal">
-        <div class="cs-direction chosen"><div class="cs-direction-icon">&#129302;</div><div class="cs-direction-title">AI-Adaptive Engine &mdash; Chosen</div><div class="cs-direction-text">Fully automated plan adjustment based on workout history, recovery signals, and schedule inputs. High impact, high complexity.</div></div>
-        <div class="cs-direction"><div class="cs-direction-icon">&#127917;</div><div class="cs-direction-title">Manual Customization+</div><div class="cs-direction-text">Enhanced editing tools to swap exercises or adjust frequency. Lower lift, but doesn&rsquo;t solve the core &ldquo;I don&rsquo;t know what to change&rdquo; problem.</div></div>
-        <div class="cs-direction"><div class="cs-direction-icon">&#128172;</div><div class="cs-direction-title">Coach-Guided Prompts</div><div class="cs-direction-text">Weekly check-in moments where users report how the week went, and the plan adjusts accordingly. Hybrid AI + human voice.</div></div>
-      </div>
-      <div class="cs-callout reveal">
-        <div class="cs-callout-label">Decision</div>
-        <div class="cs-callout-text">Direction 1 as north star, with direction 3&rsquo;s &ldquo;check-in moment&rdquo; as the primary user-facing interaction. The AI adapts in the background; the UX feels like a coaching conversation &mdash; not a settings page.</div>
-      </div>
-          </div>
-    </section>
-
-
-    <!-- 05 STRATEGY -->
-    <section class="cs-section" id="strategy">
-      <div class="cs-wrap">
-      <span class="cs-eyebrow">05 &middot; Strategy</span>
-      <h2 class="cs-section-title">Positioning for<br>Impact</h2>
-      <div class="cs-body reveal">
-        <p>With the AI-Adaptive Engine direction chosen, I partnered with product and growth to shape the business strategy. Three principles guided the plan: <strong>freemium entry</strong> with a clear value moment before any paywall, <strong>habit-first onboarding</strong> that lets users experience adaptation before being asked to pay, and <strong>gradual personalization</strong> that deepens as the AI learns each user.</p>
-        <p>The key strategic insight: <strong>users needed to feel the plan adapting to them before the paywall appeared.</strong> Based on our retention data, we aligned the conversion moment to the second adaptation cycle &mdash; when perceived value peaked at days 10&ndash;14.</p>
-      </div>
-      <div class="cs-cards reveal">
-        <div class="cs-card"><div class="cs-card-icon">&#127919;</div><div class="cs-card-title">Freemium Model</div><div class="cs-card-text">Core plan generation free. Advanced personalization, recovery-based adjustments, and priority modes behind a single paywall tier &mdash; simple, clear upgrade path.</div></div>
-        <div class="cs-card"><div class="cs-card-icon">&#128200;</div><div class="cs-card-title">Habit-First Flow</div><div class="cs-card-text">Paywall delayed until week 2, after users experience at least one adaptation cycle. Data showed peak value perception at days 10&ndash;14, not day 1.</div></div>
-        <div class="cs-card"><div class="cs-card-icon">&#128260;</div><div class="cs-card-title">Feedback Flywheel</div><div class="cs-card-text">Every completed workout feeds the engine: better data &rarr; better adaptations &rarr; higher retention &rarr; more data. A self-reinforcing loop.</div></div>
-        <div class="cs-card"><div class="cs-card-icon">&#128640;</div><div class="cs-card-title">Phased Rollout</div><div class="cs-card-text">Launched to 5% of new users, iterated on conversion data for two weeks, then scaled to 100% &mdash; de-risking paywall timing and adaptation quality.</div></div>
-      </div>
-          </div>
-    </section>
-    <!-- 06 DESIGN PROCESS -->
-    <section class="cs-section" id="design">
-      <div class="cs-wrap">
-      <span class="cs-eyebrow">06 &middot; Design Process</span>
-      <h2 class="cs-section-title">Designing the<br>Experience</h2>
-      <div class="cs-steps reveal">
-        <div class="cs-step">
-          <div class="cs-step-aside"><div class="cs-step-dot">01</div><div class="cs-step-line"></div></div>
-          <div class="cs-step-body">
-            <div class="cs-step-title">Information Architecture</div>
-            <div class="cs-step-text">Mapped the full plan ecosystem. Identified three critical moments to inject adaptation: plan start, mid-week check-in, and post-workout feedback.</div>
-            <figure class="cs-media h-sm reveal" style="margin-top:16px;">
-              <img src="assets/images/adaptive-plan/ia-diagram.png" alt="Information architecture diagram of the plan ecosystem" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
-              <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#128193;</span><span class="cs-img-ph-label">IA diagram &mdash; plan ecosystem</span></span>
-            </figure>
-          </div>
-        </div>
-        <div class="cs-step">
-          <div class="cs-step-aside"><div class="cs-step-dot">02</div><div class="cs-step-line"></div></div>
-          <div class="cs-step-body">
-            <div class="cs-step-title">Wireframes &amp; Flow</div>
-            <div class="cs-step-text">Three distinct user flows: onboarding without form-fatigue, weekly adaptation with clear rationale, and manual override when the AI&rsquo;s suggestion doesn&rsquo;t fit.</div>
-            <div class="cs-two-col">
-              <figure class="cs-media h-sm reveal">
-                <img src="assets/images/adaptive-plan/wireframes-onboarding.png" alt="Onboarding wireframes" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
-                <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#9998;</span><span class="cs-img-ph-label">Onboarding wireframes</span></span>
-              </figure>
-              <figure class="cs-media h-sm reveal">
-                <img src="assets/images/adaptive-plan/wireframes-adaptation.png" alt="Weekly adaptation flow wireframes" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
-                <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#9998;</span><span class="cs-img-ph-label">Adaptation flow wireframes</span></span>
-              </figure>
+        <div class="cs-tab-panel is-active" id="panel-quant" role="tabpanel" aria-labelledby="tab-quant" data-panel="quant">
+          <div class="cs-insights">
+            <div class="cs-insight">
+              <svg class="cs-insight-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M4 28h26"/>
+                <rect x="7" y="8" width="4" height="20" rx="1"/>
+                <rect x="14" y="14" width="4" height="14" rx="1"/>
+                <rect x="21" y="22" width="4" height="6" rx="1"/>
+              </svg>
+              <div>
+                <div class="cs-insight-head">Week 0 &rarr; Week 1 is the steepest cliff.</div>
+                <div class="cs-insight-text">The bulk of paid users drop off within the first seven days &mdash; before the plan ever gets a chance to deliver value.</div>
+              </div>
+            </div>
+            <div class="cs-insight">
+              <svg class="cs-insight-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="4" y="7" width="24" height="22" rx="3"/>
+                <path d="M4 13h24"/>
+                <path d="M10 4v6"/>
+                <path d="M22 4v6"/>
+                <circle cx="10" cy="20" r="2" fill="currentColor" stroke="none"/>
+              </svg>
+              <div>
+                <div class="cs-insight-head">Day 1 remains the single biggest drop.</div>
+                <div class="cs-insight-text">This pattern holds across every other pre-built plan we benchmarked &mdash; activation remains the universal bottleneck.</div>
+              </div>
+            </div>
+            <div class="cs-insight">
+              <svg class="cs-insight-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M4 28h26"/>
+                <path d="M4 4v24"/>
+                <path d="M7 24c6 0 9-5 12-10s5-9 9-9"/>
+                <path d="M24 5h4v4"/>
+              </svg>
+              <div>
+                <div class="cs-insight-head">The longer users stay, the more they keep staying.</div>
+                <div class="cs-insight-text">Retention curves flatten sharply after week 1. Users who clear the early hurdle compound &mdash; so the work was clear: get them past it.</div>
+              </div>
             </div>
           </div>
         </div>
-        <div class="cs-step">
-          <div class="cs-step-aside"><div class="cs-step-dot">03</div><div class="cs-step-line"></div></div>
-          <div class="cs-step-body">
-            <div class="cs-step-title">Visual Design</div>
-            <div class="cs-step-text">High-fidelity screens across iOS and Android. The adaptation notification used a distinct &ldquo;coach card&rdquo; pattern &mdash; warm, conversational, not algorithmic. Every change explained in plain language.</div>
-            <figure class="cs-media h-tall reveal" style="margin-top:16px;">
-              <img src="assets/images/adaptive-plan/hi-fi-screens.png" alt="High-fidelity screens for iOS and Android" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
-              <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#128241;</span><span class="cs-img-ph-label">High-fidelity screens &mdash; iOS &amp; Android</span></span>
-            </figure>
+
+        <div class="cs-tab-panel" id="panel-qual" role="tabpanel" aria-labelledby="tab-qual" data-panel="qual" hidden>
+          <div class="cs-carousel">
+            <div class="cs-carousel-card">
+              <div class="cs-carousel-card-img">
+                <span class="cs-carousel-card-img-icon">&#128197;</span>
+              </div>
+              <div class="cs-carousel-card-body">
+                <div class="cs-carousel-card-title">Plans feel irrelevant fast</div>
+                <div class="cs-carousel-card-text">Within 2 weeks a plan no longer reflected actual schedule or energy levels, leading to abandonment.</div>
+              </div>
+            </div>
+            <div class="cs-carousel-card">
+              <div class="cs-carousel-card-img">
+                <span class="cs-carousel-card-img-icon">&#127968;</span>
+              </div>
+              <div class="cs-carousel-card-body">
+                <div class="cs-carousel-card-title">Equipment mismatch</div>
+                <div class="cs-carousel-card-text">34% of users traveled frequently or worked out at home, but plans assumed full gym access every session.</div>
+              </div>
+            </div>
+            <div class="cs-carousel-card">
+              <div class="cs-carousel-card-img">
+                <span class="cs-carousel-card-img-icon">&#128202;</span>
+              </div>
+              <div class="cs-carousel-card-body">
+                <div class="cs-carousel-card-title">No sense of progression</div>
+                <div class="cs-carousel-card-text">Static plans don&rsquo;t acknowledge improvement &mdash; removing a key motivational trigger for continued use.</div>
+              </div>
+            </div>
+            <div class="cs-carousel-card">
+              <div class="cs-carousel-card-img">
+                <span class="cs-carousel-card-img-icon">&#129504;</span>
+              </div>
+              <div class="cs-carousel-card-body">
+                <div class="cs-carousel-card-title">Routine override</div>
+                <div class="cs-carousel-card-text">For lifters with an existing routine, the app forced every plan to start from scratch &mdash; overriding the training habits they&rsquo;d already built.</div>
+              </div>
+            </div>
+            <div class="cs-carousel-card">
+              <div class="cs-carousel-card-img">
+                <span class="cs-carousel-card-img-icon">&#9881;</span>
+              </div>
+              <div class="cs-carousel-card-body">
+                <div class="cs-carousel-card-title">Lack of customization and direction</div>
+                <div class="cs-carousel-card-text">The 28-day plan ran straight with no rest days and a fixed exercise count per day &mdash; punishing for beginners and impossible to scale down.</div>
+              </div>
+            </div>
+            <div class="cs-carousel-card">
+              <div class="cs-carousel-card-img">
+                <span class="cs-carousel-card-img-icon">&#129657;</span>
+              </div>
+              <div class="cs-carousel-card-body">
+                <div class="cs-carousel-card-title">Injury blind spot</div>
+                <div class="cs-carousel-card-text">Half of interviewees had trained through an injury &mdash; but the plan didn&rsquo;t adapt, and they didn&rsquo;t know how to adjust.</div>
+              </div>
+            </div>
+          </div>
+          <div class="cs-carousel-nav" aria-label="Carousel navigation">
+            <button class="cs-carousel-btn" data-carousel-prev disabled aria-label="Previous findings">
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <button class="cs-carousel-btn" data-carousel-next aria-label="Next findings">
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
           </div>
         </div>
-        <div class="cs-step">
-          <div class="cs-step-aside"><div class="cs-step-dot">04</div></div>
-          <div class="cs-step-body">
-            <div class="cs-step-title">Design System Integration</div>
-            <div class="cs-step-text">Built new components (coach card, adaptation badge, progress ring) into Jefit&rsquo;s cross-platform design system &mdash; reducing future engineering overhead by 30%.</div>
-            <figure class="cs-media h-sm reveal" style="margin-top:16px;">
-              <img src="assets/images/adaptive-plan/design-system.png" alt="New design system components" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
-              <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#129513;</span><span class="cs-img-ph-label">New design system components</span></span>
-            </figure>
+      </div>
+          </div>
+      <div class="cs-hmw-band reveal">
+        <div class="cs-hmw-inner">
+          <p class="cs-hmw-question" data-hmw>How might we create an adaptive plan that feels <em class="cs-hmw-key">personal</em> &amp; <em class="cs-hmw-key">trustworthy</em> &mdash; without overwhelming the user?</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 SOLUTION -->
+    <section class="cs-section" id="solution">
+      <div class="cs-wrap">
+      <span class="cs-eyebrow">04 &middot; Design Solution</span>
+      <h2 class="cs-section-title">Designed to<br>Feel Coached</h2>
+      <div class="cs-body reveal">
+        <p>Every feature here maps to a pain point from research &mdash; six in the core product, two in monetization and retention.</p>
+      </div>
+
+      <!-- 1 · Mesocycle plan -->
+      <div class="cs-feature-split reveal">
+        <div class="cs-feature-text">
+          <div class="cs-feature-eyebrow">Solves &middot; Plans feel irrelevant fast</div>
+          <h3>Mesocycle plan that adapts each week.</h3>
+          <p>The plan rebalances volume, intensity, and recovery week over week &mdash; based on what the user actually did, not what was prescribed on day one.</p>
+        </div>
+        <div class="cs-feature-video">
+          <!-- TODO: replace placeholder with <video autoplay loop muted playsinline><source src="assets/videos/adaptive-plan/mesocycle.mp4" type="video/mp4"></video> -->
+          <div class="cs-feature-video-ph">
+            <span class="cs-feature-video-ph-icon">&#9654;</span>
+            <span class="cs-feature-video-ph-label">Mesocycle adaptation</span>
           </div>
         </div>
+      </div>
+
+      <!-- 2 · Training preference -->
+      <div class="cs-feature-split reverse reveal">
+        <div class="cs-feature-text">
+          <div class="cs-feature-eyebrow">Solves &middot; Routine override</div>
+          <h3>Training preference.</h3>
+          <p>Users set their preferred split, exercise types, and pacing up front. The plan builds around those habits instead of overwriting them.</p>
+        </div>
+        <div class="cs-feature-video">
+          <!-- TODO: replace placeholder with <video> -->
+          <div class="cs-feature-video-ph">
+            <span class="cs-feature-video-ph-icon">&#9654;</span>
+            <span class="cs-feature-video-ph-label">Training preference</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 · Injury management -->
+      <div class="cs-feature-split reveal">
+        <div class="cs-feature-text">
+          <div class="cs-feature-eyebrow">Solves &middot; Injury blind spot</div>
+          <h3>Injury management.</h3>
+          <p>Log an injury or area of pain &mdash; affected exercises swap to safe substitutes. A check-in every 14 days updates recovery progress, guiding the user back to full training.</p>
+        </div>
+        <div class="cs-feature-video">
+          <!-- TODO: replace placeholder with <video> -->
+          <div class="cs-feature-video-ph">
+            <span class="cs-feature-video-ph-icon">&#9654;</span>
+            <span class="cs-feature-video-ph-label">Injury management</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 · Equipment management -->
+      <div class="cs-feature-split reverse reveal">
+        <div class="cs-feature-text">
+          <div class="cs-feature-eyebrow">Solves &middot; Equipment mismatch</div>
+          <h3>Equipment management.</h3>
+          <p>Every session adapts to whatever&rsquo;s available that day: full gym, home setup, travel, or bodyweight-only &mdash; no manual reshuffling.</p>
+        </div>
+        <div class="cs-feature-video">
+          <!-- TODO: replace placeholder with <video> -->
+          <div class="cs-feature-video-ph">
+            <span class="cs-feature-video-ph-icon">&#9654;</span>
+            <span class="cs-feature-video-ph-label">Equipment management</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5 · Feedback module -->
+      <div class="cs-feature-split reveal">
+        <div class="cs-feature-text">
+          <div class="cs-feature-eyebrow">Solves &middot; No sense of progression</div>
+          <h3>Feedback module.</h3>
+          <p>After each set, users tap easy / right / hard. Those signals feed back into the engine to recalibrate intensity and recovery for the next session.</p>
+        </div>
+        <div class="cs-feature-video">
+          <!-- TODO: replace placeholder with <video> -->
+          <div class="cs-feature-video-ph">
+            <span class="cs-feature-video-ph-icon">&#9654;</span>
+            <span class="cs-feature-video-ph-label">Feedback module</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6 · Load progression -->
+      <div class="cs-feature-split reverse reveal">
+        <div class="cs-feature-text">
+          <div class="cs-feature-eyebrow">Solves &middot; Lack of customization</div>
+          <h3>Load progression.</h3>
+          <p>Weight, reps, and rest scale automatically from feedback and historical performance. Progression is visible, with deload weeks respected.</p>
+        </div>
+        <div class="cs-feature-video">
+          <!-- TODO: replace placeholder with <video> -->
+          <div class="cs-feature-video-ph">
+            <span class="cs-feature-video-ph-icon">&#9654;</span>
+            <span class="cs-feature-video-ph-label">Load progression</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Monetization divider -->
+      <div class="cs-feature-divider reveal">
+        <span class="cs-feature-divider-label">Monetization &amp; Engagement</span>
+      </div>
+
+      <!-- 7 · Paywall -->
+      <div class="cs-feature-split reveal">
+        <div class="cs-feature-text">
+          <div class="cs-feature-eyebrow">Monetization</div>
+          <h3>Paywall &mdash; at the moment of value.</h3>
+          <p>The premium paywall surfaces when users hit the ceiling of the free plan&rsquo;s static behavior &mdash; framing adaptation as the value, not the gate.</p>
+        </div>
+        <div class="cs-feature-video">
+          <!-- TODO: replace placeholder with <video> -->
+          <div class="cs-feature-video-ph">
+            <span class="cs-feature-video-ph-icon">&#9654;</span>
+            <span class="cs-feature-video-ph-label">Paywall</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8 · Nudges -->
+      <div class="cs-feature-split reverse reveal">
+        <div class="cs-feature-text">
+          <div class="cs-feature-eyebrow">Retention</div>
+          <h3>Nudges.</h3>
+          <p>Behavioral nudges re-engage users at the right moment: a missed session, a stalled cycle, or an unfinished onboarding step.</p>
+        </div>
+        <div class="cs-feature-video">
+          <!-- TODO: replace placeholder with <video> -->
+          <div class="cs-feature-video-ph">
+            <span class="cs-feature-video-ph-icon">&#9654;</span>
+            <span class="cs-feature-video-ph-label">Nudges</span>
+          </div>
+        </div>
+      </div>
+          </div>
+    </section>
+
+    <!-- 06 BEHIND THE SCENES -->
+    <section class="cs-section" id="behind">
+      <div class="cs-wrap">
+      <span class="cs-eyebrow">05 &middot; Behind the Scenes</span>
+      <h2 class="cs-section-title">How It Came<br>Together</h2>
+      <div class="cs-body reveal">
+        <p>The shipped experience hides a long tail of decisions &mdash; flows that were thrown out, an IA that was redrawn twice, business and engineering constraints that reshaped the brief. Open any chapter below to see the work underneath.</p>
+      </div>
+
+      <div class="cs-bts reveal">
+        <details class="cs-bts-row">
+          <summary class="cs-bts-summary">
+            <span class="cs-bts-num">01</span>
+            <span class="cs-bts-title">User Flow</span>
+            <span class="cs-bts-toggle" aria-hidden="true">
+              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg>
+            </span>
+          </summary>
+          <div class="cs-bts-body">
+            <div class="cs-bts-body-inner">
+              <p>Three flows carried the experience: onboarding without form-fatigue, weekly adaptation with a clear rationale, and a manual override when the AI&rsquo;s suggestion didn&rsquo;t fit. The hardest call was the override path &mdash; giving users escape hatches without undermining trust in the engine.</p>
+            </div>
+          </div>
+        </details>
+
+        <details class="cs-bts-row">
+          <summary class="cs-bts-summary">
+            <span class="cs-bts-num">02</span>
+            <span class="cs-bts-title">Information Architecture</span>
+            <span class="cs-bts-toggle" aria-hidden="true">
+              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg>
+            </span>
+          </summary>
+          <div class="cs-bts-body">
+            <div class="cs-bts-body-inner">
+              <p>I mapped the full plan ecosystem to find the three moments where adaptation actually changes user behavior: plan start, mid-week check-in, and post-workout feedback. Anywhere else, an &ldquo;adaptation&rdquo; would feel like noise.</p>
+              <figure class="cs-media h-sm reveal" style="margin-top:20px;">
+                <img src="assets/images/adaptive-plan/ia-diagram.png" alt="Information architecture diagram of the plan ecosystem" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
+                <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#128193;</span><span class="cs-img-ph-label">IA diagram &mdash; plan ecosystem</span></span>
+              </figure>
+            </div>
+          </div>
+        </details>
+
+        <details class="cs-bts-row">
+          <summary class="cs-bts-summary">
+            <span class="cs-bts-num">03</span>
+            <span class="cs-bts-title">Strategy &mdash; business &amp; tech constraints</span>
+            <span class="cs-bts-toggle" aria-hidden="true">
+              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg>
+            </span>
+          </summary>
+          <div class="cs-bts-body">
+            <div class="cs-bts-body-inner">
+              <p>With the direction set &mdash; build a plan that adapts, not another onboarding &mdash; I partnered with product and growth on positioning. Three principles guided the plan: <strong>freemium entry</strong> with a clear value moment before any paywall, <strong>habit-first onboarding</strong> that lets users experience adaptation before being asked to pay, and <strong>gradual personalization</strong> that deepens as the AI learns each user.</p>
+              <p>The strategic insight: <strong>users needed to feel the plan adapting to them before the paywall appeared.</strong> Based on retention data, we aligned the conversion moment to the second adaptation cycle &mdash; when perceived value peaked at days 10&ndash;14.</p>
+              <div class="cs-cards" style="margin-top:24px;">
+                <div class="cs-card"><div class="cs-card-icon">&#127919;</div><div class="cs-card-title">Freemium Model</div><div class="cs-card-text">Core plan generation free. Advanced personalization, recovery-based adjustments, and priority modes behind a single paywall tier &mdash; simple, clear upgrade path.</div></div>
+                <div class="cs-card"><div class="cs-card-icon">&#128200;</div><div class="cs-card-title">Habit-First Flow</div><div class="cs-card-text">Paywall delayed until week 2, after users experience at least one adaptation cycle. Data showed peak value perception at days 10&ndash;14, not day 1.</div></div>
+                <div class="cs-card"><div class="cs-card-icon">&#128260;</div><div class="cs-card-title">Feedback Flywheel</div><div class="cs-card-text">Every completed workout feeds the engine: better data &rarr; better adaptations &rarr; higher retention &rarr; more data. A self-reinforcing loop.</div></div>
+                <div class="cs-card"><div class="cs-card-icon">&#128640;</div><div class="cs-card-title">Phased Rollout</div><div class="cs-card-text">Launched to 5% of new users, iterated on conversion data for two weeks, then scaled to 100% &mdash; de-risking paywall timing and adaptation quality.</div></div>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <details class="cs-bts-row">
+          <summary class="cs-bts-summary">
+            <span class="cs-bts-num">04</span>
+            <span class="cs-bts-title">Lo-Fi &amp; Mid-Fi</span>
+            <span class="cs-bts-toggle" aria-hidden="true">
+              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg>
+            </span>
+          </summary>
+          <div class="cs-bts-body">
+            <div class="cs-bts-body-inner">
+              <p>Wireframes for the two flows that mattered most: onboarding without form-fatigue, and the weekly adaptation moment. The mid-fi pass is where the &ldquo;coach card&rdquo; voice first emerged &mdash; before that, the surface read as a settings panel.</p>
+              <div class="cs-two-col">
+                <figure class="cs-media h-sm reveal">
+                  <img src="assets/images/adaptive-plan/wireframes-onboarding.png" alt="Onboarding wireframes" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
+                  <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#9998;</span><span class="cs-img-ph-label">Onboarding wireframes</span></span>
+                </figure>
+                <figure class="cs-media h-sm reveal">
+                  <img src="assets/images/adaptive-plan/wireframes-adaptation.png" alt="Weekly adaptation flow wireframes" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
+                  <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#9998;</span><span class="cs-img-ph-label">Adaptation flow wireframes</span></span>
+                </figure>
+              </div>
+            </div>
+          </div>
+        </details>
       </div>
           </div>
     </section>
@@ -910,7 +1274,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
     <!-- 07 OUTCOMES -->
     <section class="cs-section" id="outcomes">
       <div class="cs-wrap">
-      <span class="cs-eyebrow">07 &middot; Outcomes</span>
+      <span class="cs-eyebrow">06 &middot; Outcomes</span>
       <h2 class="cs-section-title">Impact at Scale</h2>
       <div class="cs-body reveal">
         <p>Adaptive Plan launched to all 13M+ Jefit users in Q1 2025. It became the highest-performing feature in Jefit&rsquo;s history across adoption, retention, and revenue metrics.</p>
@@ -936,7 +1300,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
     <!-- 08 REFLECTION -->
     <section class="cs-section" id="reflection">
       <div class="cs-wrap">
-      <span class="cs-eyebrow">08 &middot; Reflection</span>
+      <span class="cs-eyebrow">07 &middot; Reflection</span>
       <h2 class="cs-section-title">What I Learned</h2>
       <div class="cs-body reveal">
         <p><strong>Trust is the product.</strong> The AI engine was sophisticated, but the design challenge was entirely about making users feel in control of it. The plain-language rationale was the highest-impact design decision &mdash; not the algorithm.</p>
@@ -1019,6 +1383,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
   </main>
 </div>
 
+<footer>
+  <div>
+    <div class="ft-name">Chloe Wu.</div>
+    <div class="ft-tag">Product Designer</div>
+  </div>
+  <div class="ft-copy">© 2026 Chloe Wu. All rights reserved.</div>
+</footer>
+
 <script>
 (()=>{
   const isNight=()=>{const h=new Date().getHours();return h<7||h>=19;};
@@ -1030,9 +1402,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 
 const cur=document.getElementById('cur');
 document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';});
-document.querySelectorAll('a,button,label').forEach(el=>{
-  el.addEventListener('mouseenter',()=>cur.classList.add('hover'));
-  el.addEventListener('mouseleave',()=>cur.classList.remove('hover'));
+const HOVER_SEL='a,button,label,summary,[role="button"],[onclick]';
+document.addEventListener('mouseover',e=>{
+  if(e.target.closest&&e.target.closest(HOVER_SEL)) cur.classList.add('hover');
+});
+document.addEventListener('mouseout',e=>{
+  const from=e.target.closest&&e.target.closest(HOVER_SEL);
+  const to=e.relatedTarget&&e.relatedTarget.closest&&e.relatedTarget.closest(HOVER_SEL);
+  if(from&&from!==to) cur.classList.remove('hover');
 });
 
 const rows=document.querySelectorAll('.cs-idx-row');
@@ -1055,6 +1432,65 @@ const obs=new IntersectionObserver(entries=>{
   entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});
 },{threshold:0.06});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+/* ── HMW word split + cursor spotlight ── */
+(function(){
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const q=document.querySelector('.cs-hmw-question[data-hmw]');
+  if(!q)return;
+  const ctr={i:0};
+  function splitTextNode(node,isKey){
+    const text=node.textContent;
+    const frag=document.createDocumentFragment();
+    text.split(/(\s+)/).forEach(part=>{
+      if(part.length===0)return;
+      if(/^\s+$/.test(part)){frag.appendChild(document.createTextNode(part));return;}
+      const s=document.createElement('span');
+      s.className='cs-hmw-word'+(isKey?' cs-hmw-word-key':'');
+      s.textContent=part;
+      s.style.setProperty('--i',ctr.i++);
+      frag.appendChild(s);
+    });
+    node.parentNode.replaceChild(frag,node);
+  }
+  function walk(parent,isKey){
+    const isKeyHere=isKey||(parent.classList&&parent.classList.contains('cs-hmw-key'));
+    Array.from(parent.childNodes).forEach(child=>{
+      if(child.nodeType===3)splitTextNode(child,isKeyHere);
+      else if(child.nodeType===1)walk(child,isKeyHere);
+    });
+  }
+  walk(q,false);
+  if(reduce)return;
+  const band=document.querySelector('.cs-hmw-band');
+  if(!band)return;
+  const words=Array.from(band.querySelectorAll('.cs-hmw-word:not(.cs-hmw-word-key)'));
+  const RADIUS=240;
+  let raf=null,lastE=null;
+  function update(){
+    raf=null;
+    if(!lastE)return;
+    const r=band.getBoundingClientRect();
+    band.style.setProperty('--mx',(lastE.clientX-r.left)+'px');
+    band.style.setProperty('--my',(lastE.clientY-r.top)+'px');
+    words.forEach(w=>{
+      const wr=w.getBoundingClientRect();
+      const dx=lastE.clientX-(wr.left+wr.width/2);
+      const dy=lastE.clientY-(wr.top+wr.height/2);
+      const dist=Math.sqrt(dx*dx+dy*dy);
+      const p=Math.max(0,1-dist/RADIUS);
+      w.style.setProperty('--p',p.toFixed(3));
+    });
+  }
+  band.addEventListener('mousemove',e=>{
+    lastE=e;
+    if(!raf)raf=requestAnimationFrame(update);
+  });
+  band.addEventListener('mouseleave',()=>{
+    lastE=null;
+    words.forEach(w=>w.style.setProperty('--p','0'));
+  });
+})();
 
 (function(){
   const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1092,6 +1528,66 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
     entries.forEach(e=>{if(e.isIntersecting){run(e.target);countObs.unobserve(e.target);}});
   },{threshold:0.4});
   parsed.forEach(el=>countObs.observe(el));
+})();
+
+(function(){
+  document.querySelectorAll('.cs-tabs').forEach(group=>{
+    const btns=[...group.querySelectorAll('.cs-tab-btn')];
+    const panels=[...group.querySelectorAll('.cs-tab-panel')];
+    const activate=target=>{
+      btns.forEach(b=>{
+        const on=b.dataset.tab===target;
+        b.classList.toggle('is-active',on);
+        b.setAttribute('aria-selected',on);
+        b.setAttribute('tabindex',on?'0':'-1');
+      });
+      panels.forEach(p=>{
+        const on=p.dataset.panel===target;
+        p.classList.toggle('is-active',on);
+        if(on){
+          p.removeAttribute('hidden');
+          p.querySelectorAll('.cs-carousel').forEach(c=>c.dispatchEvent(new CustomEvent('cs-carousel-refresh')));
+        }else p.setAttribute('hidden','');
+      });
+    };
+    btns.forEach(btn=>{
+      btn.addEventListener('click',()=>activate(btn.dataset.tab));
+      btn.addEventListener('keydown',e=>{
+        if(e.key!=='ArrowLeft'&&e.key!=='ArrowRight')return;
+        e.preventDefault();
+        const i=btns.indexOf(btn);
+        const next=e.key==='ArrowRight'?btns[(i+1)%btns.length]:btns[(i-1+btns.length)%btns.length];
+        activate(next.dataset.tab);
+        next.focus();
+      });
+    });
+  });
+})();
+
+(function(){
+  document.querySelectorAll('.cs-carousel').forEach(carousel=>{
+    const nav=carousel.nextElementSibling;
+    if(!nav||!nav.classList.contains('cs-carousel-nav'))return;
+    const prevBtn=nav.querySelector('[data-carousel-prev]');
+    const nextBtn=nav.querySelector('[data-carousel-next]');
+    const firstCard=carousel.querySelector('.cs-carousel-card');
+    if(!firstCard||!prevBtn||!nextBtn)return;
+    const step=()=>{
+      const gap=parseFloat(getComputedStyle(carousel).gap)||16;
+      return firstCard.offsetWidth+gap;
+    };
+    const update=()=>requestAnimationFrame(()=>{
+      if(carousel.clientWidth===0)return;
+      prevBtn.disabled=carousel.scrollLeft<=1;
+      nextBtn.disabled=carousel.scrollLeft+carousel.clientWidth>=carousel.scrollWidth-1;
+    });
+    prevBtn.addEventListener('click',()=>carousel.scrollBy({left:-step(),behavior:'smooth'}));
+    nextBtn.addEventListener('click',()=>carousel.scrollBy({left:step(),behavior:'smooth'}));
+    carousel.addEventListener('scroll',update,{passive:true});
+    window.addEventListener('resize',update);
+    carousel.addEventListener('cs-carousel-refresh',update);
+    update();
+  });
 })();
 </script>
 </body>
