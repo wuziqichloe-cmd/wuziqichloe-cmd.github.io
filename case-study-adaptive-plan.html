@@ -309,16 +309,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-pull-quote-text{font-size:var(--fs-md);font-weight:var(--fw-light);font-style:italic;color:var(--ink);line-height:1.55;letter-spacing:-.02em;}
 .cs-pull-quote-attr{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-top:10px;}
 
-/* DATA INSIGHTS — NDA-safe takeaways */
-.cs-insights{margin-top:28px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
-.cs-insight{display:flex;flex-direction:column;gap:18px;background:var(--surf);border:1px solid var(--border);border-radius:18px;padding:36px 28px 32px;transition:background .35s, border-color .35s, transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s;}
-.cs-insight:hover{border-color:var(--border-h);transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,.06);}
-[data-theme="dark"] .cs-insight:hover{box-shadow:0 12px 32px rgba(0,0,0,.4);}
-.cs-insight-icon{width:32px;height:32px;color:var(--accent);transition:transform .4s cubic-bezier(.22,1,.36,1);flex-shrink:0;}
-.cs-insight:hover .cs-insight-icon{transform:scale(1.1) rotate(-3deg);}
-.cs-insight-head{font-size:var(--fs-md);font-weight:var(--fw-semibold);color:var(--ink);line-height:1.2;letter-spacing:-.02em;margin:0 0 10px;}
-.cs-insight-text{font-size:var(--fs-base);color:var(--ink-2);line-height:1.55;margin:0;}
-@media(max-width:767px){.cs-insights{grid-template-columns:1fr;gap:12px;}.cs-insight{padding:28px 24px 26px;}}
+/* QUANT STATS STRIP — restored icon + title size, card chrome stripped */
+.cs-stats-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;}
+.cs-stat{display:flex;flex-direction:column;gap:14px;}
+.cs-stat-icon{width:32px;height:32px;color:var(--accent);flex-shrink:0;}
+.cs-stat-title{font-size:var(--fs-md);font-weight:var(--fw-semibold);color:var(--ink);line-height:1.2;letter-spacing:-.02em;margin:0;}
+.cs-stat-body{font-size:var(--fs-base);color:var(--ink-2);line-height:1.55;margin:0;}
+@media(max-width:767px){.cs-stats-strip{grid-template-columns:1fr;gap:28px;}}
 
 /* OUTCOMES */
 .cs-outcomes{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px;}
@@ -383,15 +380,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-tried-label{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin-bottom:14px;}
 
 /* TABS — apple.com/mac inspired pill nav */
-.cs-tabs{margin-top:32px;}
-.cs-tab-nav{display:inline-flex;gap:4px;background:var(--bg-2);border:1px solid var(--border);border-radius:100px;padding:4px;margin-bottom:32px;transition:background .4s,border-color .4s;}
-.cs-tab-btn{font-family:inherit;font-size:var(--fs-base);font-weight:var(--fw-semibold);letter-spacing:-.01em;color:var(--ink-2);background:none;border:none;border-radius:100px;padding:10px 22px;cursor:none;transition:background .25s,color .25s;white-space:nowrap;}
-.cs-tab-btn:hover{color:var(--ink);}
-.cs-tab-btn.is-active{background:var(--ink);color:var(--bg);}
-.cs-tab-btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
-.cs-tab-panel{display:none;}
-.cs-tab-panel.is-active{display:block;animation:csTabIn .35s cubic-bezier(.22,1,.36,1);}
-@keyframes csTabIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+/* RESEARCH ACTS — two-act vertical split (replaces tabs) */
+.cs-research-acts{margin-top:32px;}
+.cs-research-act-divider{display:flex;align-items:center;gap:24px;margin-top:72px;margin-bottom:28px;}
+.cs-research-act-divider:first-child{margin-top:0;}
+.cs-research-act-divider::before,.cs-research-act-divider::after{content:'';flex:1;height:1px;background:var(--border);}
+.cs-research-act-label{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap;}
+.cs-research-acts .cs-stats-strip{margin-top:0;}
+.cs-research-acts .cs-carousel{margin-top:0;}
+@media(max-width:767px){.cs-research-act-divider{margin-top:56px;gap:16px;}}
 
 /* QUALITATIVE CAROUSEL — horizontal scroll */
 .cs-carousel{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 0;margin-top:24px;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
@@ -404,12 +401,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-carousel-btn:disabled{opacity:.35;cursor:not-allowed;}
 .cs-carousel-btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
 .cs-carousel-btn svg{width:16px;height:16px;display:block;}
-.cs-carousel-card{flex:0 0 380px;scroll-snap-align:start;background:var(--bg-2);border:1px solid var(--border);border-radius:28px;overflow:hidden;display:flex;flex-direction:column;transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s,border-color .3s,background .4s;}
-.cs-carousel-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,.1);border-color:var(--border-h);}
-[data-theme="dark"] .cs-carousel-card:hover{box-shadow:0 16px 48px rgba(0,0,0,.5);}
+.cs-carousel-card{flex:0 0 380px;scroll-snap-align:start;border-radius:28px;overflow:hidden;display:flex;flex-direction:column;transition:transform .3s cubic-bezier(.22,1,.36,1);}
+.cs-carousel-card:hover{transform:translateY(-4px);}
 .cs-carousel-card-img{aspect-ratio:5/4;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;padding:32px;}
 .cs-carousel-card-img img,.cs-carousel-card-img svg{max-width:100%;max-height:100%;object-fit:contain;display:block;}
 .cs-carousel-card-img-icon{font-size:var(--fs-3xl);opacity:.35;line-height:1;}
+[data-theme="dark"] .cs-carousel-card-img img[data-illust="injury"]{content:url("assets/images/adaptive-plan/injury-dark.svg");}
+[data-theme="dark"] .cs-carousel-card-img img[data-illust="equipment_mismatch"]{content:url("assets/images/adaptive-plan/equipment_mismatch-dark.svg");}
+[data-theme="dark"] .cs-carousel-card-img img[data-illust="nodirection"]{content:url("assets/images/adaptive-plan/nodirection-dark.svg");}
+[data-theme="dark"] .cs-carousel-card-img img[data-illust="same_sets"]{content:url("assets/images/adaptive-plan/same_sets-dark.svg");}
+[data-theme="dark"] .cs-carousel-card-img img[data-illust="routine_override"]{content:url("assets/images/adaptive-plan/routine_override-dark.svg");}
 .cs-carousel-card-body{padding:0 36px 36px;display:flex;flex-direction:column;gap:10px;}
 .cs-carousel-card-title{font-size:var(--fs-md);font-weight:var(--fw-semibold);color:var(--ink);letter-spacing:-.02em;line-height:1.2;}
 .cs-carousel-card-text{font-size:var(--fs-base);color:var(--ink-2);line-height:1.55;}
@@ -892,7 +893,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
 
       <div class="cs-tried reveal">
         <div class="cs-tried-label">What we&rsquo;d already tried</div>
-        <p class="cs-body">Tooltips, walkthroughs, video demos, even a UI refresh &mdash; four onboarding investments shipped. Day-1 retention barely moved, and the reviews kept naming the same culprit. The fix wasn&rsquo;t the introduction. <strong>It was the plan itself.</strong></p>
+        <p class="cs-body">Tooltips, walkthroughs, video demos, even a UI refresh &mdash; four onboarding investments shipped. Metrics barely moved, and the reviews kept naming the same culprit. The fix wasn&rsquo;t the introduction. <strong>It was the plan itself.</strong></p>
       </div>
           </div>
     </section>
@@ -906,77 +907,51 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
         <p>I had two halves of the picture &mdash; when users left, and what they said. The missing piece was <em>why</em>.</p>
         <p>So I spent three weeks listening at scale. <strong>First, the quantitative:</strong> Amplitude mapped drop-off by cohort and day. Those patterns &mdash; read through my lens as both designer and user of the app &mdash; became the hypotheses to test. <strong>Then the qualitative:</strong> with 12M users, the surface was too wide to read manually, so AI clustered themes across NPS, reviews, community, beta feedback, and Zendesk. 10 in-depth interviews validated and expanded them. The funnel told me where users dropped; the voices told me why.</p>
       </div>
-      <div class="cs-tabs reveal">
-        <div class="cs-tab-nav" role="tablist" aria-label="Research findings">
-          <button class="cs-tab-btn is-active" role="tab" aria-selected="true" id="tab-quant" aria-controls="panel-quant" data-tab="quant">Quantitative</button>
-          <button class="cs-tab-btn" role="tab" aria-selected="false" id="tab-qual" aria-controls="panel-qual" data-tab="qual" tabindex="-1">Qualitative</button>
+      <div class="cs-research-acts reveal">
+        <div class="cs-research-act-divider">
+          <span class="cs-research-act-label">A &middot; What the funnel said</span>
         </div>
-
-        <div class="cs-tab-panel is-active" id="panel-quant" role="tabpanel" aria-labelledby="tab-quant" data-panel="quant">
-          <div class="cs-insights">
-            <div class="cs-insight">
-              <svg class="cs-insight-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M4 28h26"/>
-                <rect x="7" y="8" width="4" height="20" rx="1"/>
-                <rect x="14" y="14" width="4" height="14" rx="1"/>
-                <rect x="21" y="22" width="4" height="6" rx="1"/>
-              </svg>
-              <div>
-                <div class="cs-insight-head">Week 0 &rarr; Week 1 is the steepest cliff.</div>
-                <div class="cs-insight-text">The bulk of paid users drop off within the first seven days &mdash; before the plan ever gets a chance to deliver value.</div>
-              </div>
-            </div>
-            <div class="cs-insight">
-              <svg class="cs-insight-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <rect x="4" y="7" width="24" height="22" rx="3"/>
-                <path d="M4 13h24"/>
-                <path d="M10 4v6"/>
-                <path d="M22 4v6"/>
-                <circle cx="10" cy="20" r="2" fill="currentColor" stroke="none"/>
-              </svg>
-              <div>
-                <div class="cs-insight-head">Day 1 remains the single biggest drop.</div>
-                <div class="cs-insight-text">This pattern holds across every other pre-built plan we benchmarked &mdash; activation remains the universal bottleneck.</div>
-              </div>
-            </div>
-            <div class="cs-insight">
-              <svg class="cs-insight-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M4 28h26"/>
-                <path d="M4 4v24"/>
-                <path d="M7 24c6 0 9-5 12-10s5-9 9-9"/>
-                <path d="M24 5h4v4"/>
-              </svg>
-              <div>
-                <div class="cs-insight-head">The longer users stay, the more they keep staying.</div>
-                <div class="cs-insight-text">Retention curves flatten sharply after week 1. Users who clear the early hurdle compound &mdash; so the work was clear: get them past it.</div>
-              </div>
-            </div>
+        <div class="cs-stats-strip">
+          <div class="cs-stat">
+            <svg class="cs-stat-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 28h26"/>
+              <rect x="7" y="8" width="4" height="20" rx="1"/>
+              <rect x="14" y="14" width="4" height="14" rx="1"/>
+              <rect x="21" y="22" width="4" height="6" rx="1"/>
+            </svg>
+            <div class="cs-stat-title">Week 0 &rarr; Week 1 is the steepest cliff.</div>
+            <p class="cs-stat-body">The bulk of paid users drop off within the first seven days &mdash; before the plan ever gets a chance to deliver value.</p>
+          </div>
+          <div class="cs-stat">
+            <svg class="cs-stat-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="4" y="7" width="24" height="22" rx="3"/>
+              <path d="M4 13h24"/>
+              <path d="M10 4v6"/>
+              <path d="M22 4v6"/>
+              <circle cx="10" cy="20" r="2" fill="currentColor" stroke="none"/>
+            </svg>
+            <div class="cs-stat-title">Day 1 remains the single biggest drop.</div>
+            <p class="cs-stat-body">This pattern holds across every other pre-built plan we benchmarked &mdash; activation remains the universal bottleneck.</p>
+          </div>
+          <div class="cs-stat">
+            <svg class="cs-stat-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 28h26"/>
+              <path d="M4 4v24"/>
+              <path d="M7 24c6 0 9-5 12-10s5-9 9-9"/>
+              <path d="M24 5h4v4"/>
+            </svg>
+            <div class="cs-stat-title">The longer users stay, the more they keep staying.</div>
+            <p class="cs-stat-body">Retention curves flatten sharply after week 1. Users who clear the early hurdle compound &mdash; so the work was clear: get them past it.</p>
           </div>
         </div>
 
-        <div class="cs-tab-panel" id="panel-qual" role="tabpanel" aria-labelledby="tab-qual" data-panel="qual" hidden>
-          <div class="cs-carousel">
+        <div class="cs-research-act-divider">
+          <span class="cs-research-act-label">B &middot; What the voices said</span>
+        </div>
+        <div class="cs-carousel">
             <div class="cs-carousel-card">
               <div class="cs-carousel-card-img">
-                <span class="cs-carousel-card-img-icon">&#128197;</span>
-              </div>
-              <div class="cs-carousel-card-body">
-                <div class="cs-carousel-card-title">Plans feel irrelevant fast</div>
-                <div class="cs-carousel-card-text">Within 2 weeks a plan no longer reflected actual schedule or energy levels, leading to abandonment.</div>
-              </div>
-            </div>
-            <div class="cs-carousel-card">
-              <div class="cs-carousel-card-img">
-                <span class="cs-carousel-card-img-icon">&#127968;</span>
-              </div>
-              <div class="cs-carousel-card-body">
-                <div class="cs-carousel-card-title">Equipment mismatch</div>
-                <div class="cs-carousel-card-text">34% of users traveled frequently or worked out at home, but plans assumed full gym access every session.</div>
-              </div>
-            </div>
-            <div class="cs-carousel-card">
-              <div class="cs-carousel-card-img">
-                <span class="cs-carousel-card-img-icon">&#128202;</span>
+                <img src="assets/images/adaptive-plan/same_sets.svg" alt="Illustration of repetitive sets with no sense of progression" loading="lazy" data-illust="same_sets">
               </div>
               <div class="cs-carousel-card-body">
                 <div class="cs-carousel-card-title">No sense of progression</div>
@@ -985,7 +960,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
             </div>
             <div class="cs-carousel-card">
               <div class="cs-carousel-card-img">
-                <span class="cs-carousel-card-img-icon">&#129504;</span>
+                <img src="assets/images/adaptive-plan/routine_override.svg" alt="Illustration of an existing routine being overridden" loading="lazy" data-illust="routine_override">
               </div>
               <div class="cs-carousel-card-body">
                 <div class="cs-carousel-card-title">Routine override</div>
@@ -994,20 +969,29 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
             </div>
             <div class="cs-carousel-card">
               <div class="cs-carousel-card-img">
-                <span class="cs-carousel-card-img-icon">&#9881;</span>
-              </div>
-              <div class="cs-carousel-card-body">
-                <div class="cs-carousel-card-title">Lack of customization and direction</div>
-                <div class="cs-carousel-card-text">The 28-day plan ran straight with no rest days and a fixed exercise count per day &mdash; punishing for beginners and impossible to scale down.</div>
-              </div>
-            </div>
-            <div class="cs-carousel-card">
-              <div class="cs-carousel-card-img">
-                <span class="cs-carousel-card-img-icon">&#129657;</span>
+                <img src="assets/images/adaptive-plan/injury.svg" alt="Illustration of an injury blind spot" loading="lazy" data-illust="injury">
               </div>
               <div class="cs-carousel-card-body">
                 <div class="cs-carousel-card-title">Injury blind spot</div>
                 <div class="cs-carousel-card-text">Half of interviewees had trained through an injury &mdash; but the plan didn&rsquo;t adapt, and they didn&rsquo;t know how to adjust.</div>
+              </div>
+            </div>
+            <div class="cs-carousel-card">
+              <div class="cs-carousel-card-img">
+                <img src="assets/images/adaptive-plan/equipment_mismatch.svg" alt="Illustration of equipment mismatch across gyms" loading="lazy" data-illust="equipment_mismatch">
+              </div>
+              <div class="cs-carousel-card-body">
+                <div class="cs-carousel-card-title">Equipment mismatch</div>
+                <div class="cs-carousel-card-text">Users train across work, home, and commercial gyms &mdash; and even within the same category, available machines vary. But plans assumed identical equipment every session.</div>
+              </div>
+            </div>
+            <div class="cs-carousel-card">
+              <div class="cs-carousel-card-img">
+                <img src="assets/images/adaptive-plan/nodirection.svg" alt="Illustration of users lacking customization and direction" loading="lazy" data-illust="nodirection">
+              </div>
+              <div class="cs-carousel-card-body">
+                <div class="cs-carousel-card-title">Lack of customization and direction</div>
+                <div class="cs-carousel-card-text">The 28-day plan ran straight with no rest days and a fixed exercise count per day &mdash; punishing for beginners and impossible to scale down.</div>
               </div>
             </div>
           </div>
@@ -1023,7 +1007,6 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
               </svg>
             </button>
           </div>
-        </div>
       </div>
           </div>
       <div class="cs-hmw-band reveal">
@@ -1037,9 +1020,9 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
     <section class="cs-section" id="solution">
       <div class="cs-wrap">
       <span class="cs-eyebrow">04 &middot; Design Solution</span>
-      <h2 class="cs-section-title">Designed to<br>Feel Coached</h2>
+      <h2 class="cs-section-title">From a 28-day fixed plan<br>to a living system</h2>
       <div class="cs-body reveal">
-        <p>Every feature here maps to a pain point from research &mdash; six in the core product, two in monetization and retention.</p>
+        <p>Every feature traces back to a research pain point &mdash; seven in the core product, two in monetization and retention.</p>
       </div>
 
       <!-- 1 · Mesocycle plan -->
@@ -1111,7 +1094,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
         <div class="cs-feature-text">
           <div class="cs-feature-eyebrow">Solves &middot; No sense of progression</div>
           <h3>Feedback module.</h3>
-          <p>After each set, users tap easy / right / hard. Those signals feed back into the engine to recalibrate intensity and recovery for the next session.</p>
+          <p>After each session with incomplete exercises, users can provide input &mdash; and those signals feed back into the engine to recalibrate intensity and recovery for the next session.</p>
         </div>
         <div class="cs-feature-video">
           <!-- TODO: replace placeholder with <video> -->
@@ -1134,6 +1117,22 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
           <div class="cs-feature-video-ph">
             <span class="cs-feature-video-ph-icon">&#9654;</span>
             <span class="cs-feature-video-ph-label">Load progression</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7 · Familiarity module -->
+      <div class="cs-feature-split reveal">
+        <div class="cs-feature-text">
+          <div class="cs-feature-eyebrow">Solves &middot; Learning-curve overload</div>
+          <h3>Familiarity module.</h3>
+          <p>In dogfooding I noticed the generator recommending completely different exercises within the same muscle group week over week &mdash; a steep learning curve that pushed users to modify or abandon their plans. I raised it with PM and backend, and we retuned the generator to anchor in each user&rsquo;s proven exercise history and introduce a small percentage of new movements gradually, week by week &mdash; familiarity without the learning cliff.</p>
+        </div>
+        <div class="cs-feature-video">
+          <!-- TODO: replace placeholder with <video> -->
+          <div class="cs-feature-video-ph">
+            <span class="cs-feature-video-ph-icon">&#9654;</span>
+            <span class="cs-feature-video-ph-label">Familiarity module</span>
           </div>
         </div>
       </div>
@@ -1164,7 +1163,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
         <div class="cs-feature-text">
           <div class="cs-feature-eyebrow">Retention</div>
           <h3>Nudges.</h3>
-          <p>Behavioral nudges re-engage users at the right moment: a missed session, a stalled cycle, or an unfinished onboarding step.</p>
+          <p>Two jobs: build confidence for users who haven&rsquo;t opted in yet, and keep the adaptive plan visible after the first GTM popup is dismissed &mdash; resurfacing it at the right moment instead of relying on a single entry point.</p>
         </div>
         <div class="cs-feature-video">
           <!-- TODO: replace placeholder with <video> -->
@@ -1234,7 +1233,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
               <p>With the direction set &mdash; build a plan that adapts, not another onboarding &mdash; I partnered with product and growth on positioning. Three principles guided the plan: <strong>freemium entry</strong> with a clear value moment before any paywall, <strong>habit-first onboarding</strong> that lets users experience adaptation before being asked to pay, and <strong>gradual personalization</strong> that deepens as the AI learns each user.</p>
               <p>The strategic insight: <strong>users needed to feel the plan adapting to them before the paywall appeared.</strong> Based on retention data, we aligned the conversion moment to the second adaptation cycle &mdash; when perceived value peaked at days 10&ndash;14.</p>
               <div class="cs-cards" style="margin-top:24px;">
-                <div class="cs-card"><div class="cs-card-icon">&#127919;</div><div class="cs-card-title">Freemium Model</div><div class="cs-card-text">Core plan generation free. Advanced personalization, recovery-based adjustments, and priority modes behind a single paywall tier &mdash; simple, clear upgrade path.</div></div>
+                <div class="cs-card"><div class="cs-card-icon">&#127919;</div><div class="cs-card-title">Two-Tier Experience</div><div class="cs-card-text">Two parallel experiences designed in tandem: free users get core plan generation; paid users unlock advanced personalization, recovery-based adjustments, and priority modes &mdash; so the upgrade reads as a natural deepening, not a wall.</div></div>
                 <div class="cs-card"><div class="cs-card-icon">&#128200;</div><div class="cs-card-title">Habit-First Flow</div><div class="cs-card-text">Paywall delayed until week 2, after users experience at least one adaptation cycle. Data showed peak value perception at days 10&ndash;14, not day 1.</div></div>
                 <div class="cs-card"><div class="cs-card-icon">&#128260;</div><div class="cs-card-title">Feedback Flywheel</div><div class="cs-card-text">Every completed workout feeds the engine: better data &rarr; better adaptations &rarr; higher retention &rarr; more data. A self-reinforcing loop.</div></div>
                 <div class="cs-card"><div class="cs-card-icon">&#128640;</div><div class="cs-card-title">Phased Rollout</div><div class="cs-card-text">Launched to 5% of new users, iterated on conversion data for two weeks, then scaled to 100% &mdash; de-risking paywall timing and adaptation quality.</div></div>
@@ -1246,14 +1245,14 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
         <details class="cs-bts-row">
           <summary class="cs-bts-summary">
             <span class="cs-bts-num">04</span>
-            <span class="cs-bts-title">Lo-Fi &amp; Mid-Fi</span>
+            <span class="cs-bts-title">Iterations</span>
             <span class="cs-bts-toggle" aria-hidden="true">
               <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg>
             </span>
           </summary>
           <div class="cs-bts-body">
             <div class="cs-bts-body-inner">
-              <p>Wireframes for the two flows that mattered most: onboarding without form-fatigue, and the weekly adaptation moment. The mid-fi pass is where the &ldquo;coach card&rdquo; voice first emerged &mdash; before that, the surface read as a settings panel.</p>
+              <p>Wireframes for the two flows that mattered most: onboarding without form-fatigue, and the weekly adaptation moment. Iterating on these is where the &ldquo;coach card&rdquo; voice first emerged &mdash; before that, the surface read as a settings panel.</p>
               <div class="cs-two-col">
                 <figure class="cs-media h-sm reveal">
                   <img src="assets/images/adaptive-plan/wireframes-onboarding.png" alt="Onboarding wireframes" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
@@ -1528,40 +1527,6 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
     entries.forEach(e=>{if(e.isIntersecting){run(e.target);countObs.unobserve(e.target);}});
   },{threshold:0.4});
   parsed.forEach(el=>countObs.observe(el));
-})();
-
-(function(){
-  document.querySelectorAll('.cs-tabs').forEach(group=>{
-    const btns=[...group.querySelectorAll('.cs-tab-btn')];
-    const panels=[...group.querySelectorAll('.cs-tab-panel')];
-    const activate=target=>{
-      btns.forEach(b=>{
-        const on=b.dataset.tab===target;
-        b.classList.toggle('is-active',on);
-        b.setAttribute('aria-selected',on);
-        b.setAttribute('tabindex',on?'0':'-1');
-      });
-      panels.forEach(p=>{
-        const on=p.dataset.panel===target;
-        p.classList.toggle('is-active',on);
-        if(on){
-          p.removeAttribute('hidden');
-          p.querySelectorAll('.cs-carousel').forEach(c=>c.dispatchEvent(new CustomEvent('cs-carousel-refresh')));
-        }else p.setAttribute('hidden','');
-      });
-    };
-    btns.forEach(btn=>{
-      btn.addEventListener('click',()=>activate(btn.dataset.tab));
-      btn.addEventListener('keydown',e=>{
-        if(e.key!=='ArrowLeft'&&e.key!=='ArrowRight')return;
-        e.preventDefault();
-        const i=btns.indexOf(btn);
-        const next=e.key==='ArrowRight'?btns[(i+1)%btns.length]:btns[(i-1+btns.length)%btns.length];
-        activate(next.dataset.tab);
-        next.focus();
-      });
-    });
-  });
 })();
 
 (function(){
