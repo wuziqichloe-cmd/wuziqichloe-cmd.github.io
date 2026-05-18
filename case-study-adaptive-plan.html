@@ -310,7 +310,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-pull-quote-attr{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-top:10px;}
 
 /* QUANT STATS STRIP — restored icon + title size, card chrome stripped */
-.cs-stats-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;}
+.cs-stats-strip{display:grid;grid-template-columns:repeat(2,1fr);gap:32px;} /* swap to repeat(3,1fr) if 3rd card restored */
 .cs-stat{display:flex;flex-direction:column;gap:14px;}
 .cs-stat-icon{width:32px;height:32px;color:var(--accent);flex-shrink:0;}
 .cs-stat-title{font-size:var(--fs-md);font-weight:var(--fw-semibold);color:var(--ink);line-height:1.2;letter-spacing:-.02em;margin:0;}
@@ -368,16 +368,18 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-voc-role{font-size:var(--fs-xs);font-weight:var(--fw-medium);color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase;}
 @media(max-width:900px){.cs-voc-list{grid-template-columns:1fr;gap:14px;}.cs-voc{padding:32px 24px 22px;}}
 
-/* Pain stats — quantitative anchor in Problem section */
-.cs-pain-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:24px 48px;margin:32px 0 28px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:28px 0;}
+/* Pain stats — quantitative anchor in Problem section (borderless, breathes in whitespace) */
+.cs-pain-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:24px 48px;margin:40px 0;}
 .cs-pain-stat{display:flex;flex-direction:column;gap:8px;}
 .cs-pain-stat-val{font-family:var(--font-display);font-weight:var(--fw-bold);font-size:var(--fs-2xl);letter-spacing:-.03em;color:var(--ink);line-height:1;}
 .cs-pain-stat-lbl{font-size:var(--fs-base);font-weight:var(--fw-medium);color:var(--ink-2);letter-spacing:.01em;}
-.cs-pain-stats-source{grid-column:1/-1;font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);}
+.cs-pain-stats-source{grid-column:1/-1;font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-top:4px;}
 
-/* Problem · what we'd already tried (inline prose, prior attempts ruled out) */
-.cs-tried{margin-top:48px;padding-top:32px;border-top:1px solid var(--border);}
-.cs-tried-label{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin-bottom:14px;}
+/* Problem · what we'd already tried — promoted to tinted callout (the rhetorical pivot) */
+.cs-tried{margin-top:48px;padding:32px 36px;background:var(--bg-2);border-radius:24px;display:flex;flex-direction:column;gap:14px;}
+.cs-tried-label{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);}
+.cs-tried .cs-body{margin:0;}
+@media(max-width:767px){.cs-tried{padding:24px 22px;border-radius:20px;}}
 
 /* TABS — apple.com/mac inspired pill nav */
 /* RESEARCH ACTS — two-act vertical split (replaces tabs) */
@@ -844,7 +846,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
       <span class="cs-eyebrow">02 &middot; Problem</span>
       <h2 class="cs-section-title">Too Generic to Keep Anyone</h2>
       <div class="cs-problem-block reveal">
-        <p class="cs-problem-lead">The reviews and research kept pointing to the same thing.</p>
+        <p class="cs-problem-lead">The drop-off pattern was hard to miss.</p>
         <p class="cs-body">Paid users were handed a static 28-day plan &mdash; same exercises every week, no matter their goals or progress. What they paid for wasn&rsquo;t growing with them, and the drop-off happened in two waves. Most never made it through activation. Those who did soon realized the plan couldn&rsquo;t keep up &mdash; too generic to feel personal, too static to reflect their progress. Either way, walking away was the easier choice.</p>
       </div>
       <div class="cs-pain-stats reveal">
@@ -858,6 +860,10 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
         </div>
         <div class="cs-pain-stats-source">Source &middot; Amplitude funnel, paid users</div>
       </div>
+      <!--
+        Archived: VOC review cards (Storm / Chaire L. / Morty G.).
+        Removed to avoid overlap with Research Act B (5 themed cards).
+        Restore here if Problem section needs raw user voice again.
       <div class="cs-voc-list reveal">
         <div class="cs-voc">
           <div class="cs-voc-text">Are the workouts under workouts 28 day plan set to what were suppose to do?&hellip; <mark>Am I supposed to add more sets and reps</mark>? I rather follow it if its set to what im suppose to do only. Like my personal trainer.</div>
@@ -890,6 +896,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
           </div>
         </div>
       </div>
+      -->
 
       <div class="cs-tried reveal">
         <div class="cs-tried-label">What we&rsquo;d already tried</div>
@@ -912,6 +919,10 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
           <span class="cs-research-act-label">A &middot; What the funnel said</span>
         </div>
         <div class="cs-stats-strip">
+          <!--
+            Archived: "Week 0 → Week 1 is the steepest cliff" stat card.
+            Removed to avoid restating Problem's 60.7% Day 7 figure.
+            If restored, flip .cs-stats-strip back to repeat(3,1fr) in CSS.
           <div class="cs-stat">
             <svg class="cs-stat-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M4 28h26"/>
@@ -922,6 +933,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
             <div class="cs-stat-title">Week 0 &rarr; Week 1 is the steepest cliff.</div>
             <p class="cs-stat-body">The bulk of paid users drop off within the first seven days &mdash; before the plan ever gets a chance to deliver value.</p>
           </div>
+          -->
           <div class="cs-stat">
             <svg class="cs-stat-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <rect x="4" y="7" width="24" height="22" rx="3"/>
