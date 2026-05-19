@@ -137,9 +137,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 
 /* HERO */
 .cs-hero{min-height:72vh;background:linear-gradient(145deg,#0f172a 0%,#1e3a8a 55%,#1d4ed8 100%);position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:72px 64px;}
-.cs-hero::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom,transparent 25%,rgba(0,0,0,.6) 100%);}
-.cs-hero-watermark{position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);font-family:var(--font-display);font-weight:var(--fw-bold);font-size:var(--fs-display-xl);letter-spacing:-.04em;color:rgba(255,255,255,.04);pointer-events:none;user-select:none;white-space:nowrap;line-height:1;}
-.cs-hero-inner{position:relative;z-index:1;}
+.cs-hero::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom,transparent 25%,rgba(0,0,0,.6) 100%);z-index:2;}
+.cs-hero-watermark{position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);font-family:var(--font-display);font-weight:var(--fw-bold);font-size:var(--fs-display-xl);letter-spacing:-.04em;color:rgba(255,255,255,.04);pointer-events:none;user-select:none;white-space:nowrap;line-height:1;z-index:1;}
+/* Hero phone mockups — floating right side, placeholder until real screens swapped in */
+.cs-hero-phones{position:absolute;right:7%;top:50%;transform:translateY(-50%);width:440px;height:580px;z-index:1;pointer-events:none;}
+.cs-hero-phone{position:absolute;width:240px;border-radius:30px;box-shadow:0 40px 80px rgba(0,0,0,.5),0 0 0 1.5px rgba(255,255,255,.06);display:block;}
+.cs-hero-phone.back{top:0;right:0;transform:rotate(7deg);}
+.cs-hero-phone.front{bottom:0;left:20px;transform:rotate(-6deg);}
+@media(max-width:1200px){.cs-hero-phones{right:3%;width:380px;height:500px;}.cs-hero-phone{width:200px;border-radius:26px;}}
+@media(max-width:900px){.cs-hero-phones{display:none;}}
+.cs-hero-inner{position:relative;z-index:3;}
 .cs-hero-tags{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
 .cs-hero-tag{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.2);padding:3px 12px;border-radius:100px;backdrop-filter:blur(8px);}
 .cs-hero-title{font-family:var(--font-display);font-weight:var(--fw-bold);font-size:clamp(56px,7vw,96px);line-height:.95;letter-spacing:-.03em;color:#fff;margin-bottom:16px;}
@@ -366,7 +373,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-voc-meta{display:flex;flex-direction:column;gap:2px;min-width:0;}
 .cs-voc-name{font-size:var(--fs-base);font-weight:var(--fw-semibold);color:var(--ink);letter-spacing:-.01em;line-height:1.2;}
 .cs-voc-role{font-size:var(--fs-xs);font-weight:var(--fw-medium);color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase;}
+/* Archived: VOC list media query — voc list itself is commented out above, so this rule is unreachable.
 @media(max-width:900px){.cs-voc-list{grid-template-columns:1fr;gap:14px;}.cs-voc{padding:32px 24px 22px;}}
+*/
 
 /* Pain stats — quantitative anchor in Problem section (borderless, breathes in whitespace) */
 .cs-pain-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:24px 48px;margin:40px 0;}
@@ -374,12 +383,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-pain-stat-val{font-family:var(--font-display);font-weight:var(--fw-bold);font-size:var(--fs-2xl);letter-spacing:-.03em;color:var(--ink);line-height:1;}
 .cs-pain-stat-lbl{font-size:var(--fs-base);font-weight:var(--fw-medium);color:var(--ink-2);letter-spacing:.01em;}
 .cs-pain-stats-source{grid-column:1/-1;font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-top:4px;}
+@media(max-width:767px){.cs-pain-stats{grid-template-columns:1fr;gap:24px;margin:32px 0;}.cs-pain-stat-val{font-size:var(--fs-xl);}}
 
 /* Problem · what we'd already tried — promoted to tinted callout (the rhetorical pivot) */
-.cs-tried{margin-top:48px;padding:32px 36px;background:var(--bg-2);border-radius:24px;display:flex;flex-direction:column;gap:14px;}
-.cs-tried-label{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);}
+.cs-tried{margin-top:56px;padding:40px 44px;background:var(--bg-2);border-radius:24px;display:flex;flex-direction:column;gap:18px;}
+.cs-tried-title{font-family:var(--font-display);font-size:var(--fs-md);font-weight:var(--fw-semibold);letter-spacing:-.01em;color:var(--ink);line-height:1.2;margin:0 0 4px;}
 .cs-tried .cs-body{margin:0;}
-@media(max-width:767px){.cs-tried{padding:24px 22px;border-radius:20px;}}
+.cs-tried-punchline{margin:0;font-size:var(--fs-base);font-weight:var(--fw-semibold);color:var(--ink);line-height:1.4;}
+@media(max-width:767px){.cs-tried{padding:28px 24px;border-radius:20px;gap:14px;}.cs-tried-title{font-size:var(--fs-base);}}
 
 /* TABS — apple.com/mac inspired pill nav */
 /* RESEARCH ACTS — two-act vertical split (replaces tabs) */
@@ -562,12 +573,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
   .cs-next-heading{flex-direction:column;align-items:flex-start;gap:12px;}
   .cs-section{padding:52px 0;}
   .cs-cards,.cs-goals-row{grid-template-columns:1fr;}
-  .cs-stats-row{grid-template-columns:repeat(4,1fr);gap:12px;}
-  .cs-stats-row .cs-stat-label{font-size:var(--fs-2xs);letter-spacing:.06em;margin-bottom:6px;}
-  .cs-stats-row .cs-stat-val{font-size:var(--fs-md);margin-bottom:4px;}
-  .cs-stats-row .cs-stat-val[style]{font-size:var(--fs-sm)!important;line-height:1.15;}
-  .cs-stats-row .cs-stat-stars{font-size:var(--fs-sm);}
-  .cs-stats-row .cs-stat-sub{font-size:var(--fs-xs);line-height:1.3;}
+  .cs-stats-row{grid-template-columns:1fr 1fr;gap:28px 20px;}
+  .cs-stats-row .cs-stat-label{font-size:var(--fs-xs);letter-spacing:.08em;margin-bottom:8px;}
+  .cs-stats-row .cs-stat-val{font-size:var(--fs-lg);margin-bottom:6px;}
+  .cs-stats-row .cs-stat-val[style]{font-size:var(--fs-base)!important;line-height:1.25;}
+  .cs-stats-row .cs-stat-stars{font-size:var(--fs-base);}
+  .cs-stats-row .cs-stat-sub{font-size:var(--fs-xs);line-height:1.4;}
   .cs-three-col{grid-template-columns:1fr;}
   nav{padding:0 20px;height:52px;}
   .cs-hero{padding:32px 20px;min-height:44vh;}
@@ -727,6 +738,10 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
     <!-- HERO -->
     <div class="cs-hero">
       <div class="cs-hero-watermark">ADAPTIVE</div>
+      <div class="cs-hero-phones" aria-hidden="true">
+        <img class="cs-hero-phone back" src="assets/images/adaptive-plan/same_set.jpg" alt="" loading="eager">
+        <img class="cs-hero-phone front" src="assets/images/adaptive-plan/28dayplan.jpg" alt="" loading="eager">
+      </div>
       <div class="cs-hero-inner reveal">
         <div class="cs-hero-tags">
           <span class="cs-hero-tag">0&rarr;1 Feature</span>
@@ -847,7 +862,8 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
       <h2 class="cs-section-title">Too Generic to Keep Anyone</h2>
       <div class="cs-problem-block reveal">
         <p class="cs-problem-lead">The drop-off pattern was hard to miss.</p>
-        <p class="cs-body">Paid users were handed a static 28-day plan &mdash; same exercises every week, no matter their goals or progress. What they paid for wasn&rsquo;t growing with them, and the drop-off happened in two waves. Most never made it through activation. Those who did soon realized the plan couldn&rsquo;t keep up &mdash; too generic to feel personal, too static to reflect their progress. Either way, walking away was the easier choice.</p>
+        <p class="cs-body">Paid users were handed a static 28-day plan &mdash; same exercises every week, no matter their goals or progress. What they paid for wasn&rsquo;t growing with them.</p>
+        <p class="cs-body">The drop-off happened in two waves. Most never made it through activation. Those who did soon realized the plan couldn&rsquo;t keep up &mdash; too generic to feel personal, too static to reflect their progress. Either way, walking away was the easier choice.</p>
       </div>
       <div class="cs-pain-stats reveal">
         <div class="cs-pain-stat">
@@ -899,8 +915,9 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
       -->
 
       <div class="cs-tried reveal">
-        <div class="cs-tried-label">What we&rsquo;d already tried</div>
-        <p class="cs-body">Tooltips, walkthroughs, video demos, even a UI refresh &mdash; four onboarding investments shipped. Metrics barely moved, and the reviews kept naming the same culprit. The fix wasn&rsquo;t the introduction. <strong>It was the plan itself.</strong></p>
+        <h3 class="cs-tried-title">What we&rsquo;d already tried</h3>
+        <p class="cs-body">Tooltips, walkthroughs, video demos, even a UI refresh &mdash; four onboarding investments shipped. Metrics barely moved, and the reviews kept naming the same culprit.</p>
+        <p class="cs-tried-punchline">The fix wasn&rsquo;t the introduction. It was the plan itself.</p>
       </div>
           </div>
     </section>
@@ -1037,24 +1054,8 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
         <p>Every feature traces back to a research pain point &mdash; seven in the core product, two in monetization and retention.</p>
       </div>
 
-      <!-- 1 · Mesocycle plan -->
+      <!-- 1 · Training preference -->
       <div class="cs-feature-split reveal">
-        <div class="cs-feature-text">
-          <div class="cs-feature-eyebrow">Solves &middot; Plans feel irrelevant fast</div>
-          <h3>Mesocycle plan that adapts each week.</h3>
-          <p>The plan rebalances volume, intensity, and recovery week over week &mdash; based on what the user actually did, not what was prescribed on day one.</p>
-        </div>
-        <div class="cs-feature-video">
-          <!-- TODO: replace placeholder with <video autoplay loop muted playsinline><source src="assets/videos/adaptive-plan/mesocycle.mp4" type="video/mp4"></video> -->
-          <div class="cs-feature-video-ph">
-            <span class="cs-feature-video-ph-icon">&#9654;</span>
-            <span class="cs-feature-video-ph-label">Mesocycle adaptation</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 2 · Training preference -->
-      <div class="cs-feature-split reverse reveal">
         <div class="cs-feature-text">
           <div class="cs-feature-eyebrow">Solves &middot; Routine override</div>
           <h3>Training preference.</h3>
@@ -1069,8 +1070,8 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
         </div>
       </div>
 
-      <!-- 3 · Injury management -->
-      <div class="cs-feature-split reveal">
+      <!-- 2 · Injury management -->
+      <div class="cs-feature-split reverse reveal">
         <div class="cs-feature-text">
           <div class="cs-feature-eyebrow">Solves &middot; Injury blind spot</div>
           <h3>Injury management.</h3>
@@ -1085,8 +1086,8 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
         </div>
       </div>
 
-      <!-- 4 · Equipment management -->
-      <div class="cs-feature-split reverse reveal">
+      <!-- 3 · Equipment management -->
+      <div class="cs-feature-split reveal">
         <div class="cs-feature-text">
           <div class="cs-feature-eyebrow">Solves &middot; Equipment mismatch</div>
           <h3>Equipment management.</h3>
@@ -1101,10 +1102,26 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
         </div>
       </div>
 
+      <!-- 4 · Load progression -->
+      <div class="cs-feature-split reverse reveal">
+        <div class="cs-feature-text">
+          <div class="cs-feature-eyebrow">Solves &middot; No sense of progression</div>
+          <h3>Load progression.</h3>
+          <p>Weight, reps, and rest scale automatically from feedback and historical performance. Progression is visible, with deload weeks respected.</p>
+        </div>
+        <div class="cs-feature-video">
+          <!-- TODO: replace placeholder with <video> -->
+          <div class="cs-feature-video-ph">
+            <span class="cs-feature-video-ph-icon">&#9654;</span>
+            <span class="cs-feature-video-ph-label">Load progression</span>
+          </div>
+        </div>
+      </div>
+
       <!-- 5 · Feedback module -->
       <div class="cs-feature-split reveal">
         <div class="cs-feature-text">
-          <div class="cs-feature-eyebrow">Solves &middot; No sense of progression</div>
+          <div class="cs-feature-eyebrow">Solves &middot; Lack of customization</div>
           <h3>Feedback module.</h3>
           <p>After each session with incomplete exercises, users can provide input &mdash; and those signals feed back into the engine to recalibrate intensity and recovery for the next session.</p>
         </div>
@@ -1117,18 +1134,18 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
         </div>
       </div>
 
-      <!-- 6 · Load progression -->
+      <!-- 6 · Mesocycle plan -->
       <div class="cs-feature-split reverse reveal">
         <div class="cs-feature-text">
-          <div class="cs-feature-eyebrow">Solves &middot; Lack of customization</div>
-          <h3>Load progression.</h3>
-          <p>Weight, reps, and rest scale automatically from feedback and historical performance. Progression is visible, with deload weeks respected.</p>
+          <div class="cs-feature-eyebrow">Solves &middot; Plans feel irrelevant fast</div>
+          <h3>Mesocycle plan that adapts each week.</h3>
+          <p>The plan rebalances volume, intensity, and recovery week over week &mdash; based on what the user actually did, not what was prescribed on day one.</p>
         </div>
         <div class="cs-feature-video">
-          <!-- TODO: replace placeholder with <video> -->
+          <!-- TODO: replace placeholder with <video autoplay loop muted playsinline><source src="assets/videos/adaptive-plan/mesocycle.mp4" type="video/mp4"></video> -->
           <div class="cs-feature-video-ph">
             <span class="cs-feature-video-ph-icon">&#9654;</span>
-            <span class="cs-feature-video-ph-label">Load progression</span>
+            <span class="cs-feature-video-ph-label">Mesocycle adaptation</span>
           </div>
         </div>
       </div>
