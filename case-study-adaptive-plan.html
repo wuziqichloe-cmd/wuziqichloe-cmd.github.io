@@ -136,8 +136,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 }
 
 /* HERO */
-.cs-hero{min-height:72vh;background:linear-gradient(145deg,#0f172a 0%,#1e3a8a 55%,#1d4ed8 100%);position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:72px 64px;}
-.cs-hero::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom,transparent 25%,rgba(0,0,0,.6) 100%);z-index:2;}
+.cs-hero{min-height:72vh;background:#0f172a url("assets/images/adaptive-plan/cover.png") center/cover no-repeat;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:72px 64px;}
+.cs-hero::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom,rgba(0,0,0,.15) 0%,rgba(0,0,0,.35) 55%,rgba(0,0,0,.78) 100%);z-index:2;}
 .cs-hero-watermark{position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);font-family:var(--font-display);font-weight:var(--fw-bold);font-size:var(--fs-display-xl);letter-spacing:-.04em;color:rgba(255,255,255,.04);pointer-events:none;user-select:none;white-space:nowrap;line-height:1;z-index:1;}
 /* Hero phone mockups — floating right side, placeholder until real screens swapped in */
 .cs-hero-phones{position:absolute;right:7%;top:50%;transform:translateY(-50%);width:440px;height:580px;z-index:1;pointer-events:none;}
@@ -737,11 +737,6 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
 
     <!-- HERO -->
     <div class="cs-hero">
-      <div class="cs-hero-watermark">ADAPTIVE</div>
-      <div class="cs-hero-phones" aria-hidden="true">
-        <img class="cs-hero-phone back" src="assets/images/adaptive-plan/same_set.jpg" alt="" loading="eager">
-        <img class="cs-hero-phone front" src="assets/images/adaptive-plan/28dayplan.jpg" alt="" loading="eager">
-      </div>
       <div class="cs-hero-inner reveal">
         <div class="cs-hero-tags">
           <span class="cs-hero-tag">0&rarr;1 Feature</span>
