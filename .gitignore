@@ -4,6 +4,7 @@
 
 # Editor / backup files
 *.bak
+index-original.html
 
 # Local environment & secrets — never commit
 set_env.sh
