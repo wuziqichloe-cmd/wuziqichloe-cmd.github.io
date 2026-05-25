@@ -123,7 +123,7 @@ nav {
 
 .hero-title {
   font-family:var(--font-display);font-weight:var(--fw-semibold);
-  font-size:clamp(48px,9vw,136px);
+  font-size:clamp(var(--fs-2xl),9vw,var(--fs-display-lg));
   line-height:.92; letter-spacing:.01em;
   color:var(--ink);
   position:relative; z-index:1;
@@ -156,7 +156,7 @@ nav {
   display:none;
 }
 .hero-greeting {
-  font-size:clamp(24px,2.2vw,32px);   /* bigger — more noticeable */
+  font-size:clamp(var(--fs-md),2.2vw,var(--fs-lg));   /* bigger — more noticeable */
   font-weight:var(--fw-medium);
   color:var(--ink);                       /* full ink — not muted */
   letter-spacing:-.02em;
@@ -221,7 +221,7 @@ nav {
 ───────────────────────────────────── */
 #work { background:var(--bg); transition:background .4s; }
 .sec-ey { font-size:var(--fs-sm); font-weight:var(--fw-bold); letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin-bottom:10px; display:block; }
-.sec-h { font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:clamp(40px,6vw,72px); line-height:1.05; letter-spacing:-.03em; color:var(--ink); }
+.sec-h { font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:clamp(var(--fs-xl),6vw,var(--fs-5xl)); line-height:1.05; letter-spacing:-.03em; color:var(--ink); }
 .sec-note { max-width:28ch; font-size:var(--fs-base); color:var(--ink-2); line-height:1.7; }
 
 /* Section header */
@@ -299,7 +299,7 @@ nav {
 
 .proj-dname {
   font-family:var(--font-body);
-  font-size:clamp(32px,2.8vw,48px); font-weight:var(--fw-medium);
+  font-size:clamp(var(--fs-lg),2.8vw,var(--fs-2xl)); font-weight:var(--fw-medium);
   line-height:1.08; letter-spacing:-.025em;
   color:var(--ink); margin-bottom:14px;
 }
@@ -386,7 +386,7 @@ nav {
 }
 .proj-panel-title {
   font-family:var(--font-display);font-weight:var(--fw-semibold);
-  font-size:clamp(40px,5vw,72px); line-height:.95;
+  font-size:clamp(var(--fs-xl),5vw,var(--fs-5xl)); line-height:.95;
   letter-spacing:.02em; color:#fff; margin-bottom:8px;
 }
 .proj-panel-desc {
@@ -503,7 +503,7 @@ nav {
 .about-heading h2 {
   font-family: var(--font-display);
   font-weight: var(--fw-semibold);
-  font-size: clamp(40px, 6vw, 72px);
+  font-size: clamp(var(--fs-xl), 6vw, var(--fs-5xl));
   line-height: 1.05; letter-spacing: -.03em; color: var(--ink);
 }
 
@@ -713,42 +713,63 @@ nav {
 }
 .bt-behaviors-tile:hover { transform: none; box-shadow: none; }
 [data-theme="dark"] .bt-behaviors-tile { background: transparent; border: none; }
+.bt-behaviors-tile .bt-label { text-align: left; }
 
+/* Single horizontal row of 6 polaroids */
 .bt-beh-grid {
-  position: relative;
-  min-height: 400px;
-  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+  margin: 20px auto 0;
+  align-items: start;
+  justify-items: center;
 }
 /* Polaroid card: tight white frame, no internal slack */
 .bt-beh-card {
-  position: absolute;
+  width: 100%;
+  max-width: 280px;
   background: var(--surf);
   border: none;
-  padding: 8px 8px 12px;
+  padding: 8px 8px 14px;
   border-radius: 3px;
   box-shadow: 0 18px 32px rgba(0,0,0,0.16),
               0 6px 12px rgba(0,0,0,0.08);
   display: flex; flex-direction: column; gap: 6px;
-  transition: transform .35s cubic-bezier(.22,1,.36,1), z-index 0s .35s, box-shadow .35s;
+  transition: transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s;
 }
 [data-theme="dark"] .bt-beh-card {
   box-shadow: 0 18px 32px rgba(0,0,0,0.55),
               0 6px 12px rgba(0,0,0,0.35);
 }
 .bt-beh-card:hover {
-  z-index: 20;
-  transform: scale(1.06) rotate(0deg);
+  transform: translateY(-6px) scale(1.03);
   box-shadow: 0 26px 44px rgba(0,0,0,0.22),
               0 8px 16px rgba(0,0,0,0.12);
-  transition: transform .35s cubic-bezier(.22,1,.36,1), z-index 0s 0s, box-shadow .35s;
 }
-/* Mixed sizes — Mochi is the hero (biggest, most forward), others fan around */
-.bt-beh-card:nth-child(1) { width: 130px; top: 30px;             left: 0%;  z-index: 3; transform: rotate(-4deg); }
-.bt-beh-card:nth-child(2) { width: 215px; top: -25px;            left: 13%; z-index: 5; transform: rotate(3deg); }
-.bt-beh-card:nth-child(3) { width: 150px; top: 55px;             left: 34%; z-index: 2; transform: rotate(-2deg); }
-.bt-beh-card:nth-child(4) { width: 140px; top: auto; bottom: -18px; left: 50%; z-index: 4; transform: rotate(4deg); }
-.bt-beh-card:nth-child(5) { width: 200px; top: 60px;             left: 64%; z-index: 4; transform: rotate(-3deg); }
-.bt-beh-card:nth-child(6) { width: 155px; top: 30px;             left: 83%; z-index: 3; transform: rotate(2deg); }
+/* Pre-framed polaroid images (Mochi · Nature) — the image already carries
+   its own white frame + tape, so drop the duplicate CSS frame and shadow */
+.bt-beh-card--photo,
+[data-theme="dark"] .bt-beh-card--photo {
+  background: transparent;
+  padding: 0;
+  box-shadow: none;
+  gap: 4px;
+}
+.bt-beh-card--photo:hover {
+  box-shadow: none;
+  transform: translateY(-6px) scale(1.03);
+}
+.bt-beh-photo {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+/* Mochi polaroid carries extra transparent padding in the PNG — scale up so
+   the visible photo matches the edge-to-edge cards alongside it */
+.bt-beh-photo--mochi {
+  transform: scale(1.2);
+  transform-origin: center;
+}
 
 .bt-beh-icon {
   width: 100%;
@@ -824,6 +845,7 @@ img.bt-beh-icon { object-fit: cover; }
   .bc-3 { grid-column: span 6; }
   .bc-5 { grid-column: span 6; }
   .bc-6 { grid-column: span 12; }
+  .bt-beh-grid { grid-template-columns: repeat(3, 1fr); }
 }
 @media (max-width:767px) {
   #about { padding: 56px 20px; }
@@ -831,19 +853,8 @@ img.bt-beh-icon { object-fit: cover; }
   .bento { gap: 7px; }
   .bento > .bt { grid-column: 1/-1 !important; grid-row: auto !important; }
   .bt-photo-tile { min-height: 240px; }
-  /* Behaviors: drop absolute scatter, stack 2-col */
-  .bt-beh-grid {
-    position: static; min-height: 0;
-    display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
-  }
-  .bt-beh-card {
-    position: static; width: 100% !important;
-    top: auto !important; bottom: auto !important;
-    left: auto !important; right: auto !important;
-    transform: none !important;
-  }
-  .bt-beh-icon { width: 100%; height: auto; aspect-ratio: 1; }
-  .bt-beh-card .bt-beh-icon { transform: none !important; }
+  /* Behaviors: 2 columns on small screens */
+  .bt-beh-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
   .bt-quote-tile { flex-direction: column; gap: 12px; padding: 24px 22px; }
   .bt-quote-mark { font-size:var(--fs-2xl); }
 }
@@ -870,7 +881,11 @@ img.bt-beh-icon { object-fit: cover; }
 #chat{padding:120px 48px 96px;background:var(--bg-2);border-top:1px solid var(--border);transition:background .4s,border-color .4s;}
 .chat-inner{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center;}
 .chat-eyebrow{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:18px;}
-.chat-title{font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:clamp(40px,6vw,80px);line-height:1.05;letter-spacing:-.03em;color:var(--ink);margin-bottom:14px;}
+.chat-title{font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:clamp(var(--fs-xl),6vw,var(--fs-6xl));line-height:1.05;letter-spacing:-.03em;color:var(--ink);margin-bottom:14px;min-height:1.1em;}
+.chat-title .typer{display:inline;}
+.chat-title .typer-caret{display:inline-block;width:.055em;height:.82em;background:var(--accent);margin-left:.06em;vertical-align:-.06em;border-radius:2px;animation:typerBlink 1.05s steps(1) infinite;}
+@keyframes typerBlink{50%{opacity:0;}}
+@media(prefers-reduced-motion:reduce){.chat-title .typer-caret{animation:none;}}
 .chat-sub{font-size:var(--fs-base);color:var(--ink-2);line-height:1.7;max-width:46ch;margin-bottom:44px;}
 .chat-links{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;}
 .chat-btn{display:inline-flex;align-items:center;gap:14px;padding:18px 28px;border-radius:100px;border:1.5px solid var(--border-h);background:var(--surf);text-decoration:none;color:var(--ink);transition:transform .25s cubic-bezier(.22,1,.36,1),border-color .2s,background .2s,color .2s;}
@@ -917,7 +932,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
   .work-hdr { padding:60px 36px 44px; }
   .work-left { padding:36px 28px 32px; }
   .proj-panel-info { padding:28px 32px; }
-  .proj-panel-title { font-size:clamp(32px,4vw,56px); }
+  .proj-panel-title { font-size:clamp(var(--fs-lg),4vw,var(--fs-3xl)); }
   #about, #resume { padding:80px 36px; }
   footer { padding:40px 36px; }
   .ag { gap:40px; }
@@ -970,7 +985,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
   .h-bar { padding:0 20px; }
   .h-bar-l { text-align:center; }
   .h-bar-cta { justify-content:center; }
-  .hero-title { font-size:clamp(40px,11vw,80px); }
+  .hero-title { font-size:clamp(var(--fs-xl),11vw,var(--fs-6xl)); }
 
   /* --- Work section: no sticky, stacked panels --- */
   .work-hdr { padding:48px 20px 36px; flex-direction:column; gap:12px; }
@@ -986,7 +1001,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
     align-items:flex-end;
   }
   .proj-panel-info { padding:24px 20px; }
-  .proj-panel-title { font-size:clamp(32px,8vw,48px); }
+  .proj-panel-title { font-size:clamp(var(--fs-lg),8vw,var(--fs-2xl)); }
   .proj-panel-desc { font-size:var(--fs-sm); }
   .proj-panel-metrics { gap:18px; }
   .proj-panel-ghost { font-size:var(--fs-4xl); top:16px; right:16px; }
@@ -1076,7 +1091,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
 
       <div class="bt bt-a bt-bio-tile bc-4">
         <span class="bt-label">Bio</span>
-        <p class="bt-bio-text">I’m a product designer specializing in 0→1 experiences — turning ambiguous problems into clear, useful, and beautiful products. Currently at Jefit, designing for 12M+ users.</p>
+        <p class="bt-bio-text">I’m a product designer specializing in 0→1 experiences — turning ambiguous problems into clear, useful, and beautiful products. Currently at Jefit, designing for 13M+ users.</p>
         <div class="bt-detail-rows">
           <div class="bt-detail-row">
             <span class="bt-detail-k">Role</span>
@@ -1130,33 +1145,33 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
       <div class="bt bt-a bt-behaviors-tile bc-12">
         <span class="bt-label">🌱 Behaviors</span>
         <div class="bt-beh-grid">
-          <div class="bt-beh-card">
-            <img class="bt-beh-icon" src="assets/images/coffee.jpg" alt="Coffee" loading="lazy" decoding="async" width="500" height="500">
+          <div class="bt-beh-card bt-beh-card--photo">
+            <img class="bt-beh-photo" src="assets/images/coffee.png" alt="Coffee" loading="lazy" decoding="async" width="1788" height="1698">
             <div class="bt-beh-name">Coffee, at least 1×/day</div>
             <div class="bt-beh-desc">15 minutes of quiet before the day hits—it’s how I calibrate my focus.</div>
           </div>
-          <div class="bt-beh-card">
-            <img class="bt-beh-icon" src="assets/images/mochi.jpeg" alt="Mochi" loading="lazy" decoding="async" width="450" height="526">
-            <div class="bt-beh-name">Meet my cat Mochi</div>
-            <div class="bt-beh-desc">My unpaid mental support and full-time judge of life choices — a daily reminder there’s a world beyond pixels.</div>
-          </div>
-          <div class="bt-beh-card">
-            <img class="bt-beh-icon" src="assets/images/nature.jpg" alt="Nature" loading="lazy" decoding="async" width="500" height="500">
-            <div class="bt-beh-name">Nature reset</div>
-            <div class="bt-beh-desc">My go-to space for clearing mental clutter and finding clarity.</div>
-          </div>
-          <div class="bt-beh-card">
-            <img class="bt-beh-icon" src="assets/images/gym.jpg" alt="Gym" loading="lazy" decoding="async" width="500" height="500">
+          <div class="bt-beh-card bt-beh-card--photo">
+            <img class="bt-beh-photo" src="assets/images/gym.png" alt="Gym" loading="lazy" decoding="async" width="792" height="859">
             <div class="bt-beh-name">Gym, 3–4×/week</div>
             <div class="bt-beh-desc">Show up, stay consistent, iterate — same rules as design.</div>
           </div>
-          <div class="bt-beh-card">
-            <img class="bt-beh-icon" src="assets/images/travel.jpg" alt="Travel" loading="lazy" decoding="async" width="500" height="500">
+          <div class="bt-beh-card bt-beh-card--photo">
+            <img class="bt-beh-photo bt-beh-photo--mochi" src="assets/images/mochi2.png" alt="Mochi, my cat" loading="lazy" decoding="async" width="659" height="710">
+            <div class="bt-beh-name">Meet my cat Mochi</div>
+            <div class="bt-beh-desc">My unpaid mental support and full-time judge of life choices — a daily reminder there’s a world beyond pixels.</div>
+          </div>
+          <div class="bt-beh-card bt-beh-card--photo">
+            <img class="bt-beh-photo" src="assets/images/pto.png" alt="Travel" loading="lazy" decoding="async" width="992" height="987">
             <div class="bt-beh-name">All my PTOs go to travel</div>
             <div class="bt-beh-desc">3 international trips and 7 transcontinental flights last year — and somehow never jet-lagged.</div>
           </div>
-          <div class="bt-beh-card">
-            <img class="bt-beh-icon" src="assets/images/ai.jpg" alt="AI" loading="lazy" decoding="async" width="500" height="500">
+          <div class="bt-beh-card bt-beh-card--photo">
+            <img class="bt-beh-photo" src="assets/images/nature.png" alt="Nature reset" loading="lazy" decoding="async" width="817" height="855">
+            <div class="bt-beh-name">Nature reset</div>
+            <div class="bt-beh-desc">My go-to space for clearing mental clutter and finding clarity.</div>
+          </div>
+          <div class="bt-beh-card bt-beh-card--photo">
+            <img class="bt-beh-photo" src="assets/images/claude.png" alt="Claude" loading="lazy" decoding="async" width="836" height="836">
             <div class="bt-beh-name">Diving into AI more than ever</div>
             <div class="bt-beh-desc">Writing agent skills and orchestrating multi-agent runs with Claude Code.</div>
           </div>
@@ -1201,13 +1216,13 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
   <div class="rinner">
     <div style="margin-bottom:56px;" class="reveal">
       <span class="sec-ey">Experience</span>
-      <h2 class="sec-h" style="font-size:clamp(40px,5vw,64px);">WHERE I’VE<br>BEEN.</h2>
+      <h2 class="sec-h" style="font-size:clamp(var(--fs-xl),5vw,var(--fs-4xl));">WHERE I’VE<br>BEEN.</h2>
     </div>
     <div class="rg">
       <div class="reveal">
         <div class="rct">Work Experience</div>
         <div class="tl">
-          <div class="tli"><div class="tl-ln"><div class="tl-dot"></div></div><div><div class="tl-per">Mar 2024 — Present</div><div class="tl-role">Product Designer</div><div class="tl-co">Jefit · Full-time</div><div class="tl-desc">End-to-end product design across Android, iOS, web &amp; wearables for 12M+ users. Shipped Year in Review 2025 (+78% revenue, +124% shares). Spearheaded 0→1 plan adaptation (+42% adoption, +28% D30 retention).</div></div></div>
+          <div class="tli"><div class="tl-ln"><div class="tl-dot"></div></div><div><div class="tl-per">Mar 2024 — Present</div><div class="tl-role">Product Designer</div><div class="tl-co">Jefit · Full-time</div><div class="tl-desc">End-to-end product design across Android, iOS, web &amp; wearables for 13M+ users. Shipped Year in Review 2025 (+78% revenue, +124% shares). Spearheaded 0→1 plan adaptation (+42% adoption, +28% D30 retention).</div></div></div>
           <div class="tli"><div class="tl-ln"><div class="tl-dot"></div></div><div><div class="tl-per">Dec 2023 — Mar 2024</div><div class="tl-role">UI/UX Designer</div><div class="tl-co">Aware.ai · Internship</div><div class="tl-desc">Designed and iterated a rewards feature through 5 usability testing rounds, improving task completion by 40%. Delivered end-to-end user flows and wireframes bridging product vision with business objectives.</div></div></div>
           <div class="tli"><div class="tl-ln"><div class="tl-dot"></div></div><div><div class="tl-per">Oct — Dec 2023</div><div class="tl-role">UX Design Strategist</div><div class="tl-co">Whatnot · Contract</div><div class="tl-desc">Designed mobile-to-TV live event experience (+35% cross-platform satisfaction). Drove UX strategy repositioning marketplace as community-first platform.</div></div></div>
           <div class="tli"><div class="tl-ln"><div class="tl-dot"></div></div><div><div class="tl-per">May — Aug 2023</div><div class="tl-role">UX Designer</div><div class="tl-co">Hewlett Packard Enterprise · Internship</div><div class="tl-desc">Analytics dashboard prototypes driving 30% adoption increase. Research recommendations to 50+ stakeholders.</div></div></div>
@@ -1229,7 +1244,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
 <section id="chat">
   <div class="chat-inner reveal">
     <span class="chat-eyebrow">— Let’s connect —</span>
-    <h2 class="chat-title">Thanks for Stopping by.<br>Chat Soon!</h2>
+    <h2 class="chat-title"><span class="typer" id="chatTyper" aria-live="polite">thanks for visiting</span><span class="typer-caret" aria-hidden="true"></span></h2>
     <p class="chat-sub">Always open to a coffee, a collaboration, or a chat about design, AI, and how we build products people actually love.</p>
     <div class="chat-links">
       <a href="mailto:wuziqichloe@gmail.com" class="chat-btn">
@@ -1378,6 +1393,44 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
     });
   },{threshold:.4});
   sObs.observe(tile);
+})();
+
+/* ── CHAT TYPEWRITER — playful rotating headline ── */
+(()=>{
+  const el=document.getElementById('chatTyper');
+  if(!el) return;
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches){
+    el.textContent='thanks for visiting — drop a note!';
+    return;
+  }
+  const phrases=[
+    'thanks for visiting',
+    'don’t let the scroll end here',
+    'let’s build together',
+    'drop a note!'
+  ];
+  // start mid-state: first phrase is pre-rendered in HTML, so begin in deleting mode
+  let i=0,j=phrases[0].length,deleting=true,started=false;
+  const tick=()=>{
+    const cur=phrases[i];
+    j += deleting?-1:1;
+    el.textContent=cur.slice(0,j);
+    let wait=deleting?38:75;
+    if(!deleting && j===cur.length){deleting=true;wait=2000;}
+    else if(deleting && j===0){deleting=false;i=(i+1)%phrases.length;wait=320;}
+    setTimeout(tick,wait);
+  };
+  // hold the initial phrase visible, then start the loop once the headline scrolls into view
+  const tObs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting && !started){
+        started=true;
+        setTimeout(tick,1200);
+        tObs.disconnect();
+      }
+    });
+  },{threshold:.6});
+  tObs.observe(el);
 })();
 </script>
 

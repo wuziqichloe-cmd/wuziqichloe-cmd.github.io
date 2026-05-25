@@ -136,7 +136,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 }
 
 /* HERO */
-.cs-hero{min-height:72vh;background:#0f172a url("assets/images/adaptive-plan/cover.png") center/cover no-repeat;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:72px 64px;}
+.cs-hero{min-height:72vh;background:#0f172a url("assets/images/adaptive-plan/cover2.png") center/cover no-repeat;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:72px 64px;}
 .cs-hero::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom,rgba(0,0,0,.15) 0%,rgba(0,0,0,.35) 55%,rgba(0,0,0,.78) 100%);z-index:2;}
 .cs-hero-watermark{position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);font-family:var(--font-display);font-weight:var(--fw-bold);font-size:var(--fs-display-xl);letter-spacing:-.04em;color:rgba(255,255,255,.04);pointer-events:none;user-select:none;white-space:nowrap;line-height:1;z-index:1;}
 /* Hero phone mockups — floating right side, placeholder until real screens swapped in */
@@ -197,6 +197,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-media>img,.cs-media>video{display:block;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .35s ease;}
 .cs-media.is-loaded>img,.cs-media.is-loaded>video{opacity:1;}
 .cs-media.is-loaded .cs-media-fallback{opacity:0;pointer-events:none;}
+.cs-media>iframe{display:block;width:100%;height:100%;border:0;background:#fff;}
+.cs-media:has(>iframe) .cs-media-fallback{opacity:0;pointer-events:none;}
 .cs-media-fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;transition:opacity .25s ease;}
 .cs-media-fallback .cs-img-ph-icon{font-size:var(--fs-md);opacity:.28;}
 .cs-media-fallback .cs-img-ph-label{font-size:var(--fs-sm);font-weight:var(--fw-semibold);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);text-align:center;padding:0 16px;}
@@ -231,6 +233,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-hmw-band.in .cs-hmw-word-key:hover{transform:translateY(-2px) scale(1.04);}
 @media(max-width:767px){.cs-hmw-band{padding:80px 24px;margin-top:48px;}}
 @media (prefers-reduced-motion: reduce){.cs-hmw-band::before{display:none;}.cs-hmw-word{opacity:1;transform:none;transition:none;}}
+
+/* ── Insight callout (root cause beat between Research and HMW) ── */
+.cs-insight{max-width:920px;margin:96px auto 0;text-align:center;}
+.cs-insight-label{display:block;font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:20px;}
+.cs-insight-line{font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:clamp(28px,3.6vw,44px);line-height:1.25;letter-spacing:-.02em;color:var(--ink);margin:0;}
+.cs-insight-line em{font-style:normal;color:var(--accent);}
+@media(max-width:767px){.cs-insight{margin-top:64px;}}
 
 /* CARDS */
 .cs-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px;}
@@ -270,8 +279,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-feature-text h3{font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:var(--fs-lg);line-height:1.15;letter-spacing:-.02em;color:var(--ink);margin:0;}
 .cs-feature-text p{font-size:var(--fs-base);color:var(--ink-2);line-height:1.65;margin:18px 0 0;}
 .cs-feature-eyebrow{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
-.cs-feature-video{aspect-ratio:4/5;background:var(--bg-2);border:1px solid var(--border);border-radius:24px;overflow:hidden;position:relative;transition:background .4s,border-color .4s;}
-.cs-feature-video video{width:100%;height:100%;object-fit:cover;display:block;}
+.cs-feature-video{aspect-ratio:4/5;background:var(--bg-2);border-radius:24px;overflow:hidden;position:relative;transition:background .4s;}
+.cs-feature-video.bare{background:transparent;}
+.cs-feature-video video{width:100%;height:100%;object-fit:contain;display:block;}
+.cs-feature-video.bare video{mix-blend-mode:multiply;}
+[data-theme="dark"] .cs-feature-video.bare{background:#FAFAFA;border-radius:24px;}
+/* Framed video — sizes the video to its own aspect so border-radius and shadow land on real edges. */
+.cs-feature-video.framed{display:flex;align-items:center;justify-content:center;overflow:visible;}
+.cs-feature-video.framed video{width:auto;max-width:100%;height:100%;border-radius:32px;box-shadow:0 24px 48px rgba(0,0,0,.18);mix-blend-mode:normal;clip-path:inset(var(--crop-t,0) var(--crop-r,0) var(--crop-b,0) var(--crop-l,0) round 32px);}
+[data-theme="dark"] .cs-feature-video.framed video{box-shadow:0 24px 48px rgba(0,0,0,.45);}
+[data-theme="dark"] .cs-feature-video.bare.framed{background:transparent;}
 .cs-feature-video-ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--ink-3);}
 .cs-feature-video-ph-icon{font-size:var(--fs-2xl);opacity:.4;line-height:1;}
 .cs-feature-video-ph-label{font-size:var(--fs-sm);letter-spacing:.04em;color:var(--ink-3);}
@@ -279,6 +296,145 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-feature-divider{display:flex;align-items:center;gap:24px;margin-top:120px;margin-bottom:8px;}
 .cs-feature-divider::before,.cs-feature-divider::after{content:'';flex:1;height:1px;background:var(--border);}
 .cs-feature-divider-label{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);}
+
+/* ── ONBOARDING PHONE GALLERY (Training preference flow) ──
+   13 mobile mockups, 9-step progress (Step 1/9 → 9/9). */
+.op-gallery-wrap{margin-top:40px;position:relative;}
+.op-gallery-caption{font-size:var(--fs-sm);color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase;font-weight:var(--fw-bold);margin-bottom:20px;}
+.op-gallery{display:flex;gap:24px;overflow-x:auto;overflow-y:hidden;padding:24px 4px 32px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--border-h) transparent;}
+.op-gallery::-webkit-scrollbar{height:8px;}
+.op-gallery::-webkit-scrollbar-track{background:transparent;}
+.op-gallery::-webkit-scrollbar-thumb{background:var(--border-h);border-radius:4px;}
+
+/* Phone shell */
+.op-phone{
+  flex:0 0 auto;width:268px;height:582px;
+  background:#FFFFFF;border-radius:32px;
+  box-shadow:0 12px 32px rgba(10,10,10,.08),0 2px 6px rgba(10,10,10,.06),0 0 0 1px rgba(10,10,10,.06);
+  overflow:hidden;position:relative;display:flex;flex-direction:column;
+  scroll-snap-align:start;color:#0A0A0A;
+  font-family:var(--font-body);
+}
+[data-theme="dark"] .op-phone{box-shadow:0 12px 32px rgba(0,0,0,.5),0 2px 6px rgba(0,0,0,.35),0 0 0 1px rgba(245,245,245,.08);}
+
+/* Status bar (9:41, signal/wifi/battery) */
+.op-statusbar{display:flex;align-items:center;justify-content:space-between;padding:10px 18px 4px;font-size:11px;font-weight:600;color:#0A0A0A;}
+.op-statusbar-right{display:flex;align-items:center;gap:4px;}
+.op-sb-icon{width:14px;height:10px;display:inline-block;}
+.op-sb-bat{width:22px;height:11px;border:1px solid #0A0A0A;border-radius:2px;position:relative;}
+.op-sb-bat::after{content:'';position:absolute;top:50%;right:-3px;transform:translateY(-50%);width:2px;height:5px;background:#0A0A0A;border-radius:0 1px 1px 0;}
+.op-sb-bat::before{content:'';position:absolute;inset:1px;background:#0A0A0A;border-radius:1px;}
+
+/* Header: back arrow + progress + label */
+.op-header{padding:14px 16px 0;display:flex;align-items:center;gap:10px;}
+.op-back{width:24px;height:24px;display:flex;align-items:center;justify-content:center;color:#0A0A0A;flex-shrink:0;cursor:default;}
+.op-back svg{width:14px;height:14px;}
+.op-progress{flex:1;display:flex;align-items:center;gap:8px;}
+.op-progress-track{flex:1;height:4px;background:#E5E7EB;border-radius:2px;overflow:hidden;}
+.op-progress-fill{height:100%;background:#2563EB;border-radius:2px;}
+.op-progress-label{font-size:11px;font-weight:600;color:#2563EB;flex-shrink:0;letter-spacing:.01em;}
+
+/* Body */
+.op-body{flex:1;padding:18px 16px 0;display:flex;flex-direction:column;overflow:hidden;}
+.op-title{font-size:18px;font-weight:700;line-height:1.25;letter-spacing:-.02em;color:#0A0A0A;margin:0 0 6px;}
+.op-title-row{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;}
+.op-more{font-size:18px;color:#0A0A0A;line-height:1;padding-top:4px;letter-spacing:.05em;}
+.op-sub{font-size:11px;color:#6B7280;line-height:1.45;margin:0 0 18px;}
+
+/* Option list (radio-card style) */
+.op-options{display:flex;flex-direction:column;gap:8px;}
+.op-option{padding:11px 12px;background:#F4F6FB;border-radius:10px;cursor:default;transition:background .15s;}
+.op-option--selected{background:#DCE6FB;}
+.op-option-title{font-size:12px;font-weight:700;color:#0A0A0A;line-height:1.2;}
+.op-option-desc{font-size:10.5px;color:#6B7280;line-height:1.35;margin-top:3px;}
+.op-option--center{text-align:center;}
+.op-option--center .op-option-title{font-weight:600;}
+
+/* Grid of small option chips */
+.op-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.op-grid-item{padding:14px 10px;background:#F4F6FB;border-radius:10px;text-align:center;font-size:12px;font-weight:500;color:#0A0A0A;}
+.op-grid-item--selected{background:#DCE6FB;}
+
+/* Equipment list rows (image + label + checkbox) */
+.op-list{display:flex;flex-direction:column;}
+.op-list-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(10,10,10,.04);}
+.op-list-row:last-child{border-bottom:none;}
+.op-list-thumb{width:30px;height:30px;border-radius:50%;background:#F4F6FB;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;color:#6B7280;}
+.op-list-thumb svg{width:18px;height:18px;}
+.op-list-body{flex:1;display:flex;flex-direction:column;}
+.op-list-label{font-size:12px;font-weight:600;color:#0A0A0A;display:flex;align-items:center;gap:4px;}
+.op-list-meta{font-size:10px;color:#6B7280;margin-top:1px;}
+.op-list-caret{display:inline-block;width:0;height:0;border-left:3px solid transparent;border-right:3px solid transparent;border-top:4px solid #0A0A0A;margin-left:2px;}
+.op-list-link{font-size:11px;font-weight:600;color:#2563EB;}
+
+/* Checkbox (square) */
+.op-check{width:18px;height:18px;border:1.5px solid #D1D5DB;border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:#FFFFFF;}
+.op-check--checked{background:#2563EB;border-color:#2563EB;}
+.op-check--checked::after{content:'';width:9px;height:5px;border-left:2px solid #FFFFFF;border-bottom:2px solid #FFFFFF;transform:translateY(-1px) rotate(-45deg);}
+
+/* Section subheader (small label like "Gym Equipment") */
+.op-section-head{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:#6B7280;margin:4px 0 6px;}
+
+/* Callout (warning) */
+.op-callout{display:flex;align-items:flex-start;gap:8px;padding:10px 12px;background:#FFFFFF;border:1px solid rgba(10,10,10,.08);border-radius:10px;margin-top:14px;}
+.op-callout-ico{width:16px;height:16px;border-radius:50%;border:1.5px solid #F59E0B;color:#F59E0B;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.op-callout-text{font-size:10.5px;line-height:1.4;}
+.op-callout-text strong{display:block;color:#0A0A0A;font-weight:700;margin-bottom:2px;}
+.op-callout-text span{color:#6B7280;}
+
+/* Tab toggle (Muscles / Joints) */
+.op-tabs{display:flex;padding:3px;background:#F4F6FB;border-radius:24px;margin-bottom:10px;}
+.op-tab{flex:1;text-align:center;padding:7px 0;font-size:11px;font-weight:600;color:#6B7280;border-radius:20px;}
+.op-tab--active{background:#FFFFFF;color:#0A0A0A;box-shadow:0 1px 2px rgba(10,10,10,.06);}
+
+/* Plain row list (Injury list — label + checkbox, divider line) */
+.op-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(10,10,10,.06);}
+.op-row-label{font-size:12px;color:#6B7280;}
+.op-row--checked .op-row-label{color:#0A0A0A;font-weight:600;}
+
+/* Search input */
+.op-search{display:flex;align-items:center;gap:6px;padding:9px 12px;background:#F4F6FB;border-radius:10px;font-size:11px;color:#9CA3AF;margin-bottom:8px;}
+.op-search svg{width:12px;height:12px;flex-shrink:0;}
+
+/* Filter chips row */
+.op-chips{display:flex;gap:6px;margin-bottom:10px;}
+.op-chip{flex:1;padding:7px 8px;background:#FFFFFF;border:1px solid rgba(10,10,10,.1);border-radius:6px;font-size:10.5px;color:#0A0A0A;display:flex;align-items:center;justify-content:center;gap:4px;}
+.op-chip-caret{display:inline-block;width:0;height:0;border-left:3px solid transparent;border-right:3px solid transparent;border-top:4px solid #6B7280;}
+
+/* Sort/filter row above list */
+.op-sort{display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(10,10,10,.06);padding:8px 0;font-size:11px;font-weight:600;color:#2563EB;}
+
+/* Exercise row (image + title + meta + action) */
+.op-ex-row{display:flex;align-items:flex-start;gap:8px;padding:8px 0;}
+.op-ex-thumb{width:30px;height:30px;border-radius:50%;background:#F4F6FB;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:#6B7280;}
+.op-ex-body{flex:1;min-width:0;}
+.op-ex-title{font-size:11px;font-weight:700;color:#0A0A0A;line-height:1.2;margin-bottom:1px;}
+.op-ex-meta{font-size:10px;color:#9CA3AF;line-height:1.3;}
+.op-ex-act{width:18px;height:18px;border-radius:50%;border:1.5px solid #2563EB;color:#2563EB;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;line-height:1;}
+
+/* Target zone row (body diagram thumb + label + checkbox) */
+.op-tz-row{display:flex;align-items:center;gap:10px;padding:7px 0;}
+.op-tz-thumb{width:34px;height:34px;border-radius:6px;background:#F4F6FB;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.op-tz-thumb svg{width:22px;height:26px;}
+.op-tz-label{flex:1;font-size:12px;font-weight:600;color:#0A0A0A;}
+
+/* Footer buttons */
+.op-footer{padding:10px 16px 14px;display:flex;gap:8px;border-top:1px solid rgba(10,10,10,.04);background:#FFFFFF;}
+.op-btn{flex:1;padding:11px 0;border-radius:24px;font-size:13px;font-weight:700;text-align:center;line-height:1;}
+.op-btn--primary{background:#2563EB;color:#FFFFFF;}
+.op-btn--secondary{background:#FFFFFF;color:#2563EB;border:1.5px solid #2563EB;}
+
+/* Home indicator at the very bottom */
+.op-home{height:18px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:5px;background:#FFFFFF;}
+.op-home::after{content:'';width:108px;height:4px;border-radius:2px;background:#0A0A0A;}
+
+/* Step caption under each phone */
+.op-caption{margin-top:14px;text-align:center;font-size:var(--fs-xs);color:var(--ink-3);font-weight:var(--fw-medium);letter-spacing:.01em;line-height:1.4;}
+
+@media(max-width:600px){
+  .op-phone{width:240px;height:520px;}
+  .op-title{font-size:16px;}
+}
 
 /* BEHIND THE SCENES — accordion */
 .cs-bts{display:flex;flex-direction:column;margin-top:40px;border-top:1px solid var(--border);}
@@ -373,9 +529,19 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-voc-meta{display:flex;flex-direction:column;gap:2px;min-width:0;}
 .cs-voc-name{font-size:var(--fs-base);font-weight:var(--fw-semibold);color:var(--ink);letter-spacing:-.01em;line-height:1.2;}
 .cs-voc-role{font-size:var(--fs-xs);font-weight:var(--fw-medium);color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase;}
-/* Archived: VOC list media query — voc list itself is commented out above, so this rule is unreachable.
 @media(max-width:900px){.cs-voc-list{grid-template-columns:1fr;gap:14px;}.cs-voc{padding:32px 24px 22px;}}
-*/
+
+/* Problem · annotated "before" screenshot — what the static 28-day plan actually looked like */
+.cs-evidence{display:grid;grid-template-columns:minmax(0,300px) 1fr;gap:64px;align-items:center;margin:56px 0 16px;}
+.cs-evidence-frame{position:relative;border-radius:36px;overflow:hidden;background:var(--bg-2);box-shadow:0 24px 56px rgba(0,0,0,.14);transition:background .4s,box-shadow .4s;}
+[data-theme="dark"] .cs-evidence-frame{box-shadow:0 24px 56px rgba(0,0,0,.45);}
+.cs-evidence-frame img{display:block;width:100%;height:auto;}
+.cs-evidence-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:32px;}
+.cs-evidence-item{display:grid;grid-template-columns:36px 1fr;gap:18px;align-items:start;}
+.cs-evidence-num{width:32px;height:32px;border-radius:50%;border:1px solid var(--ink);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:var(--fs-sm);font-weight:var(--fw-bold);color:var(--ink);flex-shrink:0;letter-spacing:0;transition:border-color .4s,color .4s;}
+.cs-evidence-title{font-size:var(--fs-base);font-weight:var(--fw-semibold);color:var(--ink);line-height:1.3;letter-spacing:-.01em;margin:4px 0 6px;}
+.cs-evidence-desc{font-size:var(--fs-sm);color:var(--ink-2);line-height:1.55;margin:0;letter-spacing:-.005em;}
+@media(max-width:900px){.cs-evidence{grid-template-columns:1fr;gap:36px;margin:40px 0 8px;}.cs-evidence-frame{max-width:260px;margin:0 auto;}.cs-evidence-list{gap:24px;}}
 
 /* Pain stats — quantitative anchor in Problem section (borderless, breathes in whitespace) */
 .cs-pain-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:24px 48px;margin:40px 0;}
@@ -390,7 +556,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-tried-title{font-family:var(--font-display);font-size:var(--fs-md);font-weight:var(--fw-semibold);letter-spacing:-.01em;color:var(--ink);line-height:1.2;margin:0 0 4px;}
 .cs-tried .cs-body{margin:0;}
 .cs-tried-punchline{margin:0;font-size:var(--fs-base);font-weight:var(--fw-semibold);color:var(--ink);line-height:1.4;}
-@media(max-width:767px){.cs-tried{padding:28px 24px;border-radius:20px;gap:14px;}.cs-tried-title{font-size:var(--fs-base);}}
+
+/* Tombstone row — four onboarding fixes that shipped but didn't move the needle */
+.cs-tombstones{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:8px 0 4px;}
+.cs-tombstone{position:relative;display:flex;flex-direction:column;align-items:center;gap:12px;padding:22px 14px;background:var(--surf);border:1px solid var(--border);border-radius:14px;transition:background .4s,border-color .4s,opacity .25s;}
+.cs-tombstone-icon{width:24px;height:24px;color:var(--ink-3);flex-shrink:0;}
+.cs-tombstone-label{font-size:var(--fs-sm);font-weight:var(--fw-semibold);color:var(--ink-3);letter-spacing:.01em;line-height:1.3;text-align:center;text-decoration:line-through;text-decoration-color:currentColor;text-decoration-thickness:1.5px;text-underline-offset:2px;}
+.cs-tombstone-tag{font-size:var(--fs-2xs);font-weight:var(--fw-bold);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);opacity:.6;}
+@media(max-width:767px){.cs-tried{padding:28px 24px;border-radius:20px;gap:14px;}.cs-tried-title{font-size:var(--fs-base);}.cs-tombstones{grid-template-columns:repeat(2,1fr);gap:8px;}.cs-tombstone{padding:18px 10px;gap:10px;}}
 
 /* TABS — apple.com/mac inspired pill nav */
 /* RESEARCH ACTS — two-act vertical split (replaces tabs) */
@@ -404,7 +577,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 @media(max-width:767px){.cs-research-act-divider{margin-top:56px;gap:16px;}}
 
 /* QUALITATIVE CAROUSEL — horizontal scroll */
-.cs-carousel{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 0;margin-top:24px;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.cs-carousel{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 0;margin-top:24px;margin-right:-52px;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
 .cs-carousel::-webkit-scrollbar{display:none;}
 
 /* CAROUSEL NAV — prev/next icon buttons */
@@ -427,7 +600,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-carousel-card-body{padding:0 36px 36px;display:flex;flex-direction:column;gap:10px;}
 .cs-carousel-card-title{font-size:var(--fs-md);font-weight:var(--fw-semibold);color:var(--ink);letter-spacing:-.02em;line-height:1.2;}
 .cs-carousel-card-text{font-size:var(--fs-base);color:var(--ink-2);line-height:1.55;}
+@media(max-width:1100px){.cs-carousel{margin-right:-32px;}}
 @media(max-width:767px){
+  .cs-carousel{margin-right:-20px;}
   .cs-carousel-card{flex:0 0 300px;border-radius:24px;}
   .cs-carousel-card-img{padding:24px;}
   .cs-carousel-card-body{padding:0 28px 28px;}
@@ -753,7 +928,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
       <div class="cs-metric">
         <div class="cs-metric-val">+42%</div>
         <div class="cs-metric-lbl">Feature Adoption</div>
-        <div class="cs-metric-desc">Highest adoption of any feature at Jefit</div>
+        <div class="cs-metric-desc">Highest adoption of any feature</div>
       </div>
       <div class="cs-metric">
         <div class="cs-metric-val">+28%</div>
@@ -763,7 +938,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
       <div class="cs-metric">
         <div class="cs-metric-val">14%</div>
         <div class="cs-metric-lbl">Paywall CVR</div>
-        <div class="cs-metric-desc">#1 across Jefit Premium, 7&times; the soft paywall industry average</div>
+        <div class="cs-metric-desc">#1 converting paywall, 7&times; the soft paywall industry average</div>
       </div>
     </div>
 
@@ -820,7 +995,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
         </div>
         <div class="cs-stat">
           <span class="cs-stat-label">Users</span>
-          <div class="cs-stat-val">12M+</div>
+          <div class="cs-stat-val">13M+</div>
           <div class="cs-stat-sub">Global community</div>
         </div>
         <div class="cs-stat">
@@ -859,6 +1034,34 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
         <p class="cs-problem-lead">The drop-off pattern was hard to miss.</p>
         <p class="cs-body">Paid users were handed a static 28-day plan &mdash; same exercises every week, no matter their goals or progress. What they paid for wasn&rsquo;t growing with them.</p>
         <p class="cs-body">The drop-off happened in two waves. Most never made it through activation. Those who did soon realized the plan couldn&rsquo;t keep up &mdash; too generic to feel personal, too static to reflect their progress. Either way, walking away was the easier choice.</p>
+      </div>
+      <div class="cs-evidence reveal">
+        <figure class="cs-evidence-frame">
+          <img src="assets/images/adaptive-plan/28dayplan.jpg" alt="The static 28-day plan as it shipped before Adaptive Plan — one template, fixed days, no rest, no progression." loading="lazy">
+        </figure>
+        <ol class="cs-evidence-list">
+          <li class="cs-evidence-item">
+            <span class="cs-evidence-num" aria-hidden="true">1</span>
+            <div>
+              <div class="cs-evidence-title">One template, every user</div>
+              <p class="cs-evidence-desc">&ldquo;28 Day Cutting (Basic Gym Equipment)&rdquo; shipped to everyone &mdash; same plan regardless of goal, level, or what equipment they actually had.</p>
+            </div>
+          </li>
+          <li class="cs-evidence-item">
+            <span class="cs-evidence-num" aria-hidden="true">2</span>
+            <div>
+              <div class="cs-evidence-title">Same exercises, week after week</div>
+              <p class="cs-evidence-desc">Day 1 through Day 28 ran on a single rotation. No progression, no deload, no response to what the user lifted last week.</p>
+            </div>
+          </li>
+          <li class="cs-evidence-item">
+            <span class="cs-evidence-num" aria-hidden="true">3</span>
+            <div>
+              <div class="cs-evidence-title">No rest, no variety, no off-ramp</div>
+              <p class="cs-evidence-desc">Consecutive days with no recovery built in &mdash; punishing for beginners, impossible to scale around injury, travel, or real life.</p>
+            </div>
+          </li>
+        </ol>
       </div>
       <div class="cs-pain-stats reveal">
         <div class="cs-pain-stat">
@@ -911,7 +1114,40 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
 
       <div class="cs-tried reveal">
         <h3 class="cs-tried-title">What we&rsquo;d already tried</h3>
-        <p class="cs-body">Tooltips, walkthroughs, video demos, even a UI refresh &mdash; four onboarding investments shipped. Metrics barely moved, and the reviews kept naming the same culprit.</p>
+        <div class="cs-tombstones" role="list" aria-label="Four onboarding investments that shipped but didn&rsquo;t move retention">
+          <div class="cs-tombstone" role="listitem">
+            <svg class="cs-tombstone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 4h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-6l-4 4v-4H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"/>
+              <path d="M8 10h8M8 13h5"/>
+            </svg>
+            <div class="cs-tombstone-label">Tooltips</div>
+          </div>
+          <div class="cs-tombstone" role="listitem">
+            <svg class="cs-tombstone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 12h12"/>
+              <path d="M11 8l4 4-4 4"/>
+              <circle cx="19" cy="12" r="2"/>
+            </svg>
+            <div class="cs-tombstone-label">Walkthroughs</div>
+          </div>
+          <div class="cs-tombstone" role="listitem">
+            <svg class="cs-tombstone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="5" width="18" height="14" rx="2"/>
+              <path d="M10 9.5v5l4.5-2.5Z" fill="currentColor" stroke="none"/>
+            </svg>
+            <div class="cs-tombstone-label">Video demos</div>
+          </div>
+          <div class="cs-tombstone" role="listitem">
+            <svg class="cs-tombstone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 11a8 8 0 0 0-14.5-4.5"/>
+              <path d="M20 3v4h-4"/>
+              <path d="M4 13a8 8 0 0 0 14.5 4.5"/>
+              <path d="M4 21v-4h4"/>
+            </svg>
+            <div class="cs-tombstone-label">UI refresh</div>
+          </div>
+        </div>
+        <p class="cs-body">Four onboarding investments shipped. Metrics barely moved, and the reviews kept naming the same culprit.</p>
         <p class="cs-tried-punchline">The fix wasn&rsquo;t the introduction. It was the plan itself.</p>
       </div>
           </div>
@@ -924,7 +1160,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
       <h2 class="cs-section-title">Understanding<br>the Real User</h2>
       <div class="cs-body reveal">
         <p>I had two halves of the picture &mdash; when users left, and what they said. The missing piece was <em>why</em>.</p>
-        <p>So I spent three weeks listening at scale. <strong>First, the quantitative:</strong> Amplitude mapped drop-off by cohort and day. Those patterns &mdash; read through my lens as both designer and user of the app &mdash; became the hypotheses to test. <strong>Then the qualitative:</strong> with 12M users, the surface was too wide to read manually, so AI clustered themes across NPS, reviews, community, beta feedback, and Zendesk. 10 in-depth interviews validated and expanded them. The funnel told me where users dropped; the voices told me why.</p>
+        <p>So I spent three weeks listening at scale. <strong>First, the quantitative:</strong> Amplitude mapped drop-off by cohort and day. Those patterns &mdash; read through my lens as both designer and user of the app &mdash; became the hypotheses to test. <strong>Then the qualitative:</strong> with 13M users, the surface was too wide to read manually, so AI clustered themes across NPS, reviews, community, beta feedback, and Zendesk. 10 in-depth interviews validated and expanded them. The funnel told me where users dropped; the voices told me why.</p>
       </div>
       <div class="cs-research-acts reveal">
         <div class="cs-research-act-divider">
@@ -1032,6 +1268,10 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
             </button>
           </div>
       </div>
+      <div class="cs-insight reveal">
+        <span class="cs-insight-label">Insight</span>
+        <p class="cs-insight-line">Five complaints. One root cause: the plan didn&rsquo;t know its <em>user</em>.</p>
+      </div>
           </div>
       <div class="cs-hmw-band reveal">
         <div class="cs-hmw-inner">
@@ -1043,158 +1283,155 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
     <!-- 04 SOLUTION -->
     <section class="cs-section" id="solution">
       <div class="cs-wrap">
-      <span class="cs-eyebrow">04 &middot; Design Solution</span>
+      <span class="cs-eyebrow">04 &middot; Solution</span>
       <h2 class="cs-section-title">From a 28-day fixed plan<br>to a living system</h2>
       <div class="cs-body reveal">
-        <p>Every feature traces back to a research pain point &mdash; seven in the core product, two in monetization and retention.</p>
+        <p>Most features trace back to a research pain point &mdash; six in the core product, two in monetization and adoption. Ordered the way users meet them.</p>
       </div>
 
-      <!-- 1 · Training preference -->
+      <!-- ── Phase 1 · Discover ── -->
+      <div class="cs-feature-divider reveal">
+        <span class="cs-feature-divider-label">Monetization &amp; Adoption</span>
+      </div>
+
+      <!-- 1 · GTM launch popups -->
+      <div class="cs-feature-split reveal">
+        <div class="cs-feature-text">
+          <div class="cs-feature-eyebrow">First launch</div>
+          <h3>GTM launch popups &mdash; the first introduction.</h3>
+          <p>A full-screen popup at app launch &mdash; the one surface every existing user reliably hits &mdash; introduces Adaptive Plan and prompts the first try. It turns a silent release into an active opt-in, instead of a new feature buried in the plan tab.</p>
+        </div>
+        <div class="cs-feature-video bare framed">
+          <video src="assets/videos/adaptive-plan/GTM%20popup.mov" muted playsinline preload="metadata" aria-label="GTM launch popups" data-loop-delay="2000">
+            <div class="cs-feature-video-ph">
+              <span class="cs-feature-video-ph-icon">&#9654;</span>
+              <span class="cs-feature-video-ph-label">GTM launch popups</span>
+            </div>
+          </video>
+        </div>
+      </div>
+
+      <!-- 2 · Nudges -->
+      <div class="cs-feature-split reverse reveal">
+        <div class="cs-feature-text">
+          <div class="cs-feature-eyebrow">Second launch</div>
+          <h3>Nudges.</h3>
+          <p>Two jobs: maximize visibility for users actively looking for a better program by placing Adaptive Plan at multiple entry points, and build confidence each time it appears. To avoid stacking prompts in one session, nudges hold back until the second app launch &mdash; the GTM popup gets its own moment first.</p>
+        </div>
+        <div class="cs-feature-video bare framed">
+          <video src="assets/videos/adaptive-plan/nudge.mov" muted playsinline preload="metadata" aria-label="Nudges" data-loop-delay="2000">
+            <div class="cs-feature-video-ph">
+              <span class="cs-feature-video-ph-icon">&#9654;</span>
+              <span class="cs-feature-video-ph-label">Nudges</span>
+            </div>
+          </video>
+        </div>
+      </div>
+
+      <!-- ── Phase 2 · The Adaptive System ── -->
+      <div class="cs-feature-divider reveal">
+        <span class="cs-feature-divider-label">The Adaptive System</span>
+      </div>
+
+      <!-- 3 · Training preference (setup) -->
       <div class="cs-feature-split reveal">
         <div class="cs-feature-text">
           <div class="cs-feature-eyebrow">Solves &middot; Routine override</div>
           <h3>Training preference.</h3>
-          <p>Users set their preferred split, exercise types, and pacing up front. The plan builds around those habits instead of overwriting them.</p>
+          <p>Before, training preferences locked at onboarding &mdash; users were stuck on day-one settings. Now every preference stays editable, and new inputs &mdash; injury, variety, exercise suggestions &mdash; let the plan keep shaping around their routine instead of overriding it.</p>
         </div>
-        <div class="cs-feature-video">
-          <!-- TODO: replace placeholder with <video> -->
-          <div class="cs-feature-video-ph">
-            <span class="cs-feature-video-ph-icon">&#9654;</span>
-            <span class="cs-feature-video-ph-label">Training preference</span>
-          </div>
+        <div class="cs-feature-video bare framed">
+          <video src="assets/videos/adaptive-plan/training%20preference.mov" muted playsinline preload="metadata" aria-label="Training preference onboarding" data-loop-delay="2000">
+            <div class="cs-feature-video-ph">
+              <span class="cs-feature-video-ph-icon">&#9654;</span>
+              <span class="cs-feature-video-ph-label">Training preference</span>
+            </div>
+          </video>
         </div>
       </div>
 
-      <!-- 2 · Injury management -->
+      <!-- 4 · Equipment management (setup) -->
+      <div class="cs-feature-split reverse reveal">
+        <div class="cs-feature-text">
+          <div class="cs-feature-eyebrow">Solves &middot; Equipment mismatch</div>
+          <h3>Equipment management.</h3>
+          <p>Before, the plan applied static weight increments regardless of what each user actually had on hand. Now equipment and exact increments live per location &mdash; home, hotel, commercial &mdash; so every load the generator prescribes is one users can actually load on the bar.</p>
+        </div>
+        <div class="cs-feature-video bare framed">
+          <video src="assets/videos/adaptive-plan/equipment%20increment.mov" muted playsinline preload="metadata" aria-label="Equipment increment" data-loop-delay="2000" style="--crop-l:6px;">
+            <div class="cs-feature-video-ph">
+              <span class="cs-feature-video-ph-icon">&#9654;</span>
+              <span class="cs-feature-video-ph-label">Equipment increment</span>
+            </div>
+          </video>
+        </div>
+      </div>
+
+      <!-- 5 · Mesocycle plan (week-over-week adaptation — the plan itself) -->
+      <div class="cs-feature-split reveal">
+        <div class="cs-feature-text">
+          <div class="cs-feature-eyebrow">Solves &middot; Lack of customization and direction</div>
+          <h3>Mesocycle plan that adapts each week.</h3>
+          <p>The plan rebalances volume, intensity, recovery, and exercise selection week over week &mdash; based on what users actually did, not what was prescribed on day one. New movements ramp in gradually so the plan keeps evolving without going stale, and a weekly preview popup opens each cycle as a coach&rsquo;s update, not a silent shuffle.</p>
+        </div>
+        <div class="cs-feature-video bare framed">
+          <video src="assets/videos/adaptive-plan/mesocycle.mov" muted playsinline preload="metadata" aria-label="Mesocycle adaptation" data-loop-delay="2000" style="--crop-t:8px;">
+            <div class="cs-feature-video-ph">
+              <span class="cs-feature-video-ph-icon">&#9654;</span>
+              <span class="cs-feature-video-ph-label">Mesocycle adaptation</span>
+            </div>
+          </video>
+        </div>
+      </div>
+
+      <!-- 6 · Load progression (in-session) -->
+      <div class="cs-feature-split reverse reveal">
+        <div class="cs-feature-text">
+          <div class="cs-feature-eyebrow">Solves &middot; No sense of progression</div>
+          <h3>Load progression.</h3>
+          <p>Weight, reps, and sets scale automatically from feedback and historical performance. Progression stays visible, and a &ldquo;Revert&rdquo; option puts users in control when they&rsquo;re not ready for a heavier session &mdash; falling back to the previous training log while the system recalibrates.</p>
+        </div>
+        <div class="cs-feature-video bare framed">
+          <video src="assets/videos/adaptive-plan/LP.mov" muted playsinline preload="metadata" aria-label="Load progression" data-loop-delay="2000" style="--crop-l:6px;">
+            <div class="cs-feature-video-ph">
+              <span class="cs-feature-video-ph-icon">&#9654;</span>
+              <span class="cs-feature-video-ph-label">Load progression</span>
+            </div>
+          </video>
+        </div>
+      </div>
+
+      <!-- 7 · Feedback module (end-of-session) -->
+      <div class="cs-feature-split reveal">
+        <div class="cs-feature-text">
+          <div class="cs-feature-eyebrow">Closes the loop</div>
+          <h3>Feedback module.</h3>
+          <p>After each session with incomplete exercises, users can provide input &mdash; and those signals feed back into the engine to recalibrate intensity and recovery for the next session.</p>
+        </div>
+        <div class="cs-feature-video bare framed">
+          <video src="assets/videos/adaptive-plan/feedback%20module.mov" muted playsinline preload="metadata" aria-label="Feedback module" data-loop-delay="2000" style="--crop-l:6px;">
+            <div class="cs-feature-video-ph">
+              <span class="cs-feature-video-ph-icon">&#9654;</span>
+              <span class="cs-feature-video-ph-label">Feedback module</span>
+            </div>
+          </video>
+        </div>
+      </div>
+
+      <!-- 8 · Injury management (end-of-session check-in) -->
       <div class="cs-feature-split reverse reveal">
         <div class="cs-feature-text">
           <div class="cs-feature-eyebrow">Solves &middot; Injury blind spot</div>
           <h3>Injury management.</h3>
           <p>Log an injury or area of pain &mdash; affected exercises swap to safe substitutes. A check-in every 14 days updates recovery progress, guiding the user back to full training.</p>
         </div>
-        <div class="cs-feature-video">
-          <!-- TODO: replace placeholder with <video> -->
-          <div class="cs-feature-video-ph">
-            <span class="cs-feature-video-ph-icon">&#9654;</span>
-            <span class="cs-feature-video-ph-label">Injury management</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 3 · Equipment management -->
-      <div class="cs-feature-split reveal">
-        <div class="cs-feature-text">
-          <div class="cs-feature-eyebrow">Solves &middot; Equipment mismatch</div>
-          <h3>Equipment management.</h3>
-          <p>Every session adapts to whatever&rsquo;s available that day: full gym, home setup, travel, or bodyweight-only &mdash; no manual reshuffling.</p>
-        </div>
-        <div class="cs-feature-video">
-          <!-- TODO: replace placeholder with <video> -->
-          <div class="cs-feature-video-ph">
-            <span class="cs-feature-video-ph-icon">&#9654;</span>
-            <span class="cs-feature-video-ph-label">Equipment management</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 4 · Load progression -->
-      <div class="cs-feature-split reverse reveal">
-        <div class="cs-feature-text">
-          <div class="cs-feature-eyebrow">Solves &middot; No sense of progression</div>
-          <h3>Load progression.</h3>
-          <p>Weight, reps, and rest scale automatically from feedback and historical performance. Progression is visible, with deload weeks respected.</p>
-        </div>
-        <div class="cs-feature-video">
-          <!-- TODO: replace placeholder with <video> -->
-          <div class="cs-feature-video-ph">
-            <span class="cs-feature-video-ph-icon">&#9654;</span>
-            <span class="cs-feature-video-ph-label">Load progression</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 5 · Feedback module -->
-      <div class="cs-feature-split reveal">
-        <div class="cs-feature-text">
-          <div class="cs-feature-eyebrow">Solves &middot; Lack of customization</div>
-          <h3>Feedback module.</h3>
-          <p>After each session with incomplete exercises, users can provide input &mdash; and those signals feed back into the engine to recalibrate intensity and recovery for the next session.</p>
-        </div>
-        <div class="cs-feature-video">
-          <!-- TODO: replace placeholder with <video> -->
-          <div class="cs-feature-video-ph">
-            <span class="cs-feature-video-ph-icon">&#9654;</span>
-            <span class="cs-feature-video-ph-label">Feedback module</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 6 · Mesocycle plan -->
-      <div class="cs-feature-split reverse reveal">
-        <div class="cs-feature-text">
-          <div class="cs-feature-eyebrow">Solves &middot; Plans feel irrelevant fast</div>
-          <h3>Mesocycle plan that adapts each week.</h3>
-          <p>The plan rebalances volume, intensity, and recovery week over week &mdash; based on what the user actually did, not what was prescribed on day one.</p>
-        </div>
-        <div class="cs-feature-video">
-          <!-- TODO: replace placeholder with <video autoplay loop muted playsinline><source src="assets/videos/adaptive-plan/mesocycle.mp4" type="video/mp4"></video> -->
-          <div class="cs-feature-video-ph">
-            <span class="cs-feature-video-ph-icon">&#9654;</span>
-            <span class="cs-feature-video-ph-label">Mesocycle adaptation</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 7 · Familiarity module -->
-      <div class="cs-feature-split reveal">
-        <div class="cs-feature-text">
-          <div class="cs-feature-eyebrow">Solves &middot; Learning-curve overload</div>
-          <h3>Familiarity module.</h3>
-          <p>In dogfooding I noticed the generator recommending completely different exercises within the same muscle group week over week &mdash; a steep learning curve that pushed users to modify or abandon their plans. I raised it with PM and backend, and we retuned the generator to anchor in each user&rsquo;s proven exercise history and introduce a small percentage of new movements gradually, week by week &mdash; familiarity without the learning cliff.</p>
-        </div>
-        <div class="cs-feature-video">
-          <!-- TODO: replace placeholder with <video> -->
-          <div class="cs-feature-video-ph">
-            <span class="cs-feature-video-ph-icon">&#9654;</span>
-            <span class="cs-feature-video-ph-label">Familiarity module</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Monetization divider -->
-      <div class="cs-feature-divider reveal">
-        <span class="cs-feature-divider-label">Monetization &amp; Engagement</span>
-      </div>
-
-      <!-- 7 · Paywall -->
-      <div class="cs-feature-split reveal">
-        <div class="cs-feature-text">
-          <div class="cs-feature-eyebrow">Monetization</div>
-          <h3>Paywall &mdash; at the moment of value.</h3>
-          <p>The premium paywall surfaces when users hit the ceiling of the free plan&rsquo;s static behavior &mdash; framing adaptation as the value, not the gate.</p>
-        </div>
-        <div class="cs-feature-video">
-          <!-- TODO: replace placeholder with <video> -->
-          <div class="cs-feature-video-ph">
-            <span class="cs-feature-video-ph-icon">&#9654;</span>
-            <span class="cs-feature-video-ph-label">Paywall</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 8 · Nudges -->
-      <div class="cs-feature-split reverse reveal">
-        <div class="cs-feature-text">
-          <div class="cs-feature-eyebrow">Retention</div>
-          <h3>Nudges.</h3>
-          <p>Two jobs: build confidence for users who haven&rsquo;t opted in yet, and keep the adaptive plan visible after the first GTM popup is dismissed &mdash; resurfacing it at the right moment instead of relying on a single entry point.</p>
-        </div>
-        <div class="cs-feature-video">
-          <!-- TODO: replace placeholder with <video> -->
-          <div class="cs-feature-video-ph">
-            <span class="cs-feature-video-ph-icon">&#9654;</span>
-            <span class="cs-feature-video-ph-label">Nudges</span>
-          </div>
+        <div class="cs-feature-video bare framed">
+          <video src="assets/videos/adaptive-plan/injury.mov" muted playsinline preload="metadata" aria-label="Injury management" data-loop-delay="2000">
+            <div class="cs-feature-video-ph">
+              <span class="cs-feature-video-ph-icon">&#9654;</span>
+              <span class="cs-feature-video-ph-label">Injury management</span>
+            </div>
+          </video>
         </div>
       </div>
           </div>
@@ -1213,6 +1450,27 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
         <details class="cs-bts-row">
           <summary class="cs-bts-summary">
             <span class="cs-bts-num">01</span>
+            <span class="cs-bts-title">Strategy alignment</span>
+            <span class="cs-bts-toggle" aria-hidden="true">
+              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg>
+            </span>
+          </summary>
+          <div class="cs-bts-body">
+            <div class="cs-bts-body-inner">
+              <p>With the direction set &mdash; build a plan that adapts, not another onboarding &mdash; I aligned PM (positioning), growth (lifecycle timing), and engineering (feasibility) around one thesis: <strong>users have to feel the plan adapting to them &mdash; that moment is what makes activation stick, retention compound, and the paywall convert.</strong> The cards below are the moves we made to get there.</p>
+              <div class="cs-cards" style="margin-top:24px;">
+                <div class="cs-card"><div class="cs-card-icon">&#129504;</div><div class="cs-card-title">Familiarity Module</div><div class="cs-card-text">I caught the generator swapping exercises week over week while dogfooding &mdash; each new movement was a fresh learning curve that pushed users to abandon their plans. I raised it with PM and backend; we shipped a gradual-ramp model that anchors in each user&rsquo;s proven history and introduces new movements slowly, so the learning curve flattens instead of stacking.</div></div>
+                <div class="cs-card"><div class="cs-card-icon">&#127919;</div><div class="cs-card-title">Two-Tier Experience</div><div class="cs-card-text">I designed the upgrade so users don&rsquo;t start over when they go paid &mdash; their history and preferences carry forward (same logic as the familiarity module). We shipped it as one continuous experience, so upgrading feels like the plan getting smarter, not a wall.</div></div>
+                <div class="cs-card"><div class="cs-card-icon">&#128200;</div><div class="cs-card-title">Habit-First Flow</div><div class="cs-card-text">I pulled retention data with growth to make the case for a later paywall &mdash; users hit peak value at days 10&ndash;14, after the first adaptation cycle. I held the line against day-one monetization pressure; we landed on a week-2 paywall.</div></div>
+                <div class="cs-card"><div class="cs-card-icon">&#128260;</div><div class="cs-card-title">Feedback Flywheel</div><div class="cs-card-text">I designed the post-workout feedback surface so each completed session feeds the engine in one tap &mdash; together with eng, we turned feedback from a chore into compounding signal.</div></div>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <details class="cs-bts-row">
+          <summary class="cs-bts-summary">
+            <span class="cs-bts-num">02</span>
             <span class="cs-bts-title">User Flow</span>
             <span class="cs-bts-toggle" aria-hidden="true">
               <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg>
@@ -1221,24 +1479,9 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
           <div class="cs-bts-body">
             <div class="cs-bts-body-inner">
               <p>Three flows carried the experience: onboarding without form-fatigue, weekly adaptation with a clear rationale, and a manual override when the AI&rsquo;s suggestion didn&rsquo;t fit. The hardest call was the override path &mdash; giving users escape hatches without undermining trust in the engine.</p>
-            </div>
-          </div>
-        </details>
-
-        <details class="cs-bts-row">
-          <summary class="cs-bts-summary">
-            <span class="cs-bts-num">02</span>
-            <span class="cs-bts-title">Information Architecture</span>
-            <span class="cs-bts-toggle" aria-hidden="true">
-              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg>
-            </span>
-          </summary>
-          <div class="cs-bts-body">
-            <div class="cs-bts-body-inner">
-              <p>I mapped the full plan ecosystem to find the three moments where adaptation actually changes user behavior: plan start, mid-week check-in, and post-workout feedback. Anywhere else, an &ldquo;adaptation&rdquo; would feel like noise.</p>
-              <figure class="cs-media h-sm reveal" style="margin-top:20px;">
-                <img src="assets/images/adaptive-plan/ia-diagram.png" alt="Information architecture diagram of the plan ecosystem" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
-                <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#128193;</span><span class="cs-img-ph-label">IA diagram &mdash; plan ecosystem</span></span>
+              <figure class="cs-media reveal" style="margin-top:20px; aspect-ratio:2816/2746; max-width:900px; margin-left:auto; margin-right:auto;">
+                <img src="assets/images/adaptive-plan/user-flow-figjam.png" alt="Adaptive Plan user flow diagram exported from FigJam" loading="lazy" onload="this.parentElement.classList.add('is-loaded')" style="object-fit:contain;">
+                <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#128279;</span><span class="cs-img-ph-label">User flow diagram</span></span>
               </figure>
             </div>
           </div>
@@ -1247,28 +1490,6 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
         <details class="cs-bts-row">
           <summary class="cs-bts-summary">
             <span class="cs-bts-num">03</span>
-            <span class="cs-bts-title">Strategy &mdash; business &amp; tech constraints</span>
-            <span class="cs-bts-toggle" aria-hidden="true">
-              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg>
-            </span>
-          </summary>
-          <div class="cs-bts-body">
-            <div class="cs-bts-body-inner">
-              <p>With the direction set &mdash; build a plan that adapts, not another onboarding &mdash; I partnered with product and growth on positioning. Three principles guided the plan: <strong>freemium entry</strong> with a clear value moment before any paywall, <strong>habit-first onboarding</strong> that lets users experience adaptation before being asked to pay, and <strong>gradual personalization</strong> that deepens as the AI learns each user.</p>
-              <p>The strategic insight: <strong>users needed to feel the plan adapting to them before the paywall appeared.</strong> Based on retention data, we aligned the conversion moment to the second adaptation cycle &mdash; when perceived value peaked at days 10&ndash;14.</p>
-              <div class="cs-cards" style="margin-top:24px;">
-                <div class="cs-card"><div class="cs-card-icon">&#127919;</div><div class="cs-card-title">Two-Tier Experience</div><div class="cs-card-text">Two parallel experiences designed in tandem: free users get core plan generation; paid users unlock advanced personalization, recovery-based adjustments, and priority modes &mdash; so the upgrade reads as a natural deepening, not a wall.</div></div>
-                <div class="cs-card"><div class="cs-card-icon">&#128200;</div><div class="cs-card-title">Habit-First Flow</div><div class="cs-card-text">Paywall delayed until week 2, after users experience at least one adaptation cycle. Data showed peak value perception at days 10&ndash;14, not day 1.</div></div>
-                <div class="cs-card"><div class="cs-card-icon">&#128260;</div><div class="cs-card-title">Feedback Flywheel</div><div class="cs-card-text">Every completed workout feeds the engine: better data &rarr; better adaptations &rarr; higher retention &rarr; more data. A self-reinforcing loop.</div></div>
-                <div class="cs-card"><div class="cs-card-icon">&#128640;</div><div class="cs-card-title">Phased Rollout</div><div class="cs-card-text">Launched to 5% of new users, iterated on conversion data for two weeks, then scaled to 100% &mdash; de-risking paywall timing and adaptation quality.</div></div>
-              </div>
-            </div>
-          </div>
-        </details>
-
-        <details class="cs-bts-row">
-          <summary class="cs-bts-summary">
-            <span class="cs-bts-num">04</span>
             <span class="cs-bts-title">Iterations</span>
             <span class="cs-bts-toggle" aria-hidden="true">
               <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg>
@@ -1276,15 +1497,49 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
           </summary>
           <div class="cs-bts-body">
             <div class="cs-bts-body-inner">
-              <p>Wireframes for the two flows that mattered most: onboarding without form-fatigue, and the weekly adaptation moment. Iterating on these is where the &ldquo;coach card&rdquo; voice first emerged &mdash; before that, the surface read as a settings panel.</p>
-              <div class="cs-two-col">
-                <figure class="cs-media h-sm reveal">
-                  <img src="assets/images/adaptive-plan/wireframes-onboarding.png" alt="Onboarding wireframes" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
-                  <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#9998;</span><span class="cs-img-ph-label">Onboarding wireframes</span></span>
+              <p>The Adaptive Plan ecosystem spans a dozen surfaces, and several went through multiple rounds before landing. Three iteration highlights:</p>
+              <div style="margin-top:32px;">
+                <div class="cs-card-title" style="margin-bottom:8px;">Injury management</div>
+                <p>Started with a short-term vs. long-term injury split. Iterated to a severity framework: mild injuries (muscle or joint) swap affected exercises for lower-intensity alternatives instead of excluding them; severe injuries remove all exercises in the affected area. Users keep training where they safely can, instead of pausing the whole plan.</p>
+                <figure class="cs-media reveal" style="aspect-ratio:16/10; margin-top:20px;">
+                  <span style="position:absolute;top:12px;left:12px;z-index:2;background:rgba(0,0,0,.65);color:#fff;padding:4px 10px;border-radius:6px;font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.08em;">v1</span>
+                  <img src="assets/images/adaptive-plan/iter-injury-v1.png" alt="Injury management v1" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
+                  <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#129657;</span><span class="cs-img-ph-label">Injury v1</span></span>
                 </figure>
-                <figure class="cs-media h-sm reveal">
-                  <img src="assets/images/adaptive-plan/wireframes-adaptation.png" alt="Weekly adaptation flow wireframes" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
-                  <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#9998;</span><span class="cs-img-ph-label">Adaptation flow wireframes</span></span>
+                <figure class="cs-media reveal" style="aspect-ratio:16/10; margin-top:12px;">
+                  <span style="position:absolute;top:12px;left:12px;z-index:2;background:rgba(0,0,0,.65);color:#fff;padding:4px 10px;border-radius:6px;font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.08em;">v2</span>
+                  <img src="assets/images/adaptive-plan/iter-injury-v2.png" alt="Injury management v2" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
+                  <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#129657;</span><span class="cs-img-ph-label">Injury v2</span></span>
+                </figure>
+              </div>
+
+              <div style="margin-top:48px;">
+                <div class="cs-card-title" style="margin-bottom:8px;">Equipment increments</div>
+                <p><strong>UX:</strong> increments mapped to actual gym hardware &mdash; dumbbells in 5lb steps, Smith machines in 10lb, etc. &mdash; per location. <strong>UI:</strong> multiple visual passes to surface the right increment in context without cluttering the workout view.</p>
+                <figure class="cs-media reveal" style="aspect-ratio:16/10; margin-top:20px;">
+                  <span style="position:absolute;top:12px;left:12px;z-index:2;background:rgba(0,0,0,.65);color:#fff;padding:4px 10px;border-radius:6px;font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.08em;">v1</span>
+                  <img src="assets/images/adaptive-plan/iter-equipment-v1.png" alt="Equipment increments v1" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
+                  <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#127947;</span><span class="cs-img-ph-label">Equipment v1</span></span>
+                </figure>
+                <figure class="cs-media reveal" style="aspect-ratio:16/10; margin-top:12px;">
+                  <span style="position:absolute;top:12px;left:12px;z-index:2;background:rgba(0,0,0,.65);color:#fff;padding:4px 10px;border-radius:6px;font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.08em;">v2</span>
+                  <img src="assets/images/adaptive-plan/iter-equipment-v2.png" alt="Equipment increments v2" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
+                  <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#127947;</span><span class="cs-img-ph-label">Equipment v2</span></span>
+                </figure>
+              </div>
+
+              <div style="margin-top:48px;">
+                <div class="cs-card-title" style="margin-bottom:8px;">Load progression</div>
+                <p>Multiple rounds on how aggressively to scale weight, reps, and sets. Early versions overshot and triggered &ldquo;Revert&rdquo; too often; we shipped a more conservative version that only pushes when feedback signals justify it.</p>
+                <figure class="cs-media reveal" style="aspect-ratio:16/10; margin-top:20px;">
+                  <span style="position:absolute;top:12px;left:12px;z-index:2;background:rgba(0,0,0,.65);color:#fff;padding:4px 10px;border-radius:6px;font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.08em;">v1</span>
+                  <img src="assets/images/adaptive-plan/iter-load-v1.png" alt="Load progression v1" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
+                  <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#129692;</span><span class="cs-img-ph-label">Load progression v1</span></span>
+                </figure>
+                <figure class="cs-media reveal" style="aspect-ratio:16/10; margin-top:12px;">
+                  <span style="position:absolute;top:12px;left:12px;z-index:2;background:rgba(0,0,0,.65);color:#fff;padding:4px 10px;border-radius:6px;font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.08em;">v2</span>
+                  <img src="assets/images/adaptive-plan/iter-load-v2.png" alt="Load progression v2" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
+                  <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#129692;</span><span class="cs-img-ph-label">Load progression v2</span></span>
                 </figure>
               </div>
             </div>
@@ -1313,14 +1568,43 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
         <div class="cs-callout-label">Business Impact</div>
         <div class="cs-callout-text">The 14% paywall CVR made Adaptive Plan Jefit&rsquo;s single most profitable premium feature &mdash; directly influencing the roadmap to prioritize AI-powered personalization across the entire platform.</div>
       </div>
-      <figure class="cs-media h-mid reveal" style="margin-top:28px;">
-        <img src="assets/images/adaptive-plan/metrics-dashboard.png" alt="Adoption and retention metrics dashboard" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
-        <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#128200;</span><span class="cs-img-ph-label">Adoption &amp; retention metrics dashboard</span></span>
-      </figure>
+      <!-- User reviews — replaces metrics dashboard. TODO: swap placeholder quotes with real App Store / in-app reviews. -->
+      <div class="cs-voc-list reveal" style="margin-top:40px;">
+        <div class="cs-voc">
+          <p class="cs-voc-text">&ldquo;Finally a plan that doesn&rsquo;t reset every month. It actually <mark>remembers what I lifted last week</mark> and pushes me a little more. The deload weeks were a nice surprise.&rdquo;</p>
+          <div class="cs-voc-footer">
+            <div class="cs-voc-avatar" aria-hidden="true"></div>
+            <div class="cs-voc-meta">
+              <span class="cs-voc-name">Marcus J.</span>
+              <span class="cs-voc-role">Lifting 3 years</span>
+            </div>
+          </div>
+        </div>
+        <div class="cs-voc">
+          <p class="cs-voc-text">&ldquo;I train at a hotel gym half the week and the app just <mark>swaps in what works with the equipment I have</mark>. Used to skip days. Don&rsquo;t anymore.&rdquo;</p>
+          <div class="cs-voc-footer">
+            <div class="cs-voc-avatar" aria-hidden="true"></div>
+            <div class="cs-voc-meta">
+              <span class="cs-voc-name">Priya R.</span>
+              <span class="cs-voc-role">Traveling lifter</span>
+            </div>
+          </div>
+        </div>
+        <div class="cs-voc">
+          <p class="cs-voc-text">&ldquo;As a beginner I was overwhelmed by other apps. This one <mark>asks what I want and builds around it</mark> instead of dropping me into someone else&rsquo;s program.&rdquo;</p>
+          <div class="cs-voc-footer">
+            <div class="cs-voc-avatar" aria-hidden="true"></div>
+            <div class="cs-voc-meta">
+              <span class="cs-voc-name">Sam K.</span>
+              <span class="cs-voc-role">New to lifting</span>
+            </div>
+          </div>
+        </div>
+      </div>
           </div>
     </section>
 
-    <!-- 08 REFLECTION -->
+    <!-- 07 REFLECTION -->
     <section class="cs-section" id="reflection">
       <div class="cs-wrap">
       <span class="cs-eyebrow">07 &middot; Reflection</span>
@@ -1577,6 +1861,48 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
     carousel.addEventListener('cs-carousel-refresh',update);
     update();
   });
+})();
+</script>
+<script>
+/* Viewport-gated video playback.
+   Each <video> plays only while it's in view; pauses when scrolled away.
+   `data-loop-delay="<ms>"` adds a pause between loops (skipped if the video
+   leaves the viewport before the delay fires). */
+(function(){
+  const videos = document.querySelectorAll('video');
+  if(!videos.length) return;
+  const timers = new WeakMap();
+
+  videos.forEach(v => {
+    v.addEventListener('ended', () => {
+      const delay = parseInt(v.dataset.loopDelay, 10) || 0;
+      clearTimeout(timers.get(v));
+      timers.set(v, setTimeout(() => {
+        // Only restart if the element is still onscreen when the timer fires.
+        if(v.dataset.inView === 'true'){
+          v.currentTime = 0;
+          v.play().catch(()=>{});
+        }
+      }, delay));
+    });
+  });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const v = entry.target;
+      if(entry.isIntersecting){
+        v.dataset.inView = 'true';
+        if(v.ended) v.currentTime = 0;  // re-entering an already-finished video → restart
+        v.play().catch(()=>{});
+      } else {
+        v.dataset.inView = 'false';
+        v.pause();
+        clearTimeout(timers.get(v));
+      }
+    });
+  }, { threshold: 0.25 });
+
+  videos.forEach(v => io.observe(v));
 })();
 </script>
 </body>

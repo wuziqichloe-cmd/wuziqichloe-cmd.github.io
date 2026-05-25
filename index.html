@@ -341,18 +341,34 @@ nav {
   transform:rotate(45deg);
 }
 
-/* RIGHT: scrolling image panels — 2/3 width, full-screen height */
-.work-right { display:flex; flex-direction:column; }
+/* RIGHT: single-column stack of large cards */
+.work-right { display:flex; flex-direction:column; gap:28px; padding:56px 64px 96px; }
 
 .proj-panel {
-  height:100vh; position:relative; overflow:hidden;
+  position:relative; overflow:hidden;
+  border-radius:24px;
+  min-height:clamp(540px,78vh,820px);
   display:flex; align-items:flex-end;   /* info anchored bottom-left */
-  border-bottom:1px solid rgba(255,255,255,.06);
+  border:1px solid var(--border);
+  cursor:pointer;
+  opacity:0; transform:translateY(40px);
+  transition:opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1);
+  /* Lock the rounded clip so scaled/transformed children (e.g. .proj-panel-bg on hover)
+     don't bleed past the corners in Safari/WebKit */
+  isolation:isolate;
+  -webkit-mask-image:-webkit-radial-gradient(white, black);
+          mask-image:radial-gradient(white, black);
+}
+.proj-panel.in-view { opacity:1; transform:translateY(0); }
+.proj-panel.in-view:hover { transform:translateY(-6px); }
+@media (prefers-reduced-motion:reduce){
+  .proj-panel{opacity:1;transform:none;transition:none;}
 }
 
 /* Full-bleed image / gradient background */
 .proj-panel-bg {
   position:absolute; inset:0;
+  border-radius:24px;            /* explicit, matches parent — survives transform:scale */
   background-size:cover; background-position:center;
   transition:transform .8s cubic-bezier(.22,1,.36,1);
 }
@@ -361,6 +377,7 @@ nav {
 /* Dark vignette at bottom for readability */
 .proj-panel::after {
   content:''; position:absolute; inset:0; z-index:2;
+  border-radius:inherit;
   pointer-events:none;
   background:linear-gradient(
     to top,
@@ -382,6 +399,7 @@ nav {
 /* Inner accent ring + soft glow on hover */
 .proj-panel::before {
   content:''; position:absolute; inset:0; z-index:3; pointer-events:none;
+  border-radius:inherit;
   box-shadow:inset 0 0 0 1px rgba(255,255,255,0),
              inset 0 0 0 0 rgba(255,255,255,0);
   transition:box-shadow .5s ease;
@@ -407,19 +425,6 @@ nav {
   0%   { transform:translate(0,0) scale(1); }
   100% { transform:translate(-4%,3%) scale(1.08); }
 }
-
-/* Stagger reveal of inner content on scroll-into-view */
-.proj-panel-info > * {
-  opacity:0; transform:translateY(20px);
-  transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1);
-}
-.proj-panel.in-view .proj-panel-info > * { opacity:1; transform:translateY(0); }
-.proj-panel.in-view .proj-panel-info > *:nth-child(1){transition-delay:60ms;}
-.proj-panel.in-view .proj-panel-info > *:nth-child(2){transition-delay:140ms;}
-.proj-panel.in-view .proj-panel-info > *:nth-child(3){transition-delay:220ms;}
-.proj-panel.in-view .proj-panel-info > *:nth-child(4){transition-delay:300ms;}
-.proj-panel.in-view .proj-panel-info > *:nth-child(5){transition-delay:380ms;}
-.proj-panel.in-view .proj-panel-info > *:nth-child(6){transition-delay:460ms;}
 
 /* Title slight rise on hover */
 .proj-panel-title {
@@ -656,6 +661,7 @@ nav {
 }
 .bt-photo-tile::after {
   content:''; position:absolute; inset:0; z-index:2; pointer-events:none;
+  border-radius:inherit;
   background:linear-gradient(to bottom, transparent 40%, rgba(0,0,0,.6) 100%);
 }
 .bt-photo-bg { display:none; }
@@ -873,7 +879,7 @@ img.bt-beh-icon { object-fit: contain; }
 [data-theme="dark"] .fa-card{box-shadow:0 8px 30px rgba(0,0,0,.35);}
 .fa-card:hover{box-shadow:0 20px 60px rgba(0,0,0,.14);z-index:10;}
 [data-theme="dark"] .fa-card:hover{box-shadow:0 20px 60px rgba(0,0,0,.5);}
-.fa-float{width:100%;height:100%;animation:faFloat var(--dur,8s) ease-in-out infinite;animation-delay:var(--delay,0s);display:flex;align-items:center;justify-content:center;position:relative;}
+.fa-float{width:100%;height:100%;border-radius:inherit;animation:faFloat var(--dur,8s) ease-in-out infinite;animation-delay:var(--delay,0s);display:flex;align-items:center;justify-content:center;position:relative;}
 @keyframes faFloat{0%,100%{transform:translate3d(0,0,0);}50%{transform:translate3d(0,-14px,0);}}
 @media (prefers-reduced-motion: reduce){.fa-float{animation:none;}}
 .fa-emoji{font-size:clamp(48px,7vw,80px);line-height:1;filter:drop-shadow(0 4px 12px rgba(0,0,0,.08));}
@@ -925,7 +931,11 @@ img.bt-beh-icon { object-fit: contain; }
 #chat{padding:120px 48px 96px;background:var(--bg-2);border-top:1px solid var(--border);transition:background .4s,border-color .4s;}
 .chat-inner{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center;}
 .chat-eyebrow{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:18px;}
-.chat-title{font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:clamp(40px,6vw,80px);line-height:1.05;letter-spacing:-.03em;color:var(--ink);margin-bottom:14px;}
+.chat-title{font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:clamp(40px,6vw,80px);line-height:1.05;letter-spacing:-.03em;color:var(--ink);margin-bottom:14px;min-height:1.1em;}
+.chat-title .typer{display:inline;}
+.chat-title .typer-caret{display:inline-block;width:.055em;height:.82em;background:var(--accent);margin-left:.06em;vertical-align:-.06em;border-radius:2px;animation:typerBlink 1.05s steps(1) infinite;}
+@keyframes typerBlink{50%{opacity:0;}}
+@media(prefers-reduced-motion:reduce){.chat-title .typer-caret{animation:none;}}
 .chat-sub{font-size:var(--fs-base);color:var(--ink-2);line-height:1.7;max-width:46ch;margin-bottom:44px;}
 .chat-links{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;}
 .chat-btn{display:inline-flex;align-items:center;gap:14px;padding:18px 28px;border-radius:100px;border:1.5px solid var(--border-h);background:var(--surf);text-decoration:none;color:var(--ink);transition:transform .25s cubic-bezier(.22,1,.36,1),border-color .2s,background .2s,color .2s;}
@@ -1027,19 +1037,16 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
   .h-bar-cta { justify-content:center; }
   .hero-title { font-size:clamp(40px,11vw,80px); }
 
-  /* --- Work section: no sticky, stacked panels --- */
+  /* --- Work section: no sticky, stacked cards --- */
   .work-hdr { padding:48px 20px 36px; flex-direction:column; gap:12px; }
   .work-body { grid-template-columns:1fr; }
 
-  /* Left panel hidden on mobile — info lives on image */
+  /* Left index hidden on mobile — info lives on the card */
   .work-left { display:none; }
 
-  /* Right panels stack vertically, natural height */
-  .proj-panel {
-    height:auto;
-    min-height:88vw;
-    align-items:flex-end;
-  }
+  /* Cards stack vertically, tighter padding */
+  .work-right { gap:16px; padding:32px 20px 56px; }
+  .proj-panel { border-radius:18px; }
   .proj-panel-info { padding:24px 20px; }
   .proj-panel-title { font-size:clamp(32px,8vw,48px); }
   .proj-panel-desc { font-size:var(--fs-sm); }
@@ -1175,7 +1182,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
 
       <!-- Panel 01 -->
       <div class="proj-panel" data-p="0" onclick="window.open('case-study-adaptive-plan.html', '_self')" title="View case study">
-        <div class="proj-panel-bg" style="background:#0f172a url('assets/images/adaptive-plan/cover.png') center/cover no-repeat;"></div>
+        <div class="proj-panel-bg" style="background:#0f172a url('assets/images/adaptive-plan/cover2.png') center/cover no-repeat;"></div>
         <span class="proj-panel-ghost">01</span>
         <!-- Info overlay at bottom of image -->
         <div class="proj-panel-info">
@@ -1240,7 +1247,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
           <div class="proj-panel-metrics">
             <div><div class="proj-panel-met-val">30%</div><div class="proj-panel-met-lbl">Efficiency Gain</div></div>
             <div><div class="proj-panel-met-val">4</div><div class="proj-panel-met-lbl">Platforms</div></div>
-            <div><div class="proj-panel-met-val">12M+</div><div class="proj-panel-met-lbl">Users</div></div>
+            <div><div class="proj-panel-met-val">13M+</div><div class="proj-panel-met-lbl">Users</div></div>
           </div>
           <a href="#" class="proj-panel-link">View Case Study &nbsp;↗</a>
         </div>
@@ -1278,6 +1285,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
 </section>
 
 
+<!--
 <section id="floats">
   <div class="fa-wrap">
     <div class="fa-head reveal">
@@ -1296,12 +1304,13 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
     </div>
   </div>
 </section>
+-->
 
 
 <section id="chat">
   <div class="chat-inner reveal">
     <span class="chat-eyebrow">— Let’s connect —</span>
-    <h2 class="chat-title">Thanks for Stopping by.<br>Chat Soon!</h2>
+    <h2 class="chat-title"><span class="typer" id="chatTyper" aria-live="polite">thanks for visiting</span><span class="typer-caret" aria-hidden="true"></span></h2>
     <p class="chat-sub">Always open to a coffee, a collaboration, or a chat about design, AI, and how we build products people actually love.</p>
     <div class="chat-links">
       <a href="mailto:wuziqichloe@gmail.com" class="chat-btn">
@@ -1465,7 +1474,7 @@ const PROJS = [
     tags:['Design System','Cross-platform'],
     name:'Scalable Design\nSystem',
     desc:'Architected a cross-platform system spanning Android, iOS, web, and wearables — unifying design and cutting overhead.',
-    metrics:[{v:'30%',l:'Efficiency Gain'},{v:'4',l:'Platforms'},{v:'12M+',l:'Users'}],
+    metrics:[{v:'30%',l:'Efficiency Gain'},{v:'4',l:'Platforms'},{v:'13M+',l:'Users'}],
   },
   {
     tags:['Strategy','UX','Whatnot'],
@@ -1580,6 +1589,44 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
     });
   },{threshold:.4});
   sObs.observe(tile);
+})();
+
+/* ── CHAT TYPEWRITER — playful rotating headline ── */
+(()=>{
+  const el=document.getElementById('chatTyper');
+  if(!el) return;
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches){
+    el.textContent='thanks for visiting — drop a note!';
+    return;
+  }
+  const phrases=[
+    'thanks for visiting',
+    'don’t let the scroll end here',
+    'let’s build together',
+    'drop a note!'
+  ];
+  // start mid-state: first phrase is pre-rendered in HTML, so begin in deleting mode
+  let i=0,j=phrases[0].length,deleting=true,started=false;
+  const tick=()=>{
+    const cur=phrases[i];
+    j += deleting?-1:1;
+    el.textContent=cur.slice(0,j);
+    let wait=deleting?38:75;
+    if(!deleting && j===cur.length){deleting=true;wait=2000;}
+    else if(deleting && j===0){deleting=false;i=(i+1)%phrases.length;wait=320;}
+    setTimeout(tick,wait);
+  };
+  // hold the initial phrase visible, then start the loop once the headline scrolls into view
+  const tObs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting && !started){
+        started=true;
+        setTimeout(tick,1200);
+        tObs.disconnect();
+      }
+    });
+  },{threshold:.6});
+  tObs.observe(el);
 })();
 </script>
 
