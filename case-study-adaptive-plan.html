@@ -243,20 +243,17 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 /* ── HMW full-bleed band — design question that opens the Solution.
    Vertical AI-neon gradient (pale pink → magenta → purple → deep indigo)
    fades in from the page bg at top; bottom is a hard cut into the Solution. ── */
-.cs-hmw-band{position:relative;width:100%;background:linear-gradient(180deg,#1E1B4B 0%,#1E1B4B 28%,#3730A3 42%,#6D28D9 58%,#A855F7 72%,#F0ABFC 84%,#FBCFE8 93%,var(--bg) 100%);padding:120px 52px 280px;margin-top:0;overflow:hidden;--mx:50%;--my:50%;}
+.cs-hmw-band{position:relative;width:100%;background:var(--grad-hmw);padding:120px 52px 280px;margin-top:72px;overflow:hidden;--mx:50%;--my:50%;}
 .cs-hmw-band::before{content:'';position:absolute;inset:0;background:radial-gradient(circle 420px at var(--mx) var(--my), rgba(244,114,182,.28), transparent 65%);pointer-events:none;opacity:0;transition:opacity .5s ease;}
 .cs-hmw-band:hover::before{opacity:1;}
 .cs-hmw-inner{max-width:1200px;margin:0 auto;text-align:center;position:relative;z-index:1;}
-.cs-hmw-question{position:relative;z-index:2;font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:clamp(32px,4.5vw,56px);line-height:1.25;letter-spacing:-.025em;color:var(--spotlight-ink-mute);margin:0;}
+/* Don't fade the whole band on enter — only the question inside */
+.cs-hmw-band.reveal{opacity:1;transform:none;transition:none;}
+.cs-hmw-question{position:relative;z-index:2;font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:clamp(32px,4.5vw,56px);line-height:1.25;letter-spacing:-.025em;color:rgba(245,245,245,.85);margin:0;opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1);}
+.cs-hmw-band.in .cs-hmw-question{opacity:1;transform:none;}
 .cs-hmw-key{font-style:normal;color:var(--spotlight-ink);}
-
-.cs-hmw-word{display:inline-block;opacity:0;transform:translateY(8px);transition:opacity .55s ease, transform .55s ease, color .25s ease;transition-delay:calc(var(--i,0) * 55ms);}
-.cs-hmw-band.in .cs-hmw-word{opacity:1;transform:none;transition-delay:calc(var(--i,0) * 55ms), calc(var(--i,0) * 55ms), 0s;}
-.cs-hmw-band.in .cs-hmw-word:not(.cs-hmw-word-key){color:color-mix(in srgb, var(--spotlight-ink-mute), var(--spotlight-ink) calc(var(--p,0) * 100%));}
-.cs-hmw-word-key{cursor:default;transition:opacity .55s ease, transform .35s cubic-bezier(.34,1.56,.64,1);}
-.cs-hmw-band.in .cs-hmw-word-key:hover{transform:translateY(-2px) scale(1.04);}
-@media(max-width:767px){.cs-hmw-band{background:linear-gradient(180deg,#1E1B4B 0%,#1E1B4B 25%,#3730A3 40%,#6D28D9 55%,#A855F7 70%,#F0ABFC 82%,#FBCFE8 92%,var(--bg) 100%);padding:80px 24px 180px;margin-top:0;}}
-@media (prefers-reduced-motion: reduce){.cs-hmw-band::before{display:none;}.cs-hmw-word{opacity:1;transform:none;transition:none;}}
+@media(max-width:767px){.cs-hmw-band{background:var(--grad-hmw);padding:80px 24px 180px;margin-top:48px;}}
+@media (prefers-reduced-motion: reduce){.cs-hmw-band::before{display:none;}.cs-hmw-question{opacity:1;transform:none;transition:none;}}
 
 /* CARDS */
 .cs-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px;}
@@ -289,12 +286,39 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-subhead{font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:var(--fs-lg);letter-spacing:-.02em;color:var(--ink);margin:0 0 12px;}
 
 /* SOLUTION HERO — Apple-style opener, amplified to dominate the HMW band before it */
-.cs-solution-hero{padding:88px 0 32px;}
+.cs-solution-hero{padding:88px 0 32px;text-align:center;}
 .cs-solution-eyebrow{display:block;font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin-bottom:36px;}
 .cs-solution-title{margin:0 0 40px;line-height:1;font-family:var(--font-display);}
-.cs-solution-title-setup{display:block;font-size:clamp(var(--fs-md),2.4vw,var(--fs-lg));font-weight:var(--fw-regular);color:var(--ink-3);letter-spacing:-.01em;line-height:1.2;margin-bottom:14px;}
+.cs-solution-title-setup{display:block;font-size:clamp(var(--fs-md),2.4vw,var(--fs-lg));font-weight:var(--fw-semibold);color:var(--ink);letter-spacing:-.01em;line-height:1.2;margin-bottom:14px;}
 .cs-solution-title-hero{display:block;font-size:clamp(var(--fs-3xl),8.5vw,var(--fs-display));font-weight:var(--fw-semibold);letter-spacing:-.04em;line-height:1.05;padding-bottom:.08em;background:var(--grad-solution);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;}
-.cs-solution-philosophy{font-size:var(--fs-md);font-weight:var(--fw-regular);color:var(--ink-2);line-height:1.5;letter-spacing:-.01em;max-width:680px;margin:0;}
+.cs-solution-philosophy{font-size:var(--fs-md);font-weight:var(--fw-regular);color:var(--ink-3);line-height:1.5;letter-spacing:-.01em;max-width:680px;margin:0 auto;}
+
+/* Solution hero — eyebrow + philosophy use IntersectionObserver fade; title uses scroll-scrubbed per-char reveal (Palantir style) */
+.cs-solution-hero.reveal{opacity:1;transform:none;transition:none;}
+.cs-solution-hero .cs-eyebrow,
+.cs-solution-hero .cs-solution-philosophy{opacity:0;transition:opacity .7s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);}
+.cs-solution-hero .cs-eyebrow{transform:translateY(8px);}
+.cs-solution-hero .cs-solution-philosophy{transform:translateY(14px);}
+.cs-solution-hero.reveal.in .cs-eyebrow{opacity:1;transform:none;transition-delay:0ms;}
+.cs-solution-hero.reveal.in .cs-solution-philosophy{opacity:1;transform:none;transition-delay:480ms;}
+
+/* Title chars — each letter starts invisible, fades in tied to scroll position. Reverses on scroll-up. */
+.cs-solution-hero .cs-solution-title-setup .cs-char,
+.cs-solution-hero .cs-solution-title-hero .cs-char{opacity:0;will-change:opacity;}
+/* Hero punchline chars: gradient ready behind, BLACK fill on top initially so chars appear in black.
+   Padding + negative margin: gives each char's bg-clip area slightly more horizontal room than the glyph itself,
+   so the negative letter-spacing (-.04em) on the parent doesn't push glyphs beyond their own clip box.
+   The GSAP timeline animates -webkit-text-fill-color from var(--ink) → transparent on scroll,
+   so the gradient only emerges AFTER the letters have appeared in black. */
+.cs-solution-hero .cs-solution-title-hero .cs-char{background:var(--grad-solution);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:var(--ink);color:var(--ink);padding:0 .06em;margin:0 -.06em;}
+
+@media (prefers-reduced-motion: reduce){
+  .cs-solution-hero .cs-eyebrow,
+  .cs-solution-hero .cs-solution-philosophy,
+  .cs-solution-hero .cs-solution-title-setup .cs-char,
+  .cs-solution-hero .cs-solution-title-hero .cs-char{opacity:1;transform:none;transition:none;}
+}
+
 @media(max-width:767px){.cs-solution-hero{padding:56px 0 24px;}.cs-solution-eyebrow{margin-bottom:24px;}.cs-solution-title{margin-bottom:28px;}.cs-solution-title-setup{margin-bottom:10px;}.cs-solution-philosophy{font-size:var(--fs-base);}}
 
 /* SOLUTION FEATURE SPLIT — text + video side by side */
@@ -1306,7 +1330,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
       <header class="cs-solution-hero reveal">
         <span class="cs-solution-eyebrow">04 &middot; Solution</span>
         <h2 class="cs-solution-title">
-          <span class="cs-solution-title-setup">From a 28-day fixed plan&hellip;</span>
+          <span class="cs-solution-title-setup">From a 28-day fixed plan</span>
           <span class="cs-solution-title-hero">to a living system.</span>
         </h2>
         <p class="cs-solution-philosophy">Most features trace back to a research pain point &mdash; six in the core product, two in monetization and adoption. Ordered the way users meet them.</p>
@@ -1736,6 +1760,10 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
   <div class="ft-copy">© 2026 Chloe Wu. All rights reserved.</div>
 </footer>
 
+<!-- GSAP + ScrollTrigger for scroll-scrubbed Solution-hero letter reveal -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
 <script>
 (()=>{
   const isNight=()=>{const h=new Date().getHours();return h<7||h>=19;};
@@ -1778,64 +1806,7 @@ const obs=new IntersectionObserver(entries=>{
 },{threshold:0.06});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
-/* ── HMW word split + cursor spotlight ── */
-(function(){
-  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const q=document.querySelector('.cs-hmw-question[data-hmw]');
-  if(!q)return;
-  const ctr={i:0};
-  function splitTextNode(node,isKey){
-    const text=node.textContent;
-    const frag=document.createDocumentFragment();
-    text.split(/(\s+)/).forEach(part=>{
-      if(part.length===0)return;
-      if(/^\s+$/.test(part)){frag.appendChild(document.createTextNode(part));return;}
-      const s=document.createElement('span');
-      s.className='cs-hmw-word'+(isKey?' cs-hmw-word-key':'');
-      s.textContent=part;
-      s.style.setProperty('--i',ctr.i++);
-      frag.appendChild(s);
-    });
-    node.parentNode.replaceChild(frag,node);
-  }
-  function walk(parent,isKey){
-    const isKeyHere=isKey||(parent.classList&&parent.classList.contains('cs-hmw-key'));
-    Array.from(parent.childNodes).forEach(child=>{
-      if(child.nodeType===3)splitTextNode(child,isKeyHere);
-      else if(child.nodeType===1)walk(child,isKeyHere);
-    });
-  }
-  walk(q,false);
-  if(reduce)return;
-  const band=document.querySelector('.cs-hmw-band');
-  if(!band)return;
-  const words=Array.from(band.querySelectorAll('.cs-hmw-word:not(.cs-hmw-word-key)'));
-  const RADIUS=240;
-  let raf=null,lastE=null;
-  function update(){
-    raf=null;
-    if(!lastE)return;
-    const r=band.getBoundingClientRect();
-    band.style.setProperty('--mx',(lastE.clientX-r.left)+'px');
-    band.style.setProperty('--my',(lastE.clientY-r.top)+'px');
-    words.forEach(w=>{
-      const wr=w.getBoundingClientRect();
-      const dx=lastE.clientX-(wr.left+wr.width/2);
-      const dy=lastE.clientY-(wr.top+wr.height/2);
-      const dist=Math.sqrt(dx*dx+dy*dy);
-      const p=Math.max(0,1-dist/RADIUS);
-      w.style.setProperty('--p',p.toFixed(3));
-    });
-  }
-  band.addEventListener('mousemove',e=>{
-    lastE=e;
-    if(!raf)raf=requestAnimationFrame(update);
-  });
-  band.addEventListener('mouseleave',()=>{
-    lastE=null;
-    words.forEach(w=>w.style.setProperty('--p','0'));
-  });
-})();
+/* HMW now uses a simple block-level fade-up driven by .reveal/.in (see CSS) — no word-split, no cursor proximity. */
 
 (function(){
   const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -2005,6 +1976,62 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
       });
     });
   });
+})();
+
+/* ── Solution hero · scroll-scrubbed letter reveal ──
+   Splits "From a 28-day fixed plan…" and "to a living system." into char spans.
+   GSAP ScrollTrigger with scrub: letters fade in on scroll-down, fade out on scroll-up.
+   Gradient on the punchline stays intact because we only animate opacity, not transform. */
+(function(){
+  if(typeof gsap==='undefined'||typeof ScrollTrigger==='undefined')return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const splitChars=el=>{
+    if(!el)return[];
+    const text=el.textContent;
+    el.textContent='';
+    const chars=[];
+    Array.from(text).forEach(ch=>{
+      if(ch===' '){el.appendChild(document.createTextNode(' '));return;}
+      const s=document.createElement('span');
+      s.className='cs-char';
+      s.textContent=ch;
+      el.appendChild(s);
+      chars.push(s);
+    });
+    return chars;
+  };
+
+  const setupEl=document.querySelector('.cs-solution-title-setup');
+  const heroEl=document.querySelector('.cs-solution-title-hero');
+  if(!setupEl||!heroEl)return;
+
+  const setupChars=splitChars(setupEl);
+  const heroChars=splitChars(heroEl);
+
+  if(reduce){
+    setupChars.concat(heroChars).forEach(c=>{c.style.opacity=1;});
+    return;
+  }
+
+  /* One scrubbed timeline:
+       1. setup line letters fade in (black)
+       2. hero punchline letters fade in (still black, matching setup)
+       3. hero letters' text-fill animates from --ink → transparent, revealing the gradient
+     `start` and `end` define the scroll range mapped to the timeline's 0–1 progress. */
+  gsap.timeline({
+    scrollTrigger:{
+      trigger:'.cs-solution-hero',
+      start:'top 85%',
+      end:'top 10%',
+      scrub:.6
+    }
+  })
+  .fromTo(setupChars,{opacity:0},{opacity:1,duration:.5,stagger:.04,ease:'none'})
+  .fromTo(heroChars,{opacity:0},{opacity:1,duration:.5,stagger:.05,ease:'none'},'>-0.2')
+  .to(heroChars,{webkitTextFillColor:'transparent',duration:.4,stagger:.04,ease:'none'},'>+0.15');
 })();
 </script>
 <script>

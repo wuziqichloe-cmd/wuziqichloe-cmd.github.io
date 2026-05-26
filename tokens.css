@@ -21,6 +21,10 @@
   /* Gradient — used for Solution punchline + HMW key words (links question to answer) */
   --grad-solution: linear-gradient(135deg, #2563EB 0%, #7C3AED 52%, #EC4899 100%);
 
+  /* Gradient — HMW band background. Deep indigo top → magenta → pale pink → page bg.
+     The lighter stops near the bottom transition smoothly into the light page bg. */
+  --grad-hmw: linear-gradient(180deg, #1E1B4B 0%, #1E1B4B 28%, #3730A3 42%, #6D28D9 58%, #A855F7 72%, #F0ABFC 84%, #FBCFE8 93%, var(--bg) 100%);
+
   /* Spotlight section — always dark, regardless of theme. Apple-style refined dark gray (softer than pure black) */
   --spotlight-bg:        #1D1D1F;
   --spotlight-ink:       #F5F5F5;
@@ -43,6 +47,10 @@
 
   /* Gradient — lighter stops for dark mode legibility */
   --grad-solution: linear-gradient(135deg, #60A5FA 0%, #A78BFA 52%, #F472B6 100%);
+
+  /* Gradient — HMW band in dark mode: stay in deep indigo throughout, fade to near-black page bg.
+     No pale pink stops — they'd appear as bright blotches on the dark page. */
+  --grad-hmw: linear-gradient(180deg, #1E1B4B 0%, #1E1B4B 30%, #3730A3 50%, #4338CA 72%, #312E81 90%, var(--bg) 100%);
 }
 
 /* ── TYPOGRAPHY ── */
