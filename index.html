@@ -52,10 +52,15 @@ nav {
   transition:background .4s,border-color .4s;
 }
 .nav-logo {
-  font-family:var(--font-display);font-weight:var(--fw-semibold); font-size:var(--fs-md); letter-spacing:.06em;
-  color:var(--ink); text-decoration:none; transition:color .2s;
+  display:inline-flex; align-items:center;
+  color:var(--ink); text-decoration:none; transition:color .4s;
+  line-height:0;
 }
-.nav-logo:hover{color:var(--accent);}
+.nav-logo:hover .nav-logo-mark{transform:rotate(-8deg);}
+.nav-logo-mark {
+  width:28px; height:28px; display:block;
+  transition:transform .25s cubic-bezier(.34,1.56,.64,1);
+}
 .nav-r{display:flex;align-items:center;gap:28px;}
 .nav-links{display:flex;gap:28px;list-style:none;}
 .nav-links a { font-size:var(--fs-base); font-weight:var(--fw-medium); letter-spacing:.04em; color:var(--ink-2); text-decoration:none; transition:color .2s; }
@@ -124,12 +129,13 @@ nav {
 .hero-title {
   font-family:var(--font-display);font-weight:var(--fw-semibold);
   font-size:clamp(48px,9vw,136px);
-  line-height:.92; letter-spacing:.01em;
+  line-height:.92; letter-spacing:-.025em;
   color:var(--ink);
   position:relative; z-index:1;
   text-align:center;
   margin-bottom:0;
 }
+.hero-title .gc-sp{width:.22em;}
 
 /* Individual chars get glow on hover proximity */
 .hero-title .gc {
@@ -199,6 +205,7 @@ nav {
 }
 .h-bar-eyebrow { font-size:var(--fs-sm); font-weight:var(--fw-bold); letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin-bottom:28px; text-align:center; }
 .h-bar-sub { font-size:var(--fs-base); font-weight:var(--fw-light); color:var(--ink-2); line-height:1.7; max-width:38ch; text-align:center; letter-spacing:-.01em; }
+.h-role { white-space:nowrap; }
 .h-bar-cta { display:flex; flex-direction:row; gap:12px; align-items:center; justify-content:center; margin-top:28px; }
 .h-avail { display:flex; align-items:center; gap:6px; font-size:var(--fs-sm); font-weight:var(--fw-semibold); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-2); margin-bottom:6px; }
 .h-avail-dot { width:7px; height:7px; background:#22C55E; border-radius:50%; animation:pulse 2s ease-in-out infinite; }
@@ -1092,7 +1099,11 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
 <div id="cur"></div>
 
 <nav>
-  <a href="#home" class="nav-logo">CW.</a>
+  <a href="#home" class="nav-logo" aria-label="Chloe Wu — home">
+    <svg class="nav-logo-mark" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <path fill="currentColor" d="m24 4a20 20 0 1 0 20 20 20 20 0 0 0 -20-20zm-11 18a1 1 0 0 1 -.27-2l4.53-1.29-3.7-1.85a1 1 0 1 1 .89-1.79l6 3a1 1 0 0 1 -.18 1.93l-7 2a1 1 0 0 1 -.27 0zm20.95 7.32a10.49 10.49 0 0 1 -9.95 6.68 10.49 10.49 0 0 1 -9.95-6.68 1 1 0 0 1 1.9-.63 8.35 8.35 0 0 0 8.05 5.31 8.35 8.35 0 0 0 8.05-5.32 1 1 0 0 1 1.9.64zm-2.45-8.32a2.5 2.5 0 1 1 2.5-2.5 2.5 2.5 0 0 1 -2.5 2.5z"/>
+    </svg>
+  </a>
   <div class="nav-r">
     <ul class="nav-links" id="navLinks">
       <li><a href="#work" onclick="closeMenu()">Work</a></li>
@@ -1116,18 +1127,16 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
   <div class="h-block">
     <!-- Greeting -->
     <div class="hero-greeting enter d1"><span class="wave-hand">👋</span><span class="hero-greeting-text">Hi, I’m Chloe Wu.</span></div>
-    <!-- Role eyebrow -->
-    <div class="h-bar-eyebrow enter d2">UI/UX → AI + Product Designer</div>
     <!-- Glow title -->
     <div class="glow-stage" id="glowStage">
-      <h1 class="hero-title enter d3" id="heroTitle"></h1>
+      <h1 class="hero-title enter d2" id="heroTitle"></h1>
     </div>
-    <!-- Tagline — 2 lines, tight -->
-    <p class="h-bar-sub enter d4" style="margin-top:28px;max-width:40ch;text-align:center;">
-      I think in ecosystems, not screens — connecting the dots between what people need, what teams can build, and what businesses can sustain.
+    <!-- Role + tagline, merged -->
+    <p class="h-bar-sub enter d3" style="margin-top:28px;max-width:56ch;text-align:center;">
+      <span class="h-role">UI/UX → AI + Product Designer</span>, connecting what people need, what teams can build, and what businesses can sustain.
     </p>
     <!-- CTA -->
-    <div class="h-bar-cta enter d4" style="margin-top:32px;">
+    <div class="h-bar-cta enter d3" style="margin-top:32px;">
       <a href="#work" class="btn-fill">See My Work</a>
     </div>
   </div>
@@ -1230,12 +1239,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
 
       <!-- Panel 03 -->
       <div class="proj-panel" data-p="2" onclick="window.open('#case-study-design-system', '_self')" title="View case study">
-        <div class="proj-panel-bg" style="background:linear-gradient(150deg,#022c22 0%,#065f46 55%,#10b981 100%);"></div>
-        <div class="proj-panel-mesh" aria-hidden="true"></div>
-        <div class="proj-panel-ph">
-          <div class="proj-panel-icon">🧩</div>
-          <span class="proj-panel-ph-label">Add your screenshot here</span>
-        </div>
+        <div class="proj-panel-bg" style="background:#022c22 url('assets/images/design-system/design%20system%20cover.png') center/cover no-repeat;"></div>
         <span class="proj-panel-ghost">03</span>
         <div class="proj-panel-info">
           <div class="proj-panel-tags">
@@ -1365,11 +1369,11 @@ document.addEventListener('mouseout',e=>{
 });
 
 /* ── BUILD TITLE with per-char spans ── */
-const lines=['LET\'S BUILD','TOGETHER.'];
+const lines=['HOLISTIC','BY DESIGN.'];
 const titleEl=document.getElementById('heroTitle');
 titleEl.innerHTML=lines.map((line,li)=>
   line.split('').map(ch=>
-    ch===' '?'<span class="gc"> </span>':`<span class="gc">${ch}</span>`
+    ch===' '?'<span class="gc gc-sp">&nbsp;</span>':`<span class="gc">${ch}</span>`
   ).join('') + (li<lines.length-1?'<br>':'')
 ).join('');
 
@@ -1602,7 +1606,6 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
   const phrases=[
     'thanks for visiting',
     'don’t let the scroll end here',
-    'let’s build together',
     'drop a note!'
   ];
   // start mid-state: first phrase is pre-rendered in HTML, so begin in deleting mode

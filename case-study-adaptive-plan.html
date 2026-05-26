@@ -24,8 +24,9 @@ html, body, body *, body *::before, body *::after { cursor:none !important; }
 
 /* NAV — exact portfolio */
 nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:var(--nav-bg);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:background .4s,border-color .4s;}
-.nav-logo{font-family:var(--font-accent);font-size:var(--fs-md);letter-spacing:.06em;color:var(--ink);text-decoration:none;transition:color .2s;}
-.nav-logo:hover{color:var(--accent);}
+.nav-logo{display:inline-flex;align-items:center;color:var(--ink);text-decoration:none;transition:color .4s;line-height:0;}
+.nav-logo:hover .nav-logo-mark{transform:rotate(-8deg);}
+.nav-logo-mark{width:28px;height:28px;display:block;transition:transform .25s cubic-bezier(.34,1.56,.64,1);}
 .nav-r{display:flex;align-items:center;gap:28px;}
 .nav-links{display:flex;gap:28px;list-style:none;}
 .nav-links a{font-size:var(--fs-base);font-weight:var(--fw-medium);letter-spacing:.04em;color:var(--ink-2);text-decoration:none;transition:color .2s;}
@@ -163,6 +164,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 /* SECTIONS */
 .cs-section{padding:96px 0;border-bottom:1px solid var(--border);}
 .cs-section:last-child{border-bottom:none;}
+.cs-section#research{border-bottom:none;}
 
 /* Max-width inner wrapper for all section content */
 .cs-inner{max-width:1080px;width:100%;}
@@ -175,7 +177,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-body em{font-style:italic;color:var(--ink-2);}
 
 /* OVERVIEW GRID */
-.cs-overview-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:48px;margin-top:36px;border-top:2px solid var(--accent);padding-top:28px;}
+.cs-overview-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:48px;margin-top:36px;border-top:1px solid var(--border);padding-top:28px;}
 .cs-ov-cell{padding:0;}
 .cs-ov-label{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px;display:block;}
 .cs-ov-val{font-size:var(--fs-base);font-weight:var(--fw-semibold);color:var(--ink);line-height:1.45;}
@@ -203,6 +205,26 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-media-fallback .cs-img-ph-icon{font-size:var(--fs-md);opacity:.28;}
 .cs-media-fallback .cs-img-ph-label{font-size:var(--fs-sm);font-weight:var(--fw-semibold);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);text-align:center;padding:0 16px;}
 
+/* Before/After image comparison slider */
+.ba-compare{position:relative;overflow:hidden;border-radius:14px;border:1px solid var(--border);background:var(--bg-2);--pos:50%;touch-action:pan-y;user-select:none;}
+.ba-compare .ba-layer{position:absolute;inset:0;margin:0;padding:0;}
+.ba-compare .ba-layer.ba-after{clip-path:inset(0 0 0 var(--pos));}
+.ba-compare .ba-layer>img{display:block;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .35s ease;}
+.ba-compare .ba-layer.is-loaded>img{opacity:1;}
+.ba-compare .ba-layer.is-loaded .cs-media-fallback{opacity:0;pointer-events:none;}
+.ba-compare .ba-layer .cs-media-fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:var(--bg-2);transition:opacity .25s ease;}
+.ba-compare .ba-label{position:absolute;top:12px;z-index:3;background:rgba(0,0,0,.65);color:#fff;padding:4px 10px;border-radius:6px;font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.08em;pointer-events:none;}
+.ba-compare .ba-label-before{left:12px;}
+.ba-compare .ba-label-after{right:12px;}
+.ba-compare .ba-handle{position:absolute;top:0;bottom:0;left:var(--pos);transform:translateX(-50%);width:44px;display:flex;align-items:center;justify-content:center;cursor:ew-resize;z-index:4;touch-action:none;background:transparent;border:0;padding:0;}
+.ba-compare .ba-handle::before{content:'';position:absolute;top:0;bottom:0;left:50%;width:2px;background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.18);transform:translateX(-50%);}
+.ba-compare .ba-handle-knob{position:relative;width:40px;height:40px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.28);color:#1a1a1a;transition:transform .15s ease;}
+.ba-compare .ba-handle:hover .ba-handle-knob,.ba-compare .ba-handle:active .ba-handle-knob{transform:scale(1.08);}
+.ba-compare .ba-handle:focus-visible{outline:none;}
+.ba-compare .ba-handle:focus-visible .ba-handle-knob{box-shadow:0 4px 14px rgba(0,0,0,.28),0 0 0 3px var(--accent);transform:scale(1.08);}
+.ba-compare .ba-handle-knob svg{width:18px;height:18px;}
+@media(prefers-reduced-motion:reduce){.ba-compare .ba-handle-knob{transition:none;}}
+
 /* CALLOUT */
 .cs-callout{border-left:3px solid var(--accent);background:rgba(37,99,235,.05);border-radius:0 16px 16px 0;padding:24px 28px;margin-top:32px;}
 
@@ -218,28 +240,23 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-callout-label{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
 .cs-callout-text{font-size:var(--fs-base);color:var(--ink-2);line-height:1.7;}
 
-/* ── HMW full-bleed band ── */
-.cs-hmw-band{position:relative;width:100%;background:var(--spotlight-bg);padding:120px 52px;margin-top:64px;overflow:hidden;--mx:50%;--my:50%;}
-.cs-hmw-band::before{content:'';position:absolute;inset:0;background:radial-gradient(circle 420px at var(--mx) var(--my), rgba(37,99,235,.32), transparent 65%);pointer-events:none;opacity:0;transition:opacity .5s ease;}
+/* ── HMW full-bleed band — design question that opens the Solution.
+   Vertical AI-neon gradient (pale pink → magenta → purple → deep indigo)
+   fades in from the page bg at top; bottom is a hard cut into the Solution. ── */
+.cs-hmw-band{position:relative;width:100%;background:linear-gradient(180deg,#1E1B4B 0%,#1E1B4B 28%,#3730A3 42%,#6D28D9 58%,#A855F7 72%,#F0ABFC 84%,#FBCFE8 93%,var(--bg) 100%);padding:120px 52px 280px;margin-top:0;overflow:hidden;--mx:50%;--my:50%;}
+.cs-hmw-band::before{content:'';position:absolute;inset:0;background:radial-gradient(circle 420px at var(--mx) var(--my), rgba(244,114,182,.28), transparent 65%);pointer-events:none;opacity:0;transition:opacity .5s ease;}
 .cs-hmw-band:hover::before{opacity:1;}
 .cs-hmw-inner{max-width:1200px;margin:0 auto;text-align:center;position:relative;z-index:1;}
-.cs-hmw-eyebrow{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:28px;}
-.cs-hmw-question{font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:clamp(32px,4.5vw,56px);line-height:1.25;letter-spacing:-.025em;color:var(--spotlight-ink-mute);margin:0;}
-.cs-hmw-key{font-style:normal;}
+.cs-hmw-question{position:relative;z-index:2;font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:clamp(32px,4.5vw,56px);line-height:1.25;letter-spacing:-.025em;color:var(--spotlight-ink-mute);margin:0;}
+.cs-hmw-key{font-style:normal;color:var(--spotlight-ink);}
+
 .cs-hmw-word{display:inline-block;opacity:0;transform:translateY(8px);transition:opacity .55s ease, transform .55s ease, color .25s ease;transition-delay:calc(var(--i,0) * 55ms);}
 .cs-hmw-band.in .cs-hmw-word{opacity:1;transform:none;transition-delay:calc(var(--i,0) * 55ms), calc(var(--i,0) * 55ms), 0s;}
 .cs-hmw-band.in .cs-hmw-word:not(.cs-hmw-word-key){color:color-mix(in srgb, var(--spotlight-ink-mute), var(--spotlight-ink) calc(var(--p,0) * 100%));}
-.cs-hmw-word-key{color:var(--spotlight-ink);cursor:default;transition:opacity .55s ease, transform .35s cubic-bezier(.34,1.56,.64,1);}
+.cs-hmw-word-key{cursor:default;transition:opacity .55s ease, transform .35s cubic-bezier(.34,1.56,.64,1);}
 .cs-hmw-band.in .cs-hmw-word-key:hover{transform:translateY(-2px) scale(1.04);}
-@media(max-width:767px){.cs-hmw-band{padding:80px 24px;margin-top:48px;}}
+@media(max-width:767px){.cs-hmw-band{background:linear-gradient(180deg,#1E1B4B 0%,#1E1B4B 25%,#3730A3 40%,#6D28D9 55%,#A855F7 70%,#F0ABFC 82%,#FBCFE8 92%,var(--bg) 100%);padding:80px 24px 180px;margin-top:0;}}
 @media (prefers-reduced-motion: reduce){.cs-hmw-band::before{display:none;}.cs-hmw-word{opacity:1;transform:none;transition:none;}}
-
-/* ── Insight callout (root cause beat between Research and HMW) ── */
-.cs-insight{max-width:920px;margin:96px auto 0;text-align:center;}
-.cs-insight-label{display:block;font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:20px;}
-.cs-insight-line{font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:clamp(28px,3.6vw,44px);line-height:1.25;letter-spacing:-.02em;color:var(--ink);margin:0;}
-.cs-insight-line em{font-style:normal;color:var(--accent);}
-@media(max-width:767px){.cs-insight{margin-top:64px;}}
 
 /* CARDS */
 .cs-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px;}
@@ -271,6 +288,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 /* SOLUTION SUBHEAD */
 .cs-subhead{font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:var(--fs-lg);letter-spacing:-.02em;color:var(--ink);margin:0 0 12px;}
 
+/* SOLUTION HERO — Apple-style opener, amplified to dominate the HMW band before it */
+.cs-solution-hero{padding:88px 0 32px;}
+.cs-solution-eyebrow{display:block;font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin-bottom:36px;}
+.cs-solution-title{margin:0 0 40px;line-height:1;font-family:var(--font-display);}
+.cs-solution-title-setup{display:block;font-size:clamp(var(--fs-md),2.4vw,var(--fs-lg));font-weight:var(--fw-regular);color:var(--ink-3);letter-spacing:-.01em;line-height:1.2;margin-bottom:14px;}
+.cs-solution-title-hero{display:block;font-size:clamp(var(--fs-3xl),8.5vw,var(--fs-display));font-weight:var(--fw-semibold);letter-spacing:-.04em;line-height:1.05;padding-bottom:.08em;background:var(--grad-solution);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;}
+.cs-solution-philosophy{font-size:var(--fs-md);font-weight:var(--fw-regular);color:var(--ink-2);line-height:1.5;letter-spacing:-.01em;max-width:680px;margin:0;}
+@media(max-width:767px){.cs-solution-hero{padding:56px 0 24px;}.cs-solution-eyebrow{margin-bottom:24px;}.cs-solution-title{margin-bottom:28px;}.cs-solution-title-setup{margin-bottom:10px;}.cs-solution-philosophy{font-size:var(--fs-base);}}
+
 /* SOLUTION FEATURE SPLIT — text + video side by side */
 .cs-feature-split{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;margin-top:80px;}
 .cs-feature-split.reverse .cs-feature-text{order:2;}
@@ -286,16 +312,54 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 [data-theme="dark"] .cs-feature-video.bare{background:#FAFAFA;border-radius:24px;}
 /* Framed video — sizes the video to its own aspect so border-radius and shadow land on real edges. */
 .cs-feature-video.framed{display:flex;align-items:center;justify-content:center;overflow:visible;}
-.cs-feature-video.framed video{width:auto;max-width:100%;height:100%;border-radius:32px;box-shadow:0 24px 48px rgba(0,0,0,.18);mix-blend-mode:normal;clip-path:inset(var(--crop-t,0) var(--crop-r,0) var(--crop-b,0) var(--crop-l,0) round 32px);}
-[data-theme="dark"] .cs-feature-video.framed video{box-shadow:0 24px 48px rgba(0,0,0,.45);}
+.cs-feature-video.framed video{width:auto;max-width:100%;height:100%;border-radius:32px;box-shadow:0 4px 18px -4px rgba(0,0,0,.22), 0 24px 96px -14px rgba(0,0,0,.32), 0 64px 200px -30px rgba(0,0,0,.42);mix-blend-mode:normal;clip-path:inset(var(--crop-t,0) var(--crop-r,0) var(--crop-b,0) var(--crop-l,0) round 32px);}
+[data-theme="dark"] .cs-feature-video.framed video{box-shadow:0 6px 24px -4px rgba(0,0,0,.65), 0 28px 110px -14px rgba(0,0,0,.78), 0 72px 240px -30px rgba(0,0,0,.88);}
 [data-theme="dark"] .cs-feature-video.bare.framed{background:transparent;}
 .cs-feature-video-ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--ink-3);}
 .cs-feature-video-ph-icon{font-size:var(--fs-2xl);opacity:.4;line-height:1;}
 .cs-feature-video-ph-label{font-size:var(--fs-sm);letter-spacing:.04em;color:var(--ink-3);}
 @media(max-width:960px){.cs-feature-split{grid-template-columns:1fr;gap:32px;margin-top:56px;}.cs-feature-split.reverse .cs-feature-text{order:initial;}.cs-feature-split.reverse .cs-feature-video{order:initial;}.cs-feature-video{aspect-ratio:5/4;}}
+
+/* Per-element staggered reveal — text in reading order (eyebrow → headline → body), image grows into view.
+   Apple easing: cubic-bezier(0.16, 1, 0.3, 1) — fast start, slow settle. */
+.cs-feature-split.reveal{opacity:1;transform:none;transition:none;}
+.cs-feature-split .cs-feature-eyebrow,
+.cs-feature-split .cs-feature-text h3,
+.cs-feature-split .cs-feature-text p,
+.cs-feature-split .cs-feature-video{opacity:0;transition:opacity .7s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);}
+.cs-feature-split .cs-feature-eyebrow{transform:translateY(16px);}
+.cs-feature-split .cs-feature-text h3{transform:translateY(28px);}
+.cs-feature-split .cs-feature-text p{transform:translateY(20px);}
+.cs-feature-split .cs-feature-video{transform:translateY(28px) scale(.94);}
+.cs-feature-split.reveal.in .cs-feature-eyebrow{opacity:1;transform:none;transition-delay:0ms;}
+.cs-feature-split.reveal.in .cs-feature-text h3{opacity:1;transform:none;transition-delay:140ms;}
+.cs-feature-split.reveal.in .cs-feature-text p{opacity:1;transform:none;transition-delay:340ms;}
+.cs-feature-split.reveal.in .cs-feature-video{opacity:1;transform:translateY(0) scale(1);transition-delay:200ms;}
+@media (prefers-reduced-motion: reduce){
+  .cs-feature-split .cs-feature-eyebrow,
+  .cs-feature-split .cs-feature-text h3,
+  .cs-feature-split .cs-feature-text p,
+  .cs-feature-split .cs-feature-video{opacity:1;transform:none;transition:none;}
+}
+
 .cs-feature-divider{display:flex;align-items:center;gap:24px;margin-top:120px;margin-bottom:8px;}
 .cs-feature-divider::before,.cs-feature-divider::after{content:'';flex:1;height:1px;background:var(--border);}
 .cs-feature-divider-label{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);}
+
+/* Chapter divider — Apple-minimal: oversized marker + sequenced reveal + parallax */
+.cs-chapter-divider{position:relative;display:flex;align-items:flex-end;gap:clamp(20px,3vw,40px);margin:clamp(80px,12vw,144px) 0 clamp(28px,4vw,48px);padding-bottom:24px;isolation:isolate;}
+.cs-chapter-divider-marker{position:relative;flex-shrink:0;line-height:.9;opacity:0;transform:translateY(28px);transition:opacity 1s cubic-bezier(.22,1,.36,1),transform 1s cubic-bezier(.22,1,.36,1),color .35s ease;will-change:transform,opacity;}
+.cs-chapter-divider-marker-text{display:block;font-family:var(--font-display);font-size:clamp(72px,11vw,160px);font-weight:var(--fw-light);color:var(--ink);letter-spacing:-.04em;line-height:1;transform:translateY(var(--ch-shift,0px));transition:transform .25s cubic-bezier(.22,1,.36,1);will-change:transform;}
+.cs-chapter-divider-body{display:flex;flex-direction:column;gap:6px;padding-bottom:14px;}
+.cs-chapter-divider-eyebrow{font-size:var(--fs-xs);font-weight:var(--fw-bold);color:var(--ink-3);letter-spacing:.14em;text-transform:uppercase;opacity:0;transform:translateY(14px);transition:opacity .85s cubic-bezier(.22,1,.36,1) .15s,transform .85s cubic-bezier(.22,1,.36,1) .15s;}
+.cs-chapter-divider-label{font-family:var(--font-display);font-size:clamp(20px,2.4vw,30px);font-weight:var(--fw-semibold);color:var(--ink);letter-spacing:-.02em;line-height:1.2;opacity:0;transform:translateY(14px);transition:opacity .85s cubic-bezier(.22,1,.36,1) .24s,transform .85s cubic-bezier(.22,1,.36,1) .24s;}
+.cs-chapter-divider::after{content:'';position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--border);transform:scaleX(0);transform-origin:left center;transition:transform 1.4s cubic-bezier(.22,1,.36,1) .35s;}
+.cs-chapter-divider.in .cs-chapter-divider-marker,.cs-chapter-divider.in .cs-chapter-divider-eyebrow,.cs-chapter-divider.in .cs-chapter-divider-label{opacity:1;transform:none;}
+.cs-chapter-divider.in::after{transform:scaleX(1);}
+.cs-chapter-divider:hover .cs-chapter-divider-marker{color:var(--accent);transform:translateY(-2px);}
+.cs-chapter-divider:hover .cs-chapter-divider-marker-text{color:var(--accent);}
+@media(max-width:767px){.cs-chapter-divider{margin-top:64px;}.cs-chapter-divider-body{padding-bottom:8px;}}
+@media(prefers-reduced-motion:reduce){.cs-chapter-divider-marker,.cs-chapter-divider-eyebrow,.cs-chapter-divider-label{opacity:1;transform:none;transition:none;}.cs-chapter-divider::after{transform:scaleX(1);transition:none;}.cs-chapter-divider-marker-text{transition:none;}}
 
 /* ── ONBOARDING PHONE GALLERY (Training preference flow) ──
    13 mobile mockups, 9-step progress (Step 1/9 → 9/9). */
@@ -531,17 +595,40 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-voc-role{font-size:var(--fs-xs);font-weight:var(--fw-medium);color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase;}
 @media(max-width:900px){.cs-voc-list{grid-template-columns:1fr;gap:14px;}.cs-voc{padding:32px 24px 22px;}}
 
-/* Problem · annotated "before" screenshot — what the static 28-day plan actually looked like */
-.cs-evidence{display:grid;grid-template-columns:minmax(0,300px) 1fr;gap:64px;align-items:center;margin:56px 0 16px;}
-.cs-evidence-frame{position:relative;border-radius:36px;overflow:hidden;background:var(--bg-2);box-shadow:0 24px 56px rgba(0,0,0,.14);transition:background .4s,box-shadow .4s;}
-[data-theme="dark"] .cs-evidence-frame{box-shadow:0 24px 56px rgba(0,0,0,.45);}
-.cs-evidence-frame img{display:block;width:100%;height:auto;}
-.cs-evidence-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:32px;}
-.cs-evidence-item{display:grid;grid-template-columns:36px 1fr;gap:18px;align-items:start;}
-.cs-evidence-num{width:32px;height:32px;border-radius:50%;border:1px solid var(--ink);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:var(--fs-sm);font-weight:var(--fw-bold);color:var(--ink);flex-shrink:0;letter-spacing:0;transition:border-color .4s,color .4s;}
-.cs-evidence-title{font-size:var(--fs-base);font-weight:var(--fw-semibold);color:var(--ink);line-height:1.3;letter-spacing:-.01em;margin:4px 0 6px;}
-.cs-evidence-desc{font-size:var(--fs-sm);color:var(--ink-2);line-height:1.55;margin:0;letter-spacing:-.005em;}
-@media(max-width:900px){.cs-evidence{grid-template-columns:1fr;gap:36px;margin:40px 0 8px;}.cs-evidence-frame{max-width:260px;margin:0 auto;}.cs-evidence-list{gap:24px;}}
+/* Problem · interactive findings card — tinted surface matching .cs-tried, holds the click-to-swap component */
+.cs-findings-card{margin-top:56px;padding:40px 44px;background:var(--bg-2);border-radius:24px;display:flex;flex-direction:column;gap:28px;transition:background .4s;}
+.cs-findings-card-title{font-family:var(--font-display);font-size:var(--fs-md);font-weight:var(--fw-semibold);letter-spacing:-.01em;color:var(--ink);line-height:1.2;margin:0;}
+
+/* Interactive findings hero — click-to-swap phone screenshot, list on right */
+.cs-findings-hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:48px;align-items:center;}
+.cs-findings-stage{position:relative;aspect-ratio:1206/2622;width:100%;max-width:280px;margin:0 auto;border-radius:32px;overflow:hidden;background:var(--surf);box-shadow:0 24px 56px rgba(0,0,0,.14);transition:background .4s,box-shadow .4s;}
+[data-theme="dark"] .cs-findings-stage{box-shadow:0 24px 56px rgba(0,0,0,.45);}
+.cs-findings-img{position:absolute;inset:0;opacity:0;transition:opacity .45s ease;pointer-events:none;}
+.cs-findings-img.is-active{opacity:1;}
+.cs-findings-img img{display:block;width:100%;height:100%;object-fit:cover;}
+
+.cs-findings-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;}
+.cs-finding-btn{display:grid;grid-template-columns:36px 1fr;gap:18px;align-items:start;width:100%;padding:18px 22px;background:transparent;border:none;border-left:3px solid transparent;border-radius:0 12px 12px 0;text-align:left;cursor:pointer;color:var(--ink-3);transition:background .25s,border-color .25s,color .25s;font-family:inherit;}
+.cs-finding-btn:hover{background:var(--surf);color:var(--ink-2);}
+.cs-finding-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.cs-finding-btn.is-active{background:var(--surf);border-left-color:var(--accent);color:var(--ink);}
+[data-theme="dark"] .cs-finding-btn:hover,
+[data-theme="dark"] .cs-finding-btn.is-active{background:rgba(245,245,245,.04);}
+
+.cs-finding-num{width:34px;height:34px;border-radius:50%;border:1px solid currentColor;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:var(--fs-sm);font-weight:var(--fw-bold);flex-shrink:0;transition:border-color .25s,color .25s,background .25s;}
+.cs-finding-btn.is-active .cs-finding-num{border-color:var(--accent);color:var(--accent);}
+.cs-finding-body{min-width:0;}
+.cs-finding-title{font-size:var(--fs-base);font-weight:var(--fw-semibold);line-height:1.3;letter-spacing:-.01em;margin:5px 0 6px;color:inherit;}
+.cs-finding-desc{font-size:var(--fs-sm);line-height:1.55;margin:0;letter-spacing:-.005em;color:var(--ink-3);transition:color .25s;}
+.cs-finding-btn.is-active .cs-finding-desc{color:var(--ink-2);}
+
+@media(max-width:900px){
+  .cs-findings-card{padding:32px 24px;border-radius:20px;gap:24px;margin-top:40px;}
+  .cs-findings-card-title{font-size:var(--fs-base);}
+  .cs-findings-hero{grid-template-columns:1fr;gap:28px;}
+  .cs-findings-stage{max-width:220px;}
+  .cs-finding-btn{padding:14px 18px;gap:14px;}
+}
 
 /* Pain stats — quantitative anchor in Problem section (borderless, breathes in whitespace) */
 .cs-pain-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:24px 48px;margin:40px 0;}
@@ -556,14 +643,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-tried-title{font-family:var(--font-display);font-size:var(--fs-md);font-weight:var(--fw-semibold);letter-spacing:-.01em;color:var(--ink);line-height:1.2;margin:0 0 4px;}
 .cs-tried .cs-body{margin:0;}
 .cs-tried-punchline{margin:0;font-size:var(--fs-base);font-weight:var(--fw-semibold);color:var(--ink);line-height:1.4;}
-
-/* Tombstone row — four onboarding fixes that shipped but didn't move the needle */
-.cs-tombstones{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:8px 0 4px;}
-.cs-tombstone{position:relative;display:flex;flex-direction:column;align-items:center;gap:12px;padding:22px 14px;background:var(--surf);border:1px solid var(--border);border-radius:14px;transition:background .4s,border-color .4s,opacity .25s;}
-.cs-tombstone-icon{width:24px;height:24px;color:var(--ink-3);flex-shrink:0;}
-.cs-tombstone-label{font-size:var(--fs-sm);font-weight:var(--fw-semibold);color:var(--ink-3);letter-spacing:.01em;line-height:1.3;text-align:center;text-decoration:line-through;text-decoration-color:currentColor;text-decoration-thickness:1.5px;text-underline-offset:2px;}
-.cs-tombstone-tag{font-size:var(--fs-2xs);font-weight:var(--fw-bold);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);opacity:.6;}
-@media(max-width:767px){.cs-tried{padding:28px 24px;border-radius:20px;gap:14px;}.cs-tried-title{font-size:var(--fs-base);}.cs-tombstones{grid-template-columns:repeat(2,1fr);gap:8px;}.cs-tombstone{padding:18px 10px;gap:10px;}}
+@media(max-width:767px){.cs-tried{padding:28px 24px;border-radius:20px;gap:14px;}.cs-tried-title{font-size:var(--fs-base);}}
 
 /* TABS — apple.com/mac inspired pill nav */
 /* RESEARCH ACTS — two-act vertical split (replaces tabs) */
@@ -815,7 +895,11 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
 
 <!-- NAV — exact portfolio -->
 <nav>
-  <a href="index.html#home" class="nav-logo">CW.</a>
+  <a href="index.html#home" class="nav-logo" aria-label="Chloe Wu — home">
+    <svg class="nav-logo-mark" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <path fill="currentColor" d="m24 4a20 20 0 1 0 20 20 20 20 0 0 0 -20-20zm-11 18a1 1 0 0 1 -.27-2l4.53-1.29-3.7-1.85a1 1 0 1 1 .89-1.79l6 3a1 1 0 0 1 -.18 1.93l-7 2a1 1 0 0 1 -.27 0zm20.95 7.32a10.49 10.49 0 0 1 -9.95 6.68 10.49 10.49 0 0 1 -9.95-6.68 1 1 0 0 1 1.9-.63 8.35 8.35 0 0 0 8.05 5.31 8.35 8.35 0 0 0 8.05-5.32 1 1 0 0 1 1.9.64zm-2.45-8.32a2.5 2.5 0 1 1 2.5-2.5 2.5 2.5 0 0 1 -2.5 2.5z"/>
+    </svg>
+  </a>
   <div class="nav-r">
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html#work">Work</a></li>
@@ -1035,34 +1119,6 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
         <p class="cs-body">Paid users were handed a static 28-day plan &mdash; same exercises every week, no matter their goals or progress. What they paid for wasn&rsquo;t growing with them.</p>
         <p class="cs-body">The drop-off happened in two waves. Most never made it through activation. Those who did soon realized the plan couldn&rsquo;t keep up &mdash; too generic to feel personal, too static to reflect their progress. Either way, walking away was the easier choice.</p>
       </div>
-      <div class="cs-evidence reveal">
-        <figure class="cs-evidence-frame">
-          <img src="assets/images/adaptive-plan/28dayplan.jpg" alt="The static 28-day plan as it shipped before Adaptive Plan — one template, fixed days, no rest, no progression." loading="lazy">
-        </figure>
-        <ol class="cs-evidence-list">
-          <li class="cs-evidence-item">
-            <span class="cs-evidence-num" aria-hidden="true">1</span>
-            <div>
-              <div class="cs-evidence-title">One template, every user</div>
-              <p class="cs-evidence-desc">&ldquo;28 Day Cutting (Basic Gym Equipment)&rdquo; shipped to everyone &mdash; same plan regardless of goal, level, or what equipment they actually had.</p>
-            </div>
-          </li>
-          <li class="cs-evidence-item">
-            <span class="cs-evidence-num" aria-hidden="true">2</span>
-            <div>
-              <div class="cs-evidence-title">Same exercises, week after week</div>
-              <p class="cs-evidence-desc">Day 1 through Day 28 ran on a single rotation. No progression, no deload, no response to what the user lifted last week.</p>
-            </div>
-          </li>
-          <li class="cs-evidence-item">
-            <span class="cs-evidence-num" aria-hidden="true">3</span>
-            <div>
-              <div class="cs-evidence-title">No rest, no variety, no off-ramp</div>
-              <p class="cs-evidence-desc">Consecutive days with no recovery built in &mdash; punishing for beginners, impossible to scale around injury, travel, or real life.</p>
-            </div>
-          </li>
-        </ol>
-      </div>
       <div class="cs-pain-stats reveal">
         <div class="cs-pain-stat">
           <div class="cs-pain-stat-val">60.7%</div>
@@ -1114,40 +1170,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
 
       <div class="cs-tried reveal">
         <h3 class="cs-tried-title">What we&rsquo;d already tried</h3>
-        <div class="cs-tombstones" role="list" aria-label="Four onboarding investments that shipped but didn&rsquo;t move retention">
-          <div class="cs-tombstone" role="listitem">
-            <svg class="cs-tombstone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M5 4h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-6l-4 4v-4H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"/>
-              <path d="M8 10h8M8 13h5"/>
-            </svg>
-            <div class="cs-tombstone-label">Tooltips</div>
-          </div>
-          <div class="cs-tombstone" role="listitem">
-            <svg class="cs-tombstone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M3 12h12"/>
-              <path d="M11 8l4 4-4 4"/>
-              <circle cx="19" cy="12" r="2"/>
-            </svg>
-            <div class="cs-tombstone-label">Walkthroughs</div>
-          </div>
-          <div class="cs-tombstone" role="listitem">
-            <svg class="cs-tombstone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="3" y="5" width="18" height="14" rx="2"/>
-              <path d="M10 9.5v5l4.5-2.5Z" fill="currentColor" stroke="none"/>
-            </svg>
-            <div class="cs-tombstone-label">Video demos</div>
-          </div>
-          <div class="cs-tombstone" role="listitem">
-            <svg class="cs-tombstone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M20 11a8 8 0 0 0-14.5-4.5"/>
-              <path d="M20 3v4h-4"/>
-              <path d="M4 13a8 8 0 0 0 14.5 4.5"/>
-              <path d="M4 21v-4h4"/>
-            </svg>
-            <div class="cs-tombstone-label">UI refresh</div>
-          </div>
-        </div>
-        <p class="cs-body">Four onboarding investments shipped. Metrics barely moved, and the reviews kept naming the same culprit.</p>
+        <p class="cs-body">Tooltips, walkthroughs, video demos, even a UI refresh &mdash; four onboarding investments shipped. Metrics barely moved, and the reviews kept naming the same culprit.</p>
         <p class="cs-tried-punchline">The fix wasn&rsquo;t the introduction. It was the plan itself.</p>
       </div>
           </div>
@@ -1268,11 +1291,8 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
             </button>
           </div>
       </div>
-      <div class="cs-insight reveal">
-        <span class="cs-insight-label">Insight</span>
-        <p class="cs-insight-line">Five complaints. One root cause: the plan didn&rsquo;t know its <em>user</em>.</p>
-      </div>
           </div>
+      <!-- HMW — neon AI gradient band, design question that opens the Solution -->
       <div class="cs-hmw-band reveal">
         <div class="cs-hmw-inner">
           <p class="cs-hmw-question" data-hmw>How might we create an adaptive plan that feels <em class="cs-hmw-key">personal</em> &amp; <em class="cs-hmw-key">trustworthy</em> &mdash; without overwhelming the user?</p>
@@ -1283,11 +1303,14 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
     <!-- 04 SOLUTION -->
     <section class="cs-section" id="solution">
       <div class="cs-wrap">
-      <span class="cs-eyebrow">04 &middot; Solution</span>
-      <h2 class="cs-section-title">From a 28-day fixed plan<br>to a living system</h2>
-      <div class="cs-body reveal">
-        <p>Most features trace back to a research pain point &mdash; six in the core product, two in monetization and adoption. Ordered the way users meet them.</p>
-      </div>
+      <header class="cs-solution-hero reveal">
+        <span class="cs-solution-eyebrow">04 &middot; Solution</span>
+        <h2 class="cs-solution-title">
+          <span class="cs-solution-title-setup">From a 28-day fixed plan&hellip;</span>
+          <span class="cs-solution-title-hero">to a living system.</span>
+        </h2>
+        <p class="cs-solution-philosophy">Most features trace back to a research pain point &mdash; six in the core product, two in monetization and adoption. Ordered the way users meet them.</p>
+      </header>
 
       <!-- ── Phase 1 · Discover ── -->
       <div class="cs-feature-divider reveal">
@@ -1302,7 +1325,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
           <p>A full-screen popup at app launch &mdash; the one surface every existing user reliably hits &mdash; introduces Adaptive Plan and prompts the first try. It turns a silent release into an active opt-in, instead of a new feature buried in the plan tab.</p>
         </div>
         <div class="cs-feature-video bare framed">
-          <video src="assets/videos/adaptive-plan/GTM%20popup.mov" muted playsinline preload="metadata" aria-label="GTM launch popups" data-loop-delay="2000">
+          <video src="assets/videos/adaptive-plan/GTM%20popup.mov" muted playsinline preload="metadata" aria-label="GTM launch popups" data-loop-delay="2000" style="--crop-r:3px;">
             <div class="cs-feature-video-ph">
               <span class="cs-feature-video-ph-icon">&#9654;</span>
               <span class="cs-feature-video-ph-label">GTM launch popups</span>
@@ -1447,7 +1470,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
       </div>
 
       <div class="cs-bts reveal">
-        <details class="cs-bts-row">
+        <details class="cs-bts-row" open>
           <summary class="cs-bts-summary">
             <span class="cs-bts-num">01</span>
             <span class="cs-bts-title">Strategy alignment</span>
@@ -1501,46 +1524,61 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
               <div style="margin-top:32px;">
                 <div class="cs-card-title" style="margin-bottom:8px;">Injury management</div>
                 <p>Started with a short-term vs. long-term injury split. Iterated to a severity framework: mild injuries (muscle or joint) swap affected exercises for lower-intensity alternatives instead of excluding them; severe injuries remove all exercises in the affected area. Users keep training where they safely can, instead of pausing the whole plan.</p>
-                <figure class="cs-media reveal" style="aspect-ratio:16/10; margin-top:20px;">
-                  <span style="position:absolute;top:12px;left:12px;z-index:2;background:rgba(0,0,0,.65);color:#fff;padding:4px 10px;border-radius:6px;font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.08em;">v1</span>
-                  <img src="assets/images/adaptive-plan/iter-injury-v1.png" alt="Injury management v1" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
-                  <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#129657;</span><span class="cs-img-ph-label">Injury v1</span></span>
-                </figure>
-                <figure class="cs-media reveal" style="aspect-ratio:16/10; margin-top:12px;">
-                  <span style="position:absolute;top:12px;left:12px;z-index:2;background:rgba(0,0,0,.65);color:#fff;padding:4px 10px;border-radius:6px;font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.08em;">v2</span>
-                  <img src="assets/images/adaptive-plan/iter-injury-v2.png" alt="Injury management v2" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
-                  <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#129657;</span><span class="cs-img-ph-label">Injury v2</span></span>
-                </figure>
+                <div class="ba-compare reveal" style="aspect-ratio:16/10; margin-top:20px;">
+                  <figure class="ba-layer ba-before">
+                    <img src="assets/images/adaptive-plan/iter-injury-v1.png" alt="Injury v1" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
+                    <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#129657;</span><span class="cs-img-ph-label">Injury v1</span></span>
+                  </figure>
+                  <figure class="ba-layer ba-after">
+                    <img src="assets/images/adaptive-plan/iter-injury-v2.png" alt="Injury v2" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
+                    <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#129657;</span><span class="cs-img-ph-label">Injury v2</span></span>
+                  </figure>
+                  <span class="ba-label ba-label-before">v1</span>
+                  <span class="ba-label ba-label-after">v2</span>
+                  <button class="ba-handle" type="button" role="slider" aria-label="Drag to compare Injury v1 and v2" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" tabindex="0">
+                    <span class="ba-handle-knob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline><polyline points="9 6 15 12 9 18"></polyline></svg></span>
+                  </button>
+                </div>
               </div>
 
               <div style="margin-top:48px;">
                 <div class="cs-card-title" style="margin-bottom:8px;">Equipment increments</div>
                 <p><strong>UX:</strong> increments mapped to actual gym hardware &mdash; dumbbells in 5lb steps, Smith machines in 10lb, etc. &mdash; per location. <strong>UI:</strong> multiple visual passes to surface the right increment in context without cluttering the workout view.</p>
-                <figure class="cs-media reveal" style="aspect-ratio:16/10; margin-top:20px;">
-                  <span style="position:absolute;top:12px;left:12px;z-index:2;background:rgba(0,0,0,.65);color:#fff;padding:4px 10px;border-radius:6px;font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.08em;">v1</span>
-                  <img src="assets/images/adaptive-plan/iter-equipment-v1.png" alt="Equipment increments v1" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
-                  <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#127947;</span><span class="cs-img-ph-label">Equipment v1</span></span>
-                </figure>
-                <figure class="cs-media reveal" style="aspect-ratio:16/10; margin-top:12px;">
-                  <span style="position:absolute;top:12px;left:12px;z-index:2;background:rgba(0,0,0,.65);color:#fff;padding:4px 10px;border-radius:6px;font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.08em;">v2</span>
-                  <img src="assets/images/adaptive-plan/iter-equipment-v2.png" alt="Equipment increments v2" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
-                  <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#127947;</span><span class="cs-img-ph-label">Equipment v2</span></span>
-                </figure>
+                <div class="ba-compare reveal" style="aspect-ratio:16/10; margin-top:20px;">
+                  <figure class="ba-layer ba-before">
+                    <img src="assets/images/adaptive-plan/iter-equipment-v1.png" alt="Equipment v1" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
+                    <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#127947;</span><span class="cs-img-ph-label">Equipment v1</span></span>
+                  </figure>
+                  <figure class="ba-layer ba-after">
+                    <img src="assets/images/adaptive-plan/iter-equipment-v2.png" alt="Equipment v2" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
+                    <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#127947;</span><span class="cs-img-ph-label">Equipment v2</span></span>
+                  </figure>
+                  <span class="ba-label ba-label-before">v1</span>
+                  <span class="ba-label ba-label-after">v2</span>
+                  <button class="ba-handle" type="button" role="slider" aria-label="Drag to compare Equipment v1 and v2" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" tabindex="0">
+                    <span class="ba-handle-knob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline><polyline points="9 6 15 12 9 18"></polyline></svg></span>
+                  </button>
+                </div>
               </div>
 
               <div style="margin-top:48px;">
                 <div class="cs-card-title" style="margin-bottom:8px;">Load progression</div>
                 <p>Multiple rounds on how aggressively to scale weight, reps, and sets. Early versions overshot and triggered &ldquo;Revert&rdquo; too often; we shipped a more conservative version that only pushes when feedback signals justify it.</p>
-                <figure class="cs-media reveal" style="aspect-ratio:16/10; margin-top:20px;">
-                  <span style="position:absolute;top:12px;left:12px;z-index:2;background:rgba(0,0,0,.65);color:#fff;padding:4px 10px;border-radius:6px;font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.08em;">v1</span>
-                  <img src="assets/images/adaptive-plan/iter-load-v1.png" alt="Load progression v1" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
-                  <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#129692;</span><span class="cs-img-ph-label">Load progression v1</span></span>
-                </figure>
-                <figure class="cs-media reveal" style="aspect-ratio:16/10; margin-top:12px;">
-                  <span style="position:absolute;top:12px;left:12px;z-index:2;background:rgba(0,0,0,.65);color:#fff;padding:4px 10px;border-radius:6px;font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.08em;">v2</span>
-                  <img src="assets/images/adaptive-plan/iter-load-v2.png" alt="Load progression v2" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
-                  <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#129692;</span><span class="cs-img-ph-label">Load progression v2</span></span>
-                </figure>
+                <div class="ba-compare reveal" style="aspect-ratio:16/10; margin-top:20px;">
+                  <figure class="ba-layer ba-before">
+                    <img src="assets/images/adaptive-plan/iter-load-v1.png" alt="Load progression v1" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
+                    <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#129692;</span><span class="cs-img-ph-label">Load progression v1</span></span>
+                  </figure>
+                  <figure class="ba-layer ba-after">
+                    <img src="assets/images/adaptive-plan/iter-load-v2.png" alt="Load progression v2" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
+                    <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#129692;</span><span class="cs-img-ph-label">Load progression v2</span></span>
+                  </figure>
+                  <span class="ba-label ba-label-before">v1</span>
+                  <span class="ba-label ba-label-after">v2</span>
+                  <button class="ba-handle" type="button" role="slider" aria-label="Drag to compare Load progression v1 and v2" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" tabindex="0">
+                    <span class="ba-handle-knob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline><polyline points="9 6 15 12 9 18"></polyline></svg></span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -1860,6 +1898,112 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
     window.addEventListener('resize',update);
     carousel.addEventListener('cs-carousel-refresh',update);
     update();
+  });
+})();
+
+/* Chapter dividers — subtle parallax on the oversized marker as it passes through the viewport */
+(()=>{
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const markers=document.querySelectorAll('.cs-chapter-divider .cs-chapter-divider-marker-text');
+  if(!markers.length)return;
+  let raf=0;
+  const update=()=>{
+    raf=0;
+    const vh=window.innerHeight;
+    markers.forEach(m=>{
+      const r=m.getBoundingClientRect();
+      const center=r.top+r.height/2;
+      /* progress: -1 when marker center is at top of viewport, 0 at center, +1 at bottom */
+      const prog=Math.max(-1,Math.min(1,(center-vh/2)/(vh/2)));
+      m.style.setProperty('--ch-shift',(prog*-6).toFixed(2)+'px');
+    });
+  };
+  const schedule=()=>{if(!raf)raf=requestAnimationFrame(update);};
+  window.addEventListener('scroll',schedule,{passive:true});
+  window.addEventListener('resize',schedule);
+  schedule();
+})();
+
+/* Before/After image comparison sliders */
+(()=>{
+  document.querySelectorAll('.ba-compare').forEach(el=>{
+    const handle=el.querySelector('.ba-handle');
+    if(!handle) return;
+    let pos=50;
+    const setPos=(pct)=>{
+      pos=Math.max(0,Math.min(100,pct));
+      el.style.setProperty('--pos',pos+'%');
+      handle.setAttribute('aria-valuenow',Math.round(pos));
+    };
+    const fromClientX=(clientX)=>{
+      const r=el.getBoundingClientRect();
+      if(!r.width) return;
+      setPos(((clientX-r.left)/r.width)*100);
+    };
+    let dragging=false;
+    handle.addEventListener('pointerdown',e=>{
+      dragging=true;
+      try{handle.setPointerCapture(e.pointerId);}catch(_){}
+      fromClientX(e.clientX);
+      e.preventDefault();
+    });
+    handle.addEventListener('pointermove',e=>{if(dragging)fromClientX(e.clientX);});
+    const end=e=>{if(!dragging)return;dragging=false;try{handle.releasePointerCapture(e.pointerId);}catch(_){}};
+    handle.addEventListener('pointerup',end);
+    handle.addEventListener('pointercancel',end);
+    /* Click anywhere on the container (outside the handle) to jump there — mouse only.
+       On touch, casual taps while scrolling would accidentally reposition the slider, so
+       touch users must drag the knob directly. */
+    el.addEventListener('pointerdown',e=>{
+      if(e.pointerType!=='mouse')return;
+      if(e.target.closest('.ba-handle'))return;
+      fromClientX(e.clientX);
+    });
+    /* Keyboard: arrows nudge, shift+arrow jumps, Home/End snap */
+    handle.addEventListener('keydown',e=>{
+      let step=0;
+      if(e.key==='ArrowLeft'||e.key==='ArrowDown')step=-2;
+      else if(e.key==='ArrowRight'||e.key==='ArrowUp')step=2;
+      else if(e.key==='Home'){setPos(0);e.preventDefault();return;}
+      else if(e.key==='End'){setPos(100);e.preventDefault();return;}
+      else return;
+      if(e.shiftKey)step*=5;
+      setPos(pos+step);
+      e.preventDefault();
+    });
+  });
+})();
+
+/* ── Problem · interactive findings hero — click a finding to swap the phone screenshot ── */
+(function(){
+  document.querySelectorAll('[data-findings]').forEach(hero=>{
+    const btns=hero.querySelectorAll('[data-finding-btn]');
+    const imgs=hero.querySelectorAll('[data-finding-img]');
+    if(!btns.length||!imgs.length)return;
+    const setActive=idx=>{
+      btns.forEach(b=>{
+        const on=b.getAttribute('data-finding-btn')===idx;
+        b.classList.toggle('is-active',on);
+        b.setAttribute('aria-selected',on?'true':'false');
+      });
+      imgs.forEach(im=>{
+        im.classList.toggle('is-active',im.getAttribute('data-finding-img')===idx);
+      });
+    };
+    btns.forEach(b=>{
+      b.addEventListener('click',()=>setActive(b.getAttribute('data-finding-btn')));
+      /* Arrow-key nav between tabs for keyboard users */
+      b.addEventListener('keydown',e=>{
+        if(e.key!=='ArrowDown'&&e.key!=='ArrowUp'&&e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;
+        e.preventDefault();
+        const list=Array.from(btns);
+        const i=list.indexOf(b);
+        const dir=(e.key==='ArrowDown'||e.key==='ArrowRight')?1:-1;
+        const next=list[(i+dir+list.length)%list.length];
+        next.focus();
+        setActive(next.getAttribute('data-finding-btn'));
+      });
+    });
   });
 })();
 </script>

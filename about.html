@@ -52,10 +52,15 @@ nav {
   transition:background .4s,border-color .4s;
 }
 .nav-logo {
-  font-family:var(--font-display);font-weight:var(--fw-semibold); font-size:var(--fs-md); letter-spacing:.06em;
-  color:var(--ink); text-decoration:none; transition:color .2s;
+  display:inline-flex; align-items:center;
+  color:var(--ink); text-decoration:none; transition:color .4s;
+  line-height:0;
 }
-.nav-logo:hover{color:var(--accent);}
+.nav-logo:hover .nav-logo-mark{transform:rotate(-8deg);}
+.nav-logo-mark {
+  width:28px; height:28px; display:block;
+  transition:transform .25s cubic-bezier(.34,1.56,.64,1);
+}
 .nav-r{display:flex;align-items:center;gap:28px;}
 .nav-links{display:flex;gap:28px;list-style:none;}
 .nav-links a { font-size:var(--fs-base); font-weight:var(--fw-medium); letter-spacing:.04em; color:var(--ink-2); text-decoration:none; transition:color .2s; }
@@ -1045,7 +1050,11 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
 <div id="cur"></div>
 
 <nav>
-  <a href="index.html#home" class="nav-logo">CW.</a>
+  <a href="index.html#home" class="nav-logo" aria-label="Chloe Wu — home">
+    <svg class="nav-logo-mark" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <path fill="currentColor" d="m24 4a20 20 0 1 0 20 20 20 20 0 0 0 -20-20zm-11 18a1 1 0 0 1 -.27-2l4.53-1.29-3.7-1.85a1 1 0 1 1 .89-1.79l6 3a1 1 0 0 1 -.18 1.93l-7 2a1 1 0 0 1 -.27 0zm20.95 7.32a10.49 10.49 0 0 1 -9.95 6.68 10.49 10.49 0 0 1 -9.95-6.68 1 1 0 0 1 1.9-.63 8.35 8.35 0 0 0 8.05 5.31 8.35 8.35 0 0 0 8.05-5.32 1 1 0 0 1 1.9.64zm-2.45-8.32a2.5 2.5 0 1 1 2.5-2.5 2.5 2.5 0 0 1 -2.5 2.5z"/>
+    </svg>
+  </a>
   <div class="nav-r">
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html#work" onclick="closeMenu()">Work</a></li>
