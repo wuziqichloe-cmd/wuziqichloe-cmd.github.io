@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design System — Chloe Wu</title>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;font-size:120%;overflow-x:clip;}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);overflow-x:clip;cursor:none;-webkit-font-smoothing:antialiased;transition:background .4s,color .4s;}
+html, body, body *, body *::before, body *::after { cursor:none !important; }
+@media(hover:none) and (pointer:coarse) {
+  html, body, body *, body *::before, body *::after { cursor:auto !important; }
+  a, button, label, [role="button"] { cursor:pointer !important; }
+}
+
+/* CURSOR */
+#cur{position:fixed;z-index:9999;pointer-events:none;width:26px;height:26px;background:url('assets/images/cursor_default.svg') center / contain no-repeat;transform:translate(-50%,-50%);transition:width .22s cubic-bezier(.34,1.56,.64,1),height .22s;}
+#cur.hover{width:30px;height:30px;background-image:url('assets/images/cursor_tap.svg');}
+[data-theme="dark"] #cur,
+[data-theme="dark"] #cur.hover{filter:brightness(1.15) saturate(1.1);}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:var(--nav-bg);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:background .4s,border-color .4s;}
+.nav-logo{display:inline-flex;align-items:center;color:var(--ink);text-decoration:none;transition:color .4s;line-height:0;}
+.nav-logo:hover .nav-logo-mark{transform:rotate(-8deg);}
+.nav-logo-mark{width:28px;height:28px;display:block;transition:transform .25s cubic-bezier(.34,1.56,.64,1);}
+.nav-r{display:flex;align-items:center;gap:28px;}
+.nav-links{display:flex;gap:28px;list-style:none;}
+.nav-links a{font-size:var(--fs-base);font-weight:var(--fw-medium);letter-spacing:.04em;color:var(--ink-2);text-decoration:none;transition:color .2s;}
+.nav-links a:hover{color:var(--ink);}
+.nav-cta{color:#fff!important;background:var(--accent)!important;padding:7px 18px;border-radius:100px;transition:opacity .2s!important;}
+.nav-cta:hover{opacity:.88;}
+.t-tog{position:relative;width:56px;height:26px;cursor:none;}
+.t-tog input{position:absolute;opacity:0;width:0;height:0;}
+.t-track{position:absolute;inset:0;background:var(--border-h);border-radius:100px;transition:background .3s;display:flex;align-items:center;justify-content:space-between;padding:0 3px;}
+.t-tog input:checked~.t-track{background:var(--accent);}
+.t-icon{display:block;width:20px;height:20px;color:var(--ink-3);z-index:1;transition:opacity .25s;flex-shrink:0;}
+.t-sun{opacity:0;}.t-moon{opacity:1;}
+[data-theme="dark"] .t-sun{opacity:1;}[data-theme="dark"] .t-moon{opacity:0;}
+.t-knob{position:absolute;top:3px;left:3px;width:20px;height:20px;background:var(--surf);border-radius:50%;transition:transform .28s cubic-bezier(.4,0,.2,1);pointer-events:none;z-index:2;box-shadow:0 1px 3px rgba(0,0,0,.2);}
+.t-tog input:checked~.t-knob{transform:translateX(30px);}
+
+/* LAYOUT — left panel + content (same as adaptive plan case study) */
+.page-wrap{display:grid;grid-template-columns:260px 1fr;min-height:100vh;padding-top:54px;}
+
+/* LEFT STICKY PANEL */
+.cs-left{position:sticky;top:54px;height:calc(100vh - 54px);display:flex;flex-direction:column;justify-content:flex-start;padding:40px 40px;border-right:1px solid var(--border);overflow:hidden;background:var(--bg);transition:background .4s,border-color .4s;}
+.cs-back{display:flex;align-items:center;gap:8px;font-size:var(--fs-sm);font-weight:var(--fw-semibold);letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3);text-decoration:none;transition:color .2s;margin-bottom:32px;flex-shrink:0;}
+.cs-back:hover{color:var(--accent);}
+.cs-back svg{transition:transform .2s;}
+.cs-back:hover svg{transform:translateX(-3px);}
+.cs-left-label{margin-bottom:4px;}
+.cs-left-eyebrow{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:6px;}
+.cs-left-project{font-family:var(--font-display);font-size:var(--fs-md);font-weight:var(--fw-semibold);letter-spacing:-.02em;color:var(--ink);line-height:1.1;margin-bottom:20px;}
+.cs-index{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--border);margin-top:auto;}
+.cs-idx-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);cursor:none;text-decoration:none;transition:opacity .3s,padding-left .3s;opacity:.28;}
+.cs-idx-row:hover{opacity:.65;}
+.cs-idx-row.active{opacity:1;padding-left:4px;}
+.cs-idx-num{font-family:var(--font-display);font-size:var(--fs-sm);font-weight:var(--fw-semibold);letter-spacing:.02em;color:var(--ink-3);width:28px;flex-shrink:0;transition:color .3s;}
+.cs-idx-row.active .cs-idx-num{color:var(--accent);}
+.cs-idx-label{font-size:var(--fs-base);font-weight:var(--fw-medium);color:var(--ink-2);letter-spacing:-.02em;flex:1;transition:color .3s;line-height:1.2;}
+.cs-idx-row.active .cs-idx-label{color:var(--ink);}
+.cs-idx-tick{height:1.5px;width:0;background:var(--accent);border-radius:1px;transition:width .4s cubic-bezier(.22,1,.36,1);}
+.cs-idx-row.active .cs-idx-tick{width:24px;}
+.cs-progress{margin-top:auto;flex-shrink:0;}
+.cs-progress-label{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:8px;}
+.cs-progress-track{height:2px;background:var(--border-h);border-radius:2px;}
+.cs-progress-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .3s ease;width:0%;}
+
+/* RIGHT CONTENT WRAP */
+.cs-content{min-width:0;}
+.cs-wrap{max-width:1080px;margin:0 auto;padding:0 52px;}
+
+/* HERO — pills match index Panel 03 exactly; sizing matches adaptive plan */
+.cs-hero{min-height:72vh;background:#022c22 url('assets/images/design-system/ds%20cover%20v3.png') center/cover no-repeat;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:72px 64px;}
+.cs-hero::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom,rgba(0,0,0,.10) 0%,rgba(0,0,0,.30) 55%,rgba(0,0,0,.72) 100%);z-index:2;}
+.cs-hero-inner{position:relative;z-index:3;max-width:980px;width:100%;}
+.cs-hero-tags{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+.cs-hero-tag{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.2);padding:3px 12px;border-radius:100px;backdrop-filter:blur(8px);}
+.cs-hero-title{font-family:var(--font-display);font-weight:var(--fw-bold);font-size:clamp(var(--fs-3xl),7vw,var(--fs-display));line-height:.95;letter-spacing:-.03em;color:#fff;margin-bottom:16px;}
+.cs-hero-sub{font-size:var(--fs-base);font-weight:var(--fw-light);color:rgba(255,255,255,.72);line-height:1.7;max-width:52ch;}
+
+/* SECTION primitives — match adaptive plan */
+.cs-section{padding:96px 0;border-bottom:1px solid var(--border);}
+.cs-section:last-of-type{border-bottom:none;}
+.cs-eyebrow{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;display:block;}
+.cs-section-title{font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:clamp(var(--fs-xl),5vw,var(--fs-4xl));line-height:1.05;letter-spacing:-.03em;color:var(--ink);margin-bottom:32px;}
+/* Body paragraph under section title — matches adaptive plan .cs-body (p1 tokens) */
+.cs-section-sub{font-size:var(--p1-size);font-weight:var(--p1-weight);color:var(--p1-color);line-height:var(--p1-line);letter-spacing:var(--p1-tracking);max-width:var(--p1-max-width);}
+
+/* INTRO meta strip (right under hero) — paragraph uses p1 tokens like .cs-body in adaptive plan */
+.cs-intro{padding:96px 0 32px;border-bottom:1px solid var(--border);}
+.cs-intro-body{font-size:var(--p1-size);font-weight:var(--p1-weight);color:var(--p1-color);line-height:var(--p1-line);letter-spacing:var(--p1-tracking);max-width:var(--p1-max-width);}
+.cs-meta{display:flex;flex-wrap:wrap;gap:40px;margin-top:36px;padding-top:24px;border-top:1px solid var(--border);}
+.cs-meta-item{display:flex;flex-direction:column;gap:4px;}
+.cs-meta-label{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);}
+.cs-meta-val{font-size:var(--fs-base);font-weight:var(--fw-semibold);color:var(--ink);}
+.cs-meta-sub{font-size:var(--fs-xs);font-weight:var(--fw-medium);color:var(--ink-3);letter-spacing:.01em;margin-top:2px;line-height:1.4;}
+/* Featured meta item — used for DS Agents (the headline contribution) */
+.cs-meta-item--featured{position:relative;padding:10px 16px 12px;border-radius:12px;background:linear-gradient(135deg,rgba(37,99,235,.08),rgba(37,99,235,.03));border:1px solid rgba(37,99,235,.22);}
+[data-theme="dark"] .cs-meta-item--featured{background:linear-gradient(135deg,rgba(59,130,246,.14),rgba(59,130,246,.04));border-color:rgba(59,130,246,.28);}
+.cs-meta-item--featured .cs-meta-label{color:var(--accent);display:flex;align-items:center;gap:6px;}
+.cs-meta-item--featured .cs-meta-label::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.18);animation:csPulse 2.4s ease-in-out infinite;}
+[data-theme="dark"] .cs-meta-item--featured .cs-meta-label::before{box-shadow:0 0 0 3px rgba(59,130,246,.22);}
+.cs-meta-item--featured .cs-meta-val{color:var(--accent);}
+.cs-meta-item--featured a{color:inherit;text-decoration:none;border-bottom:1px dashed rgba(37,99,235,.4);transition:border-color .2s;}
+.cs-meta-item--featured a:hover{border-bottom-color:var(--accent);}
+@keyframes csPulse{0%,100%{box-shadow:0 0 0 3px rgba(37,99,235,.18);}50%{box-shadow:0 0 0 6px rgba(37,99,235,.06);}}
+
+/* BEFORE/AFTER side-by-side for "Where we started" */
+.cs-before-after{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px;}
+.cs-ba-cell{border-radius:18px;border:1px solid var(--border);background:var(--surf);padding:24px;display:flex;flex-direction:column;gap:14px;transition:background .4s,border-color .4s;}
+.cs-ba-tag{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);}
+.cs-ba-cell--before .cs-ba-tag{color:var(--ink-3);}
+.cs-ba-cell--after .cs-ba-tag{color:var(--accent);}
+.cs-ba-title{font-family:var(--font-display);font-size:var(--fs-md);font-weight:var(--fw-semibold);color:var(--ink);letter-spacing:-.02em;line-height:1.2;}
+.cs-ba-text{font-size:var(--fs-sm);color:var(--ink-2);line-height:1.65;}
+.cs-ba-list{display:flex;flex-direction:column;gap:6px;margin-top:6px;}
+.cs-ba-list-item{font-size:var(--fs-sm);color:var(--ink-2);display:flex;align-items:flex-start;gap:8px;line-height:1.5;}
+.cs-ba-list-item::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--border-h);flex-shrink:0;margin-top:8px;}
+.cs-ba-cell--after .cs-ba-list-item::before{background:var(--accent);}
+
+/* PROCESS — horizontal timeline with connected nodes */
+.cs-timeline{position:relative;margin-top:40px;padding-top:8px;}
+.cs-timeline-track{position:absolute;left:16px;right:16px;top:24px;height:2px;background:var(--border);border-radius:2px;overflow:hidden;}
+.cs-timeline-fill{position:absolute;inset:0;background:linear-gradient(90deg,var(--accent) 0%,var(--accent) 50%,rgba(37,99,235,.35) 100%);}
+[data-theme="dark"] .cs-timeline-fill{background:linear-gradient(90deg,var(--accent) 0%,var(--accent) 50%,rgba(59,130,246,.32) 100%);}
+.cs-timeline-row{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:32px;}
+.cs-timeline-step{position:relative;display:flex;flex-direction:column;align-items:flex-start;padding-top:56px;}
+.cs-timeline-node{position:absolute;top:8px;left:0;width:34px;height:34px;border-radius:50%;background:var(--bg);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:var(--fs-xs);font-weight:var(--fw-bold);color:var(--ink-3);z-index:2;transition:background .25s,border-color .25s,color .25s,box-shadow .25s,transform .25s cubic-bezier(.22,1,.36,1);}
+.cs-timeline-step:hover .cs-timeline-node{transform:scale(1.08);}
+.cs-timeline-step--done .cs-timeline-node{background:var(--accent);border-color:var(--accent);color:#fff;}
+.cs-timeline-step--current .cs-timeline-node{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 0 0 6px rgba(37,99,235,.14);}
+[data-theme="dark"] .cs-timeline-step--current .cs-timeline-node{box-shadow:0 0 0 6px rgba(59,130,246,.22);}
+.cs-timeline-phase{font-family:'SF Mono','Menlo',monospace;font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
+.cs-timeline-title{font-family:var(--font-display);font-size:var(--fs-md);font-weight:var(--fw-semibold);color:var(--ink);letter-spacing:-.02em;line-height:1.15;margin-bottom:10px;}
+.cs-timeline-text{font-size:var(--fs-sm);color:var(--ink-2);line-height:1.6;}
+@media(max-width:960px){
+  .cs-timeline{padding-top:0;}
+  .cs-timeline-row{grid-template-columns:1fr;gap:0;}
+  .cs-timeline-track{left:16px;right:auto;top:0;bottom:0;width:2px;height:auto;}
+  .cs-timeline-fill{background:linear-gradient(180deg,var(--accent) 0%,var(--accent) 50%,rgba(37,99,235,.35) 100%);}
+  [data-theme="dark"] .cs-timeline-fill{background:linear-gradient(180deg,var(--accent) 0%,var(--accent) 50%,rgba(59,130,246,.32) 100%);}
+  .cs-timeline-step{padding-top:0;padding-left:60px;padding-bottom:32px;min-height:48px;}
+  .cs-timeline-step:last-child{padding-bottom:0;}
+  .cs-timeline-node{top:0;left:0;}
+}
+
+/* TYPE RAMP — specimen card grid (matches Figma frame layout) */
+.cs-typeramp{display:flex;flex-direction:column;gap:14px;margin-top:6px;padding:28px;border-radius:18px;border:1px solid var(--border);background:var(--surf);}
+.cs-typeramp-row{display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding-bottom:14px;border-bottom:1px solid var(--border);}
+.cs-typeramp-row:last-child{border-bottom:none;padding-bottom:0;}
+.cs-typeramp-sample{color:var(--ink);font-family:var(--font-display);letter-spacing:-.02em;line-height:1;}
+.cs-typeramp-meta{font-size:var(--fs-xs);font-weight:var(--fw-semibold);color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase;flex-shrink:0;font-family:'SF Mono','Menlo',monospace;}
+
+/* MARGIN DIAGRAM — phone frame with safe-area highlight (mirrors Figma margin spec) */
+.cs-margins{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:6px;}
+.cs-margin-card{padding:24px;border-radius:16px;background:var(--surf);border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:16px;transition:background .4s,border-color .3s;}
+.cs-margin-meta{align-self:stretch;display:flex;justify-content:space-between;align-items:baseline;}
+.cs-margin-title{font-family:var(--font-display);font-size:var(--fs-md);font-weight:var(--fw-semibold);letter-spacing:-.02em;color:var(--ink);}
+.cs-margin-val{font-family:'SF Mono','Menlo',monospace;font-size:var(--fs-sm);font-weight:var(--fw-bold);color:var(--accent);letter-spacing:.02em;}
+.cs-margin-phone{position:relative;width:170px;aspect-ratio:170/360;background:var(--bg-2);border:1.5px solid var(--border-h);border-radius:24px;overflow:hidden;}
+.cs-margin-phone-safe{position:absolute;background:rgba(37,99,235,.10);border:1px solid rgba(37,99,235,.32);}
+[data-theme="dark"] .cs-margin-phone-safe{background:rgba(59,130,246,.14);border-color:rgba(59,130,246,.36);}
+.cs-margin-phone-safe--lg{inset:20px;}
+.cs-margin-phone-safe--sm{inset:10px;}
+.cs-margin-phone-content{position:absolute;inset:36px 28px;display:flex;flex-direction:column;justify-content:space-between;}
+.cs-margin-phone-bar{height:8px;border-radius:3px;background:rgba(0,0,0,.08);}
+[data-theme="dark"] .cs-margin-phone-bar{background:rgba(255,255,255,.08);}
+.cs-margin-phone-bar:nth-of-type(2){width:62%;}
+.cs-margin-phone-stack{display:flex;flex-direction:column;gap:8px;}
+.cs-margin-phone-label{position:absolute;font-family:'SF Mono','Menlo',monospace;font-size:var(--fs-2xs);font-weight:var(--fw-bold);color:var(--accent);letter-spacing:.04em;}
+.cs-margin-phone-label--tl{top:4px;left:6px;}
+.cs-margin-phone-label--tr{top:4px;right:6px;}
+.cs-margin-phone-label--bl{bottom:4px;left:6px;}
+.cs-margin-phone-label--br{bottom:4px;right:6px;}
+.cs-margin-desc{font-size:var(--fs-xs);color:var(--ink-2);line-height:1.55;text-align:center;max-width:32ch;}
+
+/* SPACING — 4-pt grid step illustration */
+.cs-spacing-grid{margin-top:16px;padding:24px;border-radius:16px;background:var(--surf);border:1px solid var(--border);display:flex;flex-direction:column;gap:18px;}
+.cs-spacing-grid-meta{display:flex;justify-content:space-between;align-items:baseline;}
+.cs-spacing-grid-title{font-family:var(--font-display);font-size:var(--fs-md);font-weight:var(--fw-semibold);letter-spacing:-.02em;color:var(--ink);}
+.cs-spacing-grid-val{font-family:'SF Mono','Menlo',monospace;font-size:var(--fs-sm);font-weight:var(--fw-bold);color:var(--accent);}
+.cs-spacing-steps{display:flex;align-items:flex-end;gap:8px;height:80px;}
+.cs-spacing-step{flex:0 0 auto;background:linear-gradient(180deg,var(--accent),rgba(37,99,235,.35));border-radius:4px 4px 0 0;display:flex;align-items:flex-end;justify-content:center;padding-bottom:4px;}
+[data-theme="dark"] .cs-spacing-step{background:linear-gradient(180deg,var(--accent),rgba(59,130,246,.3));}
+.cs-spacing-step span{font-family:'SF Mono','Menlo',monospace;font-size:var(--fs-2xs);font-weight:var(--fw-bold);color:#fff;}
+.cs-spacing-list-demo{margin-top:6px;border:1px dashed var(--border-h);border-radius:14px;padding:20px;background:var(--bg-2);display:flex;align-items:center;gap:20px;position:relative;}
+.cs-spacing-list-demo-inner{flex:1;display:flex;flex-direction:column;gap:8px;}
+.cs-spacing-list-demo-row{display:flex;align-items:center;justify-content:space-between;gap:14px;}
+.cs-spacing-list-demo-title{font-size:var(--fs-base);font-weight:var(--fw-semibold);color:var(--ink);}
+.cs-spacing-list-demo-text{font-size:var(--fs-sm);color:var(--ink-2);line-height:1.5;}
+.cs-spacing-list-demo-toggle{width:42px;height:24px;border-radius:100px;background:var(--accent);position:relative;flex-shrink:0;}
+.cs-spacing-list-demo-toggle::after{content:'';position:absolute;top:3px;right:3px;width:18px;height:18px;border-radius:50%;background:#fff;}
+.cs-spacing-list-demo-tag{position:absolute;font-family:'SF Mono','Menlo',monospace;font-size:var(--fs-2xs);font-weight:var(--fw-bold);color:var(--accent);}
+.cs-spacing-list-demo-tag--top{top:6px;left:14px;}
+.cs-spacing-list-demo-tag--mid{top:50%;left:14px;transform:translateY(-50%);}
+.cs-spacing-list-demo-tag--right{top:50%;right:14px;transform:translateY(-50%);}
+.cs-spacing-list-demo-tag--bot{bottom:6px;left:14px;}
+@media(max-width:760px){.cs-margins{grid-template-columns:1fr;}}
+
+/* PLATFORM SUB-SECTIONS — typography / layout / components inside Mobile & Web */
+.cs-sub{margin-top:48px;}
+.cs-sub:first-of-type{margin-top:28px;}
+.cs-sub-label{font-family:'SF Mono','Menlo',monospace;font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+.cs-sub-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.cs-sub-title{font-family:var(--font-display);font-size:var(--fs-lg);font-weight:var(--fw-semibold);letter-spacing:-.02em;color:var(--ink);margin-bottom:6px;}
+.cs-sub-text{font-size:var(--fs-sm);color:var(--ink-2);line-height:1.6;max-width:60ch;margin-bottom:18px;}
+
+/* LAYOUT visual — spacing scale + grid demonstration */
+.cs-layout{display:grid;grid-template-columns:1.2fr 1fr;gap:16px;margin-top:6px;}
+.cs-layout-card{padding:24px;border-radius:16px;background:var(--surf);border:1px solid var(--border);display:flex;flex-direction:column;gap:14px;}
+.cs-layout-card-title{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3);}
+.cs-spacing-scale{display:flex;align-items:flex-end;gap:10px;height:120px;padding:8px 0;}
+.cs-spacing-bar{flex:1;background:linear-gradient(180deg,var(--accent),rgba(37,99,235,.4));border-radius:4px 4px 0 0;position:relative;display:flex;align-items:flex-end;justify-content:center;}
+[data-theme="dark"] .cs-spacing-bar{background:linear-gradient(180deg,var(--accent),rgba(59,130,246,.35));}
+.cs-spacing-bar span{font-family:'SF Mono','Menlo',monospace;font-size:var(--fs-2xs);font-weight:var(--fw-semibold);color:var(--ink-3);padding-bottom:4px;}
+.cs-grid-demo{display:grid;gap:6px;}
+.cs-grid-demo-row{display:grid;gap:6px;}
+.cs-grid-demo-cell{height:18px;border-radius:4px;background:rgba(37,99,235,.12);border:1px solid rgba(37,99,235,.25);}
+[data-theme="dark"] .cs-grid-demo-cell{background:rgba(59,130,246,.14);border-color:rgba(59,130,246,.3);}
+.cs-grid-demo-cell--accent{background:var(--accent);border-color:var(--accent);}
+@media(max-width:960px){.cs-layout{grid-template-columns:1fr;}}
+
+/* SECTION PLACEHOLDER — one slot per Figma section page (Color, Icons, Logo, Visuals, etc.) */
+.cs-section-ph{margin-top:6px;border:1.5px dashed var(--border-h);border-radius:18px;background:var(--bg-2);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;padding:48px 32px;min-height:280px;transition:background .4s,border-color .3s,transform .25s cubic-bezier(.22,1,.36,1);position:relative;overflow:hidden;}
+.cs-section-ph:hover{border-color:var(--accent);border-style:solid;transform:translateY(-2px);}
+.cs-section-ph img{max-width:100%;height:auto;display:block;border-radius:10px;}
+.cs-section-ph[data-empty="true"]::before{content:'';width:48px;height:48px;border-radius:12px;background:repeating-linear-gradient(45deg,var(--border-h),var(--border-h) 3px,transparent 3px,transparent 8px);opacity:.55;}
+.cs-section-ph-meta{display:flex;flex-direction:column;align-items:center;gap:4px;}
+.cs-section-ph-label{font-family:'SF Mono','Menlo',monospace;font-size:var(--fs-xs);font-weight:var(--fw-bold);color:var(--ink-3);letter-spacing:.14em;text-transform:uppercase;}
+.cs-section-ph-hint{font-size:var(--fs-xs);color:var(--ink-3);font-style:italic;opacity:.7;}
+
+/* COMPONENT GRID (mobile 13 atoms / web set) */
+.cs-comp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:6px;}
+.cs-comp{aspect-ratio:1;border-radius:14px;border:1px solid var(--border);background:var(--bg-2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:16px;transition:transform .25s cubic-bezier(.22,1,.36,1),background .4s,border-color .3s;cursor:none;}
+.cs-comp:hover{transform:translateY(-3px);border-color:var(--border-h);}
+.cs-comp-ico{width:38px;height:38px;border-radius:10px;background:var(--surf);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--accent);font-weight:var(--fw-bold);font-size:var(--fs-base);}
+.cs-comp-name{font-size:var(--fs-sm);font-weight:var(--fw-semibold);color:var(--ink);text-align:center;letter-spacing:-.01em;}
+.cs-comp-meta{font-size:var(--fs-xs);color:var(--ink-3);letter-spacing:.04em;}
+.cs-platforms{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px;}
+.cs-platform{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:100px;background:var(--surf);border:1px solid var(--border);font-size:var(--fs-sm);font-weight:var(--fw-medium);color:var(--ink-2);}
+.cs-platform-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);}
+
+/* AI AGENTS */
+.cs-agents{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px;}
+.cs-agent{border-radius:18px;border:1px solid var(--border);background:var(--surf);overflow:hidden;display:flex;flex-direction:column;transition:transform .25s cubic-bezier(.22,1,.36,1),border-color .3s,background .4s;}
+.cs-agent:hover{transform:translateY(-3px);border-color:var(--border-h);}
+.cs-agent-header{display:flex;align-items:center;gap:10px;padding:14px 18px;background:var(--bg-2);border-bottom:1px solid var(--border);}
+.cs-agent-dot{display:flex;gap:5px;}
+.cs-agent-dot span{width:9px;height:9px;border-radius:50%;background:var(--border-h);}
+.cs-agent-file{font-family:'SF Mono','Menlo','Consolas',monospace;font-size:var(--fs-xs);font-weight:var(--fw-semibold);color:var(--ink-2);letter-spacing:.02em;}
+.cs-agent-body{padding:24px 28px;display:flex;flex-direction:column;gap:14px;}
+.cs-agent-role{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);}
+.cs-agent-name{font-family:var(--font-display);font-size:var(--fs-md);font-weight:var(--fw-semibold);color:var(--ink);letter-spacing:-.02em;line-height:1.2;}
+.cs-agent-desc{font-size:var(--fs-base);color:var(--ink-2);line-height:1.6;}
+.cs-agent-jobs{display:flex;flex-direction:column;gap:6px;margin-top:6px;}
+.cs-agent-job{display:flex;align-items:flex-start;gap:8px;font-size:var(--fs-sm);color:var(--ink-2);line-height:1.5;}
+.cs-agent-job::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:8px;}
+.cs-flow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:24px;padding:16px 20px;border:1px dashed var(--border-h);border-radius:14px;background:var(--bg-2);}
+.cs-flow-pill{font-family:'SF Mono','Menlo',monospace;font-size:var(--fs-xs);font-weight:var(--fw-semibold);color:var(--ink-2);padding:5px 10px;border-radius:6px;background:var(--surf);border:1px solid var(--border);letter-spacing:.02em;}
+.cs-flow-pill--accent{color:var(--accent);border-color:rgba(37,99,235,.25);background:rgba(37,99,235,.06);}
+.cs-flow-arrow{color:var(--ink-3);font-size:var(--fs-sm);}
+
+/* IMPACT */
+.cs-impact{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:32px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.cs-impact-cell{padding:32px;border-right:1px solid var(--border);}
+.cs-impact-cell:last-child{border-right:none;}
+.cs-impact-val{font-family:var(--font-display);font-weight:var(--fw-bold);font-size:var(--fs-3xl);letter-spacing:-.03em;color:var(--accent);line-height:1;margin-bottom:6px;}
+.cs-impact-lbl{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);}
+
+/* NEXT PROJECTS */
+.cs-next-section{background:var(--bg-2);padding:80px 0;border-top:1px solid var(--border);transition:background .4s;}
+.cs-next-heading{display:flex;align-items:flex-end;justify-content:space-between;max-width:980px;margin:0 auto 28px;padding:0 40px;}
+.cs-next-eyebrow{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;display:block;}
+.cs-next-section-title{font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:clamp(var(--fs-xl),5vw,var(--fs-3xl));line-height:1.05;letter-spacing:-.03em;color:var(--ink);}
+.cs-all-link{font-size:var(--fs-sm);font-weight:var(--fw-semibold);letter-spacing:.04em;color:var(--ink-2);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s;flex-shrink:0;margin-bottom:4px;}
+.cs-all-link:hover{color:var(--accent);}
+.cs-proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:980px;margin:0 auto;padding:0 40px;}
+.cs-proj-card{border-radius:24px;overflow:hidden;text-decoration:none;background:var(--surf);border:1px solid var(--border);transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s,border-color .3s;display:flex;flex-direction:column;}
+.cs-proj-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,.1);border-color:var(--border-h);}
+[data-theme="dark"] .cs-proj-card:hover{box-shadow:0 16px 48px rgba(0,0,0,.5);}
+.cs-proj-card-thumb{height:200px;position:relative;overflow:hidden;flex-shrink:0;}
+.cs-proj-card-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(0,0,0,.5) 100%);}
+.cs-proj-thumb-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .5s cubic-bezier(.22,1,.36,1);}
+.cs-proj-card:hover .cs-proj-thumb-bg{transform:scale(1.04);}
+.cs-proj-card-num{position:absolute;top:16px;right:16px;z-index:2;font-family:var(--font-accent);font-size:var(--fs-2xl);letter-spacing:-.02em;color:rgba(255,255,255,.12);line-height:1;user-select:none;}
+.cs-proj-card-body{padding:22px 26px;flex:1;display:flex;flex-direction:column;gap:10px;}
+.cs-proj-card-tags{display:flex;gap:6px;flex-wrap:wrap;}
+.cs-proj-card-tag{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.08em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(37,99,235,.2);background:rgba(37,99,235,.06);padding:2px 8px;border-radius:100px;}
+[data-theme="dark"] .cs-proj-card-tag{color:var(--accent);border-color:rgba(59,130,246,.25);background:rgba(59,130,246,.08);}
+.cs-proj-card-name{font-family:var(--font-accent);font-size:var(--fs-md);letter-spacing:.02em;color:var(--ink);line-height:1.05;}
+.cs-proj-card-arrow{margin-top:auto;margin-left:auto;width:28px;height:28px;border-radius:50%;border:1.5px solid var(--border-h);display:flex;align-items:center;justify-content:center;font-size:var(--fs-sm);color:var(--ink-2);transition:background .2s,border-color .2s,color .2s,transform .2s;}
+.cs-proj-card:hover .cs-proj-card-arrow{background:var(--accent);border-color:var(--accent);color:#fff;transform:rotate(45deg);}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease;}
+.reveal.in{opacity:1;transform:none;}
+
+/* RESPONSIVE — breakpoints + section/hero padding match adaptive plan */
+@media(max-width:1100px){
+  .page-wrap{grid-template-columns:1fr;}
+  .cs-left{display:none;}
+  .cs-section{padding:72px 0;}
+  .cs-intro{padding:72px 0 28px;}
+  .cs-wrap{padding:0 32px;}
+}
+@media(max-width:960px){
+  nav{padding:0 20px;}
+  .cs-hero{padding:40px 32px;}
+  .cs-section{padding:64px 0;}
+  .cs-intro{padding:64px 0 24px;}
+  .cs-comp-grid{grid-template-columns:repeat(3,1fr);}
+  .cs-agents{grid-template-columns:1fr;}
+  .cs-impact{grid-template-columns:1fr;}
+  .cs-impact-cell{border-right:none;border-bottom:1px solid var(--border);}
+  .cs-impact-cell:last-child{border-bottom:none;}
+  .cs-before-after{grid-template-columns:1fr;}
+  .cs-proj-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:767px){
+  .cs-wrap{padding:0 24px;}
+  .cs-hero{padding:32px 20px;min-height:44vh;}
+  .cs-hero-title{font-size:clamp(var(--fs-xl),10vw,var(--fs-4xl));}
+  .cs-hero-sub{font-size:var(--fs-base);max-width:100%;}
+  .cs-intro{padding:44px 0 24px;}
+  .cs-section{padding:52px 0;}
+  .cs-comp-grid{grid-template-columns:repeat(2,1fr);}
+  .cs-meta{gap:24px 36px;}
+  .cs-next-section{padding:56px 0;}
+  .cs-proj-grid{grid-template-columns:1fr;}
+}
+
+/* FOOTER */
+footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;border-top:1px solid var(--border);transition:background .4s,color .4s;}
+.ft-name{font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:var(--fs-lg);letter-spacing:.04em;}
+.ft-tag{font-size:var(--fs-base);color:rgba(245,245,245,.75);margin-top:4px;}
+.ft-copy{font-size:var(--fs-sm);color:rgba(245,245,245,.45);letter-spacing:.02em;align-self:flex-end;}
+[data-theme="dark"] footer{background:#141414;}
+[data-theme="dark"] .ft-name{color:#F5F5F5;}
+[data-theme="dark"] .ft-tag{color:rgba(245,245,245,.75);}
+</style>
+</head>
+<body>
+<div id="cur"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html#home" class="nav-logo" aria-label="Chloe Wu — home">
+    <svg class="nav-logo-mark" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <path fill="currentColor" d="m24 4a20 20 0 1 0 20 20 20 20 0 0 0 -20-20zm-11 18a1 1 0 0 1 -.27-2l4.53-1.29-3.7-1.85a1 1 0 1 1 .89-1.79l6 3a1 1 0 0 1 -.18 1.93l-7 2a1 1 0 0 1 -.27 0zm20.95 7.32a10.49 10.49 0 0 1 -9.95 6.68 10.49 10.49 0 0 1 -9.95-6.68 1 1 0 0 1 1.9-.63 8.35 8.35 0 0 0 8.05 5.31 8.35 8.35 0 0 0 8.05-5.32 1 1 0 0 1 1.9.64zm-2.45-8.32a2.5 2.5 0 1 1 2.5-2.5 2.5 2.5 0 0 1 -2.5 2.5z"/>
+    </svg>
+  </a>
+  <div class="nav-r">
+    <ul class="nav-links">
+      <li><a href="index.html#work">Work</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html" class="nav-cta">Resume &#8599;</a></li>
+    </ul>
+    <label class="t-tog" aria-label="Toggle theme">
+      <input type="checkbox" id="themeToggle">
+      <span class="t-track">
+        <svg class="t-icon t-sun" aria-hidden="true" viewBox="0 0 512 512" fill="currentColor"><path d="M275,59.25V19a19,19,0,0,0-38,0V59.25a19,19,0,0,0,38,0Z"/><path d="M275,493V452.75a19,19,0,0,0-38,0V493a19,19,0,0,0,38,0Z"/><path d="M452.75,275H493a19,19,0,0,0,0-38H452.75a19,19,0,0,0,0,38Z"/><path d="M19,275H59.25a19,19,0,0,0,0-38H19a19,19,0,0,0,0,38Z"/><path d="M256,99.74A156.26,156.26,0,1,0,412.26,256,156.26,156.26,0,0,0,256,99.74Z"/></svg>
+        <svg class="t-icon t-moon" aria-hidden="true" viewBox="0 0 512 512" fill="currentColor"><path d="m351 361.68c-110.67 0-200.71-90-200.71-200.71a199.92 199.92 0 0 1 50.8-133.45c11.1-12.43-1.29-31.66-17.19-26.73-106.53 33.04-183.9 132.36-183.9 249.75 0 144 117.46 261.46 261.46 261.46 117.39 0 216.7-77.37 249.75-183.9 4.93-15.9-14.3-28.29-26.73-17.22a199.92 199.92 0 0 1 -133.48 50.8z"/></svg>
+      </span>
+      <span class="t-knob"></span>
+    </label>
+  </div>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- LEFT STICKY PANEL — required on every case study -->
+  <aside class="cs-left">
+    <a href="index.html#work" class="cs-back">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Back
+    </a>
+
+    <div class="cs-left-label">
+      <span class="cs-left-eyebrow">Case Study &middot; 03</span>
+      <div class="cs-left-project">Design System</div>
+    </div>
+
+    <div class="cs-index" id="csIndex">
+      <a href="#overview"   class="cs-idx-row active" data-section="overview">
+        <span class="cs-idx-num">00</span><span class="cs-idx-label">Overview</span><span class="cs-idx-tick"></span>
+      </a>
+      <a href="#start"      class="cs-idx-row" data-section="start">
+        <span class="cs-idx-num">01</span><span class="cs-idx-label">Where We Started</span><span class="cs-idx-tick"></span>
+      </a>
+      <a href="#process"    class="cs-idx-row" data-section="process">
+        <span class="cs-idx-num">02</span><span class="cs-idx-label">Process</span><span class="cs-idx-tick"></span>
+      </a>
+      <a href="#mobile"     class="cs-idx-row" data-section="mobile">
+        <span class="cs-idx-num">03</span><span class="cs-idx-label">Mobile</span><span class="cs-idx-tick"></span>
+      </a>
+      <a href="#web"        class="cs-idx-row" data-section="web">
+        <span class="cs-idx-num">04</span><span class="cs-idx-label">Web</span><span class="cs-idx-tick"></span>
+      </a>
+      <a href="#agents"     class="cs-idx-row" data-section="agents">
+        <span class="cs-idx-num">05</span><span class="cs-idx-label">Two-Agent Flow</span><span class="cs-idx-tick"></span>
+      </a>
+      <a href="#impact"     class="cs-idx-row" data-section="impact">
+        <span class="cs-idx-num">06</span><span class="cs-idx-label">Impact</span><span class="cs-idx-tick"></span>
+      </a>
+    </div>
+
+    <div class="cs-progress">
+      <div class="cs-progress-label">Progress</div>
+      <div class="cs-progress-track"><div class="cs-progress-fill" id="progressFill"></div></div>
+    </div>
+  </aside>
+
+  <!-- RIGHT CONTENT -->
+  <main class="cs-content">
+
+    <!-- HERO — pills match index Panel 03 exactly -->
+    <div class="cs-hero">
+      <div class="cs-hero-inner reveal">
+        <div class="cs-hero-tags">
+          <span class="cs-hero-tag">Scalability</span>
+          <span class="cs-hero-tag">Cross-platform</span>
+        </div>
+        <h1 class="cs-hero-title">Design System</h1>
+        <p class="cs-hero-sub">A walkthrough of how a rough Figma style guide became a true component library &mdash; and how AI agents now keep it growing.</p>
+      </div>
+    </div>
+
+    <!-- 00 OVERVIEW -->
+    <section class="cs-intro" id="overview">
+      <div class="cs-wrap">
+        <div class="cs-intro-body reveal">
+          <p>When I joined, the team had a rough style guide in Figma &mdash; a reference file of shared elements, with no real components or tokens. I co-led a full revamp with our other designer: turning the guide into a proper library with proper component properties, expanding from mobile to web, and most recently, building AI agents that automate component creation against our tokens and HIG/Material guidelines.</p>
+        </div>
+        <div class="cs-meta reveal">
+          <div class="cs-meta-item"><span class="cs-meta-label">Role</span><span class="cs-meta-val">Design System &mdash; co-lead</span></div>
+          <div class="cs-meta-item"><span class="cs-meta-label">Team</span><span class="cs-meta-val">2 designers</span></div>
+          <div class="cs-meta-item"><span class="cs-meta-label">Platforms</span><span class="cs-meta-val">Mobile &middot; Web</span></div>
+          <div class="cs-meta-item">
+            <span class="cs-meta-label">My Contribution</span>
+            <span class="cs-meta-val">~119 components &middot; ~406 variants</span>
+            <span class="cs-meta-sub">Mobile 110 (13 primitives + 97 icons) &middot; Web 9 (ongoing)</span>
+          </div>
+          <div class="cs-meta-item cs-meta-item--featured">
+            <span class="cs-meta-label">AI Agents I built</span>
+            <span class="cs-meta-val"><a href="#agents"><code>builder.md</code> + <code>evaluator.md</code></a></span>
+            <span class="cs-meta-sub">Automate component creation &amp; design-system review &mdash; how a 2-designer team scales</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 01 WHERE WE STARTED -->
+    <section class="cs-section" id="start">
+      <div class="cs-wrap">
+        <span class="cs-eyebrow">Where We Started</span>
+        <h2 class="cs-section-title">A style guide,<br>not a system</h2>
+        <p class="cs-section-sub reveal">The starting point was a Figma file used as a reference &mdash; consistent visual elements pulled from the live app, but nothing was a real component. Every screen had to redraw or copy-paste from the guide.</p>
+        <div class="cs-before-after reveal">
+          <div class="cs-ba-cell cs-ba-cell--before">
+            <span class="cs-ba-tag">Before</span>
+            <div class="cs-ba-title">Reference file</div>
+            <div class="cs-ba-text">Shared elements lived in one Figma page, used as a visual reference.</div>
+            <div class="cs-ba-list">
+              <div class="cs-ba-list-item">No components &mdash; just frames</div>
+              <div class="cs-ba-list-item">No tokens &mdash; raw hex everywhere</div>
+              <div class="cs-ba-list-item">No variants &mdash; copy-paste per state</div>
+              <div class="cs-ba-list-item">No instance swap, no overrides</div>
+              <div class="cs-ba-list-item">Mobile only</div>
+            </div>
+          </div>
+          <div class="cs-ba-cell cs-ba-cell--after">
+            <span class="cs-ba-tag">After</span>
+            <div class="cs-ba-title">A real library</div>
+            <div class="cs-ba-text">A revamped library of true components, each with the full property set.</div>
+            <div class="cs-ba-list">
+              <div class="cs-ba-list-item">16 components, each properly built</div>
+              <div class="cs-ba-list-item">Semantic tokens, light &amp; dark</div>
+              <div class="cs-ba-list-item">Variants for every state</div>
+              <div class="cs-ba-list-item">Boolean, instance swap, text, instances</div>
+              <div class="cs-ba-list-item">Mobile &amp; web parity</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 PROCESS -->
+    <section class="cs-section" id="process">
+      <div class="cs-wrap">
+        <span class="cs-eyebrow">Process</span>
+        <h2 class="cs-section-title">From style guide<br>to autonomous system</h2>
+        <p class="cs-section-sub reveal">Four phases, each one removing more friction from the design workflow.</p>
+        <div class="cs-timeline reveal" role="list" aria-label="Process timeline">
+          <div class="cs-timeline-track" aria-hidden="true"><div class="cs-timeline-fill"></div></div>
+          <div class="cs-timeline-row">
+            <div class="cs-timeline-step cs-timeline-step--done" role="listitem">
+              <div class="cs-timeline-node">01</div>
+              <div class="cs-timeline-phase">Phase 01</div>
+              <div class="cs-timeline-title">Starting point</div>
+              <div class="cs-timeline-text">A rough Figma style guide &mdash; consistent elements across the app, but no components, no tokens.</div>
+            </div>
+            <div class="cs-timeline-step cs-timeline-step--done" role="listitem">
+              <div class="cs-timeline-node">02</div>
+              <div class="cs-timeline-phase">Phase 02</div>
+              <div class="cs-timeline-title">Revamp</div>
+              <div class="cs-timeline-text">Rebuilt the library as real components with properties &mdash; variants, boolean, instance swap, text, instances.</div>
+            </div>
+            <div class="cs-timeline-step cs-timeline-step--done" role="listitem">
+              <div class="cs-timeline-node">03</div>
+              <div class="cs-timeline-phase">Phase 03</div>
+              <div class="cs-timeline-title">Expand</div>
+              <div class="cs-timeline-text">Extended from mobile to web with shared tokens and platform-appropriate primitives.</div>
+            </div>
+            <div class="cs-timeline-step cs-timeline-step--current" role="listitem">
+              <div class="cs-timeline-node">04</div>
+              <div class="cs-timeline-phase">Phase 04 &middot; Now</div>
+              <div class="cs-timeline-title">Agents</div>
+              <div class="cs-timeline-text">Built a DS Agent &mdash; <code>builder.md</code> + <code>evaluator.md</code> &mdash; to automate creating and reviewing components.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 MOBILE -->
+    <section class="cs-section" id="mobile">
+      <div class="cs-wrap">
+        <span class="cs-eyebrow">Mobile</span>
+        <h2 class="cs-section-title">Mobile foundations<br>&amp; 13 components</h2>
+        <p class="cs-section-sub reveal">Implemented the iOS &amp; Android library from the ground up &mdash; type ramp, 4&#8209;pt spacing scale, and 13 componentized primitives totaling 113 variants. Every fill, stroke, and dimension binds to a semantic token, so light/dark themes and platform variants flow through the whole library from a single source.</p>
+
+        <!-- Typography — single section placeholder (17 styles) -->
+        <div class="cs-sub reveal">
+          <div class="cs-sub-label">Typography &middot; 17 styles</div>
+          <div class="cs-sub-title">Mobile type ramp</div>
+          <div class="cs-sub-text">Barlow Semi Condensed for Display, Inter for everything else &mdash; SF on iOS (pt), Roboto on Android (sp). 6 Display + 4 Headline + 5 Body + 2 Utility.</div>
+          <div class="cs-section-ph" data-empty="true" data-section="mobile-typography">
+            <div class="cs-section-ph-meta">
+              <span class="cs-section-ph-label">Mobile Typography &middot; 17 styles</span>
+              <span class="cs-section-ph-hint">drop section screenshot here</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Layout — margin standards + 4-pt spacing grid (mirrors Figma layout frames) -->
+        <div class="cs-sub reveal">
+          <div class="cs-sub-label">Layout &middot; margins &amp; 4&#8209;pt grid</div>
+          <div class="cs-sub-title">Two margin sizes,<br>one spacing grid</div>
+          <div class="cs-sub-text">Screens use a <strong>20dp</strong> safe-area margin by default. Inset surfaces &mdash; cards, dialogs, calendars &mdash; use a <strong>10dp</strong> small margin. Inside any container, all spacing snaps to a 4&#8209;pt grid.</div>
+
+          <div class="cs-margins" aria-hidden="true">
+            <div class="cs-margin-card">
+              <div class="cs-margin-meta">
+                <div class="cs-margin-title">Margin &middot; standard</div>
+                <div class="cs-margin-val">20dp</div>
+              </div>
+              <div class="cs-margin-phone">
+                <div class="cs-margin-phone-safe cs-margin-phone-safe--lg"></div>
+                <span class="cs-margin-phone-label cs-margin-phone-label--tl">20</span>
+                <span class="cs-margin-phone-label cs-margin-phone-label--tr">20</span>
+                <span class="cs-margin-phone-label cs-margin-phone-label--bl">20</span>
+                <span class="cs-margin-phone-label cs-margin-phone-label--br">20</span>
+                <div class="cs-margin-phone-content">
+                  <div class="cs-margin-phone-stack">
+                    <div class="cs-margin-phone-bar"></div>
+                    <div class="cs-margin-phone-bar"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="cs-margin-desc">Default safe area for full-bleed screens &mdash; lists, forms, settings, profile.</div>
+            </div>
+
+            <div class="cs-margin-card">
+              <div class="cs-margin-meta">
+                <div class="cs-margin-title">Margin &middot; small</div>
+                <div class="cs-margin-val">10dp</div>
+              </div>
+              <div class="cs-margin-phone">
+                <div class="cs-margin-phone-safe cs-margin-phone-safe--sm"></div>
+                <span class="cs-margin-phone-label cs-margin-phone-label--tl">10</span>
+                <span class="cs-margin-phone-label cs-margin-phone-label--tr">10</span>
+                <span class="cs-margin-phone-label cs-margin-phone-label--bl">10</span>
+                <span class="cs-margin-phone-label cs-margin-phone-label--br">10</span>
+                <div class="cs-margin-phone-content" style="inset:24px 18px;">
+                  <div class="cs-margin-phone-stack">
+                    <div class="cs-margin-phone-bar"></div>
+                    <div class="cs-margin-phone-bar"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="cs-margin-desc">Inset surfaces &mdash; calendars, dialog cards, embedded modules.</div>
+            </div>
+          </div>
+
+          <div class="cs-spacing-grid" aria-hidden="true">
+            <div class="cs-spacing-grid-meta">
+              <div class="cs-spacing-grid-title">Spacing &middot; 4&#8209;point grid</div>
+              <div class="cs-spacing-grid-val">multiples of 4dp</div>
+            </div>
+            <div class="cs-spacing-steps">
+              <div class="cs-spacing-step" style="height:14%;width:24px;"><span>4</span></div>
+              <div class="cs-spacing-step" style="height:22%;width:32px;"><span>8</span></div>
+              <div class="cs-spacing-step" style="height:30%;width:36px;"><span>12</span></div>
+              <div class="cs-spacing-step" style="height:38%;width:40px;"><span>16</span></div>
+              <div class="cs-spacing-step" style="height:48%;width:44px;"><span>20</span></div>
+              <div class="cs-spacing-step" style="height:58%;width:48px;"><span>24</span></div>
+              <div class="cs-spacing-step" style="height:68%;width:52px;"><span>28</span></div>
+              <div class="cs-spacing-step" style="height:78%;width:56px;"><span>32</span></div>
+              <div class="cs-spacing-step" style="height:88%;width:60px;"><span>36</span></div>
+              <div class="cs-spacing-step" style="height:100%;width:64px;"><span>40</span></div>
+            </div>
+
+            <div class="cs-spacing-list-demo">
+              <span class="cs-spacing-list-demo-tag cs-spacing-list-demo-tag--top">20</span>
+              <span class="cs-spacing-list-demo-tag cs-spacing-list-demo-tag--mid">8</span>
+              <span class="cs-spacing-list-demo-tag cs-spacing-list-demo-tag--right">20</span>
+              <span class="cs-spacing-list-demo-tag cs-spacing-list-demo-tag--bot">20</span>
+              <div class="cs-spacing-list-demo-inner">
+                <div class="cs-spacing-list-demo-row">
+                  <div class="cs-spacing-list-demo-title">Smart weights</div>
+                  <div class="cs-spacing-list-demo-toggle"></div>
+                </div>
+                <div class="cs-spacing-list-demo-text">The suggested weight is tailored to your body stats. You can adjust it anytime.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Foundations — section-sized placeholders, one per Figma section page -->
+        <div class="cs-sub reveal">
+          <div class="cs-sub-label">Foundations</div>
+          <div class="cs-sub-title">Shared across mobile &amp; web</div>
+          <div class="cs-sub-text">Five foundation sections live above the platform split in the Figma file: Color, Icons, Logo, Font &amp; Layout, and Visuals. Type ramp and margins above; the rest are slotted below &mdash; one screenshot per section.</div>
+
+          <!-- COLOR section -->
+          <div class="cs-section-ph" data-empty="true" data-section="color">
+            <div class="cs-section-ph-meta">
+              <span class="cs-section-ph-label">Color</span>
+              <span class="cs-section-ph-hint">drop section screenshot here</span>
+            </div>
+          </div>
+
+          <!-- ICONS section (replaces the 97 individual slots) -->
+          <div class="cs-section-ph" data-empty="true" data-section="icons" style="margin-top:16px;">
+            <div class="cs-section-ph-meta">
+              <span class="cs-section-ph-label">Icons &middot; 97 components &middot; ~246 variants</span>
+              <span class="cs-section-ph-hint">drop section screenshot here</span>
+            </div>
+          </div>
+
+          <!-- LOGO section -->
+          <div class="cs-section-ph" data-empty="true" data-section="logo" style="margin-top:16px;">
+            <div class="cs-section-ph-meta">
+              <span class="cs-section-ph-label">Logo</span>
+              <span class="cs-section-ph-hint">drop section screenshot here</span>
+            </div>
+          </div>
+
+          <!-- VISUALS section -->
+          <div class="cs-section-ph" data-empty="true" data-section="visuals" style="margin-top:16px;">
+            <div class="cs-section-ph-meta">
+              <span class="cs-section-ph-label">Visuals</span>
+              <span class="cs-section-ph-hint">drop section screenshot here</span>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- 13 components with variant counts from Figma -->
+        <div class="cs-sub reveal">
+          <div class="cs-sub-label">Components &middot; 13 primitives &middot; 113 variants</div>
+          <div class="cs-sub-title">The componentized library</div>
+          <div class="cs-sub-text">Each rebuilt as a true Figma component &mdash; variants, booleans, instance swap, text properties, nested instances &mdash; with every value bound to a token.</div>
+          <div class="cs-comp-grid" aria-label="Mobile component primitives">
+            <div class="cs-comp"><div class="cs-comp-ico">Ab</div><div class="cs-comp-name">App bars</div><div class="cs-comp-meta">6 variants</div></div>
+            <div class="cs-comp"><div class="cs-comp-ico">Bn</div><div class="cs-comp-name">Banners</div><div class="cs-comp-meta">6 variants</div></div>
+            <div class="cs-comp"><div class="cs-comp-ico">Bt</div><div class="cs-comp-name">Buttons</div><div class="cs-comp-meta">22 variants</div></div>
+            <div class="cs-comp"><div class="cs-comp-ico">Cd</div><div class="cs-comp-name">Cards</div><div class="cs-comp-meta">6 variants</div></div>
+            <div class="cs-comp"><div class="cs-comp-ico">In</div><div class="cs-comp-name">Input</div><div class="cs-comp-meta">10 variants</div></div>
+            <div class="cs-comp"><div class="cs-comp-ico">Lb</div><div class="cs-comp-name">Labels</div><div class="cs-comp-meta">9 variants</div></div>
+            <div class="cs-comp"><div class="cs-comp-ico">Ls</div><div class="cs-comp-name">Lists</div><div class="cs-comp-meta">15 variants</div></div>
+            <div class="cs-comp"><div class="cs-comp-ico">Mn</div><div class="cs-comp-name">Menu</div><div class="cs-comp-meta">1 variant</div></div>
+            <div class="cs-comp"><div class="cs-comp-ico">Nv</div><div class="cs-comp-name">Navigation</div><div class="cs-comp-meta">3 variants</div></div>
+            <div class="cs-comp"><div class="cs-comp-ico">Sl</div><div class="cs-comp-name">Selector</div><div class="cs-comp-meta">16 variants</div></div>
+            <div class="cs-comp"><div class="cs-comp-ico">Sh</div><div class="cs-comp-name">Sheet</div><div class="cs-comp-meta">4 variants</div></div>
+            <div class="cs-comp"><div class="cs-comp-ico">Tb</div><div class="cs-comp-name">Tabs</div><div class="cs-comp-meta">13 variants</div></div>
+            <div class="cs-comp"><div class="cs-comp-ico">Tn</div><div class="cs-comp-name">Toast</div><div class="cs-comp-meta">2 variants</div></div>
+          </div>
+          <div class="cs-platforms">
+            <span class="cs-platform"><span class="cs-platform-dot"></span>iOS &mdash; HIG</span>
+            <span class="cs-platform"><span class="cs-platform-dot"></span>Android &mdash; Material</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 WEB -->
+    <section class="cs-section" id="web">
+      <div class="cs-wrap">
+        <span class="cs-eyebrow">Web</span>
+        <h2 class="cs-section-title">Web parity &mdash;<br>same tokens, wider canvas</h2>
+        <p class="cs-section-sub reveal">Extended the system to web with a shared token core. Type scale opens up for desktop reading, layout moves to a 12&#8209;column grid, and the component set adds the web-native primitives (sidebars, data tables, toolbars) on top of the mobile foundations.</p>
+
+        <!-- Typography -->
+        <div class="cs-sub reveal">
+          <div class="cs-sub-label">Typography</div>
+          <div class="cs-sub-title">Web type ramp</div>
+          <div class="cs-sub-text">Roomier than mobile &mdash; longer line lengths and bigger display sizes for marketing &amp; dashboard surfaces.</div>
+          <div class="cs-typeramp" aria-hidden="true">
+            <div class="cs-typeramp-row">
+              <div class="cs-typeramp-sample" style="font-size:var(--fs-3xl);font-weight:var(--fw-bold);">Display</div>
+              <div class="cs-typeramp-meta">56 / 700 / -.03em</div>
+            </div>
+            <div class="cs-typeramp-row">
+              <div class="cs-typeramp-sample" style="font-size:var(--fs-xl);font-weight:var(--fw-semibold);">Heading</div>
+              <div class="cs-typeramp-meta">40 / 600 / -.02em</div>
+            </div>
+            <div class="cs-typeramp-row">
+              <div class="cs-typeramp-sample" style="font-size:var(--fs-md);font-weight:var(--fw-medium);">Subhead</div>
+              <div class="cs-typeramp-meta">24 / 500 / -.01em</div>
+            </div>
+            <div class="cs-typeramp-row">
+              <div class="cs-typeramp-sample" style="font-size:var(--fs-base);font-weight:var(--fw-regular);font-family:var(--font-body);">Body &mdash; the default paragraph across the web product</div>
+              <div class="cs-typeramp-meta">16 / 400 / -.01em</div>
+            </div>
+            <div class="cs-typeramp-row">
+              <div class="cs-typeramp-sample" style="font-size:var(--fs-sm);font-weight:var(--fw-semibold);font-family:var(--font-body);letter-spacing:.12em;text-transform:uppercase;">Label</div>
+              <div class="cs-typeramp-meta">12 / 600 / .12em</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Layout -->
+        <div class="cs-sub reveal">
+          <div class="cs-sub-label">Layout</div>
+          <div class="cs-sub-title">8&#8209;pt scale, 12&#8209;column grid</div>
+          <div class="cs-sub-text">Web jumps to an 8&#8209;pt baseline (8 / 12 / 16 / 24 / 32 / 48 / 64). Layouts sit on a 12&#8209;column grid, 1240&#8209;max width, 24&#8209;pt gutters.</div>
+          <div class="cs-layout" aria-hidden="true">
+            <div class="cs-layout-card">
+              <div class="cs-layout-card-title">Spacing scale</div>
+              <div class="cs-spacing-scale">
+                <div class="cs-spacing-bar" style="height:12%;"><span>8</span></div>
+                <div class="cs-spacing-bar" style="height:18%;"><span>12</span></div>
+                <div class="cs-spacing-bar" style="height:25%;"><span>16</span></div>
+                <div class="cs-spacing-bar" style="height:38%;"><span>24</span></div>
+                <div class="cs-spacing-bar" style="height:50%;"><span>32</span></div>
+                <div class="cs-spacing-bar" style="height:75%;"><span>48</span></div>
+                <div class="cs-spacing-bar" style="height:100%;"><span>64</span></div>
+              </div>
+            </div>
+            <div class="cs-layout-card">
+              <div class="cs-layout-card-title">12&#8209;col grid &middot; 24 gutter</div>
+              <div class="cs-grid-demo">
+                <div class="cs-grid-demo-row" style="grid-template-columns:repeat(12,1fr);">
+                  <div class="cs-grid-demo-cell"></div><div class="cs-grid-demo-cell"></div><div class="cs-grid-demo-cell"></div><div class="cs-grid-demo-cell"></div><div class="cs-grid-demo-cell"></div><div class="cs-grid-demo-cell"></div><div class="cs-grid-demo-cell"></div><div class="cs-grid-demo-cell"></div><div class="cs-grid-demo-cell"></div><div class="cs-grid-demo-cell"></div><div class="cs-grid-demo-cell"></div><div class="cs-grid-demo-cell"></div>
+                </div>
+                <div class="cs-grid-demo-row" style="grid-template-columns:3fr 6fr 3fr;">
+                  <div class="cs-grid-demo-cell cs-grid-demo-cell--accent"></div><div class="cs-grid-demo-cell"></div><div class="cs-grid-demo-cell cs-grid-demo-cell--accent"></div>
+                </div>
+                <div class="cs-grid-demo-row" style="grid-template-columns:8fr 4fr;">
+                  <div class="cs-grid-demo-cell cs-grid-demo-cell--accent"></div><div class="cs-grid-demo-cell"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Web foundations — Typography (15 styles), Layout & Color (to be added) -->
+        <div class="cs-sub reveal">
+          <div class="cs-sub-label">Foundations</div>
+          <div class="cs-sub-title">Web tokens &amp; type ramp</div>
+          <div class="cs-sub-text">Web has its own Font &amp; Layout section in Figma &mdash; a 15-style type ramp (5 display + 10 body) sized for desktop reading distance. Drop section screenshots below.</div>
+
+          <div class="cs-section-ph" data-empty="true" data-section="web-typography">
+            <div class="cs-section-ph-meta">
+              <span class="cs-section-ph-label">Web Typography &middot; 15 styles</span>
+              <span class="cs-section-ph-hint">drop section screenshot here</span>
+            </div>
+          </div>
+
+          <div class="cs-section-ph" data-empty="true" data-section="web-layout" style="margin-top:16px;">
+            <div class="cs-section-ph-meta">
+              <span class="cs-section-ph-label">Web Layout &amp; Color</span>
+              <span class="cs-section-ph-hint">drop section screenshot here</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Web components — 6 sections × placeholders (counts confirmed from Figma metadata) -->
+        <div class="cs-sub reveal">
+          <div class="cs-sub-label">Components &middot; 9 primitives &middot; 47 variants (so far)</div>
+          <div class="cs-sub-title">Web component library</div>
+          <div class="cs-sub-text">Six component sections live under the Web split in Figma. Each ships as a true component with full property sets &mdash; size, behavior, state &mdash; mapped to the shared token core. One screenshot per section below.</div>
+
+          <div class="cs-section-ph" data-empty="true" data-section="web-navigation">
+            <div class="cs-section-ph-meta">
+              <span class="cs-section-ph-label">Navigation &middot; 2 components &middot; 6 variants</span>
+              <span class="cs-section-ph-hint">Top Navbar (public) + Dashboard navbar &middot; small / medium / large</span>
+            </div>
+          </div>
+
+          <div class="cs-section-ph" data-empty="true" data-section="web-buttons" style="margin-top:16px;">
+            <div class="cs-section-ph-meta">
+              <span class="cs-section-ph-label">Buttons &middot; 1 component &middot; 26 variants</span>
+              <span class="cs-section-ph-hint">size (small/medium/large) &times; behavior (primary/secondary/text) &times; state (active/hovered/disabled/destructive)</span>
+            </div>
+          </div>
+
+          <div class="cs-section-ph" data-empty="true" data-section="web-cards" style="margin-top:16px;">
+            <div class="cs-section-ph-meta">
+              <span class="cs-section-ph-label">Cards &middot; 3 components &middot; 8 variants</span>
+              <span class="cs-section-ph-hint">Flex card (minimum / default) &middot; Fixed compact (exercise / share plan / routine) &middot; Flex content-heavy (collapsed / expanded / empty)</span>
+            </div>
+          </div>
+
+          <div class="cs-section-ph" data-empty="true" data-section="web-breadcrumbs" style="margin-top:16px;">
+            <div class="cs-section-ph-meta">
+              <span class="cs-section-ph-label">Breadcrumbs &middot; 1 component &middot; 3 variants</span>
+              <span class="cs-section-ph-hint">main / nested page / detail page</span>
+            </div>
+          </div>
+
+          <div class="cs-section-ph" data-empty="true" data-section="web-footers" style="margin-top:16px;">
+            <div class="cs-section-ph-meta">
+              <span class="cs-section-ph-label">Footers &middot; 1 component &middot; 2 variants</span>
+              <span class="cs-section-ph-hint">desktop / mobile</span>
+            </div>
+          </div>
+
+          <div class="cs-section-ph" data-empty="true" data-section="web-modals" style="margin-top:16px;">
+            <div class="cs-section-ph-meta">
+              <span class="cs-section-ph-label">Modals &middot; 1 component &middot; 2 variants</span>
+              <span class="cs-section-ph-hint">Dialogs &mdash; share / delete</span>
+            </div>
+          </div>
+
+          <div class="cs-platforms">
+            <span class="cs-platform"><span class="cs-platform-dot"></span>Responsive web</span>
+            <span class="cs-platform"><span class="cs-platform-dot"></span>Same tokens as mobile</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 TWO-AGENT FLOW -->
+    <section class="cs-section" id="agents">
+      <div class="cs-wrap">
+        <span class="cs-eyebrow">Two-Agent Flow</span>
+        <h2 class="cs-section-title">Automate DS creation<br>&amp; alteration</h2>
+        <p class="cs-section-sub reveal">A 2-designer team can&rsquo;t scale linearly with the product. So I built a pair of agents &mdash; <code>builder.md</code> and <code>evaluator.md</code> &mdash; that automate the repetitive half of design system work: creating new components against our tokens, and altering existing ones without breaking conventions.</p>
+        <div class="cs-agents reveal">
+          <div class="cs-agent">
+            <div class="cs-agent-header">
+              <div class="cs-agent-dot"><span></span><span></span><span></span></div>
+              <div class="cs-agent-file">builder.md</div>
+            </div>
+            <div class="cs-agent-body">
+              <span class="cs-agent-role">Agent &middot; Builder</span>
+              <div class="cs-agent-name">Creates &amp; updates components</div>
+              <div class="cs-agent-desc">Drafts new components or extends existing ones using our token set and the property conventions of the library.</div>
+              <div class="cs-agent-jobs">
+                <div class="cs-agent-job">Bind variables to fills, type, spacing</div>
+                <div class="cs-agent-job">Set up variants, boolean, instance swap, text properties</div>
+                <div class="cs-agent-job">Follow the library&rsquo;s naming &amp; structure</div>
+              </div>
+            </div>
+          </div>
+          <div class="cs-agent">
+            <div class="cs-agent-header">
+              <div class="cs-agent-dot"><span></span><span></span><span></span></div>
+              <div class="cs-agent-file">evaluator.md</div>
+            </div>
+            <div class="cs-agent-body">
+              <span class="cs-agent-role">Agent &middot; Evaluator</span>
+              <div class="cs-agent-name">Reviews against the rules</div>
+              <div class="cs-agent-desc">Audits a component or screen against our tokens and the platform guidelines &mdash; HIG for iOS, Material for Android &mdash; and reports what&rsquo;s off.</div>
+              <div class="cs-agent-jobs">
+                <div class="cs-agent-job">Flag raw hex / off-token values</div>
+                <div class="cs-agent-job">Check spacing, hit areas, type ramp</div>
+                <div class="cs-agent-job">Surface HIG / Material conflicts</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cs-flow reveal" aria-label="Agent workflow">
+          <span class="cs-flow-pill">design brief</span>
+          <span class="cs-flow-arrow">&rarr;</span>
+          <span class="cs-flow-pill cs-flow-pill--accent">builder.md</span>
+          <span class="cs-flow-arrow">&rarr;</span>
+          <span class="cs-flow-pill">component draft</span>
+          <span class="cs-flow-arrow">&rarr;</span>
+          <span class="cs-flow-pill cs-flow-pill--accent">evaluator.md</span>
+          <span class="cs-flow-arrow">&rarr;</span>
+          <span class="cs-flow-pill">designer review &amp; ship</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 IMPACT -->
+    <section class="cs-section" id="impact">
+      <div class="cs-wrap">
+        <span class="cs-eyebrow">Impact</span>
+        <h2 class="cs-section-title">What changed</h2>
+        <p class="cs-section-sub reveal">The biggest pain point for a 2-person design team was time. Componentizing the library bought back hours; the agents bought back days.</p>
+        <div class="cs-impact reveal">
+          <div class="cs-impact-cell"><div class="cs-impact-val">30%</div><div class="cs-impact-lbl">Faster design cycles</div></div>
+          <div class="cs-impact-cell"><div class="cs-impact-val">2</div><div class="cs-impact-lbl">Designers, scaled by agents</div></div>
+          <div class="cs-impact-cell"><div class="cs-impact-val">13M+</div><div class="cs-impact-lbl">Users reached</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEXT PROJECTS -->
+    <section class="cs-next-section reveal">
+      <div class="cs-next-heading">
+        <div>
+          <span class="cs-next-eyebrow">More Work</span>
+          <div class="cs-next-section-title">Other Projects</div>
+        </div>
+        <a href="index.html#work" class="cs-all-link">View all &rarr;</a>
+      </div>
+      <div class="cs-proj-grid">
+        <a href="case-study-adaptive-plan.html" class="cs-proj-card reveal">
+          <div class="cs-proj-card-thumb">
+            <div class="cs-proj-thumb-bg" style="background:#0f172a url('assets/images/adaptive-plan/cover2.png') center/cover no-repeat;"></div>
+            <div class="cs-proj-card-num">01</div>
+          </div>
+          <div class="cs-proj-card-body">
+            <div class="cs-proj-card-tags">
+              <span class="cs-proj-card-tag">0&rarr;1</span>
+              <span class="cs-proj-card-tag">AI</span>
+            </div>
+            <div class="cs-proj-card-name">AI-Powered Adaptive Plan</div>
+            <div class="cs-proj-card-arrow">&#8599;</div>
+          </div>
+        </a>
+        <a href="index.html#work" class="cs-proj-card reveal">
+          <div class="cs-proj-card-thumb">
+            <div class="cs-proj-thumb-bg" style="background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);"></div>
+            <div class="cs-proj-card-num">02</div>
+          </div>
+          <div class="cs-proj-card-body">
+            <div class="cs-proj-card-tags">
+              <span class="cs-proj-card-tag">Motion</span>
+              <span class="cs-proj-card-tag">Engagement</span>
+            </div>
+            <div class="cs-proj-card-name">Year in Review 2025</div>
+            <div class="cs-proj-card-arrow">&#8599;</div>
+          </div>
+        </a>
+        <a href="index.html#work" class="cs-proj-card reveal">
+          <div class="cs-proj-card-thumb">
+            <div class="cs-proj-thumb-bg" style="background:linear-gradient(135deg,#1c1c2e 0%,#2d1b69 50%,#11998e 100%);"></div>
+            <div class="cs-proj-card-num">04</div>
+          </div>
+          <div class="cs-proj-card-body">
+            <div class="cs-proj-card-tags">
+              <span class="cs-proj-card-tag">0&rarr;1</span>
+              <span class="cs-proj-card-tag">Whatnot</span>
+            </div>
+            <div class="cs-proj-card-name">Mobile to TV Experience</div>
+            <div class="cs-proj-card-arrow">&#8599;</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <div>
+    <div class="ft-name">Chloe Wu.</div>
+    <div class="ft-tag">Product Designer</div>
+  </div>
+  <div class="ft-copy">© 2026 Chloe Wu. All rights reserved.</div>
+</footer>
+
+<script>
+/* Theme toggle */
+(()=>{
+  const isNight=()=>{const h=new Date().getHours();return h<7||h>=19;};
+  const root=document.documentElement,tog=document.getElementById('themeToggle'),KEY='pf-v12';
+  const apply=d=>{root.setAttribute('data-theme',d?'dark':'light');tog.checked=d;};
+  apply(localStorage.getItem(KEY)?localStorage.getItem(KEY)==='dark':isNight());
+  tog.addEventListener('change',()=>{const d=tog.checked;localStorage.setItem(KEY,d?'dark':'light');apply(d);});
+})();
+
+/* Cursor */
+const cur=document.getElementById('cur');
+document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';});
+const HOVER_SEL='a,button,label,summary,[role="button"],[onclick]';
+document.addEventListener('mouseover',e=>{if(e.target.closest&&e.target.closest(HOVER_SEL)) cur.classList.add('hover');});
+document.addEventListener('mouseout',e=>{
+  const from=e.target.closest&&e.target.closest(HOVER_SEL);
+  const to=e.relatedTarget&&e.relatedTarget.closest&&e.relatedTarget.closest(HOVER_SEL);
+  if(from&&from!==to) cur.classList.remove('hover');
+});
+
+/* Scroll-spy on left index + progress bar */
+const rows=document.querySelectorAll('.cs-idx-row');
+const progFill=document.getElementById('progressFill');
+function onScroll(){
+  const pct=Math.min(100,Math.max(0,(window.scrollY/(document.body.scrollHeight-window.innerHeight))*100));
+  if(progFill)progFill.style.width=pct+'%';
+  let active=null;
+  rows.forEach(row=>{
+    const el=document.getElementById(row.getAttribute('data-section'));
+    if(el&&el.getBoundingClientRect().top<=120)active=row;
+  });
+  rows.forEach(r=>r.classList.remove('active'));
+  if(active)active.classList.add('active');
+}
+window.addEventListener('scroll',onScroll,{passive:true});
+onScroll();
+
+/* Reveal on scroll */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});
+},{threshold:0.06});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+/* Count-up for impact numbers */
+(function(){
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const nodes=document.querySelectorAll('.cs-impact-val');
+  const parsed=[];
+  nodes.forEach(el=>{
+    const m=el.textContent.trim().match(/^([+\-]?)(\d+(?:\.\d+)?)(.*)$/);
+    if(!m)return;
+    el.dataset.prefix=m[1];
+    el.dataset.target=m[2];
+    el.dataset.suffix=m[3];
+    el.dataset.isInt=m[2].includes('.')?'0':'1';
+    if(!reduce)el.textContent=m[1]+'0'+m[3];
+    parsed.push(el);
+  });
+  if(reduce)return;
+  const ease=t=>1-Math.pow(1-t,3);
+  const run=el=>{
+    const target=parseFloat(el.dataset.target);
+    const prefix=el.dataset.prefix;
+    const suffix=el.dataset.suffix;
+    const isInt=el.dataset.isInt==='1';
+    const duration=1400;
+    const t0=performance.now();
+    const step=now=>{
+      const p=Math.min(1,(now-t0)/duration);
+      const v=target*ease(p);
+      el.textContent=prefix+(isInt?Math.round(v):v.toFixed(1))+suffix;
+      if(p<1)requestAnimationFrame(step);
+      else el.textContent=prefix+(isInt?target:target.toFixed(1))+suffix;
+    };
+    requestAnimationFrame(step);
+  };
+  const countObs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){run(e.target);countObs.unobserve(e.target);}});
+  },{threshold:0.4});
+  parsed.forEach(el=>countObs.observe(el));
+})();
+</script>
+</body>
+</html>
