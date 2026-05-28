@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Adaptive Plan Feature — Chloe Wu</title>
+<title>AI-Powered Training — Chloe Wu</title>
 <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="tokens.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;font-size:120%;}
-body{background:var(--bg);color:var(--ink);font-family:var(--font-body);overflow-x:hidden;cursor:none;-webkit-font-smoothing:antialiased;transition:background .4s,color .4s;}
+html{scroll-behavior:smooth;font-size:120%;overflow-x:clip;}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);overflow-x:clip;cursor:none;-webkit-font-smoothing:antialiased;transition:background .4s,color .4s;}
 html, body, body *, body *::before, body *::after { cursor:none !important; }
 @media(hover:none) and (pointer:coarse) {
   html, body, body *, body *::before, body *::after { cursor:auto !important; }
@@ -207,9 +207,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 
 /* Before/After image comparison slider */
 .ba-compare{position:relative;overflow:hidden;border-radius:14px;border:1px solid var(--border);background:var(--bg-2);--pos:50%;touch-action:pan-y;user-select:none;}
-.ba-compare .ba-layer{position:absolute;inset:0;margin:0;padding:0;}
+.ba-compare .ba-layer{position:absolute;inset:0;margin:0;padding:0;background:var(--bg-2);}
 .ba-compare .ba-layer.ba-after{clip-path:inset(0 0 0 var(--pos));}
-.ba-compare .ba-layer>img{display:block;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .35s ease;}
+.ba-compare .ba-layer>img{display:block;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .35s ease;}
 .ba-compare .ba-layer.is-loaded>img{opacity:1;}
 .ba-compare .ba-layer.is-loaded .cs-media-fallback{opacity:0;pointer-events:none;}
 .ba-compare .ba-layer .cs-media-fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:var(--bg-2);transition:opacity .25s ease;}
@@ -568,10 +568,28 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-stat-body{font-size:var(--fs-base);color:var(--ink-2);line-height:1.55;margin:0;}
 @media(max-width:767px){.cs-stats-strip{grid-template-columns:1fr;gap:28px;}}
 
-/* OUTCOMES */
-.cs-outcomes{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px;}
-.cs-outcome-pill{display:flex;align-items:center;gap:8px;background:var(--bg-2);border:1px solid var(--border);border-radius:100px;padding:10px 18px;font-size:var(--fs-base);color:var(--ink-2);transition:background .4s;}
-.cs-outcome-val{font-family:var(--font-display);font-weight:var(--fw-bold);font-size:var(--fs-md);letter-spacing:-.02em;color:var(--accent);line-height:1;}
+/* OUTCOMES — Apple-minimal metric strip: hairline borders, large quiet numerals */
+.cs-outcomes{display:grid;grid-template-columns:repeat(5,1fr);gap:32px clamp(20px,3vw,48px);margin-top:56px;padding:48px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.cs-outcome-pill{display:flex;flex-direction:column;align-items:flex-start;gap:10px;background:transparent;border:none;border-radius:0;padding:0;transition:none;}
+.cs-outcome-val{font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:clamp(36px,5vw,64px);letter-spacing:-.04em;color:var(--ink);line-height:1;}
+.cs-outcome-lbl{font-size:var(--fs-sm);color:var(--ink-3);letter-spacing:.02em;font-weight:var(--fw-regular);line-height:1.4;}
+@media(max-width:960px){.cs-outcomes{grid-template-columns:repeat(3,1fr);padding:36px 0;gap:28px 24px;}}
+@media(max-width:600px){.cs-outcomes{grid-template-columns:repeat(2,1fr);gap:24px 20px;}}
+
+/* APPLE-STYLE REVIEW MARQUEE — auto-scrolling testimonial track with edge-fade mask */
+.cs-review-marquee{position:relative;margin-top:56px;overflow:hidden;mask-image:linear-gradient(to right,transparent,#000 6%,#000 94%,transparent);-webkit-mask-image:linear-gradient(to right,transparent,#000 6%,#000 94%,transparent);}
+.cs-review-marquee-track{display:flex;gap:20px;width:max-content;animation:cs-review-scroll 36s linear infinite;}
+.cs-review-marquee:hover .cs-review-marquee-track{animation-play-state:paused;}
+@keyframes cs-review-scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.cs-review-card{flex-shrink:0;width:clamp(300px,28vw,380px);background:#ffffff;border-radius:20px;padding:24px 28px;display:flex;flex-direction:column;gap:14px;color:#1a1a1a;transition:transform .3s cubic-bezier(.22,1,.36,1);}
+
+.cs-review-card:hover{transform:translateY(-2px);}
+.cs-review-card-category{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.12em;text-transform:uppercase;color:#8a8a8a;line-height:1;}
+.cs-review-card-copy{font-size:var(--fs-base);line-height:1.55;color:#1a1a1a;font-weight:var(--fw-regular);margin:0;}
+.cs-review-card-copy mark{background:linear-gradient(135deg,#3B82F6 0%,#A855F7 100%);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:var(--fw-semibold);padding:0;}
+.cs-review-card-attr{margin-top:auto;font-size:var(--fs-sm);color:#8a8a8a;font-weight:var(--fw-regular);}
+@media(max-width:600px){.cs-review-card{width:280px;padding:20px 22px;}.cs-review-marquee-track{animation-duration:28s;}}
+@media(prefers-reduced-motion:reduce){.cs-review-marquee-track{animation:none;}.cs-review-marquee{overflow-x:auto;-webkit-overflow-scrolling:touch;mask-image:none;-webkit-mask-image:none;}}
 
 /* GOALS ROW */
 .cs-goals-row{display:grid;grid-template-columns:repeat(3,1fr);gap:48px;margin-top:24px;}
@@ -957,7 +975,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
     <!-- Project label -->
     <div class="cs-left-label">
       <span class="cs-left-eyebrow">Case Study &middot; 01</span>
-      <div class="cs-left-project">Adaptive Plan</div>
+      <div class="cs-left-project">AI-Powered Training</div>
     </div>
 
     <!-- Section index rows -->
@@ -1026,7 +1044,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
           <span class="cs-hero-tag">iOS &middot; Android</span>
           <span class="cs-hero-tag">B2C</span>
         </div>
-        <h1 class="cs-hero-title">AI-Powered<br>Adaptive Plan</h1>
+        <h1 class="cs-hero-title">AI-Powered<br>Training</h1>
         <p class="cs-hero-sub">Replacing static, one-size-fits-all workout plans with a fully personalized, AI-driven experience &mdash; Jefit&rsquo;s highest-impact feature to date.</p>
       </div>
     </div>
@@ -1044,9 +1062,9 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
         <div class="cs-metric-desc">Users active 30 days post-adoption</div>
       </div>
       <div class="cs-metric">
-        <div class="cs-metric-val">14%</div>
+        <div class="cs-metric-val">7x</div>
         <div class="cs-metric-lbl">Paywall CVR</div>
-        <div class="cs-metric-desc">#1 converting paywall, 7&times; the soft paywall industry average</div>
+        <div class="cs-metric-desc">14% conversion vs. 2% soft paywall industry average &mdash; #1 converting paywall</div>
       </div>
     </div>
 
@@ -1085,7 +1103,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
     <!-- 01 CONTEXT -->
     <section class="cs-section" id="context">
       <div class="cs-wrap">
-      <span class="cs-eyebrow">01 &middot; Context</span>
+      <span class="cs-eyebrow">Context</span>
       <h2 class="cs-section-title">Who&rsquo;s Jefit</h2>
       <div class="cs-body reveal">
         <p>Jefit is a strength training app built around one of the largest exercise databases in the world, with a global community of lifters at its core. When I joined the team, I began my own strength training journey &mdash; wanting both a healthier lifestyle and a firsthand understanding of the people I was designing for.</p>
@@ -1136,7 +1154,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
     <!-- 02 PROBLEM -->
     <section class="cs-section" id="problem">
       <div class="cs-wrap">
-      <span class="cs-eyebrow">02 &middot; Problem</span>
+      <span class="cs-eyebrow">Problem</span>
       <h2 class="cs-section-title">Too Generic to Keep Anyone</h2>
       <div class="cs-problem-block reveal">
         <p class="cs-problem-lead">The drop-off pattern was hard to miss.</p>
@@ -1203,7 +1221,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
     <!-- 03 RESEARCH -->
     <section class="cs-section" id="research">
       <div class="cs-wrap">
-      <span class="cs-eyebrow">03 &middot; Research</span>
+      <span class="cs-eyebrow">Research</span>
       <h2 class="cs-section-title">Understanding<br>the Real User</h2>
       <div class="cs-body reveal">
         <p>I had two halves of the picture &mdash; when users left, and what they said. The missing piece was <em>why</em>.</p>
@@ -1328,12 +1346,12 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
     <section class="cs-section" id="solution">
       <div class="cs-wrap">
       <header class="cs-solution-hero reveal">
-        <span class="cs-solution-eyebrow">04 &middot; Solution</span>
+        <span class="cs-solution-eyebrow">Solution</span>
         <h2 class="cs-solution-title">
           <span class="cs-solution-title-setup">From a 28-day fixed plan</span>
           <span class="cs-solution-title-hero">to a living system.</span>
         </h2>
-        <p class="cs-solution-philosophy">Most features trace back to a research pain point &mdash; six in the core product, two in monetization and adoption. Ordered the way users meet them.</p>
+        <p class="cs-solution-philosophy">Most features trace back to a research pain point &mdash; two in monetization and adoption, six in the core product. Ordered the way users meet them.</p>
       </header>
 
       <!-- ── Phase 1 · Discover ── -->
@@ -1402,7 +1420,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
         <div class="cs-feature-text">
           <div class="cs-feature-eyebrow">Solves &middot; Equipment mismatch</div>
           <h3>Equipment management.</h3>
-          <p>Before, the plan applied static weight increments regardless of what each user actually had on hand. Now equipment and exact increments live per location &mdash; home, hotel, commercial &mdash; so every load the generator prescribes is one users can actually load on the bar.</p>
+          <p>Before, the plan applied static weight increments. But every free weight and weight machine &mdash; dumbbell racks, plate sets, Smith machines, cable stations &mdash; varies brand to brand. Different jumps, different ceilings. Users now enter their own weights, set per-equipment increment ranges, and pin min/max bounds, so every prescribed load is one they can actually load on the bar.</p>
         </div>
         <div class="cs-feature-video bare framed">
           <video src="assets/videos/adaptive-plan/equipment%20increment.mov" muted playsinline preload="metadata" aria-label="Equipment increment" data-loop-delay="2000" style="--crop-l:6px;">
@@ -1487,14 +1505,14 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
     <!-- 06 BEHIND THE SCENES -->
     <section class="cs-section" id="behind">
       <div class="cs-wrap">
-      <span class="cs-eyebrow">05 &middot; Behind the Scenes</span>
+      <span class="cs-eyebrow">Behind the Scenes</span>
       <h2 class="cs-section-title">How It Came<br>Together</h2>
       <div class="cs-body reveal">
         <p>The shipped experience hides a long tail of decisions &mdash; flows that were thrown out, an IA that was redrawn twice, business and engineering constraints that reshaped the brief. Open any chapter below to see the work underneath.</p>
       </div>
 
       <div class="cs-bts reveal">
-        <details class="cs-bts-row" open>
+        <details class="cs-bts-row">
           <summary class="cs-bts-summary">
             <span class="cs-bts-num">01</span>
             <span class="cs-bts-title">Strategy alignment</span>
@@ -1508,7 +1526,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
               <div class="cs-cards" style="margin-top:24px;">
                 <div class="cs-card"><div class="cs-card-icon">&#129504;</div><div class="cs-card-title">Familiarity Module</div><div class="cs-card-text">I caught the generator swapping exercises week over week while dogfooding &mdash; each new movement was a fresh learning curve that pushed users to abandon their plans. I raised it with PM and backend; we shipped a gradual-ramp model that anchors in each user&rsquo;s proven history and introduces new movements slowly, so the learning curve flattens instead of stacking.</div></div>
                 <div class="cs-card"><div class="cs-card-icon">&#127919;</div><div class="cs-card-title">Two-Tier Experience</div><div class="cs-card-text">I designed the upgrade so users don&rsquo;t start over when they go paid &mdash; their history and preferences carry forward (same logic as the familiarity module). We shipped it as one continuous experience, so upgrading feels like the plan getting smarter, not a wall.</div></div>
-                <div class="cs-card"><div class="cs-card-icon">&#128200;</div><div class="cs-card-title">Habit-First Flow</div><div class="cs-card-text">I pulled retention data with growth to make the case for a later paywall &mdash; users hit peak value at days 10&ndash;14, after the first adaptation cycle. I held the line against day-one monetization pressure; we landed on a week-2 paywall.</div></div>
+                <div class="cs-card"><div class="cs-card-icon">&#128200;</div><div class="cs-card-title">Habit-First Flow</div><div class="cs-card-text">I pulled retention data with growth to make the case for a later paywall &mdash; users hit peak value at days 10&ndash;14, after the first adaptation cycle. I held the line against day-one monetization pressure; we landed on a week-2 paywall. A split test against the day-one variant validated the call &mdash; the habit-first flow converted better.</div></div>
                 <div class="cs-card"><div class="cs-card-icon">&#128260;</div><div class="cs-card-title">Feedback Flywheel</div><div class="cs-card-text">I designed the post-workout feedback surface so each completed session feeds the engine in one tap &mdash; together with eng, we turned feedback from a chore into compounding signal.</div></div>
               </div>
             </div>
@@ -1549,28 +1567,28 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
                 <div class="cs-card-title" style="margin-bottom:8px;">Injury management</div>
                 <p>Started with a short-term vs. long-term injury split. Iterated to a severity framework: mild injuries (muscle or joint) swap affected exercises for lower-intensity alternatives instead of excluding them; severe injuries remove all exercises in the affected area. Users keep training where they safely can, instead of pausing the whole plan.</p>
                 <div class="ba-compare reveal" style="aspect-ratio:16/10; margin-top:20px;">
-                  <figure class="ba-layer ba-before">
+                  <figure class="ba-layer ba-before" style="padding-right:20px;">
                     <img src="assets/images/adaptive-plan/iter-injury-v1.png" alt="Injury v1" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
                     <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#129657;</span><span class="cs-img-ph-label">Injury v1</span></span>
                   </figure>
-                  <figure class="ba-layer ba-after">
-                    <img src="assets/images/adaptive-plan/iter-injury-v2.png" alt="Injury v2" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
+                  <figure class="ba-layer ba-after" style="padding:0 20px;">
+                    <img src="assets/images/adaptive-plan/injury%20v2.png" alt="Injury v2" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
                     <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#129657;</span><span class="cs-img-ph-label">Injury v2</span></span>
                   </figure>
                   <span class="ba-label ba-label-before">v1</span>
                   <span class="ba-label ba-label-after">v2</span>
                   <button class="ba-handle" type="button" role="slider" aria-label="Drag to compare Injury v1 and v2" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" tabindex="0">
-                    <span class="ba-handle-knob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline><polyline points="9 6 15 12 9 18"></polyline></svg></span>
+                    <span class="ba-handle-knob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><polyline points="7 8 3 12 7 16"></polyline><polyline points="17 8 21 12 17 16"></polyline></svg></span>
                   </button>
                 </div>
               </div>
 
               <div style="margin-top:48px;">
                 <div class="cs-card-title" style="margin-bottom:8px;">Equipment increments</div>
-                <p><strong>UX:</strong> increments mapped to actual gym hardware &mdash; dumbbells in 5lb steps, Smith machines in 10lb, etc. &mdash; per location. <strong>UI:</strong> multiple visual passes to surface the right increment in context without cluttering the workout view.</p>
-                <div class="ba-compare reveal" style="aspect-ratio:16/10; margin-top:20px;">
+                <p>Started with one weight range applied to every user &mdash; same min, max, and steps regardless of the machine they actually had. Iterated to per-machine ranges scoped to each user&rsquo;s hardware: every dumbbell rack, Smith machine, and plate set carries its own min, max, and step. Users log only the weights their gym can actually load.</p>
+                <div class="ba-compare reveal" style="aspect-ratio:2077/1140; margin-top:20px;">
                   <figure class="ba-layer ba-before">
-                    <img src="assets/images/adaptive-plan/iter-equipment-v1.png" alt="Equipment v1" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
+                    <img src="assets/images/adaptive-plan/equipment%20v1.png" alt="Equipment v1 — single weight range applied to every user" loading="lazy" onload="this.parentElement.classList.add('is-loaded')" style="object-fit:cover;object-position:top;">
                     <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#127947;</span><span class="cs-img-ph-label">Equipment v1</span></span>
                   </figure>
                   <figure class="ba-layer ba-after">
@@ -1580,14 +1598,14 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
                   <span class="ba-label ba-label-before">v1</span>
                   <span class="ba-label ba-label-after">v2</span>
                   <button class="ba-handle" type="button" role="slider" aria-label="Drag to compare Equipment v1 and v2" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" tabindex="0">
-                    <span class="ba-handle-knob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline><polyline points="9 6 15 12 9 18"></polyline></svg></span>
+                    <span class="ba-handle-knob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><polyline points="7 8 3 12 7 16"></polyline><polyline points="17 8 21 12 17 16"></polyline></svg></span>
                   </button>
                 </div>
               </div>
 
               <div style="margin-top:48px;">
                 <div class="cs-card-title" style="margin-bottom:8px;">Load progression</div>
-                <p>Multiple rounds on how aggressively to scale weight, reps, and sets. Early versions overshot and triggered &ldquo;Revert&rdquo; too often; we shipped a more conservative version that only pushes when feedback signals justify it.</p>
+                <p>Started with a static banner shown to every user whose plan progressed &mdash; one announcement for everyone, no context behind the push. Iterated to a personalized popup that surfaces each user&rsquo;s recent log signals and the rules driving their specific progression. Users see the why behind the new numbers, not just the prompt to lift more.</p>
                 <div class="ba-compare reveal" style="aspect-ratio:16/10; margin-top:20px;">
                   <figure class="ba-layer ba-before">
                     <img src="assets/images/adaptive-plan/iter-load-v1.png" alt="Load progression v1" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
@@ -1600,7 +1618,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
                   <span class="ba-label ba-label-before">v1</span>
                   <span class="ba-label ba-label-after">v2</span>
                   <button class="ba-handle" type="button" role="slider" aria-label="Drag to compare Load progression v1 and v2" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" tabindex="0">
-                    <span class="ba-handle-knob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline><polyline points="9 6 15 12 9 18"></polyline></svg></span>
+                    <span class="ba-handle-knob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><polyline points="7 8 3 12 7 16"></polyline><polyline points="17 8 21 12 17 16"></polyline></svg></span>
                   </button>
                 </div>
               </div>
@@ -1614,53 +1632,52 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
     <!-- 07 OUTCOMES -->
     <section class="cs-section" id="outcomes">
       <div class="cs-wrap">
-      <span class="cs-eyebrow">06 &middot; Outcomes</span>
+      <span class="cs-eyebrow">Outcomes</span>
       <h2 class="cs-section-title">Impact at Scale</h2>
       <div class="cs-body reveal">
-        <p>Adaptive Plan launched to all 13M+ Jefit users in Q1 2025. It became the highest-performing feature in Jefit&rsquo;s history across adoption, retention, and revenue metrics.</p>
+        <p>Adaptive Plan launched to all 13M+ Jefit users in Q1 2025. It became the highest-performing feature in Jefit&rsquo;s history across adoption, retention, and revenue.</p>
+        <p>Converting at 14% against the 2% soft paywall industry average, it became Jefit&rsquo;s single most profitable premium feature &mdash; directly shaping the roadmap toward AI-powered personalization across the platform.</p>
       </div>
       <div class="cs-outcomes reveal">
-        <div class="cs-outcome-pill"><span class="cs-outcome-val">+42%</span>Feature adoption</div>
-        <div class="cs-outcome-pill"><span class="cs-outcome-val">+28%</span>D30 retention</div>
-        <div class="cs-outcome-pill"><span class="cs-outcome-val">14%</span>Paywall CVR</div>
-        <div class="cs-outcome-pill"><span class="cs-outcome-val">13M+</span>Users reached</div>
-        <div class="cs-outcome-pill"><span class="cs-outcome-val">#1</span>Highest CVR feature</div>
+        <div class="cs-outcome-pill"><span class="cs-outcome-val">+42%</span><span class="cs-outcome-lbl">Feature adoption</span></div>
+        <div class="cs-outcome-pill"><span class="cs-outcome-val">+28%</span><span class="cs-outcome-lbl">D30 retention</span></div>
+        <div class="cs-outcome-pill"><span class="cs-outcome-val">7x</span><span class="cs-outcome-lbl">Paywall CVR</span></div>
+        <div class="cs-outcome-pill"><span class="cs-outcome-val">13M+</span><span class="cs-outcome-lbl">Users reached</span></div>
+        <div class="cs-outcome-pill"><span class="cs-outcome-val">#1</span><span class="cs-outcome-lbl">Highest CVR feature</span></div>
       </div>
-      <div class="cs-callout reveal" style="margin-top:32px;">
-        <div class="cs-callout-label">Business Impact</div>
-        <div class="cs-callout-text">The 14% paywall CVR made Adaptive Plan Jefit&rsquo;s single most profitable premium feature &mdash; directly influencing the roadmap to prioritize AI-powered personalization across the entire platform.</div>
-      </div>
-      <!-- User reviews — replaces metrics dashboard. TODO: swap placeholder quotes with real App Store / in-app reviews. -->
-      <div class="cs-voc-list reveal" style="margin-top:40px;">
-        <div class="cs-voc">
-          <p class="cs-voc-text">&ldquo;Finally a plan that doesn&rsquo;t reset every month. It actually <mark>remembers what I lifted last week</mark> and pushes me a little more. The deload weeks were a nice surprise.&rdquo;</p>
-          <div class="cs-voc-footer">
-            <div class="cs-voc-avatar" aria-hidden="true"></div>
-            <div class="cs-voc-meta">
-              <span class="cs-voc-name">Marcus J.</span>
-              <span class="cs-voc-role">Lifting 3 years</span>
-            </div>
-          </div>
+      <!-- App Store reviews — Apple-style auto-scrolling marquee -->
+      <div class="cs-review-marquee reveal" style="margin-top:48px;">
+        <div class="cs-review-marquee-track">
+        <div class="cs-review-card">
+          <span class="cs-review-card-category">App Store review</span>
+          <p class="cs-review-card-copy">&ldquo;I really like the Adaptive plan, and <mark>would love to be able to make a second Adaptive plan</mark> focused only on dynamic mobility&hellip;&rdquo;</p>
+          <span class="cs-review-card-attr">&mdash; jonny.akerberg</span>
         </div>
-        <div class="cs-voc">
-          <p class="cs-voc-text">&ldquo;I train at a hotel gym half the week and the app just <mark>swaps in what works with the equipment I have</mark>. Used to skip days. Don&rsquo;t anymore.&rdquo;</p>
-          <div class="cs-voc-footer">
-            <div class="cs-voc-avatar" aria-hidden="true"></div>
-            <div class="cs-voc-meta">
-              <span class="cs-voc-name">Priya R.</span>
-              <span class="cs-voc-role">Traveling lifter</span>
-            </div>
-          </div>
+        <div class="cs-review-card">
+          <span class="cs-review-card-category">App Store review</span>
+          <p class="cs-review-card-copy">&ldquo;Easy to use. Great for planning and adapting your own routines. <mark>Definitely helps with progress knowing exactly what you trained and lifted</mark> on previous sessions.&rdquo;</p>
+          <span class="cs-review-card-attr">&mdash; brown dog</span>
         </div>
-        <div class="cs-voc">
-          <p class="cs-voc-text">&ldquo;As a beginner I was overwhelmed by other apps. This one <mark>asks what I want and builds around it</mark> instead of dropping me into someone else&rsquo;s program.&rdquo;</p>
-          <div class="cs-voc-footer">
-            <div class="cs-voc-avatar" aria-hidden="true"></div>
-            <div class="cs-voc-meta">
-              <span class="cs-voc-name">Sam K.</span>
-              <span class="cs-voc-role">New to lifting</span>
-            </div>
-          </div>
+        <div class="cs-review-card">
+          <span class="cs-review-card-category">App Store review</span>
+          <p class="cs-review-card-copy">&ldquo;It shows you which exercise to do, shows the weight and number of reps from your last session (<mark>important for progressive overload</mark>)&hellip; It is a comprehensive yet user-friendly and genuinely useful app.&rdquo;</p>
+          <span class="cs-review-card-attr">&mdash; HonzaFreudl</span>
+        </div>
+        <div class="cs-review-card" aria-hidden="true">
+          <span class="cs-review-card-category">App Store review</span>
+          <p class="cs-review-card-copy">&ldquo;I really like the Adaptive plan, and <mark>would love to be able to make a second Adaptive plan</mark> focused only on dynamic mobility&hellip;&rdquo;</p>
+          <span class="cs-review-card-attr">&mdash; jonny.akerberg</span>
+        </div>
+        <div class="cs-review-card" aria-hidden="true">
+          <span class="cs-review-card-category">App Store review</span>
+          <p class="cs-review-card-copy">&ldquo;Easy to use. Great for planning and adapting your own routines. <mark>Definitely helps with progress knowing exactly what you trained and lifted</mark> on previous sessions.&rdquo;</p>
+          <span class="cs-review-card-attr">&mdash; brown dog</span>
+        </div>
+        <div class="cs-review-card" aria-hidden="true">
+          <span class="cs-review-card-category">App Store review</span>
+          <p class="cs-review-card-copy">&ldquo;It shows you which exercise to do, shows the weight and number of reps from your last session (<mark>important for progressive overload</mark>)&hellip; It is a comprehensive yet user-friendly and genuinely useful app.&rdquo;</p>
+          <span class="cs-review-card-attr">&mdash; HonzaFreudl</span>
+        </div>
         </div>
       </div>
           </div>
@@ -1669,16 +1686,12 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
     <!-- 07 REFLECTION -->
     <section class="cs-section" id="reflection">
       <div class="cs-wrap">
-      <span class="cs-eyebrow">07 &middot; Reflection</span>
+      <span class="cs-eyebrow">Reflection</span>
       <h2 class="cs-section-title">What I Learned</h2>
       <div class="cs-body reveal">
         <p><strong>Trust is the product.</strong> The AI engine was sophisticated, but the design challenge was entirely about making users feel in control of it. The plain-language rationale was the highest-impact design decision &mdash; not the algorithm.</p>
         <p><strong>Timing is a design decision.</strong> Discovering that Sunday outperformed Monday for check-ins reminded me that when you interrupt a user matters as much as how.</p>
         <p><strong>0&rarr;1 requires protecting the vision.</strong> Stakeholders pushed to simplify the check-in to a single tap. I advocated for the conversational model based on research, and the retention data validated that choice.</p>
-      </div>
-      <div class="cs-pull-quote reveal">
-        <div class="cs-pull-quote-text">&ldquo;I didn&rsquo;t know a fitness app could feel like it actually knows me.&rdquo;</div>
-        <div class="cs-pull-quote-attr">&mdash; Post-launch user review, App Store</div>
       </div>
           </div>
     </section>

@@ -278,9 +278,17 @@ nav {
 .proj-idx-row.active .proj-idx-num { color:var(--accent); }
 .proj-idx-label {
   font-size:var(--fs-md); font-weight:var(--fw-medium); color:var(--ink-2);
-  letter-spacing:-.02em; flex:1; transition:color .3s;
+  letter-spacing:-.02em; line-height:1.2;
+  flex:1; min-width:0;
+  text-wrap:balance;
+  transition:color .3s, font-size .3s;
 }
 .proj-idx-row.active .proj-idx-label { color:var(--ink); }
+/* Narrow-desktop breakpoint — shrink label so 2 words like "AI-Powered Training"
+   wrap to 2 lines max instead of 3 in tight sidebar columns. */
+@media (max-width:1440px) {
+  .proj-idx-label { font-size:var(--fs-base); }
+}
 /* Animated accent bar on the right */
 .proj-idx-tick {
   height:1.5px; width:0; background:var(--accent);
@@ -403,6 +411,30 @@ nav {
   );
 }
 
+/* Modifier — for covers with light/bright backgrounds (e.g. Design System).
+   Stronger bottom wash + subtle image dim so white overlay text reads cleanly. */
+.proj-panel--bright::after {
+  background:linear-gradient(
+    to top,
+    rgba(0,0,0,.88) 0%,
+    rgba(0,0,0,.62) 22%,
+    rgba(0,0,0,.28) 46%,
+    transparent 72%
+  );
+}
+.proj-panel--bright:hover::after {
+  background:linear-gradient(
+    to top,
+    rgba(0,0,0,.78) 0%,
+    rgba(0,0,0,.5) 22%,
+    rgba(0,0,0,.2) 46%,
+    transparent 72%
+  );
+}
+.proj-panel--bright .proj-panel-bg {
+  filter:brightness(.92) saturate(1.04);
+}
+
 /* Inner accent ring + soft glow on hover */
 .proj-panel::before {
   content:''; position:absolute; inset:0; z-index:3; pointer-events:none;
@@ -441,19 +473,23 @@ nav {
   transform:translateY(-4px);
 }
 
-/* Project info overlaid at bottom of image */
+/* Project info overlaid at bottom-LEFT of image — constrained width so the
+   cover's mockup/content can live on the right without colliding with text. */
 .proj-panel-info {
   position:relative; z-index:4;
   padding:32px 40px;
   width:100%;
+  max-width:clamp(380px, 56%, 720px);
 }
-.proj-panel-tags { display:flex; gap:6px; margin-bottom:10px; flex-wrap:wrap; }
+.proj-panel-tags { display:flex; gap:6px; margin-bottom:14px; flex-wrap:wrap; }
 .proj-panel-tag {
-  font-size:var(--fs-base); font-weight:var(--fw-bold); letter-spacing:.06em; text-transform:uppercase;
-  color:rgba(255,255,255,.65);
-  border:1px solid rgba(255,255,255,.2);
-  padding:2px 8px; border-radius:100px;
-  backdrop-filter:blur(8px);
+  font-size:var(--fs-xs); font-weight:var(--fw-semibold); letter-spacing:.12em; text-transform:uppercase;
+  color:rgba(255,255,255,.72);
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.05);
+  padding:4px 11px; border-radius:100px;
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
 }
 .proj-panel-title {
   font-family:var(--font-display);font-weight:var(--fw-semibold);
@@ -1045,7 +1081,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
   .hero-title { font-size:clamp(40px,11vw,80px); }
 
   /* --- Work section: no sticky, stacked cards --- */
-  .work-hdr { padding:48px 20px 36px; flex-direction:column; gap:12px; }
+  .work-hdr { padding:48px 20px 36px; flex-direction:column; align-items:flex-start; gap:12px; }
   .work-body { grid-template-columns:1fr; }
 
   /* Left index hidden on mobile — info lives on the card */
@@ -1054,7 +1090,11 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
   /* Cards stack vertically, tighter padding */
   .work-right { gap:16px; padding:32px 20px 56px; }
   .proj-panel { border-radius:18px; }
-  .proj-panel-info { padding:24px 20px; }
+  /* On portrait mobile cards, 16:9 covers crop heavily on the sides.
+     Shift the focal point right so the phone/watch mockup stays in view
+     (overrides the inline `center/cover` shorthand on .proj-panel-bg). */
+  .proj-panel-bg { background-position:right center !important; }
+  .proj-panel-info { padding:24px 20px; max-width:none; }
   .proj-panel-title { font-size:clamp(32px,8vw,48px); }
   .proj-panel-desc { font-size:var(--fs-sm); }
   .proj-panel-metrics { gap:18px; }
@@ -1165,7 +1205,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
       <div class="proj-index">
         <div class="proj-idx-row active" data-p="0" onclick="scrollToPanel(0)">
           <span class="proj-idx-num">01</span>
-          <span class="proj-idx-label">Adaptive Plan</span>
+          <span class="proj-idx-label">AI-Powered Training</span>
           <span class="proj-idx-tick"></span>
         </div>
         <div class="proj-idx-row" data-p="1" onclick="scrollToPanel(1)">
@@ -1180,6 +1220,11 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
         </div>
         <div class="proj-idx-row" data-p="3" onclick="scrollToPanel(3)">
           <span class="proj-idx-num">04</span>
+          <span class="proj-idx-label">HPE Greenlake</span>
+          <span class="proj-idx-tick"></span>
+        </div>
+        <div class="proj-idx-row" data-p="4" onclick="scrollToPanel(4)">
+          <span class="proj-idx-num">05</span>
           <span class="proj-idx-label">Mobile to TV</span>
           <span class="proj-idx-tick"></span>
         </div>
@@ -1200,7 +1245,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
             <span class="proj-panel-tag">Mobile</span>
             <span class="proj-panel-tag">iOS · Android</span>
           </div>
-          <div class="proj-panel-title">Adaptive Plan</div>
+          <div class="proj-panel-title">AI-Powered Training</div>
           <div class="proj-panel-desc">Replaced static pre-built plans with a fully personalized fitness experience — highest-impact feature Jefit has shipped to date.</div>
           <div class="proj-panel-metrics">
             <div><div class="proj-panel-met-val">+42%</div><div class="proj-panel-met-lbl">Adoption</div></div>
@@ -1238,34 +1283,60 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
       </div>
 
       <!-- Panel 03 -->
-      <div class="proj-panel" data-p="2" onclick="window.open('#case-study-design-system', '_self')" title="View case study">
-        <div class="proj-panel-bg" style="background:#022c22 url('assets/images/design-system/design%20system%20cover.png') center/cover no-repeat;"></div>
+      <div class="proj-panel proj-panel--bright" data-p="2" onclick="window.open('case-study-design-system.html', '_self')" title="View case study">
+        <div class="proj-panel-bg" style="background:#022c22 url('assets/images/design-system/ds%20cover%20v3.png') center/cover no-repeat;"></div>
         <span class="proj-panel-ghost">03</span>
         <div class="proj-panel-info">
           <div class="proj-panel-tags">
-            <span class="proj-panel-tag">Design System</span>
+            <span class="proj-panel-tag">Scalability</span>
             <span class="proj-panel-tag">Cross-platform</span>
           </div>
-          <div class="proj-panel-title">Scalable Design System</div>
+          <div class="proj-panel-title">Design System</div>
           <div class="proj-panel-desc">Architected a cross-platform design system spanning Android, iOS, web &amp; wearables — unifying the team and cutting overhead.</div>
           <div class="proj-panel-metrics">
             <div><div class="proj-panel-met-val">30%</div><div class="proj-panel-met-lbl">Efficiency Gain</div></div>
             <div><div class="proj-panel-met-val">4</div><div class="proj-panel-met-lbl">Platforms</div></div>
             <div><div class="proj-panel-met-val">13M+</div><div class="proj-panel-met-lbl">Users</div></div>
           </div>
-          <a href="#" class="proj-panel-link">View Case Study &nbsp;↗</a>
+          <a href="case-study-design-system.html" class="proj-panel-link">View Case Study &nbsp;↗</a>
         </div>
       </div>
 
       <!-- Panel 04 -->
-      <div class="proj-panel" data-p="3" onclick="window.open('#case-study-mobile-to-tv', '_self')" title="View case study">
+      <div class="proj-panel" data-p="3" onclick="window.open('#case-study-hpe-greenlake', '_self')" title="View case study">
+        <div class="proj-panel-bg" style="background:linear-gradient(150deg,#042f2e 0%,#047857 55%,#10b981 100%);"></div>
+        <div class="proj-panel-mesh" aria-hidden="true"></div>
+        <div class="proj-panel-ph">
+          <div class="proj-panel-icon">📊</div>
+          <span class="proj-panel-ph-label">Add your screenshot here</span>
+        </div>
+        <span class="proj-panel-ghost">04</span>
+        <div class="proj-panel-info">
+          <div class="proj-panel-tags">
+            <span class="proj-panel-tag">Dashboard</span>
+            <span class="proj-panel-tag">B2B</span>
+            <span class="proj-panel-tag">HPE</span>
+          </div>
+          <div class="proj-panel-title">Greenlake Dashboard Charts</div>
+          <div class="proj-panel-desc">Designed a customizable chart system for HPE’s Greenlake Cloud dashboard — turning rigid data views into modular, insight-driven tools for enterprise teams.</div>
+          <div class="proj-panel-metrics">
+            <div><div class="proj-panel-met-val">10+</div><div class="proj-panel-met-lbl">Chart Variants</div></div>
+            <div><div class="proj-panel-met-val">3</div><div class="proj-panel-met-lbl">Dashboard Views</div></div>
+            <div><div class="proj-panel-met-val">↑</div><div class="proj-panel-met-lbl">Adoption</div></div>
+          </div>
+          <a href="#" class="proj-panel-link">View Case Study &nbsp;↗</a>
+        </div>
+      </div>
+
+      <!-- Panel 05 -->
+      <div class="proj-panel" data-p="4" onclick="window.open('#case-study-mobile-to-tv', '_self')" title="View case study">
         <div class="proj-panel-bg" style="background:linear-gradient(150deg,#1c0a00 0%,#92400e 55%,#f59e0b 100%);"></div>
         <div class="proj-panel-mesh" aria-hidden="true"></div>
         <div class="proj-panel-ph">
           <div class="proj-panel-icon">📺</div>
           <span class="proj-panel-ph-label">Add your screenshot here</span>
         </div>
-        <span class="proj-panel-ghost">04</span>
+        <span class="proj-panel-ghost">05</span>
         <div class="proj-panel-info">
           <div class="proj-panel-tags">
             <span class="proj-panel-tag">Strategy</span>
@@ -1464,7 +1535,7 @@ const PROJS = [
   {
     url:'case-study-adaptive-plan.html',
     tags:['0→1','Mobile','iOS · Android'],
-    name:'Adaptive Plan',
+    name:'AI-Powered Training',
     desc:'Replaced static pre-built plans with a fully personalized fitness experience — highest-impact feature Jefit has shipped to date.',
     metrics:[{v:'+42%',l:'Adoption'},{v:'+28%',l:'D30 Retention'},{v:'14%',l:'Paywall CVR'}],
   },
@@ -1479,6 +1550,12 @@ const PROJS = [
     name:'Scalable Design\nSystem',
     desc:'Architected a cross-platform system spanning Android, iOS, web, and wearables — unifying design and cutting overhead.',
     metrics:[{v:'30%',l:'Efficiency Gain'},{v:'4',l:'Platforms'},{v:'13M+',l:'Users'}],
+  },
+  {
+    tags:['Dashboard','B2B','HPE'],
+    name:'Greenlake Dashboard\nCharts',
+    desc:"Designed a customizable chart system for HPE's Greenlake Cloud dashboard — modular, insight-driven data tools for enterprise teams.",
+    metrics:[{v:'10+',l:'Chart Variants'},{v:'3',l:'Dashboard Views'},{v:'↑',l:'Adoption'}],
   },
   {
     tags:['Strategy','UX','Whatnot'],
