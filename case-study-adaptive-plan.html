@@ -206,10 +206,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-media-fallback .cs-img-ph-label{font-size:var(--fs-sm);font-weight:var(--fw-semibold);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);text-align:center;padding:0 16px;}
 
 /* Before/After image comparison slider */
-.ba-compare{position:relative;overflow:hidden;border-radius:14px;border:1px solid var(--border);background:var(--bg-2);--pos:50%;touch-action:pan-y;user-select:none;}
+.ba-compare{position:relative;overflow:hidden;border-radius:14px;border:1px solid var(--border);background:var(--bg-2);--pos:50%;touch-action:pan-y;user-select:none;cursor:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><circle cx='14' cy='14' r='8.5' fill='white' stroke='%23222' stroke-width='1.6'/><line x1='14' y1='10' x2='14' y2='18' stroke='%23222' stroke-width='1.8' stroke-linecap='round'/><line x1='10' y1='14' x2='18' y2='14' stroke='%23222' stroke-width='1.8' stroke-linecap='round'/><line x1='20.5' y1='20.5' x2='28' y2='28' stroke='%23222' stroke-width='2.6' stroke-linecap='round'/></svg>") 14 14, zoom-in;}
+.ba-compare[data-at-max]{cursor:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><circle cx='14' cy='14' r='8.5' fill='white' stroke='%23222' stroke-width='1.6'/><line x1='10' y1='14' x2='18' y2='14' stroke='%23222' stroke-width='1.8' stroke-linecap='round'/><line x1='20.5' y1='20.5' x2='28' y2='28' stroke='%23222' stroke-width='2.6' stroke-linecap='round'/></svg>") 14 14, zoom-out;}
+.ba-compare[data-panning]{cursor:grabbing;}
+.ba-compare[data-zoomed]:not([data-panning]):not([data-at-max]){cursor:grab;}
 .ba-compare .ba-layer{position:absolute;inset:0;margin:0;padding:0;background:var(--bg-2);}
 .ba-compare .ba-layer.ba-after{clip-path:inset(0 0 0 var(--pos));}
-.ba-compare .ba-layer>img{display:block;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .35s ease;}
+.ba-compare .ba-layer>img{display:block;width:100%;height:100%;object-fit:contain;opacity:0;transform:translate(var(--pan-x,0px),var(--pan-y,0px)) scale(var(--zoom,1));transform-origin:var(--zoom-x,50%) var(--zoom-y,50%);transition:opacity .35s ease,transform .3s cubic-bezier(.22,1,.36,1);}
+.ba-compare[data-panning] .ba-layer>img{transition:opacity .35s ease;}
 .ba-compare .ba-layer.is-loaded>img{opacity:1;}
 .ba-compare .ba-layer.is-loaded .cs-media-fallback{opacity:0;pointer-events:none;}
 .ba-compare .ba-layer .cs-media-fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:var(--bg-2);transition:opacity .25s ease;}
@@ -224,6 +228,41 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .ba-compare .ba-handle:focus-visible .ba-handle-knob{box-shadow:0 4px 14px rgba(0,0,0,.28),0 0 0 3px var(--accent);transform:scale(1.08);}
 .ba-compare .ba-handle-knob svg{width:18px;height:18px;}
 @media(prefers-reduced-motion:reduce){.ba-compare .ba-handle-knob{transition:none;}}
+/* Iteration versions — horizontal scroll strip; bigger cards; per-image zoom + drag pan */
+.cs-iter-versions{display:flex;gap:20px;margin-top:20px;overflow-x:auto;overflow-y:hidden;padding:4px 4px 20px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--border-h,#ccc) transparent;}
+.cs-iter-versions::-webkit-scrollbar{height:8px;}
+.cs-iter-versions::-webkit-scrollbar-track{background:transparent;}
+.cs-iter-versions::-webkit-scrollbar-thumb{background:var(--border-h,#ccc);border-radius:4px;}
+.cs-iter-version{margin:0;display:flex;flex-direction:column;gap:14px;flex:0 0 clamp(320px,75%,720px);scroll-snap-align:start;}
+.cs-iter-version-img{position:relative;overflow:hidden;border-radius:14px;background:var(--bg-2);border:1px solid var(--border);touch-action:pan-x pan-y;user-select:none;
+cursor:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><circle cx='14' cy='14' r='8.5' fill='white' stroke='%23222' stroke-width='1.6'/><line x1='14' y1='10' x2='14' y2='18' stroke='%23222' stroke-width='1.8' stroke-linecap='round'/><line x1='10' y1='14' x2='18' y2='14' stroke='%23222' stroke-width='1.8' stroke-linecap='round'/><line x1='20.5' y1='20.5' x2='28' y2='28' stroke='%23222' stroke-width='2.6' stroke-linecap='round'/></svg>") 14 14, zoom-in;
+}
+.cs-iter-version-img[data-at-max]{cursor:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><circle cx='14' cy='14' r='8.5' fill='white' stroke='%23222' stroke-width='1.6'/><line x1='10' y1='14' x2='18' y2='14' stroke='%23222' stroke-width='1.8' stroke-linecap='round'/><line x1='20.5' y1='20.5' x2='28' y2='28' stroke='%23222' stroke-width='2.6' stroke-linecap='round'/></svg>") 14 14, zoom-out;}
+.cs-iter-version-img[data-zoomed]{touch-action:none;}
+
+.cs-iter-version-img[data-panning]{cursor:grabbing;}
+.cs-iter-version-img img{display:block;width:100%;height:100%;object-fit:contain;opacity:0;
+transform:translate(var(--pan-x,0px),var(--pan-y,0px)) scale(var(--zoom,1));
+transform-origin:var(--zoom-x,50%) var(--zoom-y,50%);
+transition:opacity .35s ease,transform .3s cubic-bezier(.22,1,.36,1);}
+.cs-iter-version-img[data-panning] img{transition:opacity .35s ease;}
+.cs-iter-version-img img.is-loaded{opacity:1;}
+[data-theme="dark"] .cs-iter-version-img{background:#ffffff;border-color:#e5e5e5;}
+.cs-iter-zoom-hint{position:absolute;top:12px;right:12px;z-index:3;width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;color:#fff;pointer-events:none;transition:opacity .3s ease,transform .3s cubic-bezier(.22,1,.36,1);}
+.cs-iter-zoom-hint svg{width:16px;height:16px;}
+.cs-iter-zoom-hint .icon-zoom-out{display:none;}
+.cs-iter-version-img[data-at-max] .cs-iter-zoom-hint .icon-zoom-in{display:none;}
+.cs-iter-version-img[data-at-max] .cs-iter-zoom-hint .icon-zoom-out{display:block;}
+.cs-iter-version-img[data-zoomed]:not([data-at-max]) .cs-iter-zoom-hint{opacity:.4;}
+.cs-iter-version-img[data-panning] .cs-iter-zoom-hint{opacity:0;}
+.cs-iter-zoom-out-btn{position:absolute;top:12px;left:12px;z-index:4;width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;color:#fff;border:0;cursor:pointer;padding:0;opacity:0;pointer-events:none;transition:opacity .3s ease,background .15s ease,transform .15s ease;}
+.cs-iter-zoom-out-btn:hover{background:rgba(0,0,0,.78);transform:scale(1.06);}
+.cs-iter-zoom-out-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.cs-iter-zoom-out-btn svg{width:16px;height:16px;}
+.cs-iter-version-img[data-zoomed] .cs-iter-zoom-out-btn{opacity:1;pointer-events:auto;}
+.cs-iter-version-label{font-size:var(--fs-sm);font-weight:var(--fw-semibold);color:var(--ink-2);letter-spacing:.02em;line-height:1.4;padding:0 4px;}
+.cs-iter-version-label-tag{display:inline-block;font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-right:8px;}
+@media(max-width:600px){.cs-iter-version{flex-basis:88%;}}
 
 /* CALLOUT */
 .cs-callout{border-left:3px solid var(--accent);background:rgba(37,99,235,.05);border-radius:0 16px 16px 0;padding:24px 28px;margin-top:32px;}
@@ -568,13 +607,22 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-stat-body{font-size:var(--fs-base);color:var(--ink-2);line-height:1.55;margin:0;}
 @media(max-width:767px){.cs-stats-strip{grid-template-columns:1fr;gap:28px;}}
 
-/* OUTCOMES — Apple-minimal metric strip: hairline borders, large quiet numerals */
+/* OUTCOMES — Apple-minimal metric strip: hairline borders, large quiet numerals (legacy, kept for fallback) */
 .cs-outcomes{display:grid;grid-template-columns:repeat(5,1fr);gap:32px clamp(20px,3vw,48px);margin-top:56px;padding:48px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
 .cs-outcome-pill{display:flex;flex-direction:column;align-items:flex-start;gap:10px;background:transparent;border:none;border-radius:0;padding:0;transition:none;}
 .cs-outcome-val{font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:clamp(36px,5vw,64px);letter-spacing:-.04em;color:var(--ink);line-height:1;}
 .cs-outcome-lbl{font-size:var(--fs-sm);color:var(--ink-3);letter-spacing:.02em;font-weight:var(--fw-regular);line-height:1.4;}
 @media(max-width:960px){.cs-outcomes{grid-template-columns:repeat(3,1fr);padding:36px 0;gap:28px 24px;}}
 @media(max-width:600px){.cs-outcomes{grid-template-columns:repeat(2,1fr);gap:24px 20px;}}
+
+/* OUTCOMES — strategic impact cards. Distinct from hero metric pills: qualitative outcomes with category eyebrow + headline + supporting context */
+/* OUTCOMES — editorial strip with hairline top/bottom borders. Three typographic columns, no card chrome. */
+.cs-impact-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:48px clamp(32px,5vw,72px);margin-top:48px;padding:56px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);transition:border-color .4s;}
+.cs-impact-col{display:flex;flex-direction:column;gap:14px;}
+.cs-impact-col-eyebrow{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);}
+.cs-impact-col-head{font-family:var(--font-display);font-size:clamp(var(--fs-md),2vw,var(--fs-lg));font-weight:var(--fw-semibold);letter-spacing:-.02em;line-height:1.2;margin:0;padding-bottom:.08em;background:var(--grad-solution);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;}
+.cs-impact-col-body{font-size:var(--fs-base);color:var(--ink-2);line-height:1.55;letter-spacing:-.005em;margin:0;}
+@media(max-width:960px){.cs-impact-strip{grid-template-columns:1fr;gap:36px;padding:36px 0;margin-top:36px;}}
 
 /* APPLE-STYLE REVIEW MARQUEE — auto-scrolling testimonial track with edge-fade mask */
 .cs-review-marquee{position:relative;margin-top:56px;overflow:hidden;mask-image:linear-gradient(to right,transparent,#000 6%,#000 94%,transparent);-webkit-mask-image:linear-gradient(to right,transparent,#000 6%,#000 94%,transparent);}
@@ -590,6 +638,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-review-card-attr{margin-top:auto;font-size:var(--fs-sm);color:#8a8a8a;font-weight:var(--fw-regular);}
 @media(max-width:600px){.cs-review-card{width:280px;padding:20px 22px;}.cs-review-marquee-track{animation-duration:28s;}}
 @media(prefers-reduced-motion:reduce){.cs-review-marquee-track{animation:none;}.cs-review-marquee{overflow-x:auto;-webkit-overflow-scrolling:touch;mask-image:none;-webkit-mask-image:none;}}
+[data-theme="dark"] .cs-review-card{background:var(--bg-2);color:var(--ink);}
+[data-theme="dark"] .cs-review-card-copy{color:var(--ink);}
+[data-theme="dark"] .cs-review-card-copy mark{background:linear-gradient(135deg,#60A5FA 0%,#C084FC 100%);-webkit-background-clip:text;background-clip:text;color:transparent;}
+[data-theme="dark"] .cs-review-card-category,[data-theme="dark"] .cs-review-card-attr{color:var(--ink-2);}
 
 /* GOALS ROW */
 .cs-goals-row{display:grid;grid-template-columns:repeat(3,1fr);gap:48px;margin-top:24px;}
@@ -890,6 +942,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
   .cs-overview-grid{grid-template-columns:1fr 1fr;gap:32px;}
   .cs-next{padding:36px 20px;}
   .cs-next-btn{width:100%;justify-content:center;}
+  /* Fix 1: BTS accordion body — drop the 66px desktop indent so prose gets full mobile width */
+  .cs-bts-body{padding-left:0;}
+  /* Fix 3: Feature dividers between phases — shrink the 120px desktop margin so mobile doesn't waste vertical space */
+  .cs-feature-divider{margin-top:64px;}
+  /* Fix 2: Iterations ba-compare — stack v1 above v2 (no slider) on mobile so each frame is legible at full width */
+  .ba-compare{aspect-ratio:auto!important;display:flex;flex-direction:column;gap:8px;}
+  .ba-compare .ba-layer{position:relative;inset:auto;clip-path:none!important;aspect-ratio:2077/980;}
+  .ba-compare .ba-handle{display:none;}
+  .ba-compare .ba-label{top:8px;}
 }
 
 /* ── Very small < 420px ── */
@@ -1064,7 +1125,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
       <div class="cs-metric">
         <div class="cs-metric-val">7x</div>
         <div class="cs-metric-lbl">Paywall CVR</div>
-        <div class="cs-metric-desc">14% conversion vs. 2% soft paywall industry average &mdash; #1 converting paywall</div>
+        <div class="cs-metric-desc">14% vs. 2% soft paywall industry average &middot; +131% upgrade rate vs. baseline</div>
       </div>
     </div>
 
@@ -1229,7 +1290,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
       </div>
       <div class="cs-research-acts reveal">
         <div class="cs-research-act-divider">
-          <span class="cs-research-act-label">A &middot; What the funnel said</span>
+          <span class="cs-research-act-label">What the funnel said</span>
         </div>
         <div class="cs-stats-strip">
           <!--
@@ -1271,7 +1332,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
         </div>
 
         <div class="cs-research-act-divider">
-          <span class="cs-research-act-label">B &middot; What the voices said</span>
+          <span class="cs-research-act-label">What the voices said</span>
         </div>
         <div class="cs-carousel">
             <div class="cs-carousel-card">
@@ -1562,64 +1623,91 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
           </summary>
           <div class="cs-bts-body">
             <div class="cs-bts-body-inner">
-              <p>The Adaptive Plan ecosystem spans a dozen surfaces, and several went through multiple rounds before landing. Three iteration highlights:</p>
+              <p>The Adaptive Plan ecosystem spans a dozen surfaces, and several went through many rounds before landing. The three highlights below show v1 &rarr; shipped &mdash; many smaller UI tweaks lived between. Early on, I used AI to brainstorm design directions and widen the option space before narrowing.</p>
               <div style="margin-top:32px;">
                 <div class="cs-card-title" style="margin-bottom:8px;">Injury management</div>
                 <p>Started with a short-term vs. long-term injury split. Iterated to a severity framework: mild injuries (muscle or joint) swap affected exercises for lower-intensity alternatives instead of excluding them; severe injuries remove all exercises in the affected area. Users keep training where they safely can, instead of pausing the whole plan.</p>
-                <div class="ba-compare reveal" style="aspect-ratio:16/10; margin-top:20px;">
-                  <figure class="ba-layer ba-before" style="padding-right:20px;">
-                    <img src="assets/images/adaptive-plan/iter-injury-v1.png" alt="Injury v1" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
-                    <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#129657;</span><span class="cs-img-ph-label">Injury v1</span></span>
+                <div class="cs-iter-versions reveal">
+                  <figure class="cs-iter-version">
+                    <div class="cs-iter-version-img" style="aspect-ratio:16/10;">
+                      <button class="cs-iter-zoom-out-btn" type="button" aria-label="Reset zoom"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8a6 6 0 1 0 1.7-4.2"/><polyline points="2 1.5 2 4 4.5 4"/></svg></button>
+                      <span class="cs-iter-zoom-hint" aria-hidden="true">
+                        <svg class="icon-zoom-in" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/><path d="M7 4.5v5M4.5 7h5"/></svg>
+                        <svg class="icon-zoom-out" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/><path d="M4.5 7h5"/></svg>
+                      </span>
+                      <img src="assets/images/adaptive-plan/iter-injury-v1.png" alt="Injury management v1 — short-term vs. long-term injury split" loading="lazy" onload="this.classList.add('is-loaded')">
+                    </div>
+                    <figcaption class="cs-iter-version-label"><span class="cs-iter-version-label-tag">v1</span>Short-term vs. long-term split</figcaption>
                   </figure>
-                  <figure class="ba-layer ba-after" style="padding:0 20px;">
-                    <img src="assets/images/adaptive-plan/injury%20v2.png" alt="Injury v2" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
-                    <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#129657;</span><span class="cs-img-ph-label">Injury v2</span></span>
+                  <figure class="cs-iter-version">
+                    <div class="cs-iter-version-img" style="aspect-ratio:16/10;">
+                      <button class="cs-iter-zoom-out-btn" type="button" aria-label="Reset zoom"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8a6 6 0 1 0 1.7-4.2"/><polyline points="2 1.5 2 4 4.5 4"/></svg></button>
+                      <span class="cs-iter-zoom-hint" aria-hidden="true">
+                        <svg class="icon-zoom-in" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/><path d="M7 4.5v5M4.5 7h5"/></svg>
+                        <svg class="icon-zoom-out" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/><path d="M4.5 7h5"/></svg>
+                      </span>
+                      <img src="assets/images/adaptive-plan/iter-injury-v2.png" alt="Injury management v2 — severity framework" loading="lazy" onload="this.classList.add('is-loaded')">
+                    </div>
+                    <figcaption class="cs-iter-version-label"><span class="cs-iter-version-label-tag">v2</span>Severity framework</figcaption>
                   </figure>
-                  <span class="ba-label ba-label-before">v1</span>
-                  <span class="ba-label ba-label-after">v2</span>
-                  <button class="ba-handle" type="button" role="slider" aria-label="Drag to compare Injury v1 and v2" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" tabindex="0">
-                    <span class="ba-handle-knob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><polyline points="7 8 3 12 7 16"></polyline><polyline points="17 8 21 12 17 16"></polyline></svg></span>
-                  </button>
                 </div>
               </div>
 
               <div style="margin-top:48px;">
                 <div class="cs-card-title" style="margin-bottom:8px;">Equipment increments</div>
-                <p>Started with one weight range applied to every user &mdash; same min, max, and steps regardless of the machine they actually had. Iterated to per-machine ranges scoped to each user&rsquo;s hardware: every dumbbell rack, Smith machine, and plate set carries its own min, max, and step. Users log only the weights their gym can actually load.</p>
-                <div class="ba-compare reveal" style="aspect-ratio:2077/1140; margin-top:20px;">
-                  <figure class="ba-layer ba-before">
-                    <img src="assets/images/adaptive-plan/equipment%20v1.png" alt="Equipment v1 — single weight range applied to every user" loading="lazy" onload="this.parentElement.classList.add('is-loaded')" style="object-fit:cover;object-position:top;">
-                    <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#127947;</span><span class="cs-img-ph-label">Equipment v1</span></span>
+                <p>Started with one weight range applied to every user &mdash; same min, max, and steps regardless of the machine they actually had. Iterated to per-machine ranges scoped to each user&rsquo;s hardware: every free weight and weight machine carries its own min, max, and step. Users log only the weights their gym can actually load.</p>
+                <div class="cs-iter-versions reveal">
+                  <figure class="cs-iter-version">
+                    <div class="cs-iter-version-img" style="aspect-ratio:2/1;">
+                      <button class="cs-iter-zoom-out-btn" type="button" aria-label="Reset zoom"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8a6 6 0 1 0 1.7-4.2"/><polyline points="2 1.5 2 4 4.5 4"/></svg></button>
+                      <span class="cs-iter-zoom-hint" aria-hidden="true">
+                        <svg class="icon-zoom-in" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/><path d="M7 4.5v5M4.5 7h5"/></svg>
+                        <svg class="icon-zoom-out" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/><path d="M4.5 7h5"/></svg>
+                      </span>
+                      <img src="assets/images/adaptive-plan/iter-equipment-v1.png" alt="Equipment v1 — single weight range applied to every user" loading="lazy" onload="this.classList.add('is-loaded')" style="object-fit:cover;object-position:top center;">
+                    </div>
+                    <figcaption class="cs-iter-version-label"><span class="cs-iter-version-label-tag">v1</span>Single weight range</figcaption>
                   </figure>
-                  <figure class="ba-layer ba-after">
-                    <img src="assets/images/adaptive-plan/iter-equipment-v2.png" alt="Equipment v2" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
-                    <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#127947;</span><span class="cs-img-ph-label">Equipment v2</span></span>
+                  <figure class="cs-iter-version">
+                    <div class="cs-iter-version-img" style="aspect-ratio:2/1;">
+                      <button class="cs-iter-zoom-out-btn" type="button" aria-label="Reset zoom"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8a6 6 0 1 0 1.7-4.2"/><polyline points="2 1.5 2 4 4.5 4"/></svg></button>
+                      <span class="cs-iter-zoom-hint" aria-hidden="true">
+                        <svg class="icon-zoom-in" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/><path d="M7 4.5v5M4.5 7h5"/></svg>
+                        <svg class="icon-zoom-out" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/><path d="M4.5 7h5"/></svg>
+                      </span>
+                      <img src="assets/images/adaptive-plan/iter-equipment-v2.png" alt="Equipment v2 — per-machine ranges scoped to each user’s hardware" loading="lazy" onload="this.classList.add('is-loaded')">
+                    </div>
+                    <figcaption class="cs-iter-version-label"><span class="cs-iter-version-label-tag">v2</span>Per-machine ranges</figcaption>
                   </figure>
-                  <span class="ba-label ba-label-before">v1</span>
-                  <span class="ba-label ba-label-after">v2</span>
-                  <button class="ba-handle" type="button" role="slider" aria-label="Drag to compare Equipment v1 and v2" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" tabindex="0">
-                    <span class="ba-handle-knob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><polyline points="7 8 3 12 7 16"></polyline><polyline points="17 8 21 12 17 16"></polyline></svg></span>
-                  </button>
                 </div>
               </div>
 
               <div style="margin-top:48px;">
                 <div class="cs-card-title" style="margin-bottom:8px;">Load progression</div>
-                <p>Started with a static banner shown to every user whose plan progressed &mdash; one announcement for everyone, no context behind the push. Iterated to a personalized popup that surfaces each user&rsquo;s recent log signals and the rules driving their specific progression. Users see the why behind the new numbers, not just the prompt to lift more.</p>
-                <div class="ba-compare reveal" style="aspect-ratio:16/10; margin-top:20px;">
-                  <figure class="ba-layer ba-before">
-                    <img src="assets/images/adaptive-plan/iter-load-v1.png" alt="Load progression v1" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
-                    <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#129692;</span><span class="cs-img-ph-label">Load progression v1</span></span>
+                <p>Started with a static announcement shipped to every user whose plan progressed &mdash; same message regardless of context, hiding the robust engine underneath. Iterated to a personalized popup that surfaces each user&rsquo;s own past logs as evidence behind the recommendation, layers in educational context for the rules driving the push, and offers a revisit entry point users can come back to anytime. Users see the why behind the new numbers, not just the prompt to lift more.</p>
+                <div class="cs-iter-versions reveal">
+                  <figure class="cs-iter-version">
+                    <div class="cs-iter-version-img" style="aspect-ratio:16/10;">
+                      <button class="cs-iter-zoom-out-btn" type="button" aria-label="Reset zoom"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8a6 6 0 1 0 1.7-4.2"/><polyline points="2 1.5 2 4 4.5 4"/></svg></button>
+                      <span class="cs-iter-zoom-hint" aria-hidden="true">
+                        <svg class="icon-zoom-in" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/><path d="M7 4.5v5M4.5 7h5"/></svg>
+                        <svg class="icon-zoom-out" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/><path d="M4.5 7h5"/></svg>
+                      </span>
+                      <img src="assets/images/adaptive-plan/iter-load-v1.png" alt="Load progression v1 — static announcement" loading="lazy" onload="this.classList.add('is-loaded')">
+                    </div>
+                    <figcaption class="cs-iter-version-label"><span class="cs-iter-version-label-tag">v1</span>Static announcement</figcaption>
                   </figure>
-                  <figure class="ba-layer ba-after">
-                    <img src="assets/images/adaptive-plan/iter-load-v2.png" alt="Load progression v2" loading="lazy" onload="this.parentElement.classList.add('is-loaded')">
-                    <span class="cs-media-fallback"><span class="cs-img-ph-icon">&#129692;</span><span class="cs-img-ph-label">Load progression v2</span></span>
+                  <figure class="cs-iter-version">
+                    <div class="cs-iter-version-img" style="aspect-ratio:16/10;">
+                      <button class="cs-iter-zoom-out-btn" type="button" aria-label="Reset zoom"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8a6 6 0 1 0 1.7-4.2"/><polyline points="2 1.5 2 4 4.5 4"/></svg></button>
+                      <span class="cs-iter-zoom-hint" aria-hidden="true">
+                        <svg class="icon-zoom-in" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/><path d="M7 4.5v5M4.5 7h5"/></svg>
+                        <svg class="icon-zoom-out" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/><path d="M4.5 7h5"/></svg>
+                      </span>
+                      <img src="assets/images/adaptive-plan/iter-load-v2.png" alt="Load progression v2 — personalized popup" loading="lazy" onload="this.classList.add('is-loaded')">
+                    </div>
+                    <figcaption class="cs-iter-version-label"><span class="cs-iter-version-label-tag">v2</span>Personalized popup</figcaption>
                   </figure>
-                  <span class="ba-label ba-label-before">v1</span>
-                  <span class="ba-label ba-label-after">v2</span>
-                  <button class="ba-handle" type="button" role="slider" aria-label="Drag to compare Load progression v1 and v2" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" tabindex="0">
-                    <span class="ba-handle-knob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><polyline points="7 8 3 12 7 16"></polyline><polyline points="17 8 21 12 17 16"></polyline></svg></span>
-                  </button>
                 </div>
               </div>
             </div>
@@ -1635,15 +1723,24 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
       <span class="cs-eyebrow">Outcomes</span>
       <h2 class="cs-section-title">Impact at Scale</h2>
       <div class="cs-body reveal">
-        <p>Adaptive Plan launched to all 13M+ Jefit users in Q1 2025. It became the highest-performing feature in Jefit&rsquo;s history across adoption, retention, and revenue.</p>
-        <p>Converting at 14% against the 2% soft paywall industry average, it became Jefit&rsquo;s single most profitable premium feature &mdash; directly shaping the roadmap toward AI-powered personalization across the platform.</p>
+        <p>Launched company-wide to all 13M+ Jefit users in Q1 2026. The static plan it replaced lost 78.8% of paid users by Day&nbsp;30; after adoption, D30 retention climbed +28% &mdash; the lift four onboarding fixes never delivered. <strong>And it&rsquo;s not a one-time release:</strong> the team still ships improvements across iOS, Android, and watchOS, week over week.</p>
       </div>
-      <div class="cs-outcomes reveal">
-        <div class="cs-outcome-pill"><span class="cs-outcome-val">+42%</span><span class="cs-outcome-lbl">Feature adoption</span></div>
-        <div class="cs-outcome-pill"><span class="cs-outcome-val">+28%</span><span class="cs-outcome-lbl">D30 retention</span></div>
-        <div class="cs-outcome-pill"><span class="cs-outcome-val">7x</span><span class="cs-outcome-lbl">Paywall CVR</span></div>
-        <div class="cs-outcome-pill"><span class="cs-outcome-val">13M+</span><span class="cs-outcome-lbl">Users reached</span></div>
-        <div class="cs-outcome-pill"><span class="cs-outcome-val">#1</span><span class="cs-outcome-lbl">Highest CVR feature</span></div>
+      <div class="cs-impact-strip reveal">
+        <div class="cs-impact-col">
+          <div class="cs-impact-col-eyebrow">Performance</div>
+          <h3 class="cs-impact-col-head">Highest-performing feature in Jefit&rsquo;s history.</h3>
+          <p class="cs-impact-col-body">Topped every other premium release on adoption, retention, and revenue metrics combined.</p>
+        </div>
+        <div class="cs-impact-col">
+          <div class="cs-impact-col-eyebrow">Conversion</div>
+          <h3 class="cs-impact-col-head">#1 paywall in Jefit&rsquo;s portfolio.</h3>
+          <p class="cs-impact-col-body">14% conversion vs. the 2% soft paywall industry average &mdash; the single most profitable premium feature in company history.</p>
+        </div>
+        <div class="cs-impact-col">
+          <div class="cs-impact-col-eyebrow">Strategy</div>
+          <h3 class="cs-impact-col-head">AI roadmap anchored.</h3>
+          <p class="cs-impact-col-body">Directly shaped Jefit&rsquo;s pivot toward AI-powered personalization across the entire platform.</p>
+        </div>
       </div>
       <!-- App Store reviews — Apple-style auto-scrolling marquee -->
       <div class="cs-review-marquee reveal" style="margin-top:48px;">
@@ -1689,9 +1786,9 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
       <span class="cs-eyebrow">Reflection</span>
       <h2 class="cs-section-title">What I Learned</h2>
       <div class="cs-body reveal">
-        <p><strong>Trust is the product.</strong> The AI engine was sophisticated, but the design challenge was entirely about making users feel in control of it. The plain-language rationale was the highest-impact design decision &mdash; not the algorithm.</p>
-        <p><strong>Timing is a design decision.</strong> Discovering that Sunday outperformed Monday for check-ins reminded me that when you interrupt a user matters as much as how.</p>
-        <p><strong>0&rarr;1 requires protecting the vision.</strong> Stakeholders pushed to simplify the check-in to a single tap. I advocated for the conversational model based on research, and the retention data validated that choice.</p>
+        <p><strong>Alignment was the first design.</strong> Before any mockups, I ran ideation workshops with PM, growth, and engineering &mdash; every one of us a lifter ourselves, so &ldquo;ideal plan&rdquo; had to be a business case and a workout we&rsquo;d actually run. The collisions surfaced constraints I would&rsquo;ve missed solo, and the alignment held through every trade-off after.</p>
+        <p><strong>Customization is calibration, not a checkbox.</strong> Give too much and the system loses coherence; give too little and users feel locked out. The hardest call was choosing which surfaces to expose &mdash; equipment, injury, schedule, exercise swaps &mdash; so users felt in control without breaking what the engine needed to work.</p>
+        <p><strong>You can&rsquo;t design the perfect plan &mdash; so I designed for being wrong.</strong> I went in chasing the right answer: the correct load, the ideal split, dialed in from day one. But there&rsquo;s no perfect plan for any one person, and no first guess &mdash; mine or the engine&rsquo;s &mdash; survives contact with a real body that changes week to week. Getting it right the first time was never on the table. So I stopped designing for <em>correct</em> and started designing for <em>correctable</em>: Revert, the feedback loop, the 14-day injury check-in, the &ldquo;why&rdquo; behind every number. The plan earns trust not by being right on day one, but by visibly getting better as it learns you.</p>
       </div>
           </div>
     </section>
@@ -1776,6 +1873,8 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
 <!-- GSAP + ScrollTrigger for scroll-scrubbed Solution-hero letter reveal -->
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<!-- canvas-confetti (MIT) — fires when Impact at Scale section enters viewport -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 
 <script>
 (()=>{
@@ -1908,6 +2007,76 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
   schedule();
 })();
 
+/* Iteration versions — click-to-zoom + drag-to-pan on each version image */
+(()=>{
+  document.querySelectorAll('.cs-iter-version-img').forEach(el=>{
+    let zoom=1, panX=0, panY=0;
+    let panDragging=false, panStart=null, downAt=null;
+    const MIN=1,MAX=3,STEP=1,DRAG_THRESHOLD=4;
+    const setPan=(x,y)=>{panX=x;panY=y;el.style.setProperty('--pan-x',panX+'px');el.style.setProperty('--pan-y',panY+'px');};
+    const applyZoomState=()=>{
+      el.style.setProperty('--zoom',zoom);
+      if(zoom>=MAX)el.setAttribute('data-at-max','');else el.removeAttribute('data-at-max');
+      if(zoom>1)el.setAttribute('data-zoomed','');else el.removeAttribute('data-zoomed');
+    };
+    el.addEventListener('pointerdown',e=>{
+      /* Zoom-out button: clicking it must not trigger card-wide pan/zoom logic */
+      if(e.target.closest('.cs-iter-zoom-out-btn'))return;
+      downAt={x:e.clientX,y:e.clientY,id:e.pointerId};
+      /* Pan only when zoomed in. At 1x, let the parent scroll-strip handle the gesture. */
+      if(zoom>1){panStart={x:e.clientX-panX,y:e.clientY-panY};}
+    });
+    /* Zoom-out button — decrease zoom by one step (snap to 1x if next step ≤ MIN) */
+    const zoomOutBtn=el.querySelector('.cs-iter-zoom-out-btn');
+    if(zoomOutBtn){
+      zoomOutBtn.addEventListener('click',e=>{
+        e.stopPropagation();
+        zoom=MIN;
+        setPan(0,0);
+        applyZoomState();
+      });
+    }
+    el.addEventListener('pointermove',e=>{
+      if(!downAt||downAt.id!==e.pointerId)return;
+      const dx=e.clientX-downAt.x, dy=e.clientY-downAt.y;
+      if(!panDragging && panStart && Math.hypot(dx,dy)>DRAG_THRESHOLD){
+        panDragging=true;
+        el.setAttribute('data-panning','');
+        try{el.setPointerCapture(e.pointerId);}catch(_){}
+      }
+      if(panDragging){
+        setPan(e.clientX-panStart.x, e.clientY-panStart.y);
+        e.preventDefault();
+      }
+    });
+    const endPointer=(e)=>{
+      if(!downAt||downAt.id!==e.pointerId)return;
+      const moved=Math.hypot(e.clientX-downAt.x, e.clientY-downAt.y);
+      const wasDrag=panDragging;
+      if(panDragging){
+        panDragging=false;
+        el.removeAttribute('data-panning');
+        try{el.releasePointerCapture(e.pointerId);}catch(_){}
+      }
+      panStart=null;
+      /* Tap / click intent (no significant drag) → cycle zoom from click point */
+      if(!wasDrag && moved<DRAG_THRESHOLD){
+        const rect=el.getBoundingClientRect();
+        const px=Math.max(0,Math.min(100,((e.clientX-rect.left)/rect.width)*100));
+        const py=Math.max(0,Math.min(100,((e.clientY-rect.top)/rect.height)*100));
+        el.style.setProperty('--zoom-x',px+'%');
+        el.style.setProperty('--zoom-y',py+'%');
+        zoom=zoom>=MAX?MIN:zoom+STEP;
+        if(zoom===MIN)setPan(0,0);
+        applyZoomState();
+      }
+      downAt=null;
+    };
+    el.addEventListener('pointerup',endPointer);
+    el.addEventListener('pointercancel',endPointer);
+  });
+})();
+
 /* Before/After image comparison sliders */
 (()=>{
   document.querySelectorAll('.ba-compare').forEach(el=>{
@@ -1935,14 +2104,63 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
     const end=e=>{if(!dragging)return;dragging=false;try{handle.releasePointerCapture(e.pointerId);}catch(_){}};
     handle.addEventListener('pointerup',end);
     handle.addEventListener('pointercancel',end);
-    /* Click anywhere on the container (outside the handle) to jump there — mouse only.
-       On touch, casual taps while scrolling would accidentally reposition the slider, so
-       touch users must drag the knob directly. */
+    /* Click anywhere on the canvas (outside the handle) to zoom — cycles
+       through 1x → 1.5x → 2x → 2.5x → 3x → back to 1x. Click point becomes
+       transform-origin. When zoomed in, drag (mouse) pans the image around. */
+    let zoom=1, panX=0, panY=0;
+    let panDragging=false, panStart=null, downAt=null;
+    const MIN=1,MAX=3,STEP=1,DRAG_THRESHOLD=4;
+    const setPan=(x,y)=>{panX=x;panY=y;el.style.setProperty('--pan-x',panX+'px');el.style.setProperty('--pan-y',panY+'px');};
+    const applyZoomState=()=>{
+      el.style.setProperty('--zoom',zoom);
+      if(zoom>=MAX)el.setAttribute('data-at-max','');else el.removeAttribute('data-at-max');
+      if(zoom>1)el.setAttribute('data-zoomed','');else el.removeAttribute('data-zoomed');
+    };
     el.addEventListener('pointerdown',e=>{
-      if(e.pointerType!=='mouse')return;
       if(e.target.closest('.ba-handle'))return;
-      fromClientX(e.clientX);
+      downAt={x:e.clientX,y:e.clientY,id:e.pointerId};
+      if(e.pointerType==='mouse'&&zoom>1){
+        panStart={x:e.clientX-panX,y:e.clientY-panY};
+      }
     });
+    el.addEventListener('pointermove',e=>{
+      if(!downAt||downAt.id!==e.pointerId)return;
+      const dx=e.clientX-downAt.x, dy=e.clientY-downAt.y;
+      if(!panDragging && panStart && Math.hypot(dx,dy)>DRAG_THRESHOLD){
+        panDragging=true;
+        el.setAttribute('data-panning','');
+        try{el.setPointerCapture(e.pointerId);}catch(_){}
+      }
+      if(panDragging){
+        setPan(e.clientX-panStart.x, e.clientY-panStart.y);
+        e.preventDefault();
+      }
+    });
+    const endPointer=(e)=>{
+      if(!downAt||downAt.id!==e.pointerId)return;
+      const moved=Math.hypot(e.clientX-downAt.x, e.clientY-downAt.y);
+      const wasDrag=panDragging;
+      if(panDragging){
+        panDragging=false;
+        el.removeAttribute('data-panning');
+        try{el.releasePointerCapture(e.pointerId);}catch(_){}
+      }
+      panStart=null;
+      /* Tap / click intent (no significant drag) → cycle zoom */
+      if(!wasDrag && moved<DRAG_THRESHOLD){
+        const rect=el.getBoundingClientRect();
+        const px=Math.max(0,Math.min(100,((e.clientX-rect.left)/rect.width)*100));
+        const py=Math.max(0,Math.min(100,((e.clientY-rect.top)/rect.height)*100));
+        el.style.setProperty('--zoom-x',px+'%');
+        el.style.setProperty('--zoom-y',py+'%');
+        zoom=zoom>=MAX?MIN:zoom+STEP;
+        if(zoom===MIN)setPan(0,0);
+        applyZoomState();
+      }
+      downAt=null;
+    };
+    el.addEventListener('pointerup',endPointer);
+    el.addEventListener('pointercancel',endPointer);
     /* Keyboard: arrows nudge, shift+arrow jumps, Home/End snap */
     handle.addEventListener('keydown',e=>{
       let step=0;
@@ -2045,6 +2263,45 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
   .fromTo(setupChars,{opacity:0},{opacity:1,duration:.5,stagger:.04,ease:'none'})
   .fromTo(heroChars,{opacity:0},{opacity:1,duration:.5,stagger:.05,ease:'none'},'>-0.2')
   .to(heroChars,{webkitTextFillColor:'transparent',duration:.4,stagger:.04,ease:'none'},'>+0.15');
+})();
+
+/* ── Outcomes (Impact at Scale) · confetti celebration on first scroll-in ──
+   Uses canvas-confetti (MIT, CDN). Two bursts from bottom-left & bottom-right
+   meet in the middle. Brand-gradient palette (blue / violet / pink).
+   Fires once per page load. Respects prefers-reduced-motion. */
+(function(){
+  if(typeof confetti==='undefined')return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const target=document.getElementById('outcomes');
+  if(!target)return;
+  const palette=['#2563EB','#7C3AED','#EC4899','#A855F7','#F472B6'];
+  const fire=()=>{
+    /* Left burst — angles toward upper-right */
+    confetti({particleCount:90,angle:60,spread:65,startVelocity:55,origin:{x:.1,y:.9},colors:palette,scalar:1.05,ticks:200});
+    /* Right burst — angles toward upper-left */
+    confetti({particleCount:90,angle:120,spread:65,startVelocity:55,origin:{x:.9,y:.9},colors:palette,scalar:1.05,ticks:200});
+    /* A small follow-up center burst ~200ms later for a "second wave" */
+    setTimeout(()=>{confetti({particleCount:40,angle:90,spread:120,startVelocity:40,origin:{x:.5,y:.8},colors:palette,scalar:.9,ticks:160});},220);
+  };
+  /* Track scroll direction — fire only when scrolling DOWN into the section. */
+  let lastY=window.scrollY,scrollingDown=true;
+  window.addEventListener('scroll',()=>{
+    const y=window.scrollY;
+    scrollingDown=y>lastY;
+    lastY=y;
+  },{passive:true});
+  /* Cooldown prevents re-trigger spam if the user scroll-jitters across the threshold. */
+  let cooldown=false;
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting&&scrollingDown&&!cooldown){
+        fire();
+        cooldown=true;
+        setTimeout(()=>{cooldown=false;},1500);
+      }
+    });
+  },{threshold:.25});
+  obs.observe(target);
 })();
 </script>
 <script>
