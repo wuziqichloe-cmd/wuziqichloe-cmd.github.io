@@ -117,15 +117,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-ba-cell--before .cs-ba-tag{color:var(--ink-3);}
 .cs-ba-cell--after .cs-ba-tag{color:var(--accent);}
 .cs-ba-title{font-family:var(--font-display);font-size:var(--fs-md);font-weight:var(--fw-semibold);color:var(--ink);letter-spacing:-.02em;line-height:1.2;}
-.cs-ba-text{font-size:var(--fs-sm);color:var(--ink-2);line-height:1.65;}
+.cs-ba-text{font-size:var(--fs-base);color:var(--ink-2);line-height:1.65;}
 .cs-ba-list{display:flex;flex-direction:column;gap:6px;margin-top:6px;}
-.cs-ba-list-item{font-size:var(--fs-sm);color:var(--ink-2);display:flex;align-items:flex-start;gap:8px;line-height:1.5;}
+.cs-ba-list-item{font-size:var(--fs-base);color:var(--ink-2);display:flex;align-items:flex-start;gap:8px;line-height:1.5;}
 .cs-ba-list-item::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--border-h);flex-shrink:0;margin-top:8px;}
 .cs-ba-cell--after .cs-ba-list-item::before{background:var(--accent);}
 
 /* PROCESS — horizontal timeline with connected nodes */
 .cs-timeline{position:relative;margin-top:40px;padding-top:8px;}
-.cs-timeline-track{position:absolute;left:16px;right:16px;top:24px;height:2px;background:var(--border);border-radius:2px;overflow:hidden;}
+.cs-timeline-track{position:absolute;left:16px;right:16px;top:32px;height:2px;background:var(--border);border-radius:2px;overflow:hidden;}
 .cs-timeline-fill{position:absolute;inset:0;background:linear-gradient(90deg,var(--accent) 0%,var(--accent) 50%,rgba(37,99,235,.35) 100%);}
 [data-theme="dark"] .cs-timeline-fill{background:linear-gradient(90deg,var(--accent) 0%,var(--accent) 50%,rgba(59,130,246,.32) 100%);}
 .cs-timeline-row{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:32px;}
@@ -137,7 +137,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 [data-theme="dark"] .cs-timeline-step--current .cs-timeline-node{box-shadow:0 0 0 6px rgba(59,130,246,.22);}
 .cs-timeline-phase{font-family:'SF Mono','Menlo',monospace;font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
 .cs-timeline-title{font-family:var(--font-display);font-size:var(--fs-md);font-weight:var(--fw-semibold);color:var(--ink);letter-spacing:-.02em;line-height:1.15;margin-bottom:10px;}
-.cs-timeline-text{font-size:var(--fs-sm);color:var(--ink-2);line-height:1.6;}
+.cs-timeline-text{font-size:var(--fs-base);color:var(--ink-2);line-height:1.6;}
 @media(max-width:960px){
   .cs-timeline{padding-top:0;}
   .cs-timeline-row{grid-template-columns:1fr;gap:0;}
@@ -177,7 +177,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-margin-phone-label--tr{top:4px;right:6px;}
 .cs-margin-phone-label--bl{bottom:4px;left:6px;}
 .cs-margin-phone-label--br{bottom:4px;right:6px;}
-.cs-margin-desc{font-size:var(--fs-xs);color:var(--ink-2);line-height:1.55;text-align:center;max-width:32ch;}
+.cs-margin-desc{font-size:var(--fs-sm);color:var(--ink-2);line-height:1.55;text-align:center;max-width:32ch;}
 
 /* SPACING — 4-pt grid step illustration */
 .cs-spacing-grid{margin-top:16px;padding:24px;border-radius:16px;background:var(--surf);border:1px solid var(--border);display:flex;flex-direction:column;gap:18px;}
@@ -208,7 +208,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-sub-label{font-family:'SF Mono','Menlo',monospace;font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);display:flex;align-items:center;gap:10px;margin-bottom:16px;}
 .cs-sub-label::after{content:'';flex:1;height:1px;background:var(--border);}
 .cs-sub-title{font-family:var(--font-display);font-size:var(--fs-lg);font-weight:var(--fw-semibold);letter-spacing:-.02em;color:var(--ink);margin-bottom:6px;}
-.cs-sub-text{font-size:var(--fs-sm);color:var(--ink-2);line-height:1.6;max-width:60ch;margin-bottom:18px;}
+.cs-sub-text{font-size:var(--fs-base);color:var(--ink-2);line-height:1.6;max-width:60ch;margin-bottom:18px;}
 
 /* LAYOUT visual — spacing scale + grid demonstration */
 .cs-layout{display:grid;grid-template-columns:1.2fr 1fr;gap:16px;margin-top:6px;}
@@ -258,19 +258,43 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-agent-name{font-family:var(--font-display);font-size:var(--fs-md);font-weight:var(--fw-semibold);color:var(--ink);letter-spacing:-.02em;line-height:1.2;}
 .cs-agent-desc{font-size:var(--fs-base);color:var(--ink-2);line-height:1.6;}
 .cs-agent-jobs{display:flex;flex-direction:column;gap:6px;margin-top:6px;}
-.cs-agent-job{display:flex;align-items:flex-start;gap:8px;font-size:var(--fs-sm);color:var(--ink-2);line-height:1.5;}
+.cs-agent-job{display:flex;align-items:flex-start;gap:8px;font-size:var(--fs-base);color:var(--ink-2);line-height:1.5;}
 .cs-agent-job::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:8px;}
 .cs-flow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:24px;padding:16px 20px;border:1px dashed var(--border-h);border-radius:14px;background:var(--bg-2);}
 .cs-flow-pill{font-family:'SF Mono','Menlo',monospace;font-size:var(--fs-xs);font-weight:var(--fw-semibold);color:var(--ink-2);padding:5px 10px;border-radius:6px;background:var(--surf);border:1px solid var(--border);letter-spacing:.02em;}
 .cs-flow-pill--accent{color:var(--accent);border-color:rgba(37,99,235,.25);background:rgba(37,99,235,.06);}
 .cs-flow-arrow{color:var(--ink-3);font-size:var(--fs-sm);}
 
-/* IMPACT */
-.cs-impact{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:32px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
-.cs-impact-cell{padding:32px;border-right:1px solid var(--border);}
-.cs-impact-cell:last-child{border-right:none;}
-.cs-impact-val{font-family:var(--font-display);font-weight:var(--fw-bold);font-size:var(--fs-3xl);letter-spacing:-.03em;color:var(--accent);line-height:1;margin-bottom:6px;}
-.cs-impact-lbl{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);}
+/* IMPACT — two-phase outcome (efficiency → rebrand foundation) */
+.cs-impact-phases{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px;}
+.cs-impact-phase{position:relative;border-radius:18px;border:1px solid var(--border);background:var(--surf);padding:28px;display:flex;flex-direction:column;gap:14px;transition:background .4s,border-color .4s,transform .25s cubic-bezier(.22,1,.36,1);}
+.cs-impact-phase:hover{transform:translateY(-3px);border-color:var(--border-h);}
+.cs-impact-phase--accent{background:linear-gradient(135deg,rgba(37,99,235,.08),rgba(37,99,235,.03));border-color:rgba(37,99,235,.22);}
+[data-theme="dark"] .cs-impact-phase--accent{background:linear-gradient(135deg,rgba(59,130,246,.14),rgba(59,130,246,.04));border-color:rgba(59,130,246,.28);}
+.cs-impact-phase-head{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.cs-impact-phase-num{font-family:'SF Mono','Menlo',monospace;font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);}
+.cs-impact-phase--accent .cs-impact-phase-num{color:var(--accent);}
+.cs-impact-phase-tag{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);border:1px solid var(--border);border-radius:100px;padding:3px 10px;}
+.cs-impact-phase--accent .cs-impact-phase-tag{color:var(--accent);border-color:rgba(37,99,235,.25);}
+[data-theme="dark"] .cs-impact-phase--accent .cs-impact-phase-tag{border-color:rgba(59,130,246,.3);}
+.cs-impact-phase-title{font-family:var(--font-display);font-size:var(--fs-md);font-weight:var(--fw-semibold);letter-spacing:-.02em;color:var(--ink);line-height:1.15;}
+.cs-impact-phase-text{font-size:var(--fs-base);color:var(--ink-2);line-height:1.65;}
+.cs-impact-phase-stats{display:flex;gap:28px;margin-top:auto;padding-top:18px;border-top:1px solid var(--border);}
+.cs-impact-stat{display:flex;flex-direction:column;gap:5px;}
+.cs-impact-stat-val{font-family:var(--font-display);font-weight:var(--fw-bold);font-size:var(--fs-2xl);letter-spacing:-.03em;color:var(--accent);line-height:1;}
+.cs-impact-stat-lbl{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);}
+
+/* PRINCIPLES — reflection grid */
+.cs-principles{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px;}
+.cs-principle{position:relative;border-radius:18px;border:1px solid var(--border);background:var(--surf);padding:26px 28px;display:flex;flex-direction:column;gap:10px;transition:background .4s,border-color .4s,transform .25s cubic-bezier(.22,1,.36,1);}
+.cs-principle:hover{transform:translateY(-3px);border-color:var(--border-h);}
+.cs-principle-num{font-family:'SF Mono','Menlo',monospace;font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.14em;color:var(--accent);}
+.cs-principle-title{font-family:var(--font-display);font-size:var(--fs-md);font-weight:var(--fw-semibold);letter-spacing:-.02em;color:var(--ink);line-height:1.2;}
+.cs-principle-text{font-size:var(--fs-base);color:var(--ink-2);line-height:1.6;}
+.cs-reflection{margin-top:28px;padding:24px 28px;border-left:2px solid var(--accent);background:var(--bg-2);border-radius:0 14px 14px 0;}
+.cs-reflection-label{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;display:block;}
+.cs-reflection-text{font-size:var(--p1-size);font-weight:var(--p1-weight);color:var(--p1-color);line-height:var(--p1-line);letter-spacing:var(--p1-tracking);}
+@media(max-width:960px){.cs-principles{grid-template-columns:1fr;}}
 
 /* NEXT PROJECTS */
 .cs-next-section{background:var(--bg-2);padding:80px 0;border-top:1px solid var(--border);transition:background .4s;}
@@ -315,9 +339,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
   .cs-intro{padding:64px 0 24px;}
   .cs-comp-grid{grid-template-columns:repeat(3,1fr);}
   .cs-agents{grid-template-columns:1fr;}
-  .cs-impact{grid-template-columns:1fr;}
-  .cs-impact-cell{border-right:none;border-bottom:1px solid var(--border);}
-  .cs-impact-cell:last-child{border-bottom:none;}
+  .cs-impact-phases{grid-template-columns:1fr;}
   .cs-before-after{grid-template-columns:1fr;}
   .cs-proj-grid{grid-template-columns:1fr 1fr;}
 }
@@ -409,6 +431,9 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
       <a href="#impact"     class="cs-idx-row" data-section="impact">
         <span class="cs-idx-num">06</span><span class="cs-idx-label">Impact</span><span class="cs-idx-tick"></span>
       </a>
+      <a href="#principles" class="cs-idx-row" data-section="principles">
+        <span class="cs-idx-num">07</span><span class="cs-idx-label">Reflection</span><span class="cs-idx-tick"></span>
+      </a>
     </div>
 
     <div class="cs-progress">
@@ -428,7 +453,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
           <span class="cs-hero-tag">Cross-platform</span>
         </div>
         <h1 class="cs-hero-title">Design System</h1>
-        <p class="cs-hero-sub">A walkthrough of how a rough Figma style guide became a true component library &mdash; and how AI agents now keep it growing.</p>
+        <p class="cs-hero-sub">Two designers, a 13M&#8209;user product across mobile and web. I co-built Jefit&rsquo;s design system &mdash; then built a two-agent AI pipeline that designs and reviews new components against our tokens, so the system could grow faster than two people ever could by hand.</p>
       </div>
     </div>
 
@@ -436,22 +461,14 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
     <section class="cs-intro" id="overview">
       <div class="cs-wrap">
         <div class="cs-intro-body reveal">
-          <p>When I joined, the team had a rough style guide in Figma &mdash; a reference file of shared elements, with no real components or tokens. I co-led a full revamp with our other designer: turning the guide into a proper library with proper component properties, expanding from mobile to web, and most recently, building AI agents that automate component creation against our tokens and HIG/Material guidelines.</p>
+          <p>When I joined, &ldquo;the design system&rdquo; was a rough Figma style guide &mdash; shared elements pulled from the live app, but no real components and no tokens. With our other designer I co-led the rebuild into a true library: real components with full property sets, semantic tokens, and parity across mobile and web. Then I built the thing neither of us had hours to do by hand &mdash; a pair of AI agents that create and review new components against our tokens and HIG/Material rules, so a 2&#8209;person team could keep pace with a 13M&#8209;user product.</p>
         </div>
         <div class="cs-meta reveal">
-          <div class="cs-meta-item"><span class="cs-meta-label">Role</span><span class="cs-meta-val">Design System &mdash; co-lead</span></div>
-          <div class="cs-meta-item"><span class="cs-meta-label">Team</span><span class="cs-meta-val">2 designers</span></div>
-          <div class="cs-meta-item"><span class="cs-meta-label">Platforms</span><span class="cs-meta-val">Mobile &middot; Web</span></div>
-          <div class="cs-meta-item">
-            <span class="cs-meta-label">My Contribution</span>
-            <span class="cs-meta-val">~119 components &middot; ~406 variants</span>
-            <span class="cs-meta-sub">Mobile 110 (13 primitives + 97 icons) &middot; Web 9 (ongoing)</span>
-          </div>
-          <div class="cs-meta-item cs-meta-item--featured">
-            <span class="cs-meta-label">AI Agents I built</span>
-            <span class="cs-meta-val"><a href="#agents"><code>builder.md</code> + <code>evaluator.md</code></a></span>
-            <span class="cs-meta-sub">Automate component creation &amp; design-system review &mdash; how a 2-designer team scales</span>
-          </div>
+          <div class="cs-meta-item"><span class="cs-meta-label">Role</span><span class="cs-meta-val">Product Designer</span></div>
+          <div class="cs-meta-item"><span class="cs-meta-label">Team</span><span class="cs-meta-val">2 designers</span><span class="cs-meta-sub">Library co-led 50/50</span></div>
+          <div class="cs-meta-item"><span class="cs-meta-label">Scope</span><span class="cs-meta-val">Mobile &amp; Web</span><span class="cs-meta-sub">iOS &middot; Android &middot; Responsive web</span></div>
+          <div class="cs-meta-item"><span class="cs-meta-label">Tooling</span><span class="cs-meta-val">Figma &middot; Claude Code &middot; GitHub</span><span class="cs-meta-sub">Library &amp; variants &middot; AI agents, versioned in Git</span></div>
+          <div class="cs-meta-item"><span class="cs-meta-label">My Contribution</span><span class="cs-meta-val">120+ components &middot; AI agents</span><span class="cs-meta-sub">400+ variants &middot; two-agent workflow</span></div>
         </div>
       </div>
     </section>
@@ -461,7 +478,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
       <div class="cs-wrap">
         <span class="cs-eyebrow">Where We Started</span>
         <h2 class="cs-section-title">A style guide,<br>not a system</h2>
-        <p class="cs-section-sub reveal">The starting point was a Figma file used as a reference &mdash; consistent visual elements pulled from the live app, but nothing was a real component. Every screen had to redraw or copy-paste from the guide.</p>
+        <p class="cs-section-sub reveal">The starting point was a Figma file used as a reference &mdash; consistent-looking elements pulled from the live app, but nothing was a real component. Every new screen meant redrawing or copy-pasting from the guide; values drifted between the two of us; and there was no way to ship dark mode or retheme without editing every file by hand. Spanning mobile and web with two designers, that simply didn&rsquo;t scale.</p>
         <div class="cs-before-after reveal">
           <div class="cs-ba-cell cs-ba-cell--before">
             <span class="cs-ba-tag">Before</span>
@@ -480,7 +497,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
             <div class="cs-ba-title">A real library</div>
             <div class="cs-ba-text">A revamped library of true components, each with the full property set.</div>
             <div class="cs-ba-list">
-              <div class="cs-ba-list-item">16 components, each properly built</div>
+              <div class="cs-ba-list-item">22 core components, fully built</div>
               <div class="cs-ba-list-item">Semantic tokens, light &amp; dark</div>
               <div class="cs-ba-list-item">Variants for every state</div>
               <div class="cs-ba-list-item">Boolean, instance swap, text, instances</div>
@@ -503,8 +520,8 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
             <div class="cs-timeline-step cs-timeline-step--done" role="listitem">
               <div class="cs-timeline-node">01</div>
               <div class="cs-timeline-phase">Phase 01</div>
-              <div class="cs-timeline-title">Starting point</div>
-              <div class="cs-timeline-text">A rough Figma style guide &mdash; consistent elements across the app, but no components, no tokens.</div>
+              <div class="cs-timeline-title">Gather</div>
+              <div class="cs-timeline-text">Pulled together the atoms we reused most across screens &mdash; the recurring elements &mdash; from a rough style guide with no real components or tokens yet.</div>
             </div>
             <div class="cs-timeline-step cs-timeline-step--done" role="listitem">
               <div class="cs-timeline-node">02</div>
@@ -533,102 +550,39 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
     <section class="cs-section" id="mobile">
       <div class="cs-wrap">
         <span class="cs-eyebrow">Mobile</span>
-        <h2 class="cs-section-title">Mobile foundations<br>&amp; 13 components</h2>
-        <p class="cs-section-sub reveal">Implemented the iOS &amp; Android library from the ground up &mdash; type ramp, 4&#8209;pt spacing scale, and 13 componentized primitives totaling 113 variants. Every fill, stroke, and dimension binds to a semantic token, so light/dark themes and platform variants flow through the whole library from a single source.</p>
+        <h2 class="cs-section-title">Mobile foundations<br>&amp; components</h2>
+        <p class="cs-section-sub reveal">Implemented the iOS &amp; Android library from the ground up &mdash; a type ramp, a spacing scale, and a set of componentized primitives. Every fill, stroke, and dimension binds to a semantic token, so light/dark themes and platform variants flow through the whole library from a single source.</p>
 
-        <!-- Typography — single section placeholder (17 styles) -->
+        <!-- Typography — single section placeholder -->
         <div class="cs-sub reveal">
-          <div class="cs-sub-label">Typography &middot; 17 styles</div>
+          <div class="cs-sub-label">Typography</div>
           <div class="cs-sub-title">Mobile type ramp</div>
-          <div class="cs-sub-text">Barlow Semi Condensed for Display, Inter for everything else &mdash; SF on iOS (pt), Roboto on Android (sp). 6 Display + 4 Headline + 5 Body + 2 Utility.</div>
+          <div class="cs-sub-text">A platform-aware type ramp scaled across display, headline, body, and utility roles &mdash; tuned separately for iOS and Android.</div>
           <div class="cs-section-ph" data-empty="true" data-section="mobile-typography">
             <div class="cs-section-ph-meta">
-              <span class="cs-section-ph-label">Mobile Typography &middot; 17 styles</span>
+              <span class="cs-section-ph-label">Mobile Typography</span>
               <span class="cs-section-ph-hint">drop section screenshot here</span>
             </div>
           </div>
         </div>
 
-        <!-- Layout — margin standards + 4-pt spacing grid (mirrors Figma layout frames) -->
+        <!-- Layout — margins + spacing grid (screenshots to be added) -->
         <div class="cs-sub reveal">
-          <div class="cs-sub-label">Layout &middot; margins &amp; 4&#8209;pt grid</div>
-          <div class="cs-sub-title">Two margin sizes,<br>one spacing grid</div>
-          <div class="cs-sub-text">Screens use a <strong>20dp</strong> safe-area margin by default. Inset surfaces &mdash; cards, dialogs, calendars &mdash; use a <strong>10dp</strong> small margin. Inside any container, all spacing snaps to a 4&#8209;pt grid.</div>
+          <div class="cs-sub-label">Layout</div>
+          <div class="cs-sub-title">Margins &amp; spacing</div>
+          <div class="cs-sub-text">Two margin sizes &mdash; a standard safe-area margin for full-bleed screens, and a tighter inset margin for surfaces like cards, dialogs, and calendars. Inside any container, spacing snaps to a consistent base grid.</div>
 
-          <div class="cs-margins" aria-hidden="true">
-            <div class="cs-margin-card">
-              <div class="cs-margin-meta">
-                <div class="cs-margin-title">Margin &middot; standard</div>
-                <div class="cs-margin-val">20dp</div>
-              </div>
-              <div class="cs-margin-phone">
-                <div class="cs-margin-phone-safe cs-margin-phone-safe--lg"></div>
-                <span class="cs-margin-phone-label cs-margin-phone-label--tl">20</span>
-                <span class="cs-margin-phone-label cs-margin-phone-label--tr">20</span>
-                <span class="cs-margin-phone-label cs-margin-phone-label--bl">20</span>
-                <span class="cs-margin-phone-label cs-margin-phone-label--br">20</span>
-                <div class="cs-margin-phone-content">
-                  <div class="cs-margin-phone-stack">
-                    <div class="cs-margin-phone-bar"></div>
-                    <div class="cs-margin-phone-bar"></div>
-                  </div>
-                </div>
-              </div>
-              <div class="cs-margin-desc">Default safe area for full-bleed screens &mdash; lists, forms, settings, profile.</div>
-            </div>
-
-            <div class="cs-margin-card">
-              <div class="cs-margin-meta">
-                <div class="cs-margin-title">Margin &middot; small</div>
-                <div class="cs-margin-val">10dp</div>
-              </div>
-              <div class="cs-margin-phone">
-                <div class="cs-margin-phone-safe cs-margin-phone-safe--sm"></div>
-                <span class="cs-margin-phone-label cs-margin-phone-label--tl">10</span>
-                <span class="cs-margin-phone-label cs-margin-phone-label--tr">10</span>
-                <span class="cs-margin-phone-label cs-margin-phone-label--bl">10</span>
-                <span class="cs-margin-phone-label cs-margin-phone-label--br">10</span>
-                <div class="cs-margin-phone-content" style="inset:24px 18px;">
-                  <div class="cs-margin-phone-stack">
-                    <div class="cs-margin-phone-bar"></div>
-                    <div class="cs-margin-phone-bar"></div>
-                  </div>
-                </div>
-              </div>
-              <div class="cs-margin-desc">Inset surfaces &mdash; calendars, dialog cards, embedded modules.</div>
+          <div class="cs-section-ph" data-empty="true" data-section="mobile-layout">
+            <div class="cs-section-ph-meta">
+              <span class="cs-section-ph-label">Mobile Layout &middot; margins</span>
+              <span class="cs-section-ph-hint">drop section screenshot here</span>
             </div>
           </div>
 
-          <div class="cs-spacing-grid" aria-hidden="true">
-            <div class="cs-spacing-grid-meta">
-              <div class="cs-spacing-grid-title">Spacing &middot; 4&#8209;point grid</div>
-              <div class="cs-spacing-grid-val">multiples of 4dp</div>
-            </div>
-            <div class="cs-spacing-steps">
-              <div class="cs-spacing-step" style="height:14%;width:24px;"><span>4</span></div>
-              <div class="cs-spacing-step" style="height:22%;width:32px;"><span>8</span></div>
-              <div class="cs-spacing-step" style="height:30%;width:36px;"><span>12</span></div>
-              <div class="cs-spacing-step" style="height:38%;width:40px;"><span>16</span></div>
-              <div class="cs-spacing-step" style="height:48%;width:44px;"><span>20</span></div>
-              <div class="cs-spacing-step" style="height:58%;width:48px;"><span>24</span></div>
-              <div class="cs-spacing-step" style="height:68%;width:52px;"><span>28</span></div>
-              <div class="cs-spacing-step" style="height:78%;width:56px;"><span>32</span></div>
-              <div class="cs-spacing-step" style="height:88%;width:60px;"><span>36</span></div>
-              <div class="cs-spacing-step" style="height:100%;width:64px;"><span>40</span></div>
-            </div>
-
-            <div class="cs-spacing-list-demo">
-              <span class="cs-spacing-list-demo-tag cs-spacing-list-demo-tag--top">20</span>
-              <span class="cs-spacing-list-demo-tag cs-spacing-list-demo-tag--mid">8</span>
-              <span class="cs-spacing-list-demo-tag cs-spacing-list-demo-tag--right">20</span>
-              <span class="cs-spacing-list-demo-tag cs-spacing-list-demo-tag--bot">20</span>
-              <div class="cs-spacing-list-demo-inner">
-                <div class="cs-spacing-list-demo-row">
-                  <div class="cs-spacing-list-demo-title">Smart weights</div>
-                  <div class="cs-spacing-list-demo-toggle"></div>
-                </div>
-                <div class="cs-spacing-list-demo-text">The suggested weight is tailored to your body stats. You can adjust it anytime.</div>
-              </div>
+          <div class="cs-section-ph" data-empty="true" data-section="mobile-spacing" style="margin-top:16px;">
+            <div class="cs-section-ph-meta">
+              <span class="cs-section-ph-label">Mobile Spacing grid</span>
+              <span class="cs-section-ph-hint">drop section screenshot here</span>
             </div>
           </div>
         </div>
@@ -650,7 +604,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
           <!-- ICONS section (replaces the 97 individual slots) -->
           <div class="cs-section-ph" data-empty="true" data-section="icons" style="margin-top:16px;">
             <div class="cs-section-ph-meta">
-              <span class="cs-section-ph-label">Icons &middot; 97 components &middot; ~246 variants</span>
+              <span class="cs-section-ph-label">Icons</span>
               <span class="cs-section-ph-hint">drop section screenshot here</span>
             </div>
           </div>
@@ -673,25 +627,25 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
         </div>
 
 
-        <!-- 13 components with variant counts from Figma -->
+        <!-- Mobile component primitives -->
         <div class="cs-sub reveal">
-          <div class="cs-sub-label">Components &middot; 13 primitives &middot; 113 variants</div>
+          <div class="cs-sub-label">Components</div>
           <div class="cs-sub-title">The componentized library</div>
           <div class="cs-sub-text">Each rebuilt as a true Figma component &mdash; variants, booleans, instance swap, text properties, nested instances &mdash; with every value bound to a token.</div>
           <div class="cs-comp-grid" aria-label="Mobile component primitives">
-            <div class="cs-comp"><div class="cs-comp-ico">Ab</div><div class="cs-comp-name">App bars</div><div class="cs-comp-meta">6 variants</div></div>
-            <div class="cs-comp"><div class="cs-comp-ico">Bn</div><div class="cs-comp-name">Banners</div><div class="cs-comp-meta">6 variants</div></div>
-            <div class="cs-comp"><div class="cs-comp-ico">Bt</div><div class="cs-comp-name">Buttons</div><div class="cs-comp-meta">22 variants</div></div>
-            <div class="cs-comp"><div class="cs-comp-ico">Cd</div><div class="cs-comp-name">Cards</div><div class="cs-comp-meta">6 variants</div></div>
-            <div class="cs-comp"><div class="cs-comp-ico">In</div><div class="cs-comp-name">Input</div><div class="cs-comp-meta">10 variants</div></div>
-            <div class="cs-comp"><div class="cs-comp-ico">Lb</div><div class="cs-comp-name">Labels</div><div class="cs-comp-meta">9 variants</div></div>
-            <div class="cs-comp"><div class="cs-comp-ico">Ls</div><div class="cs-comp-name">Lists</div><div class="cs-comp-meta">15 variants</div></div>
-            <div class="cs-comp"><div class="cs-comp-ico">Mn</div><div class="cs-comp-name">Menu</div><div class="cs-comp-meta">1 variant</div></div>
-            <div class="cs-comp"><div class="cs-comp-ico">Nv</div><div class="cs-comp-name">Navigation</div><div class="cs-comp-meta">3 variants</div></div>
-            <div class="cs-comp"><div class="cs-comp-ico">Sl</div><div class="cs-comp-name">Selector</div><div class="cs-comp-meta">16 variants</div></div>
-            <div class="cs-comp"><div class="cs-comp-ico">Sh</div><div class="cs-comp-name">Sheet</div><div class="cs-comp-meta">4 variants</div></div>
-            <div class="cs-comp"><div class="cs-comp-ico">Tb</div><div class="cs-comp-name">Tabs</div><div class="cs-comp-meta">13 variants</div></div>
-            <div class="cs-comp"><div class="cs-comp-ico">Tn</div><div class="cs-comp-name">Toast</div><div class="cs-comp-meta">2 variants</div></div>
+            <div class="cs-comp"><div class="cs-comp-ico">Ab</div><div class="cs-comp-name">App bars</div></div>
+            <div class="cs-comp"><div class="cs-comp-ico">Bn</div><div class="cs-comp-name">Banners</div></div>
+            <div class="cs-comp"><div class="cs-comp-ico">Bt</div><div class="cs-comp-name">Buttons</div></div>
+            <div class="cs-comp"><div class="cs-comp-ico">Cd</div><div class="cs-comp-name">Cards</div></div>
+            <div class="cs-comp"><div class="cs-comp-ico">In</div><div class="cs-comp-name">Input</div></div>
+            <div class="cs-comp"><div class="cs-comp-ico">Lb</div><div class="cs-comp-name">Labels</div></div>
+            <div class="cs-comp"><div class="cs-comp-ico">Ls</div><div class="cs-comp-name">Lists</div></div>
+            <div class="cs-comp"><div class="cs-comp-ico">Mn</div><div class="cs-comp-name">Menu</div></div>
+            <div class="cs-comp"><div class="cs-comp-ico">Nv</div><div class="cs-comp-name">Navigation</div></div>
+            <div class="cs-comp"><div class="cs-comp-ico">Sl</div><div class="cs-comp-name">Selector</div></div>
+            <div class="cs-comp"><div class="cs-comp-ico">Sh</div><div class="cs-comp-name">Sheet</div></div>
+            <div class="cs-comp"><div class="cs-comp-ico">Tb</div><div class="cs-comp-name">Tabs</div></div>
+            <div class="cs-comp"><div class="cs-comp-ico">Tn</div><div class="cs-comp-name">Toast</div></div>
           </div>
           <div class="cs-platforms">
             <span class="cs-platform"><span class="cs-platform-dot"></span>iOS &mdash; HIG</span>
@@ -706,33 +660,17 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
       <div class="cs-wrap">
         <span class="cs-eyebrow">Web</span>
         <h2 class="cs-section-title">Web parity &mdash;<br>same tokens, wider canvas</h2>
-        <p class="cs-section-sub reveal">Extended the system to web with a shared token core. Type scale opens up for desktop reading, layout moves to a 12&#8209;column grid, and the component set adds the web-native primitives (sidebars, data tables, toolbars) on top of the mobile foundations.</p>
+        <p class="cs-section-sub reveal">Extended the system to web with a shared token core. The type scale opens up for desktop reading, layout moves to a wider column grid, and the component set adds the web-native primitives (sidebars, data tables, toolbars) on top of the mobile foundations.</p>
 
         <!-- Typography -->
         <div class="cs-sub reveal">
           <div class="cs-sub-label">Typography</div>
           <div class="cs-sub-title">Web type ramp</div>
           <div class="cs-sub-text">Roomier than mobile &mdash; longer line lengths and bigger display sizes for marketing &amp; dashboard surfaces.</div>
-          <div class="cs-typeramp" aria-hidden="true">
-            <div class="cs-typeramp-row">
-              <div class="cs-typeramp-sample" style="font-size:var(--fs-3xl);font-weight:var(--fw-bold);">Display</div>
-              <div class="cs-typeramp-meta">56 / 700 / -.03em</div>
-            </div>
-            <div class="cs-typeramp-row">
-              <div class="cs-typeramp-sample" style="font-size:var(--fs-xl);font-weight:var(--fw-semibold);">Heading</div>
-              <div class="cs-typeramp-meta">40 / 600 / -.02em</div>
-            </div>
-            <div class="cs-typeramp-row">
-              <div class="cs-typeramp-sample" style="font-size:var(--fs-md);font-weight:var(--fw-medium);">Subhead</div>
-              <div class="cs-typeramp-meta">24 / 500 / -.01em</div>
-            </div>
-            <div class="cs-typeramp-row">
-              <div class="cs-typeramp-sample" style="font-size:var(--fs-base);font-weight:var(--fw-regular);font-family:var(--font-body);">Body &mdash; the default paragraph across the web product</div>
-              <div class="cs-typeramp-meta">16 / 400 / -.01em</div>
-            </div>
-            <div class="cs-typeramp-row">
-              <div class="cs-typeramp-sample" style="font-size:var(--fs-sm);font-weight:var(--fw-semibold);font-family:var(--font-body);letter-spacing:.12em;text-transform:uppercase;">Label</div>
-              <div class="cs-typeramp-meta">12 / 600 / .12em</div>
+          <div class="cs-section-ph" data-empty="true" data-section="web-typography">
+            <div class="cs-section-ph-meta">
+              <span class="cs-section-ph-label">Web Typography</span>
+              <span class="cs-section-ph-hint">drop section screenshot here</span>
             </div>
           </div>
         </div>
@@ -740,104 +678,61 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
         <!-- Layout -->
         <div class="cs-sub reveal">
           <div class="cs-sub-label">Layout</div>
-          <div class="cs-sub-title">8&#8209;pt scale, 12&#8209;column grid</div>
-          <div class="cs-sub-text">Web jumps to an 8&#8209;pt baseline (8 / 12 / 16 / 24 / 32 / 48 / 64). Layouts sit on a 12&#8209;column grid, 1240&#8209;max width, 24&#8209;pt gutters.</div>
-          <div class="cs-layout" aria-hidden="true">
-            <div class="cs-layout-card">
-              <div class="cs-layout-card-title">Spacing scale</div>
-              <div class="cs-spacing-scale">
-                <div class="cs-spacing-bar" style="height:12%;"><span>8</span></div>
-                <div class="cs-spacing-bar" style="height:18%;"><span>12</span></div>
-                <div class="cs-spacing-bar" style="height:25%;"><span>16</span></div>
-                <div class="cs-spacing-bar" style="height:38%;"><span>24</span></div>
-                <div class="cs-spacing-bar" style="height:50%;"><span>32</span></div>
-                <div class="cs-spacing-bar" style="height:75%;"><span>48</span></div>
-                <div class="cs-spacing-bar" style="height:100%;"><span>64</span></div>
-              </div>
-            </div>
-            <div class="cs-layout-card">
-              <div class="cs-layout-card-title">12&#8209;col grid &middot; 24 gutter</div>
-              <div class="cs-grid-demo">
-                <div class="cs-grid-demo-row" style="grid-template-columns:repeat(12,1fr);">
-                  <div class="cs-grid-demo-cell"></div><div class="cs-grid-demo-cell"></div><div class="cs-grid-demo-cell"></div><div class="cs-grid-demo-cell"></div><div class="cs-grid-demo-cell"></div><div class="cs-grid-demo-cell"></div><div class="cs-grid-demo-cell"></div><div class="cs-grid-demo-cell"></div><div class="cs-grid-demo-cell"></div><div class="cs-grid-demo-cell"></div><div class="cs-grid-demo-cell"></div><div class="cs-grid-demo-cell"></div>
-                </div>
-                <div class="cs-grid-demo-row" style="grid-template-columns:3fr 6fr 3fr;">
-                  <div class="cs-grid-demo-cell cs-grid-demo-cell--accent"></div><div class="cs-grid-demo-cell"></div><div class="cs-grid-demo-cell cs-grid-demo-cell--accent"></div>
-                </div>
-                <div class="cs-grid-demo-row" style="grid-template-columns:8fr 4fr;">
-                  <div class="cs-grid-demo-cell cs-grid-demo-cell--accent"></div><div class="cs-grid-demo-cell"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Web foundations — Typography (15 styles), Layout & Color (to be added) -->
-        <div class="cs-sub reveal">
-          <div class="cs-sub-label">Foundations</div>
-          <div class="cs-sub-title">Web tokens &amp; type ramp</div>
-          <div class="cs-sub-text">Web has its own Font &amp; Layout section in Figma &mdash; a 15-style type ramp (5 display + 10 body) sized for desktop reading distance. Drop section screenshots below.</div>
-
-          <div class="cs-section-ph" data-empty="true" data-section="web-typography">
+          <div class="cs-sub-title">Spacing scale &amp; column grid</div>
+          <div class="cs-sub-text">Web steps up to a wider baseline grid and a multi-column layout sized for desktop reading and dashboard density.</div>
+          <div class="cs-section-ph" data-empty="true" data-section="web-layout-grid">
             <div class="cs-section-ph-meta">
-              <span class="cs-section-ph-label">Web Typography &middot; 15 styles</span>
-              <span class="cs-section-ph-hint">drop section screenshot here</span>
-            </div>
-          </div>
-
-          <div class="cs-section-ph" data-empty="true" data-section="web-layout" style="margin-top:16px;">
-            <div class="cs-section-ph-meta">
-              <span class="cs-section-ph-label">Web Layout &amp; Color</span>
+              <span class="cs-section-ph-label">Web Layout &middot; spacing &amp; grid</span>
               <span class="cs-section-ph-hint">drop section screenshot here</span>
             </div>
           </div>
         </div>
 
-        <!-- Web components — 6 sections × placeholders (counts confirmed from Figma metadata) -->
+        <!-- Web components — section placeholders -->
         <div class="cs-sub reveal">
-          <div class="cs-sub-label">Components &middot; 9 primitives &middot; 47 variants (so far)</div>
+          <div class="cs-sub-label">Components</div>
           <div class="cs-sub-title">Web component library</div>
-          <div class="cs-sub-text">Six component sections live under the Web split in Figma. Each ships as a true component with full property sets &mdash; size, behavior, state &mdash; mapped to the shared token core. One screenshot per section below.</div>
+          <div class="cs-sub-text">Several component sections live under the Web split in Figma. Each ships as a true component with full property sets &mdash; size, behavior, state &mdash; mapped to the shared token core. One screenshot per section below.</div>
 
           <div class="cs-section-ph" data-empty="true" data-section="web-navigation">
             <div class="cs-section-ph-meta">
-              <span class="cs-section-ph-label">Navigation &middot; 2 components &middot; 6 variants</span>
-              <span class="cs-section-ph-hint">Top Navbar (public) + Dashboard navbar &middot; small / medium / large</span>
+              <span class="cs-section-ph-label">Navigation</span>
+              <span class="cs-section-ph-hint">drop section screenshot here</span>
             </div>
           </div>
 
           <div class="cs-section-ph" data-empty="true" data-section="web-buttons" style="margin-top:16px;">
             <div class="cs-section-ph-meta">
-              <span class="cs-section-ph-label">Buttons &middot; 1 component &middot; 26 variants</span>
-              <span class="cs-section-ph-hint">size (small/medium/large) &times; behavior (primary/secondary/text) &times; state (active/hovered/disabled/destructive)</span>
+              <span class="cs-section-ph-label">Buttons</span>
+              <span class="cs-section-ph-hint">drop section screenshot here</span>
             </div>
           </div>
 
           <div class="cs-section-ph" data-empty="true" data-section="web-cards" style="margin-top:16px;">
             <div class="cs-section-ph-meta">
-              <span class="cs-section-ph-label">Cards &middot; 3 components &middot; 8 variants</span>
-              <span class="cs-section-ph-hint">Flex card (minimum / default) &middot; Fixed compact (exercise / share plan / routine) &middot; Flex content-heavy (collapsed / expanded / empty)</span>
+              <span class="cs-section-ph-label">Cards</span>
+              <span class="cs-section-ph-hint">drop section screenshot here</span>
             </div>
           </div>
 
           <div class="cs-section-ph" data-empty="true" data-section="web-breadcrumbs" style="margin-top:16px;">
             <div class="cs-section-ph-meta">
-              <span class="cs-section-ph-label">Breadcrumbs &middot; 1 component &middot; 3 variants</span>
-              <span class="cs-section-ph-hint">main / nested page / detail page</span>
+              <span class="cs-section-ph-label">Breadcrumbs</span>
+              <span class="cs-section-ph-hint">drop section screenshot here</span>
             </div>
           </div>
 
           <div class="cs-section-ph" data-empty="true" data-section="web-footers" style="margin-top:16px;">
             <div class="cs-section-ph-meta">
-              <span class="cs-section-ph-label">Footers &middot; 1 component &middot; 2 variants</span>
-              <span class="cs-section-ph-hint">desktop / mobile</span>
+              <span class="cs-section-ph-label">Footers</span>
+              <span class="cs-section-ph-hint">drop section screenshot here</span>
             </div>
           </div>
 
           <div class="cs-section-ph" data-empty="true" data-section="web-modals" style="margin-top:16px;">
             <div class="cs-section-ph-meta">
-              <span class="cs-section-ph-label">Modals &middot; 1 component &middot; 2 variants</span>
-              <span class="cs-section-ph-hint">Dialogs &mdash; share / delete</span>
+              <span class="cs-section-ph-label">Modals</span>
+              <span class="cs-section-ph-hint">drop section screenshot here</span>
             </div>
           </div>
 
@@ -853,8 +748,8 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
     <section class="cs-section" id="agents">
       <div class="cs-wrap">
         <span class="cs-eyebrow">Two-Agent Flow</span>
-        <h2 class="cs-section-title">Automate DS creation<br>&amp; alteration</h2>
-        <p class="cs-section-sub reveal">A 2-designer team can&rsquo;t scale linearly with the product. So I built a pair of agents &mdash; <code>builder.md</code> and <code>evaluator.md</code> &mdash; that automate the repetitive half of design system work: creating new components against our tokens, and altering existing ones without breaking conventions.</p>
+        <h2 class="cs-section-title">Automate the build,<br>gate the publish</h2>
+        <p class="cs-section-sub reveal">A 2-designer team can&rsquo;t scale linearly with the product. So I built our component-creator skill as two agents &mdash; <code>builder.md</code> and <code>evaluator.md</code> &mdash; that automate the repetitive half of design-system work. The rule both enforce: the built component is a 1-to-1 mirror of its source frame &mdash; bind tokens, expose every property, never invent or silently &ldquo;fix.&rdquo;</p>
         <div class="cs-agents reveal">
           <div class="cs-agent">
             <div class="cs-agent-header">
@@ -863,12 +758,13 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
             </div>
             <div class="cs-agent-body">
               <span class="cs-agent-role">Agent &middot; Builder</span>
-              <div class="cs-agent-name">Creates &amp; updates components</div>
-              <div class="cs-agent-desc">Drafts new components or extends existing ones using our token set and the property conventions of the library.</div>
+              <div class="cs-agent-name">Clones a frame into a real component</div>
+              <div class="cs-agent-desc">Reads every source frame, then adapts an existing component by default &mdash; creating new is a last resort. It clones rather than rebuilds, so hidden children and descendant overrides survive intact.</div>
               <div class="cs-agent-jobs">
-                <div class="cs-agent-job">Bind variables to fills, type, spacing</div>
-                <div class="cs-agent-job">Set up variants, boolean, instance swap, text properties</div>
-                <div class="cs-agent-job">Follow the library&rsquo;s naming &amp; structure</div>
+                <div class="cs-agent-job">Emits a consolidated property set first &mdash; variant axes, booleans, text &amp; instance-swap props</div>
+                <div class="cs-agent-job">Binds raw hex to tokens; adds invisible 44/48 <code>_touch-target</code> layers</div>
+                <div class="cs-agent-job">Copies every instance override across all four layers</div>
+                <div class="cs-agent-job">Renders built vs. source side-by-side &mdash; any drift, redo</div>
               </div>
             </div>
           </div>
@@ -879,26 +775,29 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
             </div>
             <div class="cs-agent-body">
               <span class="cs-agent-role">Agent &middot; Evaluator</span>
-              <div class="cs-agent-name">Reviews against the rules</div>
-              <div class="cs-agent-desc">Audits a component or screen against our tokens and the platform guidelines &mdash; HIG for iOS, Material for Android &mdash; and reports what&rsquo;s off.</div>
+              <div class="cs-agent-name">The gate before publish</div>
+              <div class="cs-agent-desc">Scores the build on two passes &mdash; a side-by-side render and a structural API read &mdash; against HIG, Material, and our tokens. It recommends fixes but never edits or publishes; any visible drift or token mismatch holds the release.</div>
               <div class="cs-agent-jobs">
-                <div class="cs-agent-job">Flag raw hex / off-token values</div>
-                <div class="cs-agent-job">Check spacing, hit areas, type ramp</div>
-                <div class="cs-agent-job">Surface HIG / Material conflicts</div>
+                <div class="cs-agent-job">Visual <em>and</em> API read &mdash; both must pass, no partial credit</div>
+                <div class="cs-agent-job">Source fidelity: radius, padding, dimensions, positions match exactly</div>
+                <div class="cs-agent-job">Tap area &ge; 44pt / 48dp, contrast WCAG AA</div>
+                <div class="cs-agent-job">Audits the builder&rsquo;s process, not just the artifact</div>
               </div>
             </div>
           </div>
         </div>
         <div class="cs-flow reveal" aria-label="Agent workflow">
-          <span class="cs-flow-pill">design brief</span>
+          <span class="cs-flow-pill">source frame</span>
           <span class="cs-flow-arrow">&rarr;</span>
           <span class="cs-flow-pill cs-flow-pill--accent">builder.md</span>
           <span class="cs-flow-arrow">&rarr;</span>
-          <span class="cs-flow-pill">component draft</span>
+          <span class="cs-flow-pill">build report</span>
           <span class="cs-flow-arrow">&rarr;</span>
           <span class="cs-flow-pill cs-flow-pill--accent">evaluator.md</span>
           <span class="cs-flow-arrow">&rarr;</span>
-          <span class="cs-flow-pill">designer review &amp; ship</span>
+          <span class="cs-flow-pill">pass / hold</span>
+          <span class="cs-flow-arrow">&rarr;</span>
+          <span class="cs-flow-pill">human review &amp; publish</span>
         </div>
       </div>
     </section>
@@ -908,11 +807,63 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
       <div class="cs-wrap">
         <span class="cs-eyebrow">Impact</span>
         <h2 class="cs-section-title">What changed</h2>
-        <p class="cs-section-sub reveal">The biggest pain point for a 2-person design team was time. Componentizing the library bought back hours; the agents bought back days.</p>
-        <div class="cs-impact reveal">
-          <div class="cs-impact-cell"><div class="cs-impact-val">30%</div><div class="cs-impact-lbl">Faster design cycles</div></div>
-          <div class="cs-impact-cell"><div class="cs-impact-val">2</div><div class="cs-impact-lbl">Designers, scaled by agents</div></div>
-          <div class="cs-impact-cell"><div class="cs-impact-val">13M+</div><div class="cs-impact-lbl">Users reached</div></div>
+        <p class="cs-section-sub reveal">The biggest pain for a 2-person team was time. Componentizing the library bought back hours and the agents bought back days &mdash; but the bigger payoff came later, when the same token core became the launchpad for a brand refresh.</p>
+        <div class="cs-impact-phases reveal">
+          <div class="cs-impact-phase">
+            <div class="cs-impact-phase-head">
+              <span class="cs-impact-phase-num">Phase 01</span>
+              <span class="cs-impact-phase-tag">Efficiency</span>
+            </div>
+            <div class="cs-impact-phase-title">Faster by default</div>
+            <div class="cs-impact-phase-text">Real components and shared tokens cut the redraw-and-copy-paste work; the agents took over the repetitive build-and-check loop. A 2-designer team started shipping at the pace of a much larger one.</div>
+            <div class="cs-impact-phase-stats">
+              <div class="cs-impact-stat"><span class="cs-impact-stat-val">Hours</span><span class="cs-impact-stat-lbl">Per component, not days</span></div>
+              <div class="cs-impact-stat"><span class="cs-impact-stat-val">100%</span><span class="cs-impact-stat-lbl">Values token-bound</span></div>
+            </div>
+          </div>
+          <div class="cs-impact-phase cs-impact-phase--accent">
+            <div class="cs-impact-phase-head">
+              <span class="cs-impact-phase-num">Phase 02</span>
+              <span class="cs-impact-phase-tag">Foundation</span>
+            </div>
+            <div class="cs-impact-phase-title">A stepping stone<br>to the rebrand</div>
+            <div class="cs-impact-phase-text">Because every value binds to a token, the system became the base layer a full visual rebrand could stand on &mdash; retheme the tokens once, and every component follows. The library didn&rsquo;t just speed up today&rsquo;s work; it turned tomorrow&rsquo;s redesign into a config change, not a rebuild.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 PRINCIPLES / REFLECTION -->
+    <section class="cs-section" id="principles">
+      <div class="cs-wrap">
+        <span class="cs-eyebrow">Reflection</span>
+        <h2 class="cs-section-title">Principles that held</h2>
+        <p class="cs-section-sub reveal">A 2-person team can&rsquo;t out-work a growing product, so most of my calls optimized for leverage and consistency over short-term speed. Four held up.</p>
+        <div class="cs-principles reveal">
+          <div class="cs-principle">
+            <span class="cs-principle-num">01</span>
+            <div class="cs-principle-title">Adapt before you create</div>
+            <div class="cs-principle-text">The builder treats &ldquo;make a new component&rdquo; as a last resort &mdash; it adapts an existing one by default. Reuse is what keeps a library coherent; every net-new primitive is a future maintenance cost.</div>
+          </div>
+          <div class="cs-principle">
+            <span class="cs-principle-num">02</span>
+            <div class="cs-principle-title">Fidelity over cleverness</div>
+            <div class="cs-principle-text">The hard call was making the AI <em>boring</em>: a 1-to-1 mirror of the source frame, never inventing or silently &ldquo;fixing.&rdquo; A design system that quietly improves things is a system you can&rsquo;t trust.</div>
+          </div>
+          <div class="cs-principle">
+            <span class="cs-principle-num">03</span>
+            <div class="cs-principle-title">The thing that builds it can&rsquo;t grade it</div>
+            <div class="cs-principle-text">Builder and evaluator are split on purpose. An independent gate &mdash; one that can recommend but never publish &mdash; catches drift that self-review rationalizes away.</div>
+          </div>
+          <div class="cs-principle">
+            <span class="cs-principle-num">04</span>
+            <div class="cs-principle-title">Tokens first, even when slower</div>
+            <div class="cs-principle-text">Binding every value to a semantic token cost time up front and felt like overkill at a dozen components. It&rsquo;s exactly what later turned a full rebrand into a config change instead of a rebuild.</div>
+          </div>
+        </div>
+        <div class="cs-reflection reveal">
+          <span class="cs-reflection-label">What I&rsquo;d test next</span>
+          <p class="cs-reflection-text">The agents are the newest piece, and the real test is organizational, not technical &mdash; whether a teammate who didn&rsquo;t build them can drive them, and whether the evaluator&rsquo;s bar holds as components get more complex. Designing for that hand-off is where I&rsquo;d put the next round of work.</p>
         </div>
       </div>
     </section>
@@ -1030,7 +981,7 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 /* Count-up for impact numbers */
 (function(){
   const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const nodes=document.querySelectorAll('.cs-impact-val');
+  const nodes=document.querySelectorAll('.cs-impact-stat-val');
   const parsed=[];
   nodes.forEach(el=>{
     const m=el.textContent.trim().match(/^([+\-]?)(\d+(?:\.\d+)?)(.*)$/);
