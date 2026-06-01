@@ -18,6 +18,11 @@
   --glow-r:  37, 99, 235;
   --nav-bg:  rgba(250,250,250,0.85);
 
+  /* Warning — yellow/amber (NDA notes, cautions) */
+  --warn:        #9A6700;            /* deep amber, legible on light */
+  --warn-bg:     #FEF8E7;            /* soft yellow surface */
+  --warn-border: rgba(154,103,0,0.28);
+
   /* Gradient — used for Solution punchline + HMW key words (links question to answer) */
   --grad-solution: linear-gradient(135deg, #2563EB 0%, #7C3AED 52%, #EC4899 100%);
 
@@ -37,13 +42,18 @@
   --bg-2:    #141414;
   --surf:    #1A1A1A;
   --ink:     #F5F5F5;
-  --ink-2:   #888888;
-  --ink-3:   #444444;
+  --ink-2:   #A8A8A8;
+  --ink-3:   #7A7A7A;
   --border:  rgba(245,245,245,0.08);
   --border-h:rgba(245,245,245,0.16);
   --accent:  #3B82F6;
   --glow-r:  59, 130, 246;
   --nav-bg:  rgba(10,10,10,0.85);
+
+  /* Warning — yellow/amber for dark surfaces */
+  --warn:        #FBBF24;            /* amber-400 */
+  --warn-bg:     rgba(251,191,36,0.10);
+  --warn-border: rgba(251,191,36,0.26);
 
   /* Gradient — lighter stops for dark mode legibility */
   --grad-solution: linear-gradient(135deg, #60A5FA 0%, #A78BFA 52%, #F472B6 100%);
@@ -59,6 +69,7 @@
   --font-body:    'Figtree',-apple-system,'SF Pro Text','SF Pro Display',BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
   --font-display: 'Figtree', sans-serif;
   --font-accent:  'Figtree', sans-serif;
+  --font-mono:    'SF Mono','Menlo','Consolas',monospace;
 
   /* Weights */
   --fw-light:    300;
@@ -70,10 +81,10 @@
   /* Size scale
      ≤12px: micro labels, off-grid OK
      >12px: strict 8px grid */
-  --fs-2xs:         9px;
-  --fs-xs:         11px;
-  --fs-sm:         12px;
-  --fs-base:       16px;
+  --fs-2xs:        10px;
+  --fs-xs:         12px;
+  --fs-sm:         14px;
+  --fs-base:       18px;
   --fs-md:         24px;
   --fs-lg:         32px;
   --fs-xl:         40px;

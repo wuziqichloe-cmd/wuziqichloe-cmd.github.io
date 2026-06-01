@@ -135,7 +135,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-timeline-step--done .cs-timeline-node{background:var(--accent);border-color:var(--accent);color:#fff;}
 .cs-timeline-step--current .cs-timeline-node{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 0 0 6px rgba(37,99,235,.14);}
 [data-theme="dark"] .cs-timeline-step--current .cs-timeline-node{box-shadow:0 0 0 6px rgba(59,130,246,.22);}
-.cs-timeline-phase{font-family:'SF Mono','Menlo',monospace;font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
+.cs-timeline-phase{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
 .cs-timeline-title{font-family:var(--font-display);font-size:var(--fs-md);font-weight:var(--fw-semibold);color:var(--ink);letter-spacing:-.02em;line-height:1.15;margin-bottom:10px;}
 .cs-timeline-text{font-size:var(--fs-base);color:var(--ink-2);line-height:1.6;}
 @media(max-width:960px){
@@ -154,14 +154,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-typeramp-row{display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding-bottom:14px;border-bottom:1px solid var(--border);}
 .cs-typeramp-row:last-child{border-bottom:none;padding-bottom:0;}
 .cs-typeramp-sample{color:var(--ink);font-family:var(--font-display);letter-spacing:-.02em;line-height:1;}
-.cs-typeramp-meta{font-size:var(--fs-xs);font-weight:var(--fw-semibold);color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase;flex-shrink:0;font-family:'SF Mono','Menlo',monospace;}
+.cs-typeramp-meta{font-size:var(--fs-xs);font-weight:var(--fw-semibold);color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase;flex-shrink:0;}
 
 /* MARGIN DIAGRAM — phone frame with safe-area highlight (mirrors Figma margin spec) */
 .cs-margins{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:6px;}
 .cs-margin-card{padding:24px;border-radius:16px;background:var(--surf);border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:16px;transition:background .4s,border-color .3s;}
 .cs-margin-meta{align-self:stretch;display:flex;justify-content:space-between;align-items:baseline;}
 .cs-margin-title{font-family:var(--font-display);font-size:var(--fs-md);font-weight:var(--fw-semibold);letter-spacing:-.02em;color:var(--ink);}
-.cs-margin-val{font-family:'SF Mono','Menlo',monospace;font-size:var(--fs-sm);font-weight:var(--fw-bold);color:var(--accent);letter-spacing:.02em;}
+.cs-margin-val{font-size:var(--fs-sm);font-weight:var(--fw-bold);color:var(--accent);letter-spacing:.02em;}
 .cs-margin-phone{position:relative;width:170px;aspect-ratio:170/360;background:var(--bg-2);border:1.5px solid var(--border-h);border-radius:24px;overflow:hidden;}
 .cs-margin-phone-safe{position:absolute;background:rgba(37,99,235,.10);border:1px solid rgba(37,99,235,.32);}
 [data-theme="dark"] .cs-margin-phone-safe{background:rgba(59,130,246,.14);border-color:rgba(59,130,246,.36);}
@@ -172,7 +172,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 [data-theme="dark"] .cs-margin-phone-bar{background:rgba(255,255,255,.08);}
 .cs-margin-phone-bar:nth-of-type(2){width:62%;}
 .cs-margin-phone-stack{display:flex;flex-direction:column;gap:8px;}
-.cs-margin-phone-label{position:absolute;font-family:'SF Mono','Menlo',monospace;font-size:var(--fs-2xs);font-weight:var(--fw-bold);color:var(--accent);letter-spacing:.04em;}
+.cs-margin-phone-label{position:absolute;font-size:var(--fs-2xs);font-weight:var(--fw-bold);color:var(--accent);letter-spacing:.04em;}
 .cs-margin-phone-label--tl{top:4px;left:6px;}
 .cs-margin-phone-label--tr{top:4px;right:6px;}
 .cs-margin-phone-label--bl{bottom:4px;left:6px;}
@@ -183,11 +183,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-spacing-grid{margin-top:16px;padding:24px;border-radius:16px;background:var(--surf);border:1px solid var(--border);display:flex;flex-direction:column;gap:18px;}
 .cs-spacing-grid-meta{display:flex;justify-content:space-between;align-items:baseline;}
 .cs-spacing-grid-title{font-family:var(--font-display);font-size:var(--fs-md);font-weight:var(--fw-semibold);letter-spacing:-.02em;color:var(--ink);}
-.cs-spacing-grid-val{font-family:'SF Mono','Menlo',monospace;font-size:var(--fs-sm);font-weight:var(--fw-bold);color:var(--accent);}
+.cs-spacing-grid-val{font-size:var(--fs-sm);font-weight:var(--fw-bold);color:var(--accent);}
 .cs-spacing-steps{display:flex;align-items:flex-end;gap:8px;height:80px;}
 .cs-spacing-step{flex:0 0 auto;background:linear-gradient(180deg,var(--accent),rgba(37,99,235,.35));border-radius:4px 4px 0 0;display:flex;align-items:flex-end;justify-content:center;padding-bottom:4px;}
 [data-theme="dark"] .cs-spacing-step{background:linear-gradient(180deg,var(--accent),rgba(59,130,246,.3));}
-.cs-spacing-step span{font-family:'SF Mono','Menlo',monospace;font-size:var(--fs-2xs);font-weight:var(--fw-bold);color:#fff;}
+.cs-spacing-step span{font-size:var(--fs-2xs);font-weight:var(--fw-bold);color:#fff;}
 .cs-spacing-list-demo{margin-top:6px;border:1px dashed var(--border-h);border-radius:14px;padding:20px;background:var(--bg-2);display:flex;align-items:center;gap:20px;position:relative;}
 .cs-spacing-list-demo-inner{flex:1;display:flex;flex-direction:column;gap:8px;}
 .cs-spacing-list-demo-row{display:flex;align-items:center;justify-content:space-between;gap:14px;}
@@ -195,7 +195,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-spacing-list-demo-text{font-size:var(--fs-sm);color:var(--ink-2);line-height:1.5;}
 .cs-spacing-list-demo-toggle{width:42px;height:24px;border-radius:100px;background:var(--accent);position:relative;flex-shrink:0;}
 .cs-spacing-list-demo-toggle::after{content:'';position:absolute;top:3px;right:3px;width:18px;height:18px;border-radius:50%;background:#fff;}
-.cs-spacing-list-demo-tag{position:absolute;font-family:'SF Mono','Menlo',monospace;font-size:var(--fs-2xs);font-weight:var(--fw-bold);color:var(--accent);}
+.cs-spacing-list-demo-tag{position:absolute;font-size:var(--fs-2xs);font-weight:var(--fw-bold);color:var(--accent);}
 .cs-spacing-list-demo-tag--top{top:6px;left:14px;}
 .cs-spacing-list-demo-tag--mid{top:50%;left:14px;transform:translateY(-50%);}
 .cs-spacing-list-demo-tag--right{top:50%;right:14px;transform:translateY(-50%);}
@@ -205,10 +205,25 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 /* PLATFORM SUB-SECTIONS — typography / layout / components inside Mobile & Web */
 .cs-sub{margin-top:48px;}
 .cs-sub:first-of-type{margin-top:28px;}
-.cs-sub-label{font-family:'SF Mono','Menlo',monospace;font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+.cs-sub-label{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);display:flex;align-items:center;gap:10px;margin-bottom:16px;}
 .cs-sub-label::after{content:'';flex:1;height:1px;background:var(--border);}
 .cs-sub-title{font-family:var(--font-display);font-size:var(--fs-lg);font-weight:var(--fw-semibold);letter-spacing:-.02em;color:var(--ink);margin-bottom:6px;}
 .cs-sub-text{font-size:var(--fs-base);color:var(--ink-2);line-height:1.6;max-width:60ch;margin-bottom:18px;}
+
+/* NDA disclaimer note */
+.cs-note{display:flex;gap:11px;align-items:flex-start;margin-top:20px;padding:14px 17px;border:1px solid var(--warn-border);border-radius:12px;background:var(--warn-bg);max-width:64ch;}
+.cs-note svg{flex:none;width:16px;height:16px;margin-top:1px;color:var(--warn);}
+.cs-note p{font-size:var(--fs-sm);color:var(--ink-2);line-height:1.55;margin:0;}
+.cs-note strong{color:var(--warn);font-weight:var(--fw-semibold);}
+
+/* NDA disclaimer — full-width band variant */
+.cs-note-band{background:var(--warn-bg);border-top:1px solid var(--warn-border);border-bottom:1px solid var(--warn-border);padding:20px 0;}
+.cs-note-band .cs-wrap{display:flex;gap:13px;align-items:flex-start;justify-content:center;}
+.cs-note-band svg{flex:none;width:20px;height:20px;margin-top:2px;color:var(--warn);}
+.cs-note-body{display:flex;flex-direction:column;gap:6px;max-width:64ch;}
+.cs-note-label{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.16em;text-transform:uppercase;color:var(--warn);}
+.cs-note-band p{font-family:var(--font-display);font-size:var(--fs-base);font-weight:var(--fw-regular);color:var(--ink-2);line-height:1.5;letter-spacing:-.01em;margin:0;}
+.cs-note-band strong{color:var(--ink);font-weight:var(--fw-semibold);}
 
 /* LAYOUT visual — spacing scale + grid demonstration */
 .cs-layout{display:grid;grid-template-columns:1.2fr 1fr;gap:16px;margin-top:6px;}
@@ -217,7 +232,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-spacing-scale{display:flex;align-items:flex-end;gap:10px;height:120px;padding:8px 0;}
 .cs-spacing-bar{flex:1;background:linear-gradient(180deg,var(--accent),rgba(37,99,235,.4));border-radius:4px 4px 0 0;position:relative;display:flex;align-items:flex-end;justify-content:center;}
 [data-theme="dark"] .cs-spacing-bar{background:linear-gradient(180deg,var(--accent),rgba(59,130,246,.35));}
-.cs-spacing-bar span{font-family:'SF Mono','Menlo',monospace;font-size:var(--fs-2xs);font-weight:var(--fw-semibold);color:var(--ink-3);padding-bottom:4px;}
+.cs-spacing-bar span{font-size:var(--fs-2xs);font-weight:var(--fw-semibold);color:var(--ink-3);padding-bottom:4px;}
 .cs-grid-demo{display:grid;gap:6px;}
 .cs-grid-demo-row{display:grid;gap:6px;}
 .cs-grid-demo-cell{height:18px;border-radius:4px;background:rgba(37,99,235,.12);border:1px solid rgba(37,99,235,.25);}
@@ -231,8 +246,31 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-section-ph img{max-width:100%;height:auto;display:block;border-radius:10px;}
 .cs-section-ph[data-empty="true"]::before{content:'';width:48px;height:48px;border-radius:12px;background:repeating-linear-gradient(45deg,var(--border-h),var(--border-h) 3px,transparent 3px,transparent 8px);opacity:.55;}
 .cs-section-ph-meta{display:flex;flex-direction:column;align-items:center;gap:4px;}
-.cs-section-ph-label{font-family:'SF Mono','Menlo',monospace;font-size:var(--fs-xs);font-weight:var(--fw-bold);color:var(--ink-3);letter-spacing:.14em;text-transform:uppercase;}
+.cs-section-ph-label{font-size:var(--fs-xs);font-weight:var(--fw-bold);color:var(--ink-3);letter-spacing:.14em;text-transform:uppercase;}
 .cs-section-ph-hint{font-size:var(--fs-xs);color:var(--ink-3);font-style:italic;opacity:.7;}
+.cs-theme-img.cs-theme-dark{display:none;}
+[data-theme="dark"] .cs-theme-img.cs-theme-light{display:none;}
+[data-theme="dark"] .cs-theme-img.cs-theme-dark{display:block;}
+
+
+/* COMPONENT SHOWCASE — screenshot gallery (replaces the chip inventory) */
+.cs-shot-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:10px;}
+.cs-shot{margin:0;border-radius:20px;border:1px solid var(--border);background:var(--surf);overflow:hidden;display:flex;flex-direction:column;transition:transform .25s cubic-bezier(.22,1,.36,1),border-color .3s,background .4s;}
+.cs-shot:hover{transform:translateY(-3px);border-color:var(--accent);}
+.cs-shot-thumb{aspect-ratio:4/3;background:var(--bg-2);overflow:hidden;border-bottom:1px solid var(--border);padding:38px;}
+/* Dark mode: pin light component screenshots to a constant light surface so they read as deliberate screenshots, not glowing white blocks. Theme-aware Color card + empty Visuals placeholder keep following the theme. */
+[data-theme="dark"] .cs-shot-thumb{background:#EDEDED;}
+[data-theme="dark"] .cs-shot[data-section="color"] .cs-shot-thumb,
+[data-theme="dark"] .cs-shot-thumb--empty{background:var(--bg-2);}
+.cs-shot-thumb img{width:100%;height:100%;display:block;object-fit:contain;object-position:center;}
+.cs-shot-thumb--empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;}
+.cs-shot-thumb--empty::before{content:'';width:40px;height:40px;border-radius:11px;background:repeating-linear-gradient(45deg,var(--border-h),var(--border-h) 3px,transparent 3px,transparent 8px);opacity:.55;}
+.cs-shot-hint{font-size:var(--fs-xs);color:var(--ink-3);font-style:italic;opacity:.7;}
+.cs-shot-cap{padding:16px 18px 18px;}
+.cs-shot-name{font-family:var(--font-display);font-size:var(--fs-base);font-weight:var(--fw-semibold);letter-spacing:-.01em;color:var(--ink);margin-bottom:3px;}
+.cs-shot-desc{font-size:var(--fs-sm);color:var(--ink-3);line-height:1.45;}
+@media(max-width:920px){.cs-shot-gallery{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.cs-shot-gallery{grid-template-columns:1fr;}}
 
 /* COMPONENT GRID (mobile 13 atoms / web set) */
 .cs-comp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:6px;}
@@ -252,7 +290,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-agent-header{display:flex;align-items:center;gap:10px;padding:14px 18px;background:var(--bg-2);border-bottom:1px solid var(--border);}
 .cs-agent-dot{display:flex;gap:5px;}
 .cs-agent-dot span{width:9px;height:9px;border-radius:50%;background:var(--border-h);}
-.cs-agent-file{font-family:'SF Mono','Menlo','Consolas',monospace;font-size:var(--fs-xs);font-weight:var(--fw-semibold);color:var(--ink-2);letter-spacing:.02em;}
+.cs-agent-file{font-size:var(--fs-xs);font-weight:var(--fw-semibold);color:var(--ink-2);letter-spacing:.02em;}
 .cs-agent-body{padding:24px 28px;display:flex;flex-direction:column;gap:14px;}
 .cs-agent-role{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);}
 .cs-agent-name{font-family:var(--font-display);font-size:var(--fs-md);font-weight:var(--fw-semibold);color:var(--ink);letter-spacing:-.02em;line-height:1.2;}
@@ -261,7 +299,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-agent-job{display:flex;align-items:flex-start;gap:8px;font-size:var(--fs-base);color:var(--ink-2);line-height:1.5;}
 .cs-agent-job::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:8px;}
 .cs-flow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:24px;padding:16px 20px;border:1px dashed var(--border-h);border-radius:14px;background:var(--bg-2);}
-.cs-flow-pill{font-family:'SF Mono','Menlo',monospace;font-size:var(--fs-xs);font-weight:var(--fw-semibold);color:var(--ink-2);padding:5px 10px;border-radius:6px;background:var(--surf);border:1px solid var(--border);letter-spacing:.02em;}
+.cs-flow-pill{font-size:var(--fs-xs);font-weight:var(--fw-semibold);color:var(--ink-2);padding:5px 10px;border-radius:6px;background:var(--surf);border:1px solid var(--border);letter-spacing:.02em;}
 .cs-flow-pill--accent{color:var(--accent);border-color:rgba(37,99,235,.25);background:rgba(37,99,235,.06);}
 .cs-flow-arrow{color:var(--ink-3);font-size:var(--fs-sm);}
 
@@ -272,7 +310,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-impact-phase--accent{background:linear-gradient(135deg,rgba(37,99,235,.08),rgba(37,99,235,.03));border-color:rgba(37,99,235,.22);}
 [data-theme="dark"] .cs-impact-phase--accent{background:linear-gradient(135deg,rgba(59,130,246,.14),rgba(59,130,246,.04));border-color:rgba(59,130,246,.28);}
 .cs-impact-phase-head{display:flex;align-items:center;justify-content:space-between;gap:12px;}
-.cs-impact-phase-num{font-family:'SF Mono','Menlo',monospace;font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);}
+.cs-impact-phase-num{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);}
 .cs-impact-phase--accent .cs-impact-phase-num{color:var(--accent);}
 .cs-impact-phase-tag{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);border:1px solid var(--border);border-radius:100px;padding:3px 10px;}
 .cs-impact-phase--accent .cs-impact-phase-tag{color:var(--accent);border-color:rgba(37,99,235,.25);}
@@ -288,7 +326,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-principles{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px;}
 .cs-principle{position:relative;border-radius:18px;border:1px solid var(--border);background:var(--surf);padding:26px 28px;display:flex;flex-direction:column;gap:10px;transition:background .4s,border-color .4s,transform .25s cubic-bezier(.22,1,.36,1);}
 .cs-principle:hover{transform:translateY(-3px);border-color:var(--border-h);}
-.cs-principle-num{font-family:'SF Mono','Menlo',monospace;font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.14em;color:var(--accent);}
+.cs-principle-num{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.14em;color:var(--accent);}
 .cs-principle-title{font-family:var(--font-display);font-size:var(--fs-md);font-weight:var(--fw-semibold);letter-spacing:-.02em;color:var(--ink);line-height:1.2;}
 .cs-principle-text{font-size:var(--fs-base);color:var(--ink-2);line-height:1.6;}
 .cs-reflection{margin-top:28px;padding:24px 28px;border-left:2px solid var(--accent);background:var(--bg-2);border-radius:0 14px 14px 0;}
@@ -364,6 +402,31 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
 [data-theme="dark"] footer{background:#141414;}
 [data-theme="dark"] .ft-name{color:#F5F5F5;}
 [data-theme="dark"] .ft-tag{color:rgba(245,245,245,.75);}
+
+/* ───── COMPONENT SHOWCASE — dark perspective library (mobile → web interstitial) ─────
+   An always-dark "moment" (like the hero); palette mirrors the color_dark tokens. */
+.dsx{position:relative;margin:0;padding:108px 0 132px;background:#0A0A0A;border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;isolation:isolate;
+  --d-surf:#1A1A1A;--d-surf2:#212121;--d-bg2:#121212;--d-line:rgba(245,245,245,.09);--d-line2:rgba(245,245,245,.17);--d-ink:#F5F5F5;--d-ink2:#8a8a8a;--d-acc:#3B82F6;}
+.dsx::before{content:'';position:absolute;left:50%;top:36%;width:120%;height:92%;transform:translate(-50%,-50%);background:radial-gradient(50% 50% at 50% 50%,rgba(59,130,246,.11),transparent 70%);pointer-events:none;z-index:0;}
+.dsx-head{position:relative;z-index:3;max-width:1080px;margin:0 auto;padding:0 52px;text-align:center;}
+.dsx-eyebrow{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.18em;text-transform:uppercase;color:var(--d-acc);display:block;margin-bottom:12px;}
+.dsx-title{font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:clamp(var(--fs-xl),4.4vw,var(--fs-3xl));line-height:1.06;letter-spacing:-.03em;color:var(--d-ink);margin-bottom:14px;}
+.dsx-sub{font-size:var(--fs-base);font-weight:var(--fw-light);color:var(--d-ink2);line-height:1.7;max-width:56ch;margin:0 auto;}
+.dsx-stage{position:relative;z-index:1;margin-top:18px;perspective:2200px;perspective-origin:50% 22%;transform:translateY(calc(var(--dsx-p,0) * -22px));-webkit-mask:radial-gradient(125% 82% at 50% 34%,#000 36%,transparent 88%);mask:radial-gradient(125% 82% at 50% 34%,#000 36%,transparent 88%);}
+/* masonry — each tile keeps its component's real aspect ratio (no uniform crop) */
+.dsx-plane{width:min(1180px,92%);margin:0 auto;column-count:5;column-gap:22px;transform-style:preserve-3d;transform:rotateX(30deg) rotateZ(calc(-22deg + var(--dsx-p,0) * 3deg));}
+.dsx-tile{position:relative;display:block;break-inside:avoid;-webkit-column-break-inside:avoid;margin:0 0 22px;border-radius:13px;background:#0e0e10;border:1px solid var(--d-line2);box-shadow:0 24px 50px -20px rgba(0,0,0,.82),inset 0 1px 0 rgba(255,255,255,.04);overflow:hidden;transition:transform .4s cubic-bezier(.22,1,.36,1),box-shadow .4s,filter .4s;will-change:transform;}
+.dsx-tile:hover{transform:translateZ(46px);box-shadow:0 42px 72px -24px rgba(0,0,0,.92),0 0 0 1px rgba(59,130,246,.42);filter:brightness(1.14);z-index:5;}
+/* organic depth — gentle scattered dimming so the field reads 3-D */
+.dsx-tile:nth-child(3n){filter:brightness(.88);}
+.dsx-tile:nth-child(5n){filter:brightness(.8);}
+.dsx-tile:nth-child(7n){filter:brightness(.7) blur(.3px);}
+.dsx-tag{position:absolute;left:8px;bottom:8px;z-index:4;font-size:var(--fs-2xs);font-weight:var(--fw-bold);letter-spacing:.06em;text-transform:uppercase;color:#fff;background:rgba(10,10,10,.6);padding:2px 7px;border-radius:6px;backdrop-filter:blur(4px);opacity:.85;transition:opacity .3s,color .3s,background .3s;}
+.dsx-tile:hover .dsx-tag{opacity:1;color:#fff;background:rgba(59,130,246,.85);}
+.dsx-shot{width:100%;height:auto;display:block;background:#0e0e10;}
+@media(max-width:1000px){.dsx-plane{column-count:4;column-gap:18px;}}
+@media(max-width:680px){.dsx-plane{column-count:3;column-gap:14px;transform:rotateX(26deg) rotateZ(-15deg);}.dsx-head{padding:0 28px;}}
+@media(prefers-reduced-motion:reduce){.dsx-stage{transform:none;}}
 </style>
 </head>
 <body>
@@ -461,7 +524,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
     <section class="cs-intro" id="overview">
       <div class="cs-wrap">
         <div class="cs-intro-body reveal">
-          <p>When I joined, &ldquo;the design system&rdquo; was a rough Figma style guide &mdash; shared elements pulled from the live app, but no real components and no tokens. With our other designer I co-led the rebuild into a true library: real components with full property sets, semantic tokens, and parity across mobile and web. Then I built the thing neither of us had hours to do by hand &mdash; a pair of AI agents that create and review new components against our tokens and HIG/Material rules, so a 2&#8209;person team could keep pace with a 13M&#8209;user product.</p>
+          <p>When I joined, &ldquo;the design system&rdquo; was a rough Figma style guide &mdash; shared elements pulled from the live app, but no real components and no tokens. With our other designer I co-led the rebuild into a true library: real components with full property sets, semantic tokens, and parity across mobile and web. To keep it growing without more hands, I built a pair of AI agents that create and review new components against our tokens and HIG/Material rules.</p>
         </div>
         <div class="cs-meta reveal">
           <div class="cs-meta-item"><span class="cs-meta-label">Role</span><span class="cs-meta-val">Product Designer</span></div>
@@ -489,6 +552,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
               <div class="cs-ba-list-item">No tokens &mdash; raw hex everywhere</div>
               <div class="cs-ba-list-item">No variants &mdash; copy-paste per state</div>
               <div class="cs-ba-list-item">No instance swap, no overrides</div>
+              <div class="cs-ba-list-item">Inconsistent &mdash; values drifted between us</div>
               <div class="cs-ba-list-item">Mobile only</div>
             </div>
           </div>
@@ -501,6 +565,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
               <div class="cs-ba-list-item">Semantic tokens, light &amp; dark</div>
               <div class="cs-ba-list-item">Variants for every state</div>
               <div class="cs-ba-list-item">Boolean, instance swap, text, instances</div>
+              <div class="cs-ba-list-item">One source of truth &mdash; zero drift</div>
               <div class="cs-ba-list-item">Mobile &amp; web parity</div>
             </div>
           </div>
@@ -546,6 +611,17 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
       </div>
     </section>
 
+    <!-- NDA scope disclaimer — full-width band, applies to both Mobile & Web below -->
+    <div class="cs-note-band reveal" role="note">
+      <div class="cs-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        <div class="cs-note-body">
+          <span class="cs-note-label">A note on scope</span>
+          <p><strong>Under NDA</strong> &mdash; the Mobile &amp; Web assets that follow show only a small slice of the system; the full component set and production details can&rsquo;t be shared publicly.</p>
+        </div>
+      </div>
+    </div>
+
     <!-- 03 MOBILE -->
     <section class="cs-section" id="mobile">
       <div class="cs-wrap">
@@ -553,76 +629,19 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
         <h2 class="cs-section-title">Mobile foundations<br>&amp; components</h2>
         <p class="cs-section-sub reveal">Implemented the iOS &amp; Android library from the ground up &mdash; a type ramp, a spacing scale, and a set of componentized primitives. Every fill, stroke, and dimension binds to a semantic token, so light/dark themes and platform variants flow through the whole library from a single source.</p>
 
-        <!-- Typography — single section placeholder -->
-        <div class="cs-sub reveal">
-          <div class="cs-sub-label">Typography</div>
-          <div class="cs-sub-title">Mobile type ramp</div>
-          <div class="cs-sub-text">A platform-aware type ramp scaled across display, headline, body, and utility roles &mdash; tuned separately for iOS and Android.</div>
-          <div class="cs-section-ph" data-empty="true" data-section="mobile-typography">
-            <div class="cs-section-ph-meta">
-              <span class="cs-section-ph-label">Mobile Typography</span>
-              <span class="cs-section-ph-hint">drop section screenshot here</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Layout — margins + spacing grid (screenshots to be added) -->
-        <div class="cs-sub reveal">
-          <div class="cs-sub-label">Layout</div>
-          <div class="cs-sub-title">Margins &amp; spacing</div>
-          <div class="cs-sub-text">Two margin sizes &mdash; a standard safe-area margin for full-bleed screens, and a tighter inset margin for surfaces like cards, dialogs, and calendars. Inside any container, spacing snaps to a consistent base grid.</div>
-
-          <div class="cs-section-ph" data-empty="true" data-section="mobile-layout">
-            <div class="cs-section-ph-meta">
-              <span class="cs-section-ph-label">Mobile Layout &middot; margins</span>
-              <span class="cs-section-ph-hint">drop section screenshot here</span>
-            </div>
-          </div>
-
-          <div class="cs-section-ph" data-empty="true" data-section="mobile-spacing" style="margin-top:16px;">
-            <div class="cs-section-ph-meta">
-              <span class="cs-section-ph-label">Mobile Spacing grid</span>
-              <span class="cs-section-ph-hint">drop section screenshot here</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Foundations — section-sized placeholders, one per Figma section page -->
+        <!-- Foundations — shared sections, mirrors the Figma file order -->
         <div class="cs-sub reveal">
           <div class="cs-sub-label">Foundations</div>
-          <div class="cs-sub-title">Shared across mobile &amp; web</div>
-          <div class="cs-sub-text">Five foundation sections live above the platform split in the Figma file: Color, Icons, Logo, Font &amp; Layout, and Visuals. Type ramp and margins above; the rest are slotted below &mdash; one screenshot per section.</div>
+          <div class="cs-sub-title">The visual foundations</div>
+          <div class="cs-sub-text">The base layers every component is built on &mdash; Color, Typography, Layout, Icons, Logo, and Visuals &mdash; each defined once as tokens and styles.</div>
 
-          <!-- COLOR section -->
-          <div class="cs-section-ph" data-empty="true" data-section="color">
-            <div class="cs-section-ph-meta">
-              <span class="cs-section-ph-label">Color</span>
-              <span class="cs-section-ph-hint">drop section screenshot here</span>
-            </div>
-          </div>
-
-          <!-- ICONS section (replaces the 97 individual slots) -->
-          <div class="cs-section-ph" data-empty="true" data-section="icons" style="margin-top:16px;">
-            <div class="cs-section-ph-meta">
-              <span class="cs-section-ph-label">Icons</span>
-              <span class="cs-section-ph-hint">drop section screenshot here</span>
-            </div>
-          </div>
-
-          <!-- LOGO section -->
-          <div class="cs-section-ph" data-empty="true" data-section="logo" style="margin-top:16px;">
-            <div class="cs-section-ph-meta">
-              <span class="cs-section-ph-label">Logo</span>
-              <span class="cs-section-ph-hint">drop section screenshot here</span>
-            </div>
-          </div>
-
-          <!-- VISUALS section -->
-          <div class="cs-section-ph" data-empty="true" data-section="visuals" style="margin-top:16px;">
-            <div class="cs-section-ph-meta">
-              <span class="cs-section-ph-label">Visuals</span>
-              <span class="cs-section-ph-hint">drop section screenshot here</span>
-            </div>
+          <div class="cs-shot-gallery" aria-label="Shared foundations">
+            <figure class="cs-shot" data-section="color"><div class="cs-shot-thumb" style="padding:12px;"><img src="assets/images/design-system/color.png" alt="Color tokens — text, background, status, and action swatches with semantic names" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Color</div><div class="cs-shot-desc">Text, border, accent, action, background, overlay &amp; brand tokens</div></figcaption></figure>
+            <figure class="cs-shot" data-section="typography"><div class="cs-shot-thumb"><img src="assets/images/design-system/typography.png" alt="Type ramp — display, headline, body, and utility text roles tuned for iOS and Android" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Typography</div><div class="cs-shot-desc">Display, headline, body &amp; utility roles</div></figcaption></figure>
+            <figure class="cs-shot" data-section="spacing"><div class="cs-shot-thumb" style="padding:24px;"><img src="assets/images/design-system/layout.png" alt="Spacing — 10/20dp screen margins and a spacing scale built on a 4-point base" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Spacing</div><div class="cs-shot-desc">10/20dp screen margins, 4-point spacing scale</div></figcaption></figure>
+            <figure class="cs-shot" data-section="icons"><div class="cs-shot-thumb" style="padding:24px;"><img src="assets/images/design-system/icon.png" alt="Icon library — a grid of monochrome line icons spanning navigation, media, fitness, and UI utility glyphs" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Icons</div><div class="cs-shot-desc">Monochrome line icons across the app</div></figcaption></figure>
+            <figure class="cs-shot" data-section="logo"><div class="cs-shot-thumb"><img src="assets/images/design-system/logo.png" alt="Logo — shown across light, dark, and brand background colors" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Logo</div><div class="cs-shot-desc">On light, dark &amp; brand backgrounds</div></figcaption></figure>
+            <figure class="cs-shot" data-section="visuals"><div class="cs-shot-thumb"><img src="assets/images/design-system/visuals.png" alt="Visuals — illustration and imagery style across the app" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Visuals</div><div class="cs-shot-desc">Illustration &amp; imagery style</div></figcaption></figure>
           </div>
         </div>
 
@@ -632,25 +651,56 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
           <div class="cs-sub-label">Components</div>
           <div class="cs-sub-title">The componentized library</div>
           <div class="cs-sub-text">Each rebuilt as a true Figma component &mdash; variants, booleans, instance swap, text properties, nested instances &mdash; with every value bound to a token.</div>
-          <div class="cs-comp-grid" aria-label="Mobile component primitives">
-            <div class="cs-comp"><div class="cs-comp-ico">Ab</div><div class="cs-comp-name">App bars</div></div>
-            <div class="cs-comp"><div class="cs-comp-ico">Bn</div><div class="cs-comp-name">Banners</div></div>
-            <div class="cs-comp"><div class="cs-comp-ico">Bt</div><div class="cs-comp-name">Buttons</div></div>
-            <div class="cs-comp"><div class="cs-comp-ico">Cd</div><div class="cs-comp-name">Cards</div></div>
-            <div class="cs-comp"><div class="cs-comp-ico">In</div><div class="cs-comp-name">Input</div></div>
-            <div class="cs-comp"><div class="cs-comp-ico">Lb</div><div class="cs-comp-name">Labels</div></div>
-            <div class="cs-comp"><div class="cs-comp-ico">Ls</div><div class="cs-comp-name">Lists</div></div>
-            <div class="cs-comp"><div class="cs-comp-ico">Mn</div><div class="cs-comp-name">Menu</div></div>
-            <div class="cs-comp"><div class="cs-comp-ico">Nv</div><div class="cs-comp-name">Navigation</div></div>
-            <div class="cs-comp"><div class="cs-comp-ico">Sl</div><div class="cs-comp-name">Selector</div></div>
-            <div class="cs-comp"><div class="cs-comp-ico">Sh</div><div class="cs-comp-name">Sheet</div></div>
-            <div class="cs-comp"><div class="cs-comp-ico">Tb</div><div class="cs-comp-name">Tabs</div></div>
-            <div class="cs-comp"><div class="cs-comp-ico">Tn</div><div class="cs-comp-name">Toast</div></div>
+          <div class="cs-shot-gallery" aria-label="Mobile component primitives">
+            <figure class="cs-shot"><div class="cs-shot-thumb"><img src="assets/images/design-system/app%20bars.png" alt="App bars — top and bottom bars with title, back, icon, and button slots across variants and states" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">App bars</div><div class="cs-shot-desc">Top bars with title, back, and trailing action slots</div></figcaption></figure>
+            <figure class="cs-shot"><div class="cs-shot-thumb"><img src="assets/images/design-system/navigation.png" alt="Navigation — bottom navbar with Discover, Workout, and Progress tabs in default and active states" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Navigation</div><div class="cs-shot-desc">Bottom navigation bar, default &amp; active states</div></figcaption></figure>
+            <figure class="cs-shot"><div class="cs-shot-thumb"><img src="assets/images/design-system/tabs.png" alt="Tabs — segmented and underline tab bars across states" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Tabs</div><div class="cs-shot-desc">Segmented &amp; underline tab bars</div></figcaption></figure>
+            <figure class="cs-shot"><div class="cs-shot-thumb"><img src="assets/images/design-system/buttons.png" alt="Buttons — primary, secondary, text-only, and disabled in large, medium, small, and xsmall sizes" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Buttons</div><div class="cs-shot-desc">Primary, secondary, text &amp; disabled</div></figcaption></figure>
+            <figure class="cs-shot"><div class="cs-shot-thumb"><img src="assets/images/design-system/chips.png" alt="Chips — selectable and filter chips" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Chips</div><div class="cs-shot-desc">Selectable &amp; filter chips</div></figcaption></figure>
+            <figure class="cs-shot"><div class="cs-shot-thumb"><img src="assets/images/design-system/input.png" alt="Input — text fields and entry states" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Input</div><div class="cs-shot-desc">Text fields &amp; entry states</div></figcaption></figure>
+            <figure class="cs-shot"><div class="cs-shot-thumb"><img src="assets/images/design-system/search.png" alt="Search — search field with placeholder, input, and clear states" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Search</div><div class="cs-shot-desc">Search field, placeholder &amp; active states</div></figcaption></figure>
+            <figure class="cs-shot"><div class="cs-shot-thumb"><img src="assets/images/design-system/control.png" alt="Control — toggles, radios, and selection controls" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Control</div><div class="cs-shot-desc">Radios, checkboxes &amp; toggles</div></figcaption></figure>
+            <figure class="cs-shot"><div class="cs-shot-thumb"><img src="assets/images/design-system/Segmented_buttons.png" alt="Segmented button — enclosed track with a sliding thumb for one-of-many selection" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Segmented buttons</div><div class="cs-shot-desc">Enclosed track, one-of-many select</div></figcaption></figure>
+            <figure class="cs-shot"><div class="cs-shot-thumb" style="padding:64px;"><img src="assets/images/design-system/labels.png" alt="Labels — text labels and status tags" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Labels</div><div class="cs-shot-desc">Large &amp; small badges, icon swap &amp; status tags</div></figcaption></figure>
+            <figure class="cs-shot"><div class="cs-shot-thumb" style="padding:24px;"><img src="assets/images/design-system/banners.png" alt="Banners — inline informational and alert banners" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Banners</div><div class="cs-shot-desc">Inline informational &amp; alert banners</div></figcaption></figure>
+            <figure class="cs-shot"><div class="cs-shot-thumb"><img src="assets/images/design-system/progress_indicators.png" alt="Progress indicator — linear progress bar with back navigation and step count" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Progress indicator</div><div class="cs-shot-desc">Linear bar with back nav &amp; step count</div></figcaption></figure>
+            <figure class="cs-shot"><div class="cs-shot-thumb" style="padding:24px;"><img src="assets/images/design-system/cards.png" alt="Cards — content cards across layouts and states" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Cards</div><div class="cs-shot-desc">Content cards across layouts &amp; states</div></figcaption></figure>
+            <figure class="cs-shot"><div class="cs-shot-thumb" style="padding:24px;"><img src="assets/images/design-system/cells.png" alt="Cells — list and table cell variants" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Cells</div><div class="cs-shot-desc">List &amp; table cell variants</div></figcaption></figure>
+            <figure class="cs-shot"><div class="cs-shot-thumb" style="padding:24px;"><img src="assets/images/design-system/lists.png" alt="Lists — in-app list rows with buttons, toggles, values, and swipe actions" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Lists</div><div class="cs-shot-desc">Rows with toggles, values &amp; swipe actions</div></figcaption></figure>
+            <figure class="cs-shot"><div class="cs-shot-thumb" style="padding:0;"><img src="assets/images/design-system/menu.png" alt="Menu — contextual and dropdown menus" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Menu</div><div class="cs-shot-desc">Contextual &amp; dropdown menus</div></figcaption></figure>
+            <figure class="cs-shot"><div class="cs-shot-thumb"><img src="assets/images/design-system/sheetheader.png" alt="Sheet header — bottom sheet header with title and action slots" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Sheet header</div><div class="cs-shot-desc">Bottom-sheet header with title &amp; actions</div></figcaption></figure>
+            <figure class="cs-shot"><div class="cs-shot-thumb"><img src="assets/images/design-system/Dialog.png" alt="Dialog — system & custom delete dialogs, action-sheet usage, and empty state" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Dialog</div><div class="cs-shot-desc">System &amp; custom dialogs, empty states</div></figcaption></figure>
           </div>
-          <div class="cs-platforms">
-            <span class="cs-platform"><span class="cs-platform-dot"></span>iOS &mdash; HIG</span>
-            <span class="cs-platform"><span class="cs-platform-dot"></span>Android &mdash; Material</span>
-          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── COMPONENT LIBRARY SHOWCASE — dark perspective interstitial (mobile → web) ── -->
+    <section class="dsx" aria-label="The mobile component library at a glance">
+      <div class="dsx-head reveal">
+        <span class="dsx-eyebrow">The library, at a glance</span>
+        <h2 class="dsx-title">One token core,<br>the whole dark system</h2>
+        <p class="dsx-sub">Every primitive above binds to the same semantic tokens &mdash; so the entire library retheme&shy;s to dark from a single source, no redraws. The mobile set, rendered on its dark surface, before the same core extends to web.</p>
+      </div>
+      <div class="dsx-stage">
+        <div class="dsx-plane">
+          <!-- Row 1 — far (dimmed by depth) · whitest crops recede here -->
+          <figure class="dsx-tile"><span class="dsx-tag">Input</span><img class="dsx-shot" src="assets/images/design-system/dark/input.png" alt="Input — dark theme" loading="lazy"></figure>
+          <figure class="dsx-tile"><span class="dsx-tag">Chips</span><img class="dsx-shot" src="assets/images/design-system/dark/chips.png" alt="Chips — dark theme" loading="lazy"></figure>
+          <figure class="dsx-tile"><span class="dsx-tag">App&nbsp;bar</span><img class="dsx-shot" src="assets/images/design-system/dark/appbars.png" alt="App bars — dark theme" loading="lazy"></figure>
+          <figure class="dsx-tile"><span class="dsx-tag">Tabs</span><img class="dsx-shot" src="assets/images/design-system/dark/tabs.png" alt="Tabs — dark theme" loading="lazy"></figure>
+          <!-- Row 2 — mid -->
+          <figure class="dsx-tile"><span class="dsx-tag">Nav</span><img class="dsx-shot" src="assets/images/design-system/dark/nav.png" alt="Navigation — dark theme" loading="lazy"></figure>
+          <figure class="dsx-tile"><span class="dsx-tag">Toast</span><img class="dsx-shot" src="assets/images/design-system/dark/toast.png" alt="Toast notification — dark theme" loading="lazy"></figure>
+          <figure class="dsx-tile"><span class="dsx-tag">Sheet</span><img class="dsx-shot" src="assets/images/design-system/dark/sheet.png" alt="Sheet — dark theme" loading="lazy"></figure>
+          <figure class="dsx-tile"><span class="dsx-tag">Buttons</span><img class="dsx-shot" src="assets/images/design-system/dark/buttons.png" alt="Buttons — dark theme" loading="lazy"></figure>
+          <figure class="dsx-tile"><span class="dsx-tag">Cards</span><img class="dsx-shot" src="assets/images/design-system/dark/cards.png" alt="Cards — dark theme" loading="lazy"></figure>
+          <!-- Row 3 — near (brightest) · richest dark crops up front -->
+          <figure class="dsx-tile"><span class="dsx-tag">Lists</span><img class="dsx-shot" src="assets/images/design-system/dark/lists.png" alt="Lists — dark theme" loading="lazy"></figure>
+          <figure class="dsx-tile"><span class="dsx-tag">Cells</span><img class="dsx-shot" src="assets/images/design-system/dark/cells.png" alt="Cells — dark theme" loading="lazy"></figure>
+          <figure class="dsx-tile"><span class="dsx-tag">Menu</span><img class="dsx-shot" src="assets/images/design-system/dark/menu.png" alt="Menu — dark theme" loading="lazy"></figure>
+          <figure class="dsx-tile"><span class="dsx-tag">Dialog</span><img class="dsx-shot" src="assets/images/design-system/dark/dialog.png" alt="Dialog — dark theme" loading="lazy"></figure>
+          <figure class="dsx-tile"><span class="dsx-tag">Banner</span><img class="dsx-shot" src="assets/images/design-system/dark/banner.png" alt="Banner — dark theme" loading="lazy"></figure>
         </div>
       </div>
     </section>
@@ -662,29 +712,14 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
         <h2 class="cs-section-title">Web parity &mdash;<br>same tokens, wider canvas</h2>
         <p class="cs-section-sub reveal">Extended the system to web with a shared token core. The type scale opens up for desktop reading, layout moves to a wider column grid, and the component set adds the web-native primitives (sidebars, data tables, toolbars) on top of the mobile foundations.</p>
 
-        <!-- Typography -->
+        <!-- Foundations -->
         <div class="cs-sub reveal">
-          <div class="cs-sub-label">Typography</div>
-          <div class="cs-sub-title">Web type ramp</div>
-          <div class="cs-sub-text">Roomier than mobile &mdash; longer line lengths and bigger display sizes for marketing &amp; dashboard surfaces.</div>
-          <div class="cs-section-ph" data-empty="true" data-section="web-typography">
-            <div class="cs-section-ph-meta">
-              <span class="cs-section-ph-label">Web Typography</span>
-              <span class="cs-section-ph-hint">drop section screenshot here</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Layout -->
-        <div class="cs-sub reveal">
-          <div class="cs-sub-label">Layout</div>
-          <div class="cs-sub-title">Spacing scale &amp; column grid</div>
-          <div class="cs-sub-text">Web steps up to a wider baseline grid and a multi-column layout sized for desktop reading and dashboard density.</div>
-          <div class="cs-section-ph" data-empty="true" data-section="web-layout-grid">
-            <div class="cs-section-ph-meta">
-              <span class="cs-section-ph-label">Web Layout &middot; spacing &amp; grid</span>
-              <span class="cs-section-ph-hint">drop section screenshot here</span>
-            </div>
+          <div class="cs-sub-label">Foundations</div>
+          <div class="cs-sub-title">Web foundations</div>
+          <div class="cs-sub-text">Same token core, opened up for desktop &mdash; a roomier type ramp with longer line lengths and bigger display sizes, on a wider baseline grid and multi-column layout sized for dashboard density.</div>
+          <div class="cs-shot-gallery" aria-label="Web foundations">
+            <figure class="cs-shot" data-section="web-typography"><div class="cs-shot-thumb"><img src="assets/images/design-system/web_Typography.png" alt="Web type ramp — display, headline, body, and utility roles scaled up for desktop reading" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Web Typography</div><div class="cs-shot-desc">Roomier ramp for desktop reading</div></figcaption></figure>
+            <figure class="cs-shot" data-section="web-layout-grid"><div class="cs-shot-thumb" style="padding:14px;"><img src="assets/images/design-system/web_layout.png" alt="Web layout — large, medium, and small breakpoints with single-, two-, and multi-pane layouts" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Web Layout &middot; grid</div><div class="cs-shot-desc">Large/medium/small breakpoints, single to multi-pane</div></figcaption></figcaption></figure>
           </div>
         </div>
 
@@ -692,48 +727,14 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
         <div class="cs-sub reveal">
           <div class="cs-sub-label">Components</div>
           <div class="cs-sub-title">Web component library</div>
-          <div class="cs-sub-text">Several component sections live under the Web split in Figma. Each ships as a true component with full property sets &mdash; size, behavior, state &mdash; mapped to the shared token core. One screenshot per section below.</div>
-
-          <div class="cs-section-ph" data-empty="true" data-section="web-navigation">
-            <div class="cs-section-ph-meta">
-              <span class="cs-section-ph-label">Navigation</span>
-              <span class="cs-section-ph-hint">drop section screenshot here</span>
-            </div>
-          </div>
-
-          <div class="cs-section-ph" data-empty="true" data-section="web-buttons" style="margin-top:16px;">
-            <div class="cs-section-ph-meta">
-              <span class="cs-section-ph-label">Buttons</span>
-              <span class="cs-section-ph-hint">drop section screenshot here</span>
-            </div>
-          </div>
-
-          <div class="cs-section-ph" data-empty="true" data-section="web-cards" style="margin-top:16px;">
-            <div class="cs-section-ph-meta">
-              <span class="cs-section-ph-label">Cards</span>
-              <span class="cs-section-ph-hint">drop section screenshot here</span>
-            </div>
-          </div>
-
-          <div class="cs-section-ph" data-empty="true" data-section="web-breadcrumbs" style="margin-top:16px;">
-            <div class="cs-section-ph-meta">
-              <span class="cs-section-ph-label">Breadcrumbs</span>
-              <span class="cs-section-ph-hint">drop section screenshot here</span>
-            </div>
-          </div>
-
-          <div class="cs-section-ph" data-empty="true" data-section="web-footers" style="margin-top:16px;">
-            <div class="cs-section-ph-meta">
-              <span class="cs-section-ph-label">Footers</span>
-              <span class="cs-section-ph-hint">drop section screenshot here</span>
-            </div>
-          </div>
-
-          <div class="cs-section-ph" data-empty="true" data-section="web-modals" style="margin-top:16px;">
-            <div class="cs-section-ph-meta">
-              <span class="cs-section-ph-label">Modals</span>
-              <span class="cs-section-ph-hint">drop section screenshot here</span>
-            </div>
+          <div class="cs-sub-text">Several component sections live under the Web split in Figma. Each ships as a true component with full property sets &mdash; size, behavior, state &mdash; mapped to the shared token core.</div>
+          <div class="cs-shot-gallery" aria-label="Web component library">
+            <figure class="cs-shot"><div class="cs-shot-thumb"><img src="assets/images/design-system/web_Navigation.png" alt="Web navigation — top bar and sidebar navigation across states" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Navigation</div><div class="cs-shot-desc">Top bar &amp; sidebar navigation</div></figcaption></figure>
+            <figure class="cs-shot"><div class="cs-shot-thumb"><img src="assets/images/design-system/web_Buttons.png" alt="Web buttons — primary, secondary, and text styles across sizes and states" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Buttons</div><div class="cs-shot-desc">Primary, secondary &amp; text, every state</div></figcaption></figure>
+            <figure class="cs-shot"><div class="cs-shot-thumb"><img src="assets/images/design-system/web_Cards.png" alt="Web cards — content cards across layouts and states" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Cards</div><div class="cs-shot-desc">Content surfaces across layouts</div></figcaption></figure>
+            <figure class="cs-shot"><div class="cs-shot-thumb"><img src="assets/images/design-system/web_Breadcrumbs.png" alt="Web breadcrumbs — multi-level path navigation" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Breadcrumbs</div><div class="cs-shot-desc">Multi-level path navigation</div></figcaption></figure>
+            <figure class="cs-shot"><div class="cs-shot-thumb"><img src="assets/images/design-system/web_Footers.png" alt="Web footers — site footer layouts with link columns and utility rows" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Footers</div><div class="cs-shot-desc">Link columns &amp; utility rows</div></figcaption></figure>
+            <figure class="cs-shot"><div class="cs-shot-thumb"><img src="assets/images/design-system/web_Modals.png" alt="Web modals — dialog and overlay surfaces with actions" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Modals</div><div class="cs-shot-desc">Dialog &amp; overlay surfaces</div></figcaption></figure>
           </div>
 
           <div class="cs-platforms">
@@ -869,7 +870,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
     </section>
 
     <!-- NEXT PROJECTS -->
-    <section class="cs-next-section reveal">
+    <section class="cs-next-section reveal" style="display:none">
       <div class="cs-next-heading">
         <div>
           <span class="cs-next-eyebrow">More Work</span>
@@ -1015,6 +1016,24 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
     entries.forEach(e=>{if(e.isIntersecting){run(e.target);countObs.unobserve(e.target);}});
   },{threshold:0.4});
   parsed.forEach(el=>countObs.observe(el));
+})();
+
+/* Perspective library showcase — scroll parallax on the tilted plane */
+(function(){
+  const sec=document.querySelector('.dsx'),stage=document.querySelector('.dsx-stage');
+  if(!sec||!stage)return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  let tick=false;
+  function upd(){
+    tick=false;
+    const r=sec.getBoundingClientRect(),vh=window.innerHeight;
+    if(r.bottom<0||r.top>vh)return;
+    const center=r.top+r.height/2;
+    const p=Math.max(-1,Math.min(1,(vh/2-center)/(vh/2+r.height/2)));
+    stage.style.setProperty('--dsx-p',p.toFixed(3));
+  }
+  window.addEventListener('scroll',()=>{if(!tick){tick=true;requestAnimationFrame(upd);}},{passive:true});
+  upd();
 })();
 </script>
 </body>
