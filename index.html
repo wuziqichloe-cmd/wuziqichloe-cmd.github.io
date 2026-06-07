@@ -35,6 +35,10 @@ html, body, body *, body *::before, body *::after { cursor:none !important; }
   width:30px; height:30px;
   background-image:url('assets/images/cursor_tap.svg');
 }
+#cur.lock {
+  width:28px; height:28px;
+  background-image:url('assets/images/cursor_lock.svg');
+}
 /* Both cursors share accent (#2563EB) strokes with white detail; brighten in dark mode. */
 [data-theme="dark"] #cur,
 [data-theme="dark"] #cur.hover { filter:brightness(1.15) saturate(1.1); }
@@ -76,6 +80,8 @@ nav {
 .t-icon{display:block;width:20px;height:20px;color:var(--ink-3);z-index:1;transition:opacity .25s;flex-shrink:0;}
 .t-sun{opacity:0;}.t-moon{opacity:1;}
 [data-theme="dark"] .t-sun{opacity:1;}[data-theme="dark"] .t-moon{opacity:0;}
+/* Track turns accent (blue) when checked/dark — lift the exposed sun icon for contrast */
+.t-tog input:checked~.t-track .t-sun{color:var(--ink-2);}
 .t-knob{position:absolute;top:3px;left:3px;width:20px;height:20px;background:var(--surf);border-radius:50%;transition:transform .28s cubic-bezier(.4,0,.2,1);pointer-events:none;z-index:2;box-shadow:0 1px 3px rgba(0,0,0,.2);}
 .t-tog input:checked~.t-knob{transform:translateX(30px);}
 
@@ -518,6 +524,22 @@ nav {
   transition:border-color .2s, color .2s;
 }
 .proj-panel-link:hover { border-color:#fff; }
+
+/* --- Locked / Coming-soon panels --- */
+.proj-panel--locked:hover { transform:none; }            /* no lift on locked cards */
+.proj-panel-link--soon {
+  display:none;   /* hide bottom "Coming soon" link — top-left badge carries the status */
+}
+.proj-panel-soon-badge {
+  position:absolute; top:24px; left:28px; z-index:5;
+  display:inline-flex; align-items:center; gap:7px;
+  padding:6px 13px; border-radius:100px;
+  background:rgba(0,0,0,.38); backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.28);
+  font-size:var(--fs-2xs); font-weight:var(--fw-bold); letter-spacing:.12em;
+  text-transform:uppercase; color:#fff;
+}
+.proj-panel-soon-badge svg { width:12px; height:12px; }
 
 /* Placeholder icon when no image */
 .proj-panel-ph {
@@ -1002,7 +1024,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
 .ft-links a{font-size:var(--fs-base);font-weight:var(--fw-medium);letter-spacing:.08em;text-transform:uppercase;color:rgba(245,245,245,.75);text-decoration:none;transition:color .2s;}
 .ft-links a:hover{color:var(--accent);}
 
-[data-theme="dark"] footer { background:#141414; }
+[data-theme="dark"] footer { background:#1E1E1E; }
 [data-theme="dark"] .ft-name { color:#F5F5F5; }
 [data-theme="dark"] .ft-tag { color:rgba(245,245,245,.75); }
 [data-theme="dark"] .ft-links a { color:rgba(245,245,245,.75); }
@@ -1210,17 +1232,17 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
         </div>
         <div class="proj-idx-row" data-p="1" onclick="scrollToPanel(1)">
           <span class="proj-idx-num">02</span>
-          <span class="proj-idx-label">Year in Review</span>
+          <span class="proj-idx-label">Design System</span>
           <span class="proj-idx-tick"></span>
         </div>
         <div class="proj-idx-row" data-p="2" onclick="scrollToPanel(2)">
           <span class="proj-idx-num">03</span>
-          <span class="proj-idx-label">Design System</span>
+          <span class="proj-idx-label">Consumption Analytics</span>
           <span class="proj-idx-tick"></span>
         </div>
         <div class="proj-idx-row" data-p="3" onclick="scrollToPanel(3)">
           <span class="proj-idx-num">04</span>
-          <span class="proj-idx-label">HPE Dashboard</span>
+          <span class="proj-idx-label">Year in Review</span>
           <span class="proj-idx-tick"></span>
         </div>
         <div class="proj-idx-row" data-p="4" onclick="scrollToPanel(4)">
@@ -1257,14 +1279,56 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
       </div>
 
       <!-- Panel 02 -->
-      <div class="proj-panel" data-p="1" onclick="window.open('#case-study-year-in-review', '_self')" title="View case study">
+      <div class="proj-panel proj-panel--bright" data-p="1" onclick="window.open('case-study-design-system.html', '_self')" title="View case study">
+        <div class="proj-panel-bg" style="background:#022c22 url('assets/images/design-system/covers/cover.png') center/cover no-repeat;"></div>
+        <span class="proj-panel-ghost">02</span>
+        <div class="proj-panel-info">
+          <div class="proj-panel-tags">
+            <span class="proj-panel-tag">Scalability</span>
+            <span class="proj-panel-tag">Cross-platform</span>
+          </div>
+          <div class="proj-panel-title">Design System</div>
+          <div class="proj-panel-desc">Revamped a loose Figma guide into a token-bound library — then taught it to grow itself with AI agents.</div>
+          <div class="proj-panel-metrics">
+            <div><div class="proj-panel-met-val">100%</div><div class="proj-panel-met-lbl">Token-bound</div></div>
+            <div><div class="proj-panel-met-val">2</div><div class="proj-panel-met-lbl">DS Agents</div></div>
+            <div><div class="proj-panel-met-val">13M+</div><div class="proj-panel-met-lbl">Users</div></div>
+          </div>
+          <a href="case-study-design-system.html" class="proj-panel-link">View Case Study &nbsp;↗</a>
+        </div>
+      </div>
+
+      <!-- Panel 03 -->
+      <div class="proj-panel" data-p="2" onclick="window.open('case-study-hpe.html', '_self')" title="View case study">
+        <div class="proj-panel-bg" style="background:#042f2e url('assets/images/hpe%20cover.png') center/cover no-repeat;"></div>
+        <span class="proj-panel-ghost">03</span>
+        <div class="proj-panel-info">
+          <div class="proj-panel-tags">
+            <span class="proj-panel-tag">Dashboard</span>
+            <span class="proj-panel-tag">B2B</span>
+            <span class="proj-panel-tag">Web</span>
+          </div>
+          <div class="proj-panel-title">Consumption Analytics</div>
+          <div class="proj-panel-desc">HPE GreenLake’s Consumption Analytics — a modular chart system for tracking and forecasting enterprise cloud spend.</div>
+          <div class="proj-panel-metrics">
+            <div><div class="proj-panel-met-val">+30%</div><div class="proj-panel-met-lbl">Adoption</div></div>
+            <div><div class="proj-panel-met-val">50+</div><div class="proj-panel-met-lbl">Stakeholders</div></div>
+            <div><div class="proj-panel-met-val">14wk</div><div class="proj-panel-met-lbl">Internship</div></div>
+          </div>
+          <a href="case-study-hpe.html" class="proj-panel-link">View Case Study &nbsp;&#8599;</a>
+        </div>
+      </div>
+
+      <!-- Panel 04 -->
+      <div class="proj-panel proj-panel--locked" data-p="3" onclick="return false;" title="Coming soon">
         <div class="proj-panel-bg" style="background:linear-gradient(150deg,#1e0730 0%,#6b21a8 55%,#a855f7 100%);"></div>
         <div class="proj-panel-mesh" aria-hidden="true"></div>
+        <span class="proj-panel-soon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Coming soon</span>
         <div class="proj-panel-ph">
           <div class="proj-panel-icon">🏆</div>
           <span class="proj-panel-ph-label">Add your screenshot here</span>
         </div>
-        <span class="proj-panel-ghost">02</span>
+        <span class="proj-panel-ghost">04</span>
         <div class="proj-panel-info">
           <div class="proj-panel-tags">
             <span class="proj-panel-tag">Social</span>
@@ -1278,64 +1342,15 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
             <div><div class="proj-panel-met-val">+124%</div><div class="proj-panel-met-lbl">Shares</div></div>
             <div><div class="proj-panel-met-val">+33%</div><div class="proj-panel-met-lbl">Views</div></div>
           </div>
-          <a href="#" class="proj-panel-link">View Case Study &nbsp;↗</a>
-        </div>
-      </div>
-
-      <!-- Panel 03 -->
-      <div class="proj-panel proj-panel--bright" data-p="2" onclick="window.open('case-study-design-system.html', '_self')" title="View case study">
-        <div class="proj-panel-bg" style="background:#022c22 url('assets/images/design-system/ds%20cover%20v3.png') center/cover no-repeat;"></div>
-        <span class="proj-panel-ghost">03</span>
-        <div class="proj-panel-info">
-          <div class="proj-panel-tags">
-            <span class="proj-panel-tag">Scalability</span>
-            <span class="proj-panel-tag">Cross-platform</span>
-          </div>
-          <div class="proj-panel-title">Design System</div>
-          <div class="proj-panel-desc">Architected a cross-platform design system spanning Android, iOS, web &amp; wearables — unifying the team and cutting overhead.</div>
-          <div class="proj-panel-metrics">
-            <div><div class="proj-panel-met-val">30%</div><div class="proj-panel-met-lbl">Efficiency Gain</div></div>
-            <div><div class="proj-panel-met-val">4</div><div class="proj-panel-met-lbl">Platforms</div></div>
-            <div><div class="proj-panel-met-val">13M+</div><div class="proj-panel-met-lbl">Users</div></div>
-          </div>
-          <a href="case-study-design-system.html" class="proj-panel-link">View Case Study &nbsp;↗</a>
-        </div>
-      </div>
-
-      <!-- Panel 04 -->
-      <div class="proj-panel" data-p="3" onclick="window.open('#case-study-hpe-greenlake', '_self')" title="View case study">
-        <div class="proj-panel-bg" style="background:linear-gradient(150deg,#042f2e 0%,#047857 55%,#10b981 100%);"></div>
-        <div class="proj-panel-mesh" aria-hidden="true"></div>
-        <div class="proj-panel-ph">
-          <div class="proj-panel-icon">📊</div>
-          <span class="proj-panel-ph-label">Add your screenshot here</span>
-        </div>
-        <span class="proj-panel-ghost">04</span>
-        <div class="proj-panel-info">
-          <div class="proj-panel-tags">
-            <span class="proj-panel-tag">Dashboard</span>
-            <span class="proj-panel-tag">B2B</span>
-            <span class="proj-panel-tag">HPE</span>
-          </div>
-          <div class="proj-panel-title">Greenlake Dashboard Charts</div>
-          <div class="proj-panel-desc">Designed a customizable chart system for HPE’s Greenlake Cloud dashboard — turning rigid data views into modular, insight-driven tools for enterprise teams.</div>
-          <div class="proj-panel-metrics">
-            <div><div class="proj-panel-met-val">10+</div><div class="proj-panel-met-lbl">Chart Variants</div></div>
-            <div><div class="proj-panel-met-val">3</div><div class="proj-panel-met-lbl">Dashboard Views</div></div>
-            <div><div class="proj-panel-met-val">↑</div><div class="proj-panel-met-lbl">Adoption</div></div>
-          </div>
-          <a href="#" class="proj-panel-link">View Case Study &nbsp;↗</a>
+          <span class="proj-panel-link proj-panel-link--soon">Coming soon</span>
         </div>
       </div>
 
       <!-- Panel 05 -->
-      <div class="proj-panel" data-p="4" onclick="window.open('#case-study-mobile-to-tv', '_self')" title="View case study">
-        <div class="proj-panel-bg" style="background:linear-gradient(150deg,#1c0a00 0%,#92400e 55%,#f59e0b 100%);"></div>
+      <div class="proj-panel proj-panel--locked" data-p="4" onclick="return false;" title="Coming soon">
+        <div class="proj-panel-bg" style="background:#1c0a00 url('assets/images/whatnot_cover.png') center/cover no-repeat;"></div>
         <div class="proj-panel-mesh" aria-hidden="true"></div>
-        <div class="proj-panel-ph">
-          <div class="proj-panel-icon">📺</div>
-          <span class="proj-panel-ph-label">Add your screenshot here</span>
-        </div>
+        <span class="proj-panel-soon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Coming soon</span>
         <span class="proj-panel-ghost">05</span>
         <div class="proj-panel-info">
           <div class="proj-panel-tags">
@@ -1350,7 +1365,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
             <div><div class="proj-panel-met-val">2</div><div class="proj-panel-met-lbl">Platforms</div></div>
             <div><div class="proj-panel-met-val">↑</div><div class="proj-panel-met-lbl">Roadmap Impact</div></div>
           </div>
-          <a href="#" class="proj-panel-link">View Case Study &nbsp;↗</a>
+          <span class="proj-panel-link proj-panel-link--soon">Coming soon</span>
         </div>
       </div>
 
@@ -1430,11 +1445,18 @@ const cur=document.getElementById('cur');
 let mx=0,my=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
 const HOVER_SEL='a,button,label,summary,[role="button"],[onclick]';
+const LOCK_SEL='.proj-panel--locked';
 document.addEventListener('mouseover',e=>{
-  if(e.target.closest&&e.target.closest(HOVER_SEL)) cur.classList.add('hover');
+  if(!e.target.closest) return;
+  if(e.target.closest(LOCK_SEL)){ cur.classList.add('lock'); cur.classList.remove('hover'); }
+  else if(e.target.closest(HOVER_SEL)) cur.classList.add('hover');
 });
 document.addEventListener('mouseout',e=>{
-  const from=e.target.closest&&e.target.closest(HOVER_SEL);
+  if(!e.target.closest) return;
+  const lockFrom=e.target.closest(LOCK_SEL);
+  const lockTo=e.relatedTarget&&e.relatedTarget.closest&&e.relatedTarget.closest(LOCK_SEL);
+  if(lockFrom&&lockFrom!==lockTo) cur.classList.remove('lock');
+  const from=e.target.closest(HOVER_SEL);
   const to=e.relatedTarget&&e.relatedTarget.closest&&e.relatedTarget.closest(HOVER_SEL);
   if(from&&from!==to) cur.classList.remove('hover');
 });
@@ -1540,22 +1562,23 @@ const PROJS = [
     metrics:[{v:'+42%',l:'Adoption'},{v:'+28%',l:'D30 Retention'},{v:'14%',l:'Paywall CVR'}],
   },
   {
+    tags:['Design System','Cross-platform'],
+    name:'Scalable Design\nSystem',
+    desc:'Revamped a loose Figma guide into a token-bound library — then taught it to grow itself with AI agents.',
+    metrics:[{v:'100%',l:'Token-bound'},{v:'2',l:'DS Agents'},{v:'13M+',l:'Users'}],
+  },
+  {
+    tags:['Dashboard','B2B','Web'],
+    name:'Consumption Analytics',
+    url:'case-study-hpe.html',
+    desc:"HPE GreenLake's Consumption Analytics — a modular chart system for tracking and forecasting enterprise cloud spend.",
+    metrics:[{v:'+30%',l:'Adoption'},{v:'50+',l:'Stakeholders'},{v:'14wk',l:'Internship'}],
+  },
+  {
     tags:['Social','Motion','Web'],
     name:'Year in Review\n2025',
     desc:"Jefit's most shareable moment — a personalized annual recap that drove the platform's highest-ever revenue.",
     metrics:[{v:'+78%',l:'Revenue'},{v:'+124%',l:'Shares'},{v:'+33%',l:'Views'}],
-  },
-  {
-    tags:['Design System','Cross-platform'],
-    name:'Scalable Design\nSystem',
-    desc:'Architected a cross-platform system spanning Android, iOS, web, and wearables — unifying design and cutting overhead.',
-    metrics:[{v:'30%',l:'Efficiency Gain'},{v:'4',l:'Platforms'},{v:'13M+',l:'Users'}],
-  },
-  {
-    tags:['Dashboard','B2B','HPE'],
-    name:'Greenlake Dashboard\nCharts',
-    desc:"Designed a customizable chart system for HPE's Greenlake Cloud dashboard — modular, insight-driven data tools for enterprise teams.",
-    metrics:[{v:'10+',l:'Chart Variants'},{v:'3',l:'Dashboard Views'},{v:'↑',l:'Adoption'}],
   },
   {
     tags:['Strategy','UX','Whatnot'],

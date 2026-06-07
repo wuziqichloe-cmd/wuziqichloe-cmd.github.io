@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consumption Analytics — HPE GreenLake — Chloe Wu</title>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;font-size:120%;overflow-x:clip;}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);overflow-x:clip;cursor:none;-webkit-font-smoothing:antialiased;transition:background .4s,color .4s;}
+html, body, body *, body *::before, body *::after { cursor:none !important; }
+@media(hover:none) and (pointer:coarse) {
+  html, body, body *, body *::before, body *::after { cursor:auto !important; }
+  a, button, label, [role="button"] { cursor:pointer !important; }
+}
+
+/* CURSOR */
+#cur{position:fixed;z-index:9999;pointer-events:none;width:26px;height:26px;background:url('assets/images/cursor_default.svg') center / contain no-repeat;transform:translate(-50%,-50%);transition:width .22s cubic-bezier(.34,1.56,.64,1),height .22s;}
+#cur.hover{width:30px;height:30px;background-image:url('assets/images/cursor_tap.svg');}
+[data-theme="dark"] #cur,
+[data-theme="dark"] #cur.hover{filter:brightness(1.15) saturate(1.1);}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:var(--nav-bg);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:background .4s,border-color .4s;}
+.nav-logo{display:inline-flex;align-items:center;color:var(--ink);text-decoration:none;transition:color .4s;line-height:0;}
+.nav-logo:hover .nav-logo-mark{transform:rotate(-8deg);}
+.nav-logo-mark{width:28px;height:28px;display:block;transition:transform .25s cubic-bezier(.34,1.56,.64,1);}
+.nav-r{display:flex;align-items:center;gap:28px;}
+.nav-links{display:flex;gap:28px;list-style:none;}
+.nav-links a{font-size:var(--fs-base);font-weight:var(--fw-medium);letter-spacing:.04em;color:var(--ink-2);text-decoration:none;transition:color .2s;}
+.nav-links a:hover{color:var(--ink);}
+.nav-cta{color:#fff!important;background:var(--accent)!important;padding:7px 18px;border-radius:100px;transition:opacity .2s!important;}
+.nav-cta:hover{opacity:.88;}
+.t-tog{position:relative;width:56px;height:26px;cursor:none;}
+.t-tog input{position:absolute;opacity:0;width:0;height:0;}
+.t-track{position:absolute;inset:0;background:var(--border-h);border-radius:100px;transition:background .3s;display:flex;align-items:center;justify-content:space-between;padding:0 3px;}
+.t-tog input:checked~.t-track{background:var(--accent);}
+.t-icon{display:block;width:20px;height:20px;color:var(--ink-3);z-index:1;transition:opacity .25s;flex-shrink:0;}
+.t-sun{opacity:0;}.t-moon{opacity:1;}
+[data-theme="dark"] .t-sun{opacity:1;}[data-theme="dark"] .t-moon{opacity:0;}
+.t-knob{position:absolute;top:3px;left:3px;width:20px;height:20px;background:var(--surf);border-radius:50%;transition:transform .28s cubic-bezier(.4,0,.2,1);pointer-events:none;z-index:2;box-shadow:0 1px 3px rgba(0,0,0,.2);}
+.t-tog input:checked~.t-knob{transform:translateX(30px);}
+
+/* LAYOUT — left panel + content (same as adaptive plan case study) */
+.page-wrap{display:grid;grid-template-columns:260px 1fr;min-height:100vh;padding-top:54px;}
+
+/* LEFT STICKY PANEL */
+.cs-left{position:sticky;top:54px;height:calc(100vh - 54px);display:flex;flex-direction:column;justify-content:flex-start;padding:40px 40px;border-right:1px solid var(--border);overflow:hidden;background:var(--bg);transition:background .4s,border-color .4s;}
+.cs-back{display:flex;align-items:center;gap:8px;font-size:var(--fs-sm);font-weight:var(--fw-semibold);letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3);text-decoration:none;transition:color .2s;margin-bottom:32px;flex-shrink:0;}
+.cs-back:hover{color:var(--accent);}
+.cs-back svg{transition:transform .2s;}
+.cs-back:hover svg{transform:translateX(-3px);}
+.cs-left-label{margin-bottom:4px;}
+.cs-left-eyebrow{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:6px;}
+.cs-left-project{font-family:var(--font-display);font-size:var(--fs-md);font-weight:var(--fw-semibold);letter-spacing:-.02em;color:var(--ink);line-height:1.1;margin-bottom:20px;}
+.cs-index{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--border);margin-top:auto;}
+.cs-idx-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);cursor:none;text-decoration:none;transition:opacity .3s,padding-left .3s;opacity:.28;}
+.cs-idx-row:hover{opacity:.65;}
+.cs-idx-row.active{opacity:1;padding-left:4px;}
+.cs-idx-num{font-family:var(--font-display);font-size:var(--fs-sm);font-weight:var(--fw-semibold);letter-spacing:.02em;color:var(--ink-3);width:28px;flex-shrink:0;transition:color .3s;}
+.cs-idx-row.active .cs-idx-num{color:var(--accent);}
+.cs-idx-label{font-size:var(--fs-base);font-weight:var(--fw-medium);color:var(--ink-2);letter-spacing:-.02em;flex:1;transition:color .3s;line-height:1.2;}
+.cs-idx-row.active .cs-idx-label{color:var(--ink);}
+.cs-idx-tick{height:1.5px;width:0;background:var(--accent);border-radius:1px;transition:width .4s cubic-bezier(.22,1,.36,1);}
+.cs-idx-row.active .cs-idx-tick{width:24px;}
+.cs-progress{margin-top:auto;flex-shrink:0;}
+.cs-progress-label{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:8px;}
+.cs-progress-track{height:2px;background:var(--border-h);border-radius:2px;}
+.cs-progress-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .3s ease;width:0%;}
+
+/* RIGHT CONTENT WRAP */
+.cs-content{min-width:0;}
+.cs-wrap{max-width:1080px;margin:0 auto;padding:0 52px;}
+
+/* HERO — pills match index Panel 03 exactly; sizing matches adaptive plan */
+.cs-hero{min-height:72vh;background:#042f2e url('assets/images/hpe%20cover.png') center/cover no-repeat;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:72px 64px;}
+.cs-hero::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom,rgba(0,0,0,.10) 0%,rgba(0,0,0,.30) 55%,rgba(0,0,0,.72) 100%);z-index:2;}
+.cs-hero-inner{position:relative;z-index:3;max-width:980px;width:100%;}
+.cs-hero-tags{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+.cs-hero-tag{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.2);padding:3px 12px;border-radius:100px;backdrop-filter:blur(8px);}
+.cs-hero-title{font-family:var(--font-display);font-weight:var(--fw-bold);font-size:clamp(var(--fs-3xl),7vw,var(--fs-display));line-height:.95;letter-spacing:-.03em;color:#fff;margin-bottom:16px;}
+.cs-hero-sub{font-size:var(--fs-base);font-weight:var(--fw-light);color:rgba(255,255,255,.72);line-height:1.7;max-width:52ch;}
+
+/* SECTION primitives — match adaptive plan */
+.cs-section{padding:96px 0;border-bottom:1px solid var(--border);}
+.cs-section:last-of-type{border-bottom:none;}
+.cs-eyebrow{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;display:block;}
+.cs-section-title{font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:clamp(var(--fs-xl),5vw,var(--fs-4xl));line-height:1.05;letter-spacing:-.03em;color:var(--ink);margin-bottom:32px;}
+/* Body paragraph under section title — matches adaptive plan .cs-body (p1 tokens) */
+.cs-section-sub{font-size:var(--p1-size);font-weight:var(--p1-weight);color:var(--p1-color);line-height:var(--p1-line);letter-spacing:var(--p1-tracking);max-width:var(--p1-max-width);}
+
+/* INTRO meta strip (right under hero) — paragraph uses p1 tokens like .cs-body in adaptive plan */
+.cs-intro{padding:96px 0 32px;border-bottom:1px solid var(--border);}
+.cs-intro-body{font-size:var(--p1-size);font-weight:var(--p1-weight);color:var(--p1-color);line-height:var(--p1-line);letter-spacing:var(--p1-tracking);max-width:var(--p1-max-width);}
+.cs-meta{display:flex;flex-wrap:wrap;gap:40px;margin-top:36px;padding-top:24px;border-top:1px solid var(--border);}
+.cs-meta-item{display:flex;flex-direction:column;gap:4px;}
+.cs-meta-label{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);}
+.cs-meta-val{font-size:var(--fs-base);font-weight:var(--fw-semibold);color:var(--ink);}
+.cs-meta-sub{font-size:var(--fs-xs);font-weight:var(--fw-medium);color:var(--ink-3);letter-spacing:.01em;margin-top:2px;line-height:1.4;}
+/* Tooling row — app-icon tiles instead of text (full-color in both themes) */
+.cs-tool-icons{display:flex;align-items:center;gap:9px;flex-wrap:wrap;}
+.cs-tool-icon{position:relative;width:26px;height:26px;border-radius:6px;display:grid;place-items:center;flex:0 0 auto;box-shadow:0 1px 2.5px rgba(0,0,0,.22),inset 0 0 0 1px rgba(128,128,128,.22);transition:transform .25s cubic-bezier(.22,1,.36,1);}
+.cs-tool-icon:hover{transform:translateY(-2px);}
+.cs-tool-icon svg{display:block;}
+.cs-tool-icon--figma{background:#fff;}
+.cs-tool-icon--jira{background:#fff;}
+.cs-tool-icon--confluence{background:#fff;}
+.cs-tool-icon--hpe{background:#01A982;}
+.cs-tool-icon--storybook{background:#FF4785;}
+.cs-tool-icon--grommet{background:#7D4CDB;}
+/* Hover tooltip — shows the tool name from aria-label */
+.cs-tool-icon::after{content:attr(aria-label);position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(4px);background:var(--ink);color:var(--bg);font-size:var(--fs-xs);font-weight:var(--fw-semibold);letter-spacing:.02em;white-space:nowrap;padding:4px 8px;border-radius:6px;box-shadow:0 4px 12px rgba(0,0,0,.18);opacity:0;pointer-events:none;transition:opacity .18s ease,transform .18s ease;z-index:20;}
+.cs-tool-icon:hover::after{opacity:1;transform:translateX(-50%) translateY(0);}
+/* Featured meta item — used for DS Agents (the headline contribution) */
+.cs-meta-item--featured{position:relative;padding:10px 16px 12px;border-radius:12px;background:linear-gradient(135deg,rgba(1,169,130,.08),rgba(1,169,130,.03));border:1px solid rgba(1,169,130,.22);}
+[data-theme="dark"] .cs-meta-item--featured{background:linear-gradient(135deg,rgba(1,201,154,.14),rgba(1,201,154,.04));border-color:rgba(1,201,154,.28);}
+.cs-meta-item--featured .cs-meta-label{color:var(--accent);display:flex;align-items:center;gap:6px;}
+.cs-meta-item--featured .cs-meta-label::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px rgba(1,169,130,.18);animation:csPulse 2.4s ease-in-out infinite;}
+[data-theme="dark"] .cs-meta-item--featured .cs-meta-label::before{box-shadow:0 0 0 3px rgba(1,201,154,.22);}
+.cs-meta-item--featured .cs-meta-val{color:var(--accent);}
+.cs-meta-item--featured a{color:inherit;text-decoration:none;border-bottom:1px dashed rgba(1,169,130,.4);transition:border-color .2s;}
+.cs-meta-item--featured a:hover{border-bottom-color:var(--accent);}
+@keyframes csPulse{0%,100%{box-shadow:0 0 0 3px rgba(1,169,130,.18);}50%{box-shadow:0 0 0 6px rgba(1,169,130,.06);}}
+
+/* BEFORE/AFTER side-by-side for "Where we started" */
+.cs-before-after{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px;}
+.cs-ba-cell{border-radius:18px;border:1px solid var(--border);background:var(--surf);padding:24px;display:flex;flex-direction:column;gap:14px;transition:background .4s,border-color .4s;}
+.cs-ba-tag{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);}
+.cs-ba-cell--before .cs-ba-tag{color:var(--ink-3);}
+.cs-ba-cell--after .cs-ba-tag{color:var(--accent);}
+.cs-ba-title{font-family:var(--font-display);font-size:var(--fs-md);font-weight:var(--fw-semibold);color:var(--ink);letter-spacing:-.02em;line-height:1.2;}
+.cs-ba-text{font-size:var(--fs-base);color:var(--ink-2);line-height:1.65;}
+.cs-ba-list{display:flex;flex-direction:column;gap:6px;margin-top:6px;}
+.cs-ba-list-item{font-size:var(--fs-base);color:var(--ink-2);display:flex;align-items:flex-start;gap:8px;line-height:1.5;}
+.cs-ba-list-item::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--border-h);flex-shrink:0;margin-top:8px;}
+.cs-ba-cell--after .cs-ba-list-item::before{background:var(--accent);}
+
+/* PROCESS — horizontal timeline with connected nodes */
+.cs-timeline{position:relative;margin-top:40px;padding-top:8px;}
+.cs-timeline-track{position:absolute;left:16px;right:16px;top:32px;height:2px;background:var(--border);border-radius:2px;overflow:hidden;}
+.cs-timeline-fill{position:absolute;inset:0;background:linear-gradient(90deg,var(--accent) 0%,var(--accent) 50%,rgba(1,169,130,.35) 100%);}
+[data-theme="dark"] .cs-timeline-fill{background:linear-gradient(90deg,var(--accent) 0%,var(--accent) 50%,rgba(1,201,154,.32) 100%);}
+.cs-timeline-row{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:32px;}
+.cs-timeline-step{position:relative;display:flex;flex-direction:column;align-items:flex-start;padding-top:56px;}
+.cs-timeline-node{position:absolute;top:8px;left:0;width:34px;height:34px;border-radius:50%;background:var(--bg);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:var(--fs-xs);font-weight:var(--fw-bold);color:var(--ink-3);z-index:2;transition:background .25s,border-color .25s,color .25s,box-shadow .25s,transform .25s cubic-bezier(.22,1,.36,1);}
+.cs-timeline-step:hover .cs-timeline-node{transform:scale(1.08);}
+.cs-timeline-step--done .cs-timeline-node{background:var(--accent);border-color:var(--accent);color:#fff;}
+.cs-timeline-step--current .cs-timeline-node{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 0 0 6px rgba(1,169,130,.14);}
+[data-theme="dark"] .cs-timeline-step--current .cs-timeline-node{box-shadow:0 0 0 6px rgba(1,201,154,.22);}
+.cs-timeline-phase{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
+.cs-timeline-title{font-family:var(--font-display);font-size:var(--fs-md);font-weight:var(--fw-semibold);color:var(--ink);letter-spacing:-.02em;line-height:1.15;margin-bottom:10px;}
+.cs-timeline-text{font-size:var(--fs-base);color:var(--ink-2);line-height:1.6;}
+@media(max-width:960px){
+  .cs-timeline{padding-top:0;}
+  .cs-timeline-row{grid-template-columns:1fr;gap:0;}
+  .cs-timeline-track{left:16px;right:auto;top:0;bottom:0;width:2px;height:auto;}
+  .cs-timeline-fill{background:linear-gradient(180deg,var(--accent) 0%,var(--accent) 50%,rgba(1,169,130,.35) 100%);}
+  [data-theme="dark"] .cs-timeline-fill{background:linear-gradient(180deg,var(--accent) 0%,var(--accent) 50%,rgba(1,201,154,.32) 100%);}
+  .cs-timeline-step{padding-top:0;padding-left:60px;padding-bottom:32px;min-height:48px;}
+  .cs-timeline-step:last-child{padding-bottom:0;}
+  .cs-timeline-node{top:0;left:0;}
+}
+
+/* TYPE RAMP — specimen card grid (matches Figma frame layout) */
+.cs-typeramp{display:flex;flex-direction:column;gap:14px;margin-top:6px;padding:28px;border-radius:18px;border:1px solid var(--border);background:var(--surf);}
+.cs-typeramp-row{display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding-bottom:14px;border-bottom:1px solid var(--border);}
+.cs-typeramp-row:last-child{border-bottom:none;padding-bottom:0;}
+.cs-typeramp-sample{color:var(--ink);font-family:var(--font-display);letter-spacing:-.02em;line-height:1;}
+.cs-typeramp-meta{font-size:var(--fs-xs);font-weight:var(--fw-semibold);color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase;flex-shrink:0;}
+
+/* MARGIN DIAGRAM — phone frame with safe-area highlight (mirrors Figma margin spec) */
+.cs-margins{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:6px;}
+.cs-margin-card{padding:24px;border-radius:16px;background:var(--surf);border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:16px;transition:background .4s,border-color .3s;}
+.cs-margin-meta{align-self:stretch;display:flex;justify-content:space-between;align-items:baseline;}
+.cs-margin-title{font-family:var(--font-display);font-size:var(--fs-md);font-weight:var(--fw-semibold);letter-spacing:-.02em;color:var(--ink);}
+.cs-margin-val{font-size:var(--fs-sm);font-weight:var(--fw-bold);color:var(--accent);letter-spacing:.02em;}
+.cs-margin-phone{position:relative;width:170px;aspect-ratio:170/360;background:var(--bg-2);border:1.5px solid var(--border-h);border-radius:24px;overflow:hidden;}
+.cs-margin-phone-safe{position:absolute;background:rgba(1,169,130,.10);border:1px solid rgba(1,169,130,.32);}
+[data-theme="dark"] .cs-margin-phone-safe{background:rgba(1,201,154,.14);border-color:rgba(1,201,154,.36);}
+.cs-margin-phone-safe--lg{inset:20px;}
+.cs-margin-phone-safe--sm{inset:10px;}
+.cs-margin-phone-content{position:absolute;inset:36px 28px;display:flex;flex-direction:column;justify-content:space-between;}
+.cs-margin-phone-bar{height:8px;border-radius:3px;background:rgba(0,0,0,.08);}
+[data-theme="dark"] .cs-margin-phone-bar{background:rgba(255,255,255,.08);}
+.cs-margin-phone-bar:nth-of-type(2){width:62%;}
+.cs-margin-phone-stack{display:flex;flex-direction:column;gap:8px;}
+.cs-margin-phone-label{position:absolute;font-size:var(--fs-2xs);font-weight:var(--fw-bold);color:var(--accent);letter-spacing:.04em;}
+.cs-margin-phone-label--tl{top:4px;left:6px;}
+.cs-margin-phone-label--tr{top:4px;right:6px;}
+.cs-margin-phone-label--bl{bottom:4px;left:6px;}
+.cs-margin-phone-label--br{bottom:4px;right:6px;}
+.cs-margin-desc{font-size:var(--fs-sm);color:var(--ink-2);line-height:1.55;text-align:center;max-width:32ch;}
+
+/* SPACING — 4-pt grid step illustration */
+.cs-spacing-grid{margin-top:16px;padding:24px;border-radius:16px;background:var(--surf);border:1px solid var(--border);display:flex;flex-direction:column;gap:18px;}
+.cs-spacing-grid-meta{display:flex;justify-content:space-between;align-items:baseline;}
+.cs-spacing-grid-title{font-family:var(--font-display);font-size:var(--fs-md);font-weight:var(--fw-semibold);letter-spacing:-.02em;color:var(--ink);}
+.cs-spacing-grid-val{font-size:var(--fs-sm);font-weight:var(--fw-bold);color:var(--accent);}
+.cs-spacing-steps{display:flex;align-items:flex-end;gap:8px;height:80px;}
+.cs-spacing-step{flex:0 0 auto;background:linear-gradient(180deg,var(--accent),rgba(1,169,130,.35));border-radius:4px 4px 0 0;display:flex;align-items:flex-end;justify-content:center;padding-bottom:4px;}
+[data-theme="dark"] .cs-spacing-step{background:linear-gradient(180deg,var(--accent),rgba(1,201,154,.3));}
+.cs-spacing-step span{font-size:var(--fs-2xs);font-weight:var(--fw-bold);color:#fff;}
+.cs-spacing-list-demo{margin-top:6px;border:1px dashed var(--border-h);border-radius:14px;padding:20px;background:var(--bg-2);display:flex;align-items:center;gap:20px;position:relative;}
+.cs-spacing-list-demo-inner{flex:1;display:flex;flex-direction:column;gap:8px;}
+.cs-spacing-list-demo-row{display:flex;align-items:center;justify-content:space-between;gap:14px;}
+.cs-spacing-list-demo-title{font-size:var(--fs-base);font-weight:var(--fw-semibold);color:var(--ink);}
+.cs-spacing-list-demo-text{font-size:var(--fs-sm);color:var(--ink-2);line-height:1.5;}
+.cs-spacing-list-demo-toggle{width:42px;height:24px;border-radius:100px;background:var(--accent);position:relative;flex-shrink:0;}
+.cs-spacing-list-demo-toggle::after{content:'';position:absolute;top:3px;right:3px;width:18px;height:18px;border-radius:50%;background:#fff;}
+.cs-spacing-list-demo-tag{position:absolute;font-size:var(--fs-2xs);font-weight:var(--fw-bold);color:var(--accent);}
+.cs-spacing-list-demo-tag--top{top:6px;left:14px;}
+.cs-spacing-list-demo-tag--mid{top:50%;left:14px;transform:translateY(-50%);}
+.cs-spacing-list-demo-tag--right{top:50%;right:14px;transform:translateY(-50%);}
+.cs-spacing-list-demo-tag--bot{bottom:6px;left:14px;}
+@media(max-width:760px){.cs-margins{grid-template-columns:1fr;}}
+
+/* PLATFORM SUB-SECTIONS — typography / layout / components inside Mobile & Web */
+.cs-sub{margin-top:48px;}
+.cs-sub:first-of-type{margin-top:28px;}
+.cs-sub-label{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+.cs-sub-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.cs-sub-title{font-family:var(--font-display);font-size:var(--fs-lg);font-weight:var(--fw-semibold);letter-spacing:-.02em;color:var(--ink);margin-bottom:6px;}
+.cs-sub-text{font-size:var(--fs-base);color:var(--ink-2);line-height:1.6;max-width:60ch;margin-bottom:18px;}
+
+/* NDA disclaimer note */
+.cs-note{display:flex;gap:11px;align-items:flex-start;margin-top:20px;padding:14px 17px;border:1px solid var(--warn-border);border-radius:12px;background:var(--warn-bg);max-width:64ch;}
+.cs-note svg{flex:none;width:16px;height:16px;margin-top:1px;color:var(--warn);}
+.cs-note p{font-size:var(--fs-sm);color:var(--ink-2);line-height:1.55;margin:0;}
+.cs-note strong{color:var(--warn);font-weight:var(--fw-semibold);}
+
+/* NDA disclaimer — full-width band variant */
+.cs-note-band{background:var(--warn-bg);border-top:1px solid var(--warn-border);border-bottom:1px solid var(--warn-border);padding:20px 0;}
+.cs-note-band .cs-wrap{display:flex;gap:13px;align-items:flex-start;justify-content:center;}
+.cs-note-band svg{flex:none;width:20px;height:20px;margin-top:2px;color:var(--warn);}
+.cs-note-body{display:flex;flex-direction:column;gap:6px;max-width:64ch;}
+.cs-note-label{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.16em;text-transform:uppercase;color:var(--warn);}
+.cs-note-band p{font-family:var(--font-display);font-size:var(--fs-base);font-weight:var(--fw-regular);color:var(--ink-2);line-height:1.5;letter-spacing:-.01em;margin:0;}
+.cs-note-band strong{color:var(--ink);font-weight:var(--fw-semibold);}
+
+/* LAYOUT visual — spacing scale + grid demonstration */
+.cs-layout{display:grid;grid-template-columns:1.2fr 1fr;gap:16px;margin-top:6px;}
+.cs-layout-card{padding:24px;border-radius:16px;background:var(--surf);border:1px solid var(--border);display:flex;flex-direction:column;gap:14px;}
+.cs-layout-card-title{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3);}
+.cs-spacing-scale{display:flex;align-items:flex-end;gap:10px;height:120px;padding:8px 0;}
+.cs-spacing-bar{flex:1;background:linear-gradient(180deg,var(--accent),rgba(1,169,130,.4));border-radius:4px 4px 0 0;position:relative;display:flex;align-items:flex-end;justify-content:center;}
+[data-theme="dark"] .cs-spacing-bar{background:linear-gradient(180deg,var(--accent),rgba(1,201,154,.35));}
+.cs-spacing-bar span{font-size:var(--fs-2xs);font-weight:var(--fw-semibold);color:var(--ink-3);padding-bottom:4px;}
+.cs-grid-demo{display:grid;gap:6px;}
+.cs-grid-demo-row{display:grid;gap:6px;}
+.cs-grid-demo-cell{height:18px;border-radius:4px;background:rgba(1,169,130,.12);border:1px solid rgba(1,169,130,.25);}
+[data-theme="dark"] .cs-grid-demo-cell{background:rgba(1,201,154,.14);border-color:rgba(1,201,154,.3);}
+.cs-grid-demo-cell--accent{background:var(--accent);border-color:var(--accent);}
+@media(max-width:960px){.cs-layout{grid-template-columns:1fr;}}
+
+/* SECTION PLACEHOLDER — one slot per Figma section page (Color, Icons, Logo, Visuals, etc.) */
+.cs-section-ph{margin-top:6px;border:1.5px dashed var(--border-h);border-radius:18px;background:var(--bg-2);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;padding:48px 32px;min-height:280px;transition:background .4s,border-color .3s,transform .25s cubic-bezier(.22,1,.36,1);position:relative;overflow:hidden;}
+.cs-section-ph:hover{border-color:var(--accent);border-style:solid;transform:translateY(-2px);}
+.cs-section-ph img{max-width:100%;height:auto;display:block;border-radius:10px;}
+.cs-section-ph[data-empty="true"]::before{content:'';width:48px;height:48px;border-radius:12px;background:repeating-linear-gradient(45deg,var(--border-h),var(--border-h) 3px,transparent 3px,transparent 8px);opacity:.55;}
+.cs-section-ph-meta{display:flex;flex-direction:column;align-items:center;gap:4px;}
+.cs-section-ph-label{font-size:var(--fs-xs);font-weight:var(--fw-bold);color:var(--ink-3);letter-spacing:.14em;text-transform:uppercase;}
+.cs-section-ph-hint{font-size:var(--fs-xs);color:var(--ink-3);font-style:italic;opacity:.7;}
+.cs-theme-img.cs-theme-dark{display:none;}
+[data-theme="dark"] .cs-theme-img.cs-theme-light{display:none;}
+[data-theme="dark"] .cs-theme-img.cs-theme-dark{display:block;}
+
+
+/* COMPONENT SHOWCASE — screenshot gallery (replaces the chip inventory) */
+.cs-shot-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:10px;}
+.cs-shot{margin:0;border-radius:20px;border:1px solid var(--border);background:var(--surf);overflow:hidden;display:flex;flex-direction:column;transition:transform .25s cubic-bezier(.22,1,.36,1),border-color .3s,background .4s;}
+.cs-shot:hover{transform:translateY(-3px);border-color:var(--accent);}
+.cs-shot-thumb{aspect-ratio:4/3;background:var(--bg-2);overflow:hidden;border-bottom:1px solid var(--border);padding:38px;}
+/* Dark mode: pin light component screenshots to a constant light surface so they read as deliberate screenshots, not glowing white blocks. Theme-aware Color card + empty Visuals placeholder keep following the theme. */
+[data-theme="dark"] .cs-shot-thumb{background:#EDEDED;}
+[data-theme="dark"] .cs-shot[data-section="color"] .cs-shot-thumb,
+[data-theme="dark"] .cs-shot[data-section="logo"] .cs-shot-thumb,
+[data-theme="dark"] .cs-shot[data-section="web-typography"] .cs-shot-thumb,
+[data-theme="dark"] .cs-shot[data-section="web-layout-grid"] .cs-shot-thumb,
+[data-theme="dark"] .cs-shot[data-section="web-navigation"] .cs-shot-thumb,
+[data-theme="dark"] .cs-shot[data-section="web-buttons"] .cs-shot-thumb,
+[data-theme="dark"] .cs-shot[data-section="web-cards"] .cs-shot-thumb,
+[data-theme="dark"] .cs-shot[data-section="web-breadcrumbs"] .cs-shot-thumb,
+[data-theme="dark"] .cs-shot[data-section="web-footers"] .cs-shot-thumb,
+[data-theme="dark"] .cs-shot[data-section="web-modals"] .cs-shot-thumb,
+[data-theme="dark"] .cs-shot:has(.cs-theme-dark) .cs-shot-thumb,
+[data-theme="dark"] .cs-shot-thumb--empty{background:var(--bg-2);}
+.cs-shot-thumb img{width:100%;height:100%;display:block;object-fit:contain;object-position:center;}
+.cs-shot-thumb--empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;}
+.cs-shot-thumb--empty::before{content:'';width:40px;height:40px;border-radius:11px;background:repeating-linear-gradient(45deg,var(--border-h),var(--border-h) 3px,transparent 3px,transparent 8px);opacity:.55;}
+.cs-shot-hint{font-size:var(--fs-xs);color:var(--ink-3);font-style:italic;opacity:.7;}
+.cs-shot-cap{padding:16px 18px 18px;}
+.cs-shot-name{font-family:var(--font-display);font-size:var(--fs-base);font-weight:var(--fw-semibold);letter-spacing:-.01em;color:var(--ink);margin-bottom:3px;}
+.cs-shot-desc{font-size:var(--fs-sm);color:var(--ink-3);line-height:1.45;}
+@media(max-width:920px){.cs-shot-gallery{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.cs-shot-gallery{grid-template-columns:1fr;}}
+
+/* COMPONENT GRID (mobile 13 atoms / web set) */
+.cs-comp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:6px;}
+.cs-comp{aspect-ratio:1;border-radius:14px;border:1px solid var(--border);background:var(--bg-2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:16px;transition:transform .25s cubic-bezier(.22,1,.36,1),background .4s,border-color .3s;cursor:none;}
+.cs-comp:hover{transform:translateY(-3px);border-color:var(--border-h);}
+.cs-comp-ico{width:38px;height:38px;border-radius:10px;background:var(--surf);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--accent);font-weight:var(--fw-bold);font-size:var(--fs-base);}
+.cs-comp-name{font-size:var(--fs-sm);font-weight:var(--fw-semibold);color:var(--ink);text-align:center;letter-spacing:-.01em;}
+.cs-comp-meta{font-size:var(--fs-xs);color:var(--ink-3);letter-spacing:.04em;}
+.cs-platforms{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px;}
+.cs-platform{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:100px;background:var(--surf);border:1px solid var(--border);font-size:var(--fs-sm);font-weight:var(--fw-medium);color:var(--ink-2);}
+.cs-platform-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);}
+
+/* AI AGENTS */
+.cs-agents{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px;}
+.cs-agent{border-radius:18px;border:1px solid var(--border);background:var(--surf);overflow:hidden;display:flex;flex-direction:column;transition:transform .25s cubic-bezier(.22,1,.36,1),border-color .3s,background .4s;}
+.cs-agent:hover{transform:translateY(-3px);border-color:var(--border-h);}
+.cs-agent-header{display:flex;align-items:center;gap:10px;padding:14px 18px;background:var(--bg-2);border-bottom:1px solid var(--border);}
+.cs-agent-dot{display:flex;gap:5px;}
+.cs-agent-dot span{width:9px;height:9px;border-radius:50%;background:var(--border-h);}
+.cs-agent-file{font-size:var(--fs-xs);font-weight:var(--fw-semibold);color:var(--ink-2);letter-spacing:.02em;}
+.cs-agent-body{padding:24px 28px;display:flex;flex-direction:column;gap:14px;}
+.cs-agent-role{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);}
+.cs-agent-name{font-family:var(--font-display);font-size:var(--fs-md);font-weight:var(--fw-semibold);color:var(--ink);letter-spacing:-.02em;line-height:1.2;}
+.cs-agent-desc{font-size:var(--fs-base);color:var(--ink-2);line-height:1.6;}
+.cs-agent-jobs{display:flex;flex-direction:column;gap:6px;margin-top:6px;}
+.cs-agent-job{display:flex;align-items:flex-start;gap:8px;font-size:var(--fs-base);color:var(--ink-2);line-height:1.5;}
+.cs-agent-job::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:8px;}
+.cs-flow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:24px;padding:16px 20px;border:1px dashed var(--border-h);border-radius:14px;background:var(--bg-2);}
+.cs-flow-pill{font-size:var(--fs-xs);font-weight:var(--fw-semibold);color:var(--ink-2);padding:5px 10px;border-radius:6px;background:var(--surf);border:1px solid var(--border);letter-spacing:.02em;}
+.cs-flow-pill--accent{color:var(--accent);border-color:rgba(1,169,130,.25);background:rgba(1,169,130,.06);}
+.cs-flow-arrow{color:var(--ink-3);font-size:var(--fs-sm);}
+
+/* IMPACT — two-phase outcome (efficiency → rebrand foundation) */
+.cs-impact-phases{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px;}
+.cs-impact-phase{position:relative;border-radius:18px;border:1px solid var(--border);background:var(--surf);padding:28px;display:flex;flex-direction:column;gap:14px;transition:background .4s,border-color .4s,transform .25s cubic-bezier(.22,1,.36,1);}
+.cs-impact-phase:hover{transform:translateY(-3px);border-color:var(--border-h);}
+.cs-impact-phase--accent{background:linear-gradient(135deg,rgba(1,169,130,.08),rgba(1,169,130,.03));border-color:rgba(1,169,130,.22);}
+[data-theme="dark"] .cs-impact-phase--accent{background:linear-gradient(135deg,rgba(1,201,154,.14),rgba(1,201,154,.04));border-color:rgba(1,201,154,.28);}
+.cs-impact-phase-head{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.cs-impact-phase-num{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);}
+.cs-impact-phase--accent .cs-impact-phase-num{color:var(--accent);}
+.cs-impact-phase-tag{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);border:1px solid var(--border);border-radius:100px;padding:3px 10px;}
+.cs-impact-phase--accent .cs-impact-phase-tag{color:var(--accent);border-color:rgba(1,169,130,.25);}
+[data-theme="dark"] .cs-impact-phase--accent .cs-impact-phase-tag{border-color:rgba(1,201,154,.3);}
+.cs-impact-phase-title{font-family:var(--font-display);font-size:var(--fs-md);font-weight:var(--fw-semibold);letter-spacing:-.02em;color:var(--ink);line-height:1.15;}
+.cs-impact-phase-text{font-size:var(--fs-base);color:var(--ink-2);line-height:1.65;}
+.cs-impact-phase-stats{display:flex;gap:28px;margin-top:auto;padding-top:18px;border-top:1px solid var(--border);}
+.cs-impact-stat{display:flex;flex-direction:column;gap:5px;}
+.cs-impact-stat-val{font-family:var(--font-display);font-weight:var(--fw-bold);font-size:var(--fs-2xl);letter-spacing:-.03em;color:var(--accent);line-height:1;}
+.cs-impact-stat-lbl{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);}
+
+/* PRINCIPLES — reflection grid */
+.cs-principles{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px;}
+.cs-principle{position:relative;border-radius:18px;border:1px solid var(--border);background:var(--surf);padding:26px 28px;display:flex;flex-direction:column;gap:10px;transition:background .4s,border-color .4s,transform .25s cubic-bezier(.22,1,.36,1);}
+.cs-principle:hover{transform:translateY(-3px);border-color:var(--border-h);}
+.cs-principle-num{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.14em;color:var(--accent);}
+.cs-principle-title{font-family:var(--font-display);font-size:var(--fs-md);font-weight:var(--fw-semibold);letter-spacing:-.02em;color:var(--ink);line-height:1.2;}
+.cs-principle-text{font-size:var(--fs-base);color:var(--ink-2);line-height:1.6;}
+.cs-reflection{margin-top:28px;padding:24px 28px;border-left:2px solid var(--accent);background:var(--bg-2);border-radius:0 14px 14px 0;}
+.cs-reflection-label{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;display:block;}
+.cs-reflection-text{font-size:var(--p1-size);font-weight:var(--p1-weight);color:var(--p1-color);line-height:var(--p1-line);letter-spacing:var(--p1-tracking);}
+@media(max-width:960px){.cs-principles{grid-template-columns:1fr;}}
+
+/* NEXT PROJECTS */
+.cs-next-section{background:var(--bg-2);padding:80px 0;border-top:1px solid var(--border);transition:background .4s;}
+.cs-next-heading{display:flex;align-items:flex-end;justify-content:space-between;max-width:980px;margin:0 auto 28px;padding:0 40px;}
+.cs-next-eyebrow{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;display:block;}
+.cs-next-section-title{font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:clamp(var(--fs-xl),5vw,var(--fs-3xl));line-height:1.05;letter-spacing:-.03em;color:var(--ink);}
+.cs-all-link{font-size:var(--fs-sm);font-weight:var(--fw-semibold);letter-spacing:.04em;color:var(--ink-2);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s;flex-shrink:0;margin-bottom:4px;}
+.cs-all-link:hover{color:var(--accent);}
+.cs-proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:980px;margin:0 auto;padding:0 40px;}
+.cs-proj-card{border-radius:24px;overflow:hidden;text-decoration:none;background:var(--surf);border:1px solid var(--border);transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s,border-color .3s;display:flex;flex-direction:column;}
+.cs-proj-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,.1);border-color:var(--border-h);}
+[data-theme="dark"] .cs-proj-card:hover{box-shadow:0 16px 48px rgba(0,0,0,.5);}
+.cs-proj-card-thumb{height:200px;position:relative;overflow:hidden;flex-shrink:0;}
+.cs-proj-card-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(0,0,0,.5) 100%);}
+.cs-proj-thumb-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .5s cubic-bezier(.22,1,.36,1);}
+.cs-proj-card:hover .cs-proj-thumb-bg{transform:scale(1.04);}
+.cs-proj-card-num{position:absolute;top:16px;right:16px;z-index:2;font-family:var(--font-accent);font-size:var(--fs-2xl);letter-spacing:-.02em;color:rgba(255,255,255,.12);line-height:1;user-select:none;}
+.cs-proj-card-body{padding:22px 26px;flex:1;display:flex;flex-direction:column;gap:10px;}
+.cs-proj-card-tags{display:flex;gap:6px;flex-wrap:wrap;}
+.cs-proj-card-tag{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.08em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(1,169,130,.2);background:rgba(1,169,130,.06);padding:2px 8px;border-radius:100px;}
+[data-theme="dark"] .cs-proj-card-tag{color:var(--accent);border-color:rgba(1,201,154,.25);background:rgba(1,201,154,.08);}
+.cs-proj-card-name{font-family:var(--font-accent);font-size:var(--fs-md);letter-spacing:.02em;color:var(--ink);line-height:1.05;}
+.cs-proj-card-arrow{margin-top:auto;margin-left:auto;width:28px;height:28px;border-radius:50%;border:1.5px solid var(--border-h);display:flex;align-items:center;justify-content:center;font-size:var(--fs-sm);color:var(--ink-2);transition:background .2s,border-color .2s,color .2s,transform .2s;}
+.cs-proj-card:hover .cs-proj-card-arrow{background:var(--accent);border-color:var(--accent);color:#fff;transform:rotate(45deg);}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease;}
+.reveal.in{opacity:1;transform:none;}
+
+/* RESPONSIVE — breakpoints + section/hero padding match adaptive plan */
+@media(max-width:1100px){
+  .page-wrap{grid-template-columns:1fr;}
+  .cs-left{display:none;}
+  .cs-section{padding:72px 0;}
+  .cs-intro{padding:72px 0 28px;}
+  .cs-wrap{padding:0 32px;}
+}
+@media(max-width:960px){
+  nav{padding:0 20px;}
+  .cs-hero{padding:40px 32px;}
+  .cs-section{padding:64px 0;}
+  .cs-intro{padding:64px 0 24px;}
+  .cs-comp-grid{grid-template-columns:repeat(3,1fr);}
+  .cs-agents{grid-template-columns:1fr;}
+  .cs-impact-phases{grid-template-columns:1fr;}
+  .cs-before-after{grid-template-columns:1fr;}
+  .cs-proj-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:767px){
+  .cs-wrap{padding:0 24px;}
+  .cs-hero{padding:32px 20px;min-height:44vh;}
+  .cs-hero-title{font-size:clamp(var(--fs-xl),10vw,var(--fs-4xl));}
+  .cs-hero-sub{font-size:var(--fs-base);max-width:100%;}
+  .cs-intro{padding:44px 0 24px;}
+  .cs-section{padding:52px 0;}
+  .cs-comp-grid{grid-template-columns:repeat(2,1fr);}
+  .cs-meta{gap:24px 36px;}
+  .cs-next-section{padding:56px 0;}
+  .cs-proj-grid{grid-template-columns:1fr;}
+}
+
+/* FOOTER */
+footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;border-top:1px solid var(--border);transition:background .4s,color .4s;}
+.ft-name{font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:var(--fs-lg);letter-spacing:.04em;}
+.ft-tag{font-size:var(--fs-base);color:rgba(245,245,245,.75);margin-top:4px;}
+.ft-copy{font-size:var(--fs-sm);color:rgba(245,245,245,.45);letter-spacing:.02em;align-self:flex-end;}
+[data-theme="dark"] footer{background:#1E1E1E;}
+[data-theme="dark"] .ft-name{color:#F5F5F5;}
+[data-theme="dark"] .ft-tag{color:rgba(245,245,245,.75);}
+
+/* ── HPE — figures, statements, chip list ── */
+.cs-timeline-row--5{grid-template-columns:repeat(5,1fr);}
+.cs-body{font-size:var(--p1-size);font-weight:var(--p1-weight);color:var(--p1-color);line-height:var(--p1-line);letter-spacing:var(--p1-tracking);max-width:var(--p1-max-width);}
+.cs-body p+p{margin-top:16px;}
+.cs-body strong{color:var(--ink);font-weight:var(--fw-semibold);}
+.cs-body em{font-style:italic;color:var(--ink-2);}
+/* Overview grid — adaptive-plan style (label / value / sub cells, top divider) */
+.cs-overview-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:36px;margin-top:36px;border-top:1px solid var(--border);padding-top:28px;}
+.cs-ov-cell{padding:0;}
+.cs-ov-label{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-bottom:12px;display:block;}
+.cs-ov-val{font-size:var(--fs-base);font-weight:var(--fw-semibold);color:var(--ink);line-height:1.45;}
+.cs-ov-sub{font-size:var(--fs-sm);font-weight:var(--fw-regular);color:var(--ink-3);line-height:1.55;margin-top:2px;}
+.cs-ov-list{display:flex;flex-direction:column;gap:6px;}
+.cs-ov-list span{font-size:var(--fs-base);font-weight:var(--fw-semibold);color:var(--ink);line-height:1.45;}
+@media(max-width:960px){.cs-overview-grid{grid-template-columns:1fr 1fr 1fr;gap:28px 24px;}}
+@media(max-width:767px){.cs-overview-grid{grid-template-columns:1fr 1fr;gap:24px;}}
+/* HMW — full-bleed gradient band (adaptive-plan style, recolored HPE green) */
+.cs-hmw-band{position:relative;width:100%;background:linear-gradient(180deg,#022c22 0%,#022c22 26%,#024638 40%,#016b51 56%,#01A982 72%,#6fccb5 84%,#cdeae1 93%,var(--bg) 100%);padding:112px 52px 148px;overflow:hidden;--mx:50%;--my:50%;}
+[data-theme="dark"] .cs-hmw-band{background:linear-gradient(180deg,#022c22 0%,#022c22 30%,#023f30 52%,#015f48 72%,#02261c 90%,var(--bg) 100%);}
+.cs-hmw-band::before{content:'';position:absolute;inset:0;background:radial-gradient(circle 420px at var(--mx) var(--my),rgba(1,201,154,.30),transparent 65%);pointer-events:none;opacity:0;transition:opacity .5s ease;}
+.cs-hmw-band:hover::before{opacity:1;}
+.cs-hmw-band.reveal{opacity:1;transform:none;transition:none;}
+.cs-hmw-inner{max-width:1080px;margin:0 auto;text-align:center;position:relative;z-index:1;}
+.cs-hmw-eyebrow{display:block;font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.18em;text-transform:uppercase;color:rgba(245,245,245,.62);margin-bottom:22px;position:relative;z-index:2;}
+.cs-hmw-question{position:relative;z-index:2;font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:clamp(var(--fs-lg),4.5vw,var(--fs-3xl));line-height:1.25;letter-spacing:-.025em;color:rgba(245,245,245,.86);margin:0;opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
+.cs-hmw-band.in .cs-hmw-question{opacity:1;transform:none;}
+.cs-hmw-key{font-style:normal;color:var(--spotlight-ink);}
+@media(max-width:767px){.cs-hmw-band{padding:76px 24px 104px;}.cs-hmw-eyebrow{margin-bottom:16px;}}
+@media(prefers-reduced-motion:reduce){.cs-hmw-band::before{display:none;}.cs-hmw-question{opacity:1;transform:none;transition:none;}}
+@media(max-width:960px){.cs-timeline-row--5{grid-template-columns:1fr;}}
+.cs-figure{margin:28px 0 0;border-radius:16px;border:1px solid var(--border);background:var(--surf);overflow:hidden;transition:background .4s,border-color .3s,transform .25s cubic-bezier(.22,1,.36,1);}
+.cs-figure:hover{transform:translateY(-2px);border-color:var(--border-h);}
+.cs-figure > img{width:100%;display:block;}
+.cs-figure figcaption{padding:14px 20px;font-size:var(--fs-sm);color:var(--ink-3);line-height:1.55;border-top:1px solid var(--border);}
+.cs-figure figcaption strong{color:var(--ink-2);font-weight:var(--fw-semibold);}
+.cs-figrow{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px;}
+.cs-figrow .cs-figure{margin-top:0;}
+@media(max-width:760px){.cs-figrow{grid-template-columns:1fr;}}
+.cs-chiplist{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px;}
+.cs-chiplist span{display:inline-flex;align-items:center;gap:8px;padding:7px 15px;border-radius:100px;background:var(--surf);border:1px solid var(--border);font-size:var(--fs-sm);font-weight:var(--fw-medium);color:var(--ink-2);transition:background .4s,border-color .3s;}
+.cs-chiplist span::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);}
+.cs-statement{margin-top:28px;padding:32px 36px;border-radius:18px;border:1px solid rgba(1,169,130,.22);background:linear-gradient(135deg,rgba(1,169,130,.07),rgba(1,169,130,.02));}
+[data-theme="dark"] .cs-statement{border-color:rgba(1,201,154,.26);background:linear-gradient(135deg,rgba(1,201,154,.12),rgba(1,201,154,.03));}
+.cs-statement-label{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;display:block;}
+.cs-statement p{font-family:var(--font-display);font-size:clamp(var(--fs-lg),3.2vw,var(--fs-2xl));font-weight:var(--fw-semibold);line-height:1.18;letter-spacing:-.02em;color:var(--ink);}
+@media(max-width:767px){.cs-statement{padding:24px 22px;}}
+</style>
+</head>
+<body>
+<div id="cur"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html#home" class="nav-logo" aria-label="Chloe Wu — home">
+    <svg class="nav-logo-mark" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <path fill="currentColor" d="m24 4a20 20 0 1 0 20 20 20 20 0 0 0 -20-20zm-11 18a1 1 0 0 1 -.27-2l4.53-1.29-3.7-1.85a1 1 0 1 1 .89-1.79l6 3a1 1 0 0 1 -.18 1.93l-7 2a1 1 0 0 1 -.27 0zm20.95 7.32a10.49 10.49 0 0 1 -9.95 6.68 10.49 10.49 0 0 1 -9.95-6.68 1 1 0 0 1 1.9-.63 8.35 8.35 0 0 0 8.05 5.31 8.35 8.35 0 0 0 8.05-5.32 1 1 0 0 1 1.9.64zm-2.45-8.32a2.5 2.5 0 1 1 2.5-2.5 2.5 2.5 0 0 1 -2.5 2.5z"/>
+    </svg>
+  </a>
+  <div class="nav-r">
+    <ul class="nav-links">
+      <li><a href="index.html#work">Work</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html" class="nav-cta">Resume &#8599;</a></li>
+    </ul>
+    <label class="t-tog" aria-label="Toggle theme">
+      <input type="checkbox" id="themeToggle">
+      <span class="t-track">
+        <svg class="t-icon t-sun" aria-hidden="true" viewBox="0 0 512 512" fill="currentColor"><path d="M275,59.25V19a19,19,0,0,0-38,0V59.25a19,19,0,0,0,38,0Z"/><path d="M275,493V452.75a19,19,0,0,0-38,0V493a19,19,0,0,0,38,0Z"/><path d="M452.75,275H493a19,19,0,0,0,0-38H452.75a19,19,0,0,0,0,38Z"/><path d="M19,275H59.25a19,19,0,0,0,0-38H19a19,19,0,0,0,0,38Z"/><path d="M256,99.74A156.26,156.26,0,1,0,412.26,256,156.26,156.26,0,0,0,256,99.74Z"/></svg>
+        <svg class="t-icon t-moon" aria-hidden="true" viewBox="0 0 512 512" fill="currentColor"><path d="m351 361.68c-110.67 0-200.71-90-200.71-200.71a199.92 199.92 0 0 1 50.8-133.45c11.1-12.43-1.29-31.66-17.19-26.73-106.53 33.04-183.9 132.36-183.9 249.75 0 144 117.46 261.46 261.46 261.46 117.39 0 216.7-77.37 249.75-183.9 4.93-15.9-14.3-28.29-26.73-17.22a199.92 199.92 0 0 1 -133.48 50.8z"/></svg>
+      </span>
+      <span class="t-knob"></span>
+    </label>
+  </div>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- LEFT STICKY PANEL — required on every case study -->
+  <aside class="cs-left">
+    <a href="index.html#work" class="cs-back">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Back
+    </a>
+
+    <div class="cs-left-label">
+      <span class="cs-left-eyebrow">Case Study &middot; 03</span>
+      <div class="cs-left-project">Consumption Analytics</div>
+    </div>
+
+    <div class="cs-index" id="csIndex">
+      <a href="#overview"   class="cs-idx-row active" data-section="overview">
+        <span class="cs-idx-num">00</span><span class="cs-idx-label">Overview</span><span class="cs-idx-tick"></span>
+      </a>
+      <a href="#context"    class="cs-idx-row" data-section="context">
+        <span class="cs-idx-num">01</span><span class="cs-idx-label">Context</span><span class="cs-idx-tick"></span>
+      </a>
+      <a href="#process"    class="cs-idx-row" data-section="process">
+        <span class="cs-idx-num">02</span><span class="cs-idx-label">Process</span><span class="cs-idx-tick"></span>
+      </a>
+      <a href="#research"   class="cs-idx-row" data-section="research">
+        <span class="cs-idx-num">03</span><span class="cs-idx-label">Research</span><span class="cs-idx-tick"></span>
+      </a>
+      <a href="#explore"    class="cs-idx-row" data-section="explore">
+        <span class="cs-idx-num">04</span><span class="cs-idx-label">Explore</span><span class="cs-idx-tick"></span>
+      </a>
+      <a href="#iterate"    class="cs-idx-row" data-section="iterate">
+        <span class="cs-idx-num">05</span><span class="cs-idx-label">Iterate</span><span class="cs-idx-tick"></span>
+      </a>
+      <a href="#final"      class="cs-idx-row" data-section="final">
+        <span class="cs-idx-num">06</span><span class="cs-idx-label">Final Design</span><span class="cs-idx-tick"></span>
+      </a>
+      <a href="#impact"     class="cs-idx-row" data-section="impact">
+        <span class="cs-idx-num">07</span><span class="cs-idx-label">Impact</span><span class="cs-idx-tick"></span>
+      </a>
+      <a href="#reflection" class="cs-idx-row" data-section="reflection">
+        <span class="cs-idx-num">08</span><span class="cs-idx-label">Reflection</span><span class="cs-idx-tick"></span>
+      </a>
+    </div>
+
+    <div class="cs-progress">
+      <div class="cs-progress-label">Progress</div>
+      <div class="cs-progress-track"><div class="cs-progress-fill" id="progressFill"></div></div>
+    </div>
+  </aside>
+
+  <!-- RIGHT CONTENT -->
+  <main class="cs-content">
+
+    <!-- HERO -->
+    <div class="cs-hero">
+      <div class="cs-hero-inner reveal">
+        <div class="cs-hero-tags">
+          <span class="cs-hero-tag">Dashboard</span>
+          <span class="cs-hero-tag">B2B</span>
+          <span class="cs-hero-tag">Web</span>
+        </div>
+        <h1 class="cs-hero-title">Consumption<br>Analytics</h1>
+        <p class="cs-hero-sub">HPE GreenLake&rsquo;s Consumption Analytics &mdash; a modular chart system for tracking and forecasting enterprise cloud spend.</p>
+      </div>
+    </div>
+
+    <!-- 00 OVERVIEW -->
+    <section class="cs-section" id="overview">
+      <div class="cs-wrap">
+        <span class="cs-eyebrow">Overview</span>
+        <h2 class="cs-section-title">Project at a Glance</h2>
+        <div class="cs-body reveal">
+          <p>In summer 2023 I joined the HPE GreenLake Cloud Platform team as a UX Design Intern, working on <strong>Consumption Analytics</strong> &mdash; the product enterprise teams use to track and forecast their cloud spend. My work centered on the dashboard&rsquo;s customization features. The ask was open&#8209;ended: users had said they wanted to &ldquo;customize their dashboards,&rdquo; and no one had defined what that should mean. Over 14 weeks I went from competitive research to a high&#8209;fidelity, modular chart system &mdash; narrowing a sprawling wish&#8209;list through three rounds of UX critique, working alongside a UI developer, a product manager, a UX researcher, and a fellow designer.</p>
+        </div>
+        <div class="cs-overview-grid reveal">
+          <div class="cs-ov-cell">
+            <span class="cs-ov-label">My Role</span>
+            <div class="cs-ov-val">UX Design Intern</div>
+            <div class="cs-ov-sub">HPE GreenLake Cloud Platform</div>
+          </div>
+          <div class="cs-ov-cell">
+            <span class="cs-ov-label">My Contribution</span>
+            <div class="cs-ov-list">
+              <span>User research</span>
+              <span>Competitor analysis</span>
+              <span>Wireframes</span>
+              <span>Prototypes</span>
+              <span>Design system</span>
+              <span>Usability testing</span>
+            </div>
+          </div>
+          <div class="cs-ov-cell">
+            <span class="cs-ov-label">Tools</span>
+            <div class="cs-tool-icons" role="list" aria-label="Figma, Jira, Confluence, HPE Design System, Storybook, Grommet">
+              <span class="cs-tool-icon cs-tool-icon--figma" role="listitem" aria-label="Figma">
+                <svg width="11" height="16" viewBox="0 0 38 57" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="#1abcfe" d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z"/><path fill="#0acf83" d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0z"/><path fill="#ff7262" d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z"/><path fill="#f24e1e" d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z"/><path fill="#a259ff" d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z"/></svg>
+              </span>
+              <span class="cs-tool-icon cs-tool-icon--jira" role="listitem" aria-label="Jira">
+                <svg width="15" height="15" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="#2684FF" d="M11.571 11.513H0a5.218 5.218 0 0 0 5.232 5.215h2.13v2.057A5.215 5.215 0 0 0 12.575 24V12.518a1.005 1.005 0 0 0-1.005-1.005zm5.723-5.756H5.736a5.215 5.215 0 0 0 5.215 5.214h2.129v2.058a5.218 5.218 0 0 0 5.215 5.214V6.758a1.001 1.001 0 0 0-1.001-1.001zM23.013 0H11.455a5.215 5.215 0 0 0 5.215 5.215h2.129v2.057A5.215 5.215 0 0 0 24 12.483V1.005A1.001 1.001 0 0 0 23.013 0Z"/></svg>
+              </span>
+              <span class="cs-tool-icon cs-tool-icon--confluence" role="listitem" aria-label="Confluence">
+                <svg width="15" height="15" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="#1868DB" d="M.87 18.257c-.248.382-.53.875-.763 1.245a.764.764 0 0 0 .255 1.04l4.965 3.054a.764.764 0 0 0 1.058-.26c.199-.332.454-.763.733-1.221 1.967-3.247 3.945-2.853 7.508-1.146l4.957 2.337a.764.764 0 0 0 1.028-.382l2.364-5.346a.764.764 0 0 0-.382-1 599.851 599.851 0 0 1-4.965-2.361C10.911 10.97 5.224 11.185.87 18.257zM23.131 5.743c.249-.405.531-.875.764-1.25a.764.764 0 0 0-.256-1.034L18.675.404a.764.764 0 0 0-1.058.26c-.195.335-.451.763-.734 1.225-1.966 3.246-3.945 2.85-7.508 1.146L4.437.694a.764.764 0 0 0-1.027.382L1.046 6.422a.764.764 0 0 0 .382 1c1.039.49 3.105 1.467 4.965 2.361 6.698 3.246 12.392 3.029 16.738-4.04z"/></svg>
+              </span>
+              <span class="cs-tool-icon cs-tool-icon--hpe" role="listitem" aria-label="HPE Design System">
+                <svg width="17" height="11" viewBox="0 0 34 22" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><rect x="2" y="2" width="30" height="18" fill="none" stroke="#fff" stroke-width="2.6"/></svg>
+              </span>
+              <span class="cs-tool-icon cs-tool-icon--storybook" role="listitem" aria-label="Storybook">
+                <svg width="14" height="14" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="#fff" d="M16.71.243l-.12 2.71a.18.18 0 00.29.15l1.06-.8.9.7a.18.18 0 00.28-.14l-.1-2.76 1.33-.1a1.2 1.2 0 011.279 1.2v21.596a1.2 1.2 0 01-1.26 1.2l-16.096-.72a1.2 1.2 0 01-1.15-1.16l-.75-19.797a1.2 1.2 0 011.13-1.27L16.7.222zM13.64 9.3c0 .47 3.16.24 3.59-.08 0-3.2-1.72-4.89-4.859-4.89-3.15 0-4.899 1.72-4.899 4.29 0 4.45 5.999 4.53 5.999 6.959 0 .7-.32 1.1-1.05 1.1-.96 0-1.35-.49-1.3-2.16 0-.36-3.649-.48-3.769 0-.27 4.03 2.23 5.2 5.099 5.2 2.79 0 4.969-1.49 4.969-4.18 0-4.77-6.099-4.64-6.099-6.999 0-.97.72-1.1 1.13-1.1.45 0 1.25.07 1.19 1.87z"/></svg>
+              </span>
+              <span class="cs-tool-icon cs-tool-icon--grommet" role="listitem" aria-label="Grommet">
+                <svg width="15" height="15" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="7.8" fill="none" stroke="#fff" stroke-width="3.4"/></svg>
+              </span>
+            </div>
+          </div>
+          <div class="cs-ov-cell">
+            <span class="cs-ov-label">Collaboration</span>
+            <div class="cs-ov-list">
+              <span>UX Designer</span>
+              <span>UI Developer</span>
+              <span>Product Manager</span>
+              <span>UX Researcher</span>
+            </div>
+          </div>
+          <div class="cs-ov-cell">
+            <span class="cs-ov-label">Duration</span>
+            <div class="cs-ov-val">14 weeks</div>
+            <div class="cs-ov-sub">May &ndash; August 2023</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 01 CONTEXT -->
+    <section class="cs-section" id="context">
+      <div class="cs-wrap">
+        <span class="cs-eyebrow">Context</span>
+        <h2 class="cs-section-title">What is<br>Consumption Analytics?</h2>
+        <p class="cs-section-sub reveal">HPE GreenLake Consumption Analytics helps organizations monitor and manage how they use IT resources and services &mdash; surfacing usage patterns, resource allocation, and cost efficiency. Picture the user: a <strong>system administrator at a medium&#8209;sized IT company</strong> who wants to optimize resource usage, cut costs, and find the soft spots across their infrastructure. The product already existed and had traction &mdash; my job wasn&rsquo;t to invent it, but to make it bend to how each admin actually reads their data.</p>
+
+        <div class="cs-before-after reveal" style="grid-template-columns:1fr;">
+          <div class="cs-ba-cell cs-ba-cell--after">
+            <span class="cs-ba-tag">The signal we inherited</span>
+            <div class="cs-ba-title">A customization wish&#8209;list from earlier usability testing</div>
+            <div class="cs-ba-text">Before I joined, the CA team had run rounds of usability testing. One theme kept surfacing: users wanted to make the dashboard <em>theirs</em>. The asks clustered into four:</div>
+            <div class="cs-ba-list" style="margin-top:2px;">
+              <div class="cs-ba-list-item">Move charts around the dashboard</div>
+              <div class="cs-ba-list-item">Make charts larger to see more detail</div>
+              <div class="cs-ba-list-item">Delete and re&#8209;add charts freely</div>
+              <div class="cs-ba-list-item">Customize charts with color and a preferred styling</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-sub reveal">
+          <div class="cs-sub-label">The challenge</div>
+          <div class="cs-sub-title">Designing inside a deeply technical product</div>
+          <div class="cs-sub-text">HPE is a developer&#8209;focused company, and I came in with limited domain knowledge &mdash; so I took a &ldquo;learn as I go&rdquo; approach, leaning on engineers and researchers to actually understand cloud consumption before redesigning how people read it. Most of the work was collaborative: aligning research, development, and design on what was feasible, what mattered, and what was worth building.</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 02 PROCESS -->
+    <section class="cs-section" id="process">
+      <div class="cs-wrap">
+        <span class="cs-eyebrow">Process</span>
+        <h2 class="cs-section-title">14 weeks,<br>five phases</h2>
+        <p class="cs-section-sub reveal">Research up front, three iteration rounds in the middle &mdash; each gated by a UX critique &mdash; then a final demo and a handoff to usability testing.</p>
+        <div class="cs-timeline reveal" role="list" aria-label="Process timeline">
+          <div class="cs-timeline-track" aria-hidden="true"><div class="cs-timeline-fill"></div></div>
+          <div class="cs-timeline-row cs-timeline-row--5">
+            <div class="cs-timeline-step cs-timeline-step--done" role="listitem">
+              <div class="cs-timeline-node">01</div>
+              <div class="cs-timeline-phase">Jun 5 &ndash; 21</div>
+              <div class="cs-timeline-title">Research</div>
+              <div class="cs-timeline-text">Secondary research, HPE design&#8209;system component exploration, and a UX audit of the existing dashboard.</div>
+            </div>
+            <div class="cs-timeline-step cs-timeline-step--done" role="listitem">
+              <div class="cs-timeline-node">02</div>
+              <div class="cs-timeline-phase">Jun 22 &ndash; Jul 7</div>
+              <div class="cs-timeline-title">Iteration 1</div>
+              <div class="cs-timeline-text">First exploration and iteration, pressure&#8209;tested in a UX critique and the first stakeholder meeting.</div>
+            </div>
+            <div class="cs-timeline-step cs-timeline-step--done" role="listitem">
+              <div class="cs-timeline-node">03</div>
+              <div class="cs-timeline-phase">Jul 8 &ndash; 27</div>
+              <div class="cs-timeline-title">Iteration 2 &amp; 3</div>
+              <div class="cs-timeline-text">Two more rounds, each anchored by a critique that narrowed the feature set toward depth over breadth.</div>
+            </div>
+            <div class="cs-timeline-step cs-timeline-step--done" role="listitem">
+              <div class="cs-timeline-node">04</div>
+              <div class="cs-timeline-phase">Jul 28 &ndash; Aug 3</div>
+              <div class="cs-timeline-title">Demo</div>
+              <div class="cs-timeline-text">Prototyping, the final demo, and the end&#8209;of&#8209;summer showcase presentation.</div>
+            </div>
+            <div class="cs-timeline-step cs-timeline-step--current" role="listitem">
+              <div class="cs-timeline-node">05</div>
+              <div class="cs-timeline-phase">Aug 4 &ndash; 25</div>
+              <div class="cs-timeline-title">Test &amp; implement</div>
+              <div class="cs-timeline-text">Handed to the research team for usability testing, then refined toward implementation.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NDA scope disclaimer -->
+    <div class="cs-note-band reveal" role="note">
+      <div class="cs-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        <div class="cs-note-body">
+          <span class="cs-note-label">A note on scope</span>
+          <p><strong>An NDA internship project.</strong> Consumption Analytics is a proprietary HPE GreenLake product &mdash; the screens below are intern explorations, the data shown is illustrative, and only a slice of the work is shared here.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02 RESEARCH -->
+    <section class="cs-section" id="research">
+      <div class="cs-wrap">
+        <span class="cs-eyebrow">Research &middot; My track</span>
+        <h2 class="cs-section-title">Learn from everyone<br>else first</h2>
+        <p class="cs-section-sub reveal">I led the research. The goal was simple to say and hard to do: understand how chart customization is handled <em>both</em> by our competitors and inside HPE&rsquo;s own products, then turn earlier usability findings into directions we could actually design against. I benchmarked five platforms &mdash; HPE, AWS, Google Cloud, Grafana, and Microsoft Azure &mdash; and audited HPE&rsquo;s existing dashboards heuristically.</p>
+
+        <figure class="cs-figure reveal">
+          <img src="assets/images/hpe/research-competitive.png" alt="Competitive analysis matrix comparing chart-customization features across HPE, AWS, Grafana, Google Cloud, and Azure" loading="lazy">
+          <figcaption><strong>Competitive analysis.</strong> Feature&#8209;by&#8209;feature, HPE lagged on the table stakes &mdash; resizing charts, setting a preferred styling, and expanding a chart to see detail. But it was the only platform shipping predefined overview charts and inline annotations. That gap map became our backlog: close the basics, protect what was already ahead.</figcaption>
+        </figure>
+
+        <div class="cs-reflection reveal">
+          <span class="cs-reflection-label">What the research settled</span>
+          <p class="cs-reflection-text">Customization wasn&rsquo;t one feature &mdash; it was a spectrum, from re&#8209;arranging tiles to fine&#8209;tuning a single chart&rsquo;s color and line weight. Naming that spectrum is what let us scope it instead of trying to build all of it at once.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- HMW — research synthesized into the design question that launches ideation -->
+    <div class="cs-hmw-band reveal">
+      <div class="cs-hmw-inner">
+        <span class="cs-hmw-eyebrow">The problem, framed</span>
+        <p class="cs-hmw-question">How might we give users the <em class="cs-hmw-key">customization</em> abilities to <em class="cs-hmw-key">empower</em> them with their visualizations?</p>
+      </div>
+    </div>
+
+    <!-- 03 EXPLORE -->
+    <section class="cs-section" id="explore">
+      <div class="cs-wrap">
+        <span class="cs-eyebrow">Explore</span>
+        <h2 class="cs-section-title">Two structures,<br>a pile of features</h2>
+        <p class="cs-section-sub reveal">With the research in hand, we split the solution space in two. First the skeleton &mdash; <em>how</em> charts should live on a dashboard. Then the features layered on top. We deliberately over&#8209;generated here; the point was to put every plausible direction on the table before critique started cutting.</p>
+
+        <figure class="cs-figure reveal">
+          <img src="assets/images/hpe/explore-structure.png" alt="Dashboard structure exploration — a rigid tiled grid versus a freeform draggable canvas" loading="lazy">
+          <figcaption><strong>Skeleton first.</strong> A <strong>tiled structure</strong> &mdash; rigid, snap&#8209;to&#8209;grid, predictable &mdash; against a <strong>freeform structure</strong> where charts float and resize anywhere. The tension between order and flexibility shaped every decision that followed.</figcaption>
+        </figure>
+
+        <figure class="cs-figure reveal">
+          <img src="assets/images/hpe/explore-features.png" alt="Feature exploration — customizing an individual chart versus applying styling across multiple charts at once" loading="lazy">
+          <figcaption><strong>Then the features.</strong> My thread: <strong>customize an individual chart</strong> &mdash; focus on one chart&rsquo;s specifics and see how changes affect the detail &mdash; versus <strong>customize multiple charts at once</strong> with a side drawer, trading precision for speed. Which one we&rsquo;d keep wasn&rsquo;t obvious yet.</figcaption>
+        </figure>
+
+        <div class="cs-chiplist reveal" aria-label="Features explored">
+          <span>Tiled grid</span>
+          <span>Freeform canvas</span>
+          <span>Resize charts</span>
+          <span>Pin charts</span>
+          <span>Expand &amp; collapse</span>
+          <span>Add&#8209;charts modal</span>
+          <span>Customize &mdash; color</span>
+          <span>Customize &mdash; style series</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 ITERATE -->
+    <section class="cs-section" id="iterate">
+      <div class="cs-wrap">
+        <span class="cs-eyebrow">Iterate &middot; 3 rounds</span>
+        <h2 class="cs-section-title">Critique,<br>narrow, repeat</h2>
+        <p class="cs-section-sub reveal">Every round was anchored by a UX critique and a stakeholder check&#8209;in, and every round was an exercise in subtraction. We walked into the first stakeholder meeting &mdash; a product manager, developers, and researchers &mdash; with one thing painfully clear:</p>
+
+        <div class="cs-statement reveal">
+          <span class="cs-statement-label">The tension</span>
+          <p>Too many ideas spark unexpected, innovative solutions &mdash; but an overloaded UX overwhelms users and makes the product hard to use.</p>
+        </div>
+
+        <p class="cs-section-sub reveal" style="margin-top:36px;">So before going further, we sat down with our managers and re&#8209;evaluated everything: what to keep, what to cut, and whether to stay on Consumption Analytics at all. The result was a hard line through the feature list.</p>
+
+        <figure class="cs-figure reveal">
+          <img src="assets/images/hpe/narrowing.png" alt="Narrowing the focus — a two-column list splitting features into Not Continued and Continued" loading="lazy">
+          <figcaption><strong>Narrowing our focus.</strong> We cut custom and template dashboards, collapse/remove, drag&#8209;to&#8209;move, pinning, and axis/legend/threshold controls &mdash; and committed to five we could do well: tiled design, resize, view/expand, color customization, and style&#8209;series customization.</figcaption>
+        </figure>
+
+        <div class="cs-sub reveal">
+          <div class="cs-sub-label">My iterations</div>
+          <div class="cs-sub-title">Cutting choices until they helped</div>
+          <div class="cs-sub-text">Across the rounds I reworked the customization flows. The pattern repeated: a critique would flag that I&rsquo;d given users <em>too much</em>, and the fix was almost always to constrain the options and add a visual cue.</div>
+
+          <figure class="cs-figure reveal">
+            <img src="assets/images/hpe/iterate-add.png" alt="Iteration 1 — adding charts moves from drag-and-drop on the canvas to a focused full-screen modal" loading="lazy">
+            <figcaption><strong>Round 1 &middot; Adding charts.</strong> Drag&#8209;and&#8209;drop onto a freeform canvas caused responsiveness issues and lacked any drag affordance. I moved it into a full&#8209;screen modal of selectable, fixed&#8209;size cards &mdash; preventing distraction and the accidental clicks that came from editing in place.</figcaption>
+          </figure>
+
+          <figure class="cs-figure reveal">
+            <img src="assets/images/hpe/iterate-styling.png" alt="Iteration 2 — preferred styling shifts from a multi-chart side drawer to single-chart focus" loading="lazy">
+            <figcaption><strong>Round 2 &middot; Preferred styling.</strong> Applying one style across many charts at once was risky on a shared, public dashboard &mdash; and there was no version history to undo it. I shifted focus to customizing individual charts, with radio buttons since you can only pick one palette at a time.</figcaption>
+          </figure>
+
+          <div class="cs-figrow reveal">
+            <figure class="cs-figure">
+              <img src="assets/images/hpe/iterate-color.png" alt="Iteration 2 — color customization simplifies palette names and adds color previews" loading="lazy">
+              <figcaption><strong>Round 2 &middot; Color.</strong> &ldquo;Qualitative&rdquo; and &ldquo;sequential&rdquo; confused people. I renamed them to <em>contrast</em> and <em>gradient</em>, added swatch previews, and dropped the header so nothing pulled users off&#8209;task.</figcaption>
+            </figure>
+            <figure class="cs-figure">
+              <img src="assets/images/hpe/iterate-style.png" alt="Iteration 3 — style-series customization limits line-weight options and adds visual previews" loading="lazy">
+              <figcaption><strong>Round 3 &middot; Style series.</strong> The line&#8209;weight picker had too many options and no visual cue. I cut it to three weights, each with a preview &mdash; so a choice took a glance, not a guess.</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="cs-reflection reveal">
+          <span class="cs-reflection-label">The fork at the end</span>
+          <p class="cs-reflection-text">By the third round we hit a real decision &mdash; pivot, or stop here. We chose to stay: we&rsquo;d found more value in <strong>depth than breadth</strong>, and we&rsquo;d found the <em>right</em> few things to go deep on.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 FINAL -->
+    <section class="cs-section" id="final">
+      <div class="cs-wrap">
+        <span class="cs-eyebrow">Final &middot; Showcase</span>
+        <h2 class="cs-section-title">A modular,<br>high&#8209;fidelity dashboard</h2>
+        <p class="cs-section-sub reveal">The payoff was a clean Consumption Analytics dashboard where every chart is a tile you can move, resize, expand, and customize &mdash; built on the system we&rsquo;d narrowed our way toward. We demoed it on August 3rd.</p>
+
+        <figure class="cs-figure reveal">
+          <img src="assets/images/hpe/final-dashboard.png" alt="Final Consumption Analytics dashboard — cost by service category, budget timeline by provider, and cost by account time series tiles inside HPE GreenLake Central" loading="lazy">
+          <figcaption><strong>The dashboard.</strong> Three signature widgets in the HPE GreenLake shell &mdash; a cost&#8209;by&#8209;service&#8209;category breakdown, a budget timeline with a forecast band (safe / warning / exceeding), and a cost&#8209;by&#8209;account time series &mdash; on a tiled, editable grid.</figcaption>
+        </figure>
+
+        <div class="cs-figrow reveal">
+          <figure class="cs-figure">
+            <img src="assets/images/hpe/final-edit.png" alt="Edit-dashboard mode — a tiled grid with add-charts and save actions and per-tile customize, resize, and remove menus" loading="lazy">
+            <figcaption><strong>Edit mode.</strong> Name the dashboard, set a time period, drop charts onto a tiled grid, and reach customize / resize / remove from each tile&rsquo;s menu.</figcaption>
+          </figure>
+          <figure class="cs-figure">
+            <img src="assets/images/hpe/final-customize.png" alt="Single-chart customize screen with style series, axis, and legend tabs and line-weight and interpolation controls" loading="lazy">
+            <figcaption><strong>Customize a chart.</strong> Per&#8209;chart styling &mdash; style series, axis, legend &mdash; with the constrained line&#8209;weight and interpolation controls the iterations earned.</figcaption>
+          </figure>
+        </div>
+
+        <figure class="cs-figure reveal">
+          <img src="assets/images/hpe/final-color.png" alt="Color customization panel with plain-language palette options and swatch previews" loading="lazy">
+          <figcaption><strong>Color, with previews.</strong> The renamed, preview&#8209;backed palette picker in its final form &mdash; contrast vs. gradient, shading and texture as simple toggles.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 06 IMPACT -->
+    <section class="cs-section" id="impact">
+      <div class="cs-wrap">
+        <span class="cs-eyebrow">Impact</span>
+        <h2 class="cs-section-title">What the summer<br>added up to</h2>
+        <p class="cs-section-sub reveal">It was an internship, so the honest measure isn&rsquo;t a launch metric &mdash; it&rsquo;s the quality of the direction we handed back. We turned an open&#8209;ended &ldquo;let users customize&rdquo; into a scoped, research&#8209;backed, demoed system.</p>
+        <div class="cs-impact-phases reveal">
+          <div class="cs-impact-phase">
+            <div class="cs-impact-phase-head">
+              <span class="cs-impact-phase-num">The work</span>
+              <span class="cs-impact-phase-tag">14 weeks</span>
+            </div>
+            <div class="cs-impact-phase-title">From wish&#8209;list<br>to a built direction</div>
+            <div class="cs-impact-phase-text">Competitive research across five platforms, three critique&#8209;driven iteration rounds, and a high&#8209;fidelity dashboard with a full chart&#8209;customization flow &mdash; presented to the team at the end&#8209;of&#8209;summer demo.</div>
+            <div class="cs-impact-phase-stats">
+              <div class="cs-impact-stat"><span class="cs-impact-stat-val">3</span><span class="cs-impact-stat-lbl">Iteration rounds</span></div>
+              <div class="cs-impact-stat"><span class="cs-impact-stat-val">5</span><span class="cs-impact-stat-lbl">Platforms benchmarked</span></div>
+            </div>
+          </div>
+          <div class="cs-impact-phase cs-impact-phase--accent">
+            <div class="cs-impact-phase-head">
+              <span class="cs-impact-phase-num">The outcome</span>
+              <span class="cs-impact-phase-tag">Approved</span>
+            </div>
+            <div class="cs-impact-phase-title">Approved &amp; validated<br>in user testing</div>
+            <div class="cs-impact-phase-text">The design was approved by both the design&#8209;system team and the Consumption Analytics team, then validated by the research team in usability testing &mdash; where the new zoom, restyle, and grid&#8209;resize controls let <strong>30% more participants complete their target analysis task</strong> than the previous, fixed dashboard could, informing which feature the teams would implement first. The narrowing, not the feature list, was the real deliverable: a defended point of view that depth beats breadth.</div>
+            <div class="cs-impact-phase-stats">
+              <div class="cs-impact-stat"><span class="cs-impact-stat-val">+30%</span><span class="cs-impact-stat-lbl">Adoption in testing</span></div>
+              <div class="cs-impact-stat"><span class="cs-impact-stat-val">50+</span><span class="cs-impact-stat-lbl">Stakeholders aligned</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08 REFLECTION -->
+    <section class="cs-section" id="reflection">
+      <div class="cs-wrap">
+        <span class="cs-eyebrow">Reflection</span>
+        <h2 class="cs-section-title">What I Learned</h2>
+        <div class="cs-body reveal">
+          <p><strong>Adhere to the design system.</strong> This was my first time working inside a real design system, and there was an enormous amount to absorb &mdash; but I saw its value firsthand: a cohesive experience across the whole platform, smoother collaboration between designers, developers, and stakeholders, and a foundation that genuinely scales.</p>
+          <p><strong>Make strategic tradeoffs.</strong> Sitting in UX critiques and stakeholder meetings taught me to make decisions that weigh developer workload, business requirements, and customer preferences all at once &mdash; not just what looks best in Figma. Almost every round, the right call was to constrain the options and add a visual cue rather than ship more.</p>
+          <p><strong>Be bold and agile.</strong> Be bold in asking questions and chasing wild explorations to the point of failure &mdash; then agile in adapting to the feedback and iterating fast. The strongest move all summer was cutting: a few customization features done well beat a dozen done halfway.</p>
+          <p><strong>What I&rsquo;d test next.</strong> The directions held up in critique; the next proof is whether they hold up in production. I&rsquo;d pressure&#8209;test the customization system with real admins on their own data &mdash; the part an intern timeline never quite reaches &mdash; in the hands of the people who live in this dashboard every day.</p>
+        </div>
+      </div>
+    </section>
+
+        <!-- NEXT PROJECTS -->
+    <section class="cs-next-section reveal" style="display:none">
+      <div class="cs-next-heading">
+        <div>
+          <span class="cs-next-eyebrow">More Work</span>
+          <div class="cs-next-section-title">Other Projects</div>
+        </div>
+        <a href="index.html#work" class="cs-all-link">View all &rarr;</a>
+      </div>
+      <div class="cs-proj-grid">
+        <a href="case-study-adaptive-plan.html" class="cs-proj-card reveal">
+          <div class="cs-proj-card-thumb">
+            <div class="cs-proj-thumb-bg" style="background:#0f172a url('assets/images/adaptive-plan/cover2.png') center/cover no-repeat;"></div>
+            <div class="cs-proj-card-num">01</div>
+          </div>
+          <div class="cs-proj-card-body">
+            <div class="cs-proj-card-tags">
+              <span class="cs-proj-card-tag">0&rarr;1</span>
+              <span class="cs-proj-card-tag">AI</span>
+            </div>
+            <div class="cs-proj-card-name">AI-Powered Training</div>
+            <div class="cs-proj-card-arrow">&#8599;</div>
+          </div>
+        </a>
+        <a href="index.html#work" class="cs-proj-card reveal">
+          <div class="cs-proj-card-thumb">
+            <div class="cs-proj-thumb-bg" style="background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);"></div>
+            <div class="cs-proj-card-num">02</div>
+          </div>
+          <div class="cs-proj-card-body">
+            <div class="cs-proj-card-tags">
+              <span class="cs-proj-card-tag">Motion</span>
+              <span class="cs-proj-card-tag">Engagement</span>
+            </div>
+            <div class="cs-proj-card-name">Year in Review 2025</div>
+            <div class="cs-proj-card-arrow">&#8599;</div>
+          </div>
+        </a>
+        <a href="index.html#work" class="cs-proj-card reveal">
+          <div class="cs-proj-card-thumb">
+            <div class="cs-proj-thumb-bg" style="background:linear-gradient(135deg,#1c1c2e 0%,#2d1b69 50%,#11998e 100%);"></div>
+            <div class="cs-proj-card-num">04</div>
+          </div>
+          <div class="cs-proj-card-body">
+            <div class="cs-proj-card-tags">
+              <span class="cs-proj-card-tag">0&rarr;1</span>
+              <span class="cs-proj-card-tag">Whatnot</span>
+            </div>
+            <div class="cs-proj-card-name">Mobile to TV Experience</div>
+            <div class="cs-proj-card-arrow">&#8599;</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <div>
+    <div class="ft-name">Chloe Wu.</div>
+    <div class="ft-tag">Product Designer</div>
+  </div>
+  <div class="ft-copy">© 2026 Chloe Wu. All rights reserved.</div>
+</footer>
+
+<script>
+/* Theme toggle */
+(()=>{
+  const isNight=()=>{const h=new Date().getHours();return h<7||h>=19;};
+  const root=document.documentElement,tog=document.getElementById('themeToggle'),KEY='pf-v12';
+  const apply=d=>{root.setAttribute('data-theme',d?'dark':'light');tog.checked=d;};
+  apply(localStorage.getItem(KEY)?localStorage.getItem(KEY)==='dark':isNight());
+  tog.addEventListener('change',()=>{const d=tog.checked;localStorage.setItem(KEY,d?'dark':'light');apply(d);});
+})();
+
+/* Cursor */
+const cur=document.getElementById('cur');
+document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';});
+const HOVER_SEL='a,button,label,summary,[role="button"],[onclick]';
+document.addEventListener('mouseover',e=>{if(e.target.closest&&e.target.closest(HOVER_SEL)) cur.classList.add('hover');});
+document.addEventListener('mouseout',e=>{
+  const from=e.target.closest&&e.target.closest(HOVER_SEL);
+  const to=e.relatedTarget&&e.relatedTarget.closest&&e.relatedTarget.closest(HOVER_SEL);
+  if(from&&from!==to) cur.classList.remove('hover');
+});
+
+/* Scroll-spy on left index + progress bar */
+const rows=document.querySelectorAll('.cs-idx-row');
+const progFill=document.getElementById('progressFill');
+function onScroll(){
+  const pct=Math.min(100,Math.max(0,(window.scrollY/(document.body.scrollHeight-window.innerHeight))*100));
+  if(progFill)progFill.style.width=pct+'%';
+  let active=null;
+  rows.forEach(row=>{
+    const el=document.getElementById(row.getAttribute('data-section'));
+    if(el&&el.getBoundingClientRect().top<=120)active=row;
+  });
+  rows.forEach(r=>r.classList.remove('active'));
+  if(active)active.classList.add('active');
+}
+window.addEventListener('scroll',onScroll,{passive:true});
+onScroll();
+
+/* Reveal on scroll */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});
+},{threshold:0.06});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+/* Count-up for impact numbers */
+(function(){
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const nodes=document.querySelectorAll('.cs-impact-stat-val');
+  const parsed=[];
+  nodes.forEach(el=>{
+    const m=el.textContent.trim().match(/^([+\-]?)(\d+(?:\.\d+)?)(.*)$/);
+    if(!m)return;
+    el.dataset.prefix=m[1];
+    el.dataset.target=m[2];
+    el.dataset.suffix=m[3];
+    el.dataset.isInt=m[2].includes('.')?'0':'1';
+    if(!reduce)el.textContent=m[1]+'0'+m[3];
+    parsed.push(el);
+  });
+  if(reduce)return;
+  const ease=t=>1-Math.pow(1-t,3);
+  const run=el=>{
+    const target=parseFloat(el.dataset.target);
+    const prefix=el.dataset.prefix;
+    const suffix=el.dataset.suffix;
+    const isInt=el.dataset.isInt==='1';
+    const duration=1400;
+    const t0=performance.now();
+    const step=now=>{
+      const p=Math.min(1,(now-t0)/duration);
+      const v=target*ease(p);
+      el.textContent=prefix+(isInt?Math.round(v):v.toFixed(1))+suffix;
+      if(p<1)requestAnimationFrame(step);
+      else el.textContent=prefix+(isInt?target:target.toFixed(1))+suffix;
+    };
+    requestAnimationFrame(step);
+  };
+  const countObs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){run(e.target);countObs.unobserve(e.target);}});
+  },{threshold:0.4});
+  parsed.forEach(el=>countObs.observe(el));
+})();
+
+</script>
+</body>
+</html>

@@ -38,9 +38,9 @@
 
 /* ── COLOR — dark ── */
 [data-theme="dark"] {
-  --bg:      #0A0A0A;
-  --bg-2:    #141414;
-  --surf:    #1A1A1A;
+  --bg:      #161616;
+  --bg-2:    #242424;
+  --surf:    #2C2C2C;
   --ink:     #F5F5F5;
   --ink-2:   #A8A8A8;
   --ink-3:   #7A7A7A;
@@ -48,7 +48,7 @@
   --border-h:rgba(245,245,245,0.16);
   --accent:  #3B82F6;
   --glow-r:  59, 130, 246;
-  --nav-bg:  rgba(10,10,10,0.85);
+  --nav-bg:  rgba(22,22,22,0.85);
 
   /* Warning — yellow/amber for dark surfaces */
   --warn:        #FBBF24;            /* amber-400 */
