@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Design System — Chloe Wu</title>
-<link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="tokens.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -90,6 +90,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-section-title{font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:clamp(var(--fs-xl),5vw,var(--fs-4xl));line-height:1.05;letter-spacing:-.03em;color:var(--ink);margin-bottom:32px;}
 /* Body paragraph under section title — matches adaptive plan .cs-body (p1 tokens) */
 .cs-section-sub{font-size:var(--p1-size);font-weight:var(--p1-weight);color:var(--p1-color);line-height:var(--p1-line);letter-spacing:var(--p1-tracking);max-width:var(--p1-max-width);}
+/* Prose body block — mirrors adaptive plan .cs-body for the Reflection section */
+.cs-body{font-size:var(--p1-size);font-weight:var(--p1-weight);color:var(--p1-color);line-height:var(--p1-line);letter-spacing:var(--p1-tracking);max-width:var(--p1-max-width);}
+.cs-body p+p{margin-top:16px;}
+.cs-body strong{color:var(--ink);font-weight:var(--fw-semibold);}
+.cs-body em{font-style:italic;color:var(--ink-2);}
 
 /* INTRO meta strip (right under hero) — paragraph uses p1 tokens like .cs-body in adaptive plan */
 .cs-intro{padding:96px 0 32px;border-bottom:1px solid var(--border);}
@@ -98,15 +103,18 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-meta-item{display:flex;flex-direction:column;gap:4px;}
 .cs-meta-label{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);}
 .cs-meta-val{font-size:var(--fs-base);font-weight:var(--fw-semibold);color:var(--ink);}
-.cs-meta-sub{font-size:var(--fs-xs);font-weight:var(--fw-medium);color:var(--ink-3);letter-spacing:.01em;margin-top:2px;line-height:1.4;}
+.cs-meta-sub{font-size:var(--fs-sm);font-weight:var(--fw-regular);color:var(--ink-3);line-height:1.55;margin-top:2px;}
 /* Tooling row — app-icon tiles instead of text (full-color in both themes) */
-.cs-tool-icons{display:flex;align-items:center;gap:9px;}
-.cs-tool-icon{width:26px;height:26px;border-radius:6px;display:grid;place-items:center;flex:0 0 auto;box-shadow:0 1px 2.5px rgba(0,0,0,.22),inset 0 0 0 1px rgba(128,128,128,.22);transition:transform .25s cubic-bezier(.22,1,.36,1);}
+.cs-tool-icons{display:flex;align-items:center;gap:9px;flex-wrap:wrap;}
+.cs-tool-icon{position:relative;width:26px;height:26px;border-radius:6px;display:grid;place-items:center;flex:0 0 auto;box-shadow:0 1px 2.5px rgba(0,0,0,.22),inset 0 0 0 1px rgba(128,128,128,.22);transition:transform .25s cubic-bezier(.22,1,.36,1);}
 .cs-tool-icon:hover{transform:translateY(-2px);}
 .cs-tool-icon svg{display:block;}
 .cs-tool-icon--figma{background:#fff;}
 .cs-tool-icon--claude{background:#D97757;}
 .cs-tool-icon--github{background:#181717;}
+/* Hover tooltip — shows the tool name from aria-label */
+.cs-tool-icon::after{content:attr(aria-label);position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(4px);background:var(--ink);color:var(--bg);font-size:var(--fs-xs);font-weight:var(--fw-semibold);letter-spacing:.02em;white-space:nowrap;padding:4px 8px;border-radius:6px;box-shadow:0 4px 12px rgba(0,0,0,.18);opacity:0;pointer-events:none;transition:opacity .18s ease,transform .18s ease;z-index:20;}
+.cs-tool-icon:hover::after{opacity:1;transform:translateX(-50%) translateY(0);}
 /* Featured meta item — used for DS Agents (the headline contribution) */
 .cs-meta-item--featured{position:relative;padding:10px 16px 12px;border-radius:12px;background:linear-gradient(135deg,rgba(37,99,235,.08),rgba(37,99,235,.03));border:1px solid rgba(37,99,235,.22);}
 [data-theme="dark"] .cs-meta-item--featured{background:linear-gradient(135deg,rgba(59,130,246,.14),rgba(59,130,246,.04));border-color:rgba(59,130,246,.28);}
@@ -279,6 +287,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 [data-theme="dark"] .cs-shot[data-section="web-footers"] .cs-shot-thumb,
 [data-theme="dark"] .cs-shot[data-section="web-modals"] .cs-shot-thumb,
 [data-theme="dark"] .cs-shot:has(.cs-theme-dark) .cs-shot-thumb,
+[data-theme="dark"] #watch .cs-shot-thumb,
 [data-theme="dark"] .cs-shot-thumb--empty{background:var(--bg-2);}
 .cs-shot-thumb img{width:100%;height:100%;display:block;object-fit:contain;object-position:center;}
 .cs-shot-thumb--empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;}
@@ -313,13 +322,33 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-agent-role{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);}
 .cs-agent-name{font-family:var(--font-display);font-size:var(--fs-md);font-weight:var(--fw-semibold);color:var(--ink);letter-spacing:-.02em;line-height:1.2;}
 .cs-agent-desc{font-size:var(--fs-base);color:var(--ink-2);line-height:1.6;}
-.cs-agent-jobs{display:flex;flex-direction:column;gap:6px;margin-top:6px;}
-.cs-agent-job{display:flex;align-items:flex-start;gap:8px;font-size:var(--fs-base);color:var(--ink-2);line-height:1.5;}
-.cs-agent-job::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:8px;}
-.cs-flow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:24px;padding:16px 20px;border:1px dashed var(--border-h);border-radius:14px;background:var(--bg-2);}
-.cs-flow-pill{font-size:var(--fs-xs);font-weight:var(--fw-semibold);color:var(--ink-2);padding:5px 10px;border-radius:6px;background:var(--surf);border:1px solid var(--border);letter-spacing:.02em;}
-.cs-flow-pill--accent{color:var(--accent);border-color:rgba(37,99,235,.25);background:rgba(37,99,235,.06);}
-.cs-flow-arrow{color:var(--ink-3);font-size:var(--fs-sm);}
+.cs-agent-jobs{display:flex;flex-direction:column;gap:7px;margin-top:6px;}
+.cs-agent-job{display:grid;grid-template-columns:92px 1fr;gap:10px;align-items:baseline;font-size:var(--fs-base);color:var(--ink-2);line-height:1.5;}
+.cs-job-key{font-family:var(--font-mono);font-size:var(--fs-sm);font-weight:var(--fw-semibold);color:var(--accent);letter-spacing:-.01em;}
+.cs-section code,.cs-intro code,.cs-agent code{font-family:var(--font-mono);font-size:0.9em;}
+/* Two-agent pipeline — hand-drawn whiteboard */
+.csf-cap{font-family:'Caveat',cursive;font-size:var(--fs-md);font-weight:700;color:var(--ink-2);margin:32px 0 18px;transform:rotate(-1deg);transform-origin:left;}
+.csf-flow{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.csf-auto{position:relative;padding:22px 11px 13px;flex:1 1 auto;}
+.csf-auto::before{content:'';position:absolute;inset:0;border:2.5px dashed var(--ink-3);border-radius:18px 16px 19px 15px;filter:url(#csf-rough2);}
+.csf-tag{font-family:'Caveat',cursive;font-weight:700;font-size:var(--fs-base);color:var(--ink-2);}
+.csf-auto .csf-tag{position:absolute;top:-11px;left:18px;background:var(--bg);padding:0 8px;transform:rotate(-1.5deg);}
+.csf-row{display:flex;align-items:center;gap:5px;}
+.csf-node{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:5px;font-family:'Kalam',cursive;font-weight:700;font-size:13px;color:var(--ink);padding:9px 11px;text-align:center;line-height:1.15;white-space:nowrap;}
+.csf-row .csf-node{flex:1;}
+.csf-node::before{content:'';position:absolute;inset:0;border:2.5px solid var(--ink);border-radius:14px 13px 15px 12px;filter:url(#csf-rough);z-index:0;}
+.csf-node>*{position:relative;z-index:1;}
+.csf-node .ic{display:inline-flex;}
+.csf-node.agent{color:var(--accent);}
+.csf-node.agent::before{border-color:var(--accent);background:rgba(37,99,235,.08);}
+.csf-node.human{color:#fff;}
+.csf-node.human::before{border-color:var(--accent);background:var(--accent);}
+.csf-arr{flex:0 0 auto;color:var(--ink);filter:url(#csf-rough);}
+.csf-arr svg{display:block;width:20px;height:12px;}
+.csf-hand{display:flex;flex-direction:column;align-items:center;gap:3px;padding:0 4px;flex:0 0 auto;}
+.csf-hand .l{font-family:'Caveat',cursive;font-weight:600;font-size:var(--fs-base);color:var(--ink-3);}
+.csf-human{display:flex;flex-direction:column;align-items:center;gap:8px;flex:0 0 auto;}
+.csf-human .csf-tag{color:var(--accent);transform:rotate(1.5deg);}
 
 /* IMPACT — two-phase outcome (efficiency → rebrand foundation) */
 .cs-impact-phases{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px;}
@@ -339,18 +368,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-impact-stat{display:flex;flex-direction:column;gap:5px;}
 .cs-impact-stat-val{font-family:var(--font-display);font-weight:var(--fw-bold);font-size:var(--fs-2xl);letter-spacing:-.03em;color:var(--accent);line-height:1;}
 .cs-impact-stat-lbl{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);}
-
-/* PRINCIPLES — reflection grid */
-.cs-principles{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px;}
-.cs-principle{position:relative;border-radius:18px;border:1px solid var(--border);background:var(--surf);padding:26px 28px;display:flex;flex-direction:column;gap:10px;transition:background .4s,border-color .4s,transform .25s cubic-bezier(.22,1,.36,1);}
-.cs-principle:hover{transform:translateY(-3px);border-color:var(--border-h);}
-.cs-principle-num{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.14em;color:var(--accent);}
-.cs-principle-title{font-family:var(--font-display);font-size:var(--fs-md);font-weight:var(--fw-semibold);letter-spacing:-.02em;color:var(--ink);line-height:1.2;}
-.cs-principle-text{font-size:var(--fs-base);color:var(--ink-2);line-height:1.6;}
-.cs-reflection{margin-top:28px;padding:24px 28px;border-left:2px solid var(--accent);background:var(--bg-2);border-radius:0 14px 14px 0;}
-.cs-reflection-label{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;display:block;}
-.cs-reflection-text{font-size:var(--p1-size);font-weight:var(--p1-weight);color:var(--p1-color);line-height:var(--p1-line);letter-spacing:var(--p1-tracking);}
-@media(max-width:960px){.cs-principles{grid-template-columns:1fr;}}
 
 /* NEXT PROJECTS */
 .cs-next-section{background:var(--bg-2);padding:80px 0;border-top:1px solid var(--border);transition:background .4s;}
@@ -508,14 +525,17 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
       <a href="#web"        class="cs-idx-row" data-section="web">
         <span class="cs-idx-num">04</span><span class="cs-idx-label">Web</span><span class="cs-idx-tick"></span>
       </a>
+      <a href="#watch"      class="cs-idx-row" data-section="watch">
+        <span class="cs-idx-num">05</span><span class="cs-idx-label">Watch</span><span class="cs-idx-tick"></span>
+      </a>
       <a href="#agents"     class="cs-idx-row" data-section="agents">
-        <span class="cs-idx-num">05</span><span class="cs-idx-label">Two-Agent Flow</span><span class="cs-idx-tick"></span>
+        <span class="cs-idx-num">06</span><span class="cs-idx-label">Two-Agent Flow</span><span class="cs-idx-tick"></span>
       </a>
       <a href="#impact"     class="cs-idx-row" data-section="impact">
-        <span class="cs-idx-num">06</span><span class="cs-idx-label">Impact</span><span class="cs-idx-tick"></span>
+        <span class="cs-idx-num">07</span><span class="cs-idx-label">Impact</span><span class="cs-idx-tick"></span>
       </a>
       <a href="#principles" class="cs-idx-row" data-section="principles">
-        <span class="cs-idx-num">07</span><span class="cs-idx-label">Reflection</span><span class="cs-idx-tick"></span>
+        <span class="cs-idx-num">08</span><span class="cs-idx-label">Reflection</span><span class="cs-idx-tick"></span>
       </a>
     </div>
 
@@ -536,7 +556,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
           <span class="cs-hero-tag">Cross-platform</span>
         </div>
         <h1 class="cs-hero-title">Design System</h1>
-        <p class="cs-hero-sub">Two designers, a 13M&#8209;user product across mobile and web. I co-built Jefit&rsquo;s design system &mdash; then built a two-agent AI pipeline that designs and reviews new components against our tokens, so the system could grow faster than two people ever could by hand.</p>
+        <p class="cs-hero-sub">Revamped a loose Figma guide into a token-bound library &mdash; then taught it to grow itself with AI agents.</p>
       </div>
     </div>
 
@@ -548,19 +568,20 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
         </div>
         <div class="cs-meta reveal">
           <div class="cs-meta-item"><span class="cs-meta-label">Role</span><span class="cs-meta-val">Product Designer</span></div>
-          <div class="cs-meta-item"><span class="cs-meta-label">Team</span><span class="cs-meta-val">2 designers</span><span class="cs-meta-sub">Library co-led 50/50</span></div>
+          <div class="cs-meta-item"><span class="cs-meta-label">Timeline</span><span class="cs-meta-val">2 weeks</span><span class="cs-meta-sub">Maintenance ongoing</span></div>
           <div class="cs-meta-item"><span class="cs-meta-label">Scope</span><span class="cs-meta-val">Mobile &amp; Web</span><span class="cs-meta-sub">iOS &middot; Android &middot; Responsive web</span></div>
+          <div class="cs-meta-item"><span class="cs-meta-label">Team</span><span class="cs-meta-val">2 designers</span><span class="cs-meta-sub">Library co-led 50/50</span></div>
           <div class="cs-meta-item"><span class="cs-meta-label">Tooling</span><span class="cs-meta-val cs-tool-icons" role="list" aria-label="Figma, Claude Code, GitHub">
-            <span class="cs-tool-icon cs-tool-icon--figma" role="listitem" title="Figma" aria-label="Figma">
+            <span class="cs-tool-icon cs-tool-icon--figma" role="listitem" aria-label="Figma">
               <svg width="11" height="16" viewBox="0 0 38 57" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="#1abcfe" d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z"/><path fill="#0acf83" d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0z"/><path fill="#ff7262" d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z"/><path fill="#f24e1e" d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z"/><path fill="#a259ff" d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z"/></svg>
             </span>
-            <span class="cs-tool-icon cs-tool-icon--claude" role="listitem" title="Claude Code" aria-label="Claude Code">
+            <span class="cs-tool-icon cs-tool-icon--claude" role="listitem" aria-label="Claude Code">
               <svg width="15" height="15" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><g stroke="#F4EEE3" stroke-width="1.7" stroke-linecap="round"><path d="M12 12V3.5"/><path d="M12 12l4.25-7.36"/><path d="M12 12l7.36-4.25"/><path d="M12 12h8.5"/><path d="M12 12l7.36 4.25"/><path d="M12 12l4.25 7.36"/><path d="M12 12v8.5"/><path d="M12 12l-4.25 7.36"/><path d="M12 12l-7.36 4.25"/><path d="M12 12H3.5"/><path d="M12 12l-7.36-4.25"/><path d="M12 12L7.75 4.64"/></g></svg>
             </span>
-            <span class="cs-tool-icon cs-tool-icon--github" role="listitem" title="GitHub" aria-label="GitHub">
+            <span class="cs-tool-icon cs-tool-icon--github" role="listitem" aria-label="GitHub">
               <svg width="16" height="16" viewBox="0 0 98 96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="#fff" fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"/></svg>
             </span>
-          </span><span class="cs-meta-sub">Library &amp; variants &middot; AI agents, versioned in Git</span></div>
+          </span><span class="cs-meta-sub">Library, variants &amp; AI agents in Git</span></div>
           <div class="cs-meta-item"><span class="cs-meta-label">My Contribution</span><span class="cs-meta-val">120+ components &middot; AI agents</span><span class="cs-meta-sub">400+ variants &middot; two-agent workflow</span></div>
         </div>
       </div>
@@ -779,12 +800,81 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
       </div>
     </section>
 
-    <!-- 05 TWO-AGENT FLOW -->
+    <!-- 05 WATCH -->
+    <section class="cs-section" id="watch">
+      <div class="cs-wrap">
+        <span class="cs-eyebrow">Watch</span>
+        <h2 class="cs-section-title">Native to the wrist &mdash;<br>watchOS &amp; Wear OS</h2>
+        <p class="cs-section-sub reveal">The newest surface for the system, on both wrists. Rather than shrink the phone UI onto a 1-inch screen, I built the watch set on each platform&rsquo;s native foundations &mdash; Apple&rsquo;s watchOS and Android&rsquo;s Wear OS title and card patterns &mdash; then layered our own brand components on top. It reads as native to each platform while staying recognisably ours, and still binds to the same token core as mobile and web.</p>
+
+        <!-- Apple Watch · watchOS -->
+        <div class="cs-sub reveal">
+          <div class="cs-sub-label">Apple Watch</div>
+          <div class="cs-sub-title">watchOS</div>
+          <div class="cs-sub-text">Native watchOS title and card patterns, with the brand button set and pickers built on top &mdash; each bound to the shared token core.</div>
+          <div class="cs-shot-gallery" aria-label="Apple Watch · watchOS">
+            <figure class="cs-shot"><div class="cs-shot-thumb" style="padding:24px;"><img src="assets/images/design-system/watch/ios/navigation.png" alt="Navigation — the native watchOS page navigation" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Navigation</div><div class="cs-shot-desc">watchOS navigation</div></figcaption></figure>
+            <figure class="cs-shot"><div class="cs-shot-thumb" style="padding:24px;"><img src="assets/images/design-system/watch/ios/items.png" alt="Items — the native watchOS rounded content items" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Items</div><div class="cs-shot-desc">watchOS content items</div></figcaption></figure>
+            <figure class="cs-shot"><div class="cs-shot-thumb" style="padding:24px;"><img src="assets/images/design-system/watch/ios/button.png" alt="Buttons — the watchOS button set: primary, destructive, default, reset/pause and the log button with left/right nav" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Buttons</div><div class="cs-shot-desc">Primary, destructive, default &amp; nav</div></figcaption></figure>
+            <figure class="cs-shot"><div class="cs-shot-thumb" style="padding:24px;"><img src="assets/images/design-system/watch/ios/pickers.png" alt="Pickers — watchOS digital-crown pickers for weight, reps and time" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Pickers</div><div class="cs-shot-desc">Weight, reps &amp; time pickers</div></figcaption></figure>
+            <figure class="cs-shot"><div class="cs-shot-thumb" style="padding:24px;"><img src="assets/images/design-system/watch/ios/dialog.png" alt="Dialog — the watchOS confirmation dialog on the wrist" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Dialog</div><div class="cs-shot-desc">watchOS confirmation dialog</div></figcaption></figure>
+          </div>
+        </div>
+
+        <!-- Android · Wear OS -->
+        <div class="cs-sub reveal">
+          <div class="cs-sub-label">Android</div>
+          <div class="cs-sub-title">Wear OS</div>
+          <div class="cs-sub-text">The same set on Wear OS &mdash; native Wear OS title and card patterns under the brand button set and pickers. Visibly different from watchOS, yet built from the one token core.</div>
+          <div class="cs-shot-gallery" aria-label="Android · Wear OS">
+            <figure class="cs-shot"><div class="cs-shot-thumb" style="padding:24px;"><img src="assets/images/design-system/watch/android/items.png" alt="Items — the native Wear OS rounded content items" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Items</div><div class="cs-shot-desc">Wear OS content items</div></figcaption></figure>
+            <figure class="cs-shot"><div class="cs-shot-thumb" style="padding:24px;"><img src="assets/images/design-system/watch/android/button.png" alt="Buttons — the Wear OS button set: primary, destructive, default, reset/pause and the log button with left/right nav" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Buttons</div><div class="cs-shot-desc">Primary, destructive, default &amp; nav</div></figcaption></figure>
+            <figure class="cs-shot"><div class="cs-shot-thumb" style="padding:24px;"><img src="assets/images/design-system/watch/android/pickers.png" alt="Pickers — Wear OS rotating pickers for weight, reps and time" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Pickers</div><div class="cs-shot-desc">Weight, reps &amp; time pickers</div></figcaption></figure>
+            <figure class="cs-shot"><div class="cs-shot-thumb" style="padding:24px;"><img src="assets/images/design-system/watch/android/progress.png" alt="Progress — the Wear OS progress indicator on the round screen" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Progress</div><div class="cs-shot-desc">Wear OS progress indicator</div></figcaption></figure>
+            <figure class="cs-shot"><div class="cs-shot-thumb" style="padding:24px;"><img src="assets/images/design-system/watch/android/dialog.png" alt="Dialog — the native Wear OS confirmation dialog on the round screen" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Dialog</div><div class="cs-shot-desc">Wear OS confirmation dialog</div></figcaption></figure>
+          </div>
+
+          <div class="cs-platforms">
+            <span class="cs-platform"><span class="cs-platform-dot"></span>Apple Watch &middot; watchOS</span>
+            <span class="cs-platform"><span class="cs-platform-dot"></span>Android &middot; Wear OS</span>
+            <span class="cs-platform"><span class="cs-platform-dot"></span>Same tokens as mobile &amp; web</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 TWO-AGENT FLOW -->
     <section class="cs-section" id="agents">
       <div class="cs-wrap">
         <span class="cs-eyebrow">Two-Agent Flow</span>
         <h2 class="cs-section-title">Automate the build,<br>gate the publish</h2>
-        <p class="cs-section-sub reveal">A 2-designer team can&rsquo;t scale linearly with the product. So I built our component-creator skill as two agents &mdash; <code>builder.md</code> and <code>evaluator.md</code> &mdash; that automate the repetitive half of design-system work. The rule both enforce: the built component is a 1-to-1 mirror of its source frame &mdash; bind tokens, expose every property, never invent or silently &ldquo;fix.&rdquo;</p>
+        <p class="cs-section-sub reveal">A 2-designer team can&rsquo;t scale linearly with the product. So I built our component-creator skill as two agents &mdash; <code>builder.md</code> and <code>evaluator.md</code> &mdash; that automate the repetitive half of design-system work. Both follow one rule: every built component is a 1-to-1 mirror of its source frame &mdash; bind tokens, expose every property, never invent or silently &ldquo;fix.&rdquo;</p>
+        <div class="csf-cap reveal">how a component ships</div>
+        <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+          <filter id="csf-rough" x="-20%" y="-20%" width="140%" height="140%"><feTurbulence type="fractalNoise" baseFrequency="0.013" numOctaves="2" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3.2"/></filter>
+          <filter id="csf-rough2" x="-20%" y="-20%" width="140%" height="140%"><feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="2" seed="13" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="4"/></filter>
+        </svg>
+        <div class="csf-flow reveal" aria-label="Pipeline: source frame to builder.md to build report to evaluator.md to pass or hold, then human review and publish">
+          <div class="csf-auto">
+            <span class="csf-tag">automated</span>
+            <div class="csf-row">
+              <span class="csf-node">source frame</span>
+              <span class="csf-arr"><svg width="34" height="16" viewBox="0 0 34 16"><path d="M1 8q9-3 23 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M20 3l5 5-5 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="csf-node agent"><span class="ic"><svg width="12" height="12" viewBox="0 0 24 24"><path d="M12 2l1.7 6.3L20 10l-6.3 1.7L12 18l-1.7-6.3L4 10l6.3-1.7z" fill="currentColor"/></svg></span>builder.md</span>
+              <span class="csf-arr"><svg width="34" height="16" viewBox="0 0 34 16"><path d="M1 8q9-3 23 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M20 3l5 5-5 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="csf-node">build report</span>
+              <span class="csf-arr"><svg width="34" height="16" viewBox="0 0 34 16"><path d="M1 8q9-3 23 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M20 3l5 5-5 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="csf-node agent"><span class="ic"><svg width="12" height="12" viewBox="0 0 24 24"><path d="M12 2l1.7 6.3L20 10l-6.3 1.7L12 18l-1.7-6.3L4 10l6.3-1.7z" fill="currentColor"/></svg></span>evaluator.md</span>
+              <span class="csf-arr"><svg width="34" height="16" viewBox="0 0 34 16"><path d="M1 8q9-3 23 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M20 3l5 5-5 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="csf-node">pass / hold</span>
+            </div>
+          </div>
+          <div class="csf-hand"><span class="l">then</span><span class="csf-arr"><svg width="40" height="16" viewBox="0 0 40 16"><path d="M1 8q14-4 30 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M26 3l5 5-5 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+          <div class="csf-human">
+            <span class="csf-tag">human gate</span>
+            <span class="csf-node human"><svg width="13" height="13" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.4" fill="currentColor"/><path d="M5 19.5c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6" fill="currentColor"/></svg><span>publish</span></span>
+          </div>
+        </div>
         <div class="cs-agents reveal">
           <div class="cs-agent">
             <div class="cs-agent-header">
@@ -793,13 +883,12 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
             </div>
             <div class="cs-agent-body">
               <span class="cs-agent-role">Agent &middot; Builder</span>
-              <div class="cs-agent-name">Clones a frame into a real component</div>
-              <div class="cs-agent-desc">Reads every source frame, then adapts an existing component by default &mdash; creating new is a last resort. It clones rather than rebuilds, so hidden children and descendant overrides survive intact.</div>
+              <div class="cs-agent-name">Clones a frame &mdash; adapts, never rebuilds</div>
               <div class="cs-agent-jobs">
-                <div class="cs-agent-job">Emits a consolidated property set first &mdash; variant axes, booleans, text &amp; instance-swap props</div>
-                <div class="cs-agent-job">Binds raw hex to tokens; adds invisible 44/48 <code>_touch-target</code> layers</div>
-                <div class="cs-agent-job">Copies every instance override across all four layers</div>
-                <div class="cs-agent-job">Renders built vs. source side-by-side &mdash; any drift, redo</div>
+                <div class="cs-agent-job"><span class="cs-job-key">props</span> variant axes, booleans, text &amp; swaps</div>
+                <div class="cs-agent-job"><span class="cs-job-key">tokens</span> raw hex bound, 44pt (iOS), 48dp (Android) touch target</div>
+                <div class="cs-agent-job"><span class="cs-job-key">overrides</span> copied across all four layers</div>
+                <div class="cs-agent-job"><span class="cs-job-key">proof</span> built vs. source, side-by-side</div>
               </div>
             </div>
           </div>
@@ -810,29 +899,15 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
             </div>
             <div class="cs-agent-body">
               <span class="cs-agent-role">Agent &middot; Evaluator</span>
-              <div class="cs-agent-name">The gate before publish</div>
-              <div class="cs-agent-desc">Scores the build on two passes &mdash; a side-by-side render and a structural API read &mdash; against HIG, Material, and our tokens. It recommends fixes but never edits or publishes; any visible drift or token mismatch holds the release.</div>
+              <div class="cs-agent-name">The gate &mdash; recommends, never edits</div>
               <div class="cs-agent-jobs">
-                <div class="cs-agent-job">Visual <em>and</em> API read &mdash; both must pass, no partial credit</div>
-                <div class="cs-agent-job">Source fidelity: radius, padding, dimensions, positions match exactly</div>
-                <div class="cs-agent-job">Tap area &ge; 44pt / 48dp, contrast WCAG AA</div>
-                <div class="cs-agent-job">Audits the builder&rsquo;s process, not just the artifact</div>
+                <div class="cs-agent-job"><span class="cs-job-key">two passes</span> visual render + API read, both must pass</div>
+                <div class="cs-agent-job"><span class="cs-job-key">fidelity</span> radius, padding, size, position match source</div>
+                <div class="cs-agent-job"><span class="cs-job-key">standards</span> HIG / Material, tokens, AA, 44/48 tap</div>
+                <div class="cs-agent-job"><span class="cs-job-key">holds</span> any drift or mismatch blocks publish</div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="cs-flow reveal" aria-label="Agent workflow">
-          <span class="cs-flow-pill">source frame</span>
-          <span class="cs-flow-arrow">&rarr;</span>
-          <span class="cs-flow-pill cs-flow-pill--accent">builder.md</span>
-          <span class="cs-flow-arrow">&rarr;</span>
-          <span class="cs-flow-pill">build report</span>
-          <span class="cs-flow-arrow">&rarr;</span>
-          <span class="cs-flow-pill cs-flow-pill--accent">evaluator.md</span>
-          <span class="cs-flow-arrow">&rarr;</span>
-          <span class="cs-flow-pill">pass / hold</span>
-          <span class="cs-flow-arrow">&rarr;</span>
-          <span class="cs-flow-pill">human review &amp; publish</span>
         </div>
       </div>
     </section>
@@ -852,7 +927,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
             <div class="cs-impact-phase-title">Faster by default</div>
             <div class="cs-impact-phase-text">Real components and shared tokens cut the redraw-and-copy-paste work; the agents took over the repetitive build-and-check loop. A 2-designer team started shipping at the pace of a much larger one.</div>
             <div class="cs-impact-phase-stats">
-              <div class="cs-impact-stat"><span class="cs-impact-stat-val">Hours</span><span class="cs-impact-stat-lbl">Per component, not days</span></div>
+              <div class="cs-impact-stat"><span class="cs-impact-stat-val">0&nbsp;&rarr;&nbsp;1</span><span class="cs-impact-stat-lbl">Style guide to true library</span></div>
               <div class="cs-impact-stat"><span class="cs-impact-stat-val">100%</span><span class="cs-impact-stat-lbl">Values token-bound</span></div>
             </div>
           </div>
@@ -868,37 +943,16 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
       </div>
     </section>
 
-    <!-- 07 PRINCIPLES / REFLECTION -->
+    <!-- 08 PRINCIPLES / REFLECTION -->
     <section class="cs-section" id="principles">
       <div class="cs-wrap">
         <span class="cs-eyebrow">Reflection</span>
-        <h2 class="cs-section-title">Principles that held</h2>
-        <p class="cs-section-sub reveal">A 2-person team can&rsquo;t out-work a growing product, so most of my calls optimized for leverage and consistency over short-term speed. Four held up.</p>
-        <div class="cs-principles reveal">
-          <div class="cs-principle">
-            <span class="cs-principle-num">01</span>
-            <div class="cs-principle-title">Adapt before you create</div>
-            <div class="cs-principle-text">The builder treats &ldquo;make a new component&rdquo; as a last resort &mdash; it adapts an existing one by default. Reuse is what keeps a library coherent; every net-new primitive is a future maintenance cost.</div>
-          </div>
-          <div class="cs-principle">
-            <span class="cs-principle-num">02</span>
-            <div class="cs-principle-title">Fidelity over cleverness</div>
-            <div class="cs-principle-text">The hard call was making the AI <em>boring</em>: a 1-to-1 mirror of the source frame, never inventing or silently &ldquo;fixing.&rdquo; A design system that quietly improves things is a system you can&rsquo;t trust.</div>
-          </div>
-          <div class="cs-principle">
-            <span class="cs-principle-num">03</span>
-            <div class="cs-principle-title">The thing that builds it can&rsquo;t grade it</div>
-            <div class="cs-principle-text">Builder and evaluator are split on purpose. An independent gate &mdash; one that can recommend but never publish &mdash; catches drift that self-review rationalizes away.</div>
-          </div>
-          <div class="cs-principle">
-            <span class="cs-principle-num">04</span>
-            <div class="cs-principle-title">Tokens first, even when slower</div>
-            <div class="cs-principle-text">Binding every value to a semantic token cost time up front and felt like overkill at a dozen components. It&rsquo;s exactly what later turned a full rebrand into a config change instead of a rebuild.</div>
-          </div>
-        </div>
-        <div class="cs-reflection reveal">
-          <span class="cs-reflection-label">What I&rsquo;d test next</span>
-          <p class="cs-reflection-text">The agents are the newest piece, and the real test is organizational, not technical &mdash; whether a teammate who didn&rsquo;t build them can drive them, and whether the evaluator&rsquo;s bar holds as components get more complex. Designing for that hand-off is where I&rsquo;d put the next round of work.</p>
+        <h2 class="cs-section-title">What I Learned</h2>
+        <div class="cs-body reveal">
+          <p><strong>Adapt before you create.</strong> A 2-person team can&rsquo;t out-work a growing product, so most of my calls optimized for leverage over short-term speed. The builder treats &ldquo;make a new component&rdquo; as a last resort &mdash; it adapts an existing one by default. Reuse is what keeps a library coherent; every net-new primitive is a future maintenance cost.</p>
+          <p><strong>Fidelity over cleverness &mdash; and a gate to enforce it.</strong> The hard call was making the AI <em>boring</em> &mdash; a 1-to-1 mirror of the source frame, never inventing or silently &ldquo;fixing,&rdquo; because a design system that quietly improves things is a system you can&rsquo;t trust. So builder and evaluator are split on purpose: an independent gate &mdash; one that can recommend but never publish &mdash; catches the drift that self-review rationalizes away.</p>
+          <p><strong>Tokens first, even when slower.</strong> Binding every value to a semantic token cost time up front and felt like overkill at a dozen components. It&rsquo;s exactly what later turned a full rebrand into a config change instead of a rebuild.</p>
+          <p><strong>The real test is organizational, not technical.</strong> The agents are the newest piece &mdash; whether a teammate who didn&rsquo;t build them can drive them, and whether the evaluator&rsquo;s bar holds as components get more complex. Designing for that hand-off is where I&rsquo;d put the next round of work.</p>
         </div>
       </div>
     </section>
@@ -1013,43 +1067,26 @@ const obs=new IntersectionObserver(entries=>{
 },{threshold:0.06});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
-/* Count-up for impact numbers */
+/* Fade-in for impact numbers (no count-up) */
 (function(){
   const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const nodes=document.querySelectorAll('.cs-impact-stat-val');
-  const parsed=[];
-  nodes.forEach(el=>{
-    const m=el.textContent.trim().match(/^([+\-]?)(\d+(?:\.\d+)?)(.*)$/);
-    if(!m)return;
-    el.dataset.prefix=m[1];
-    el.dataset.target=m[2];
-    el.dataset.suffix=m[3];
-    el.dataset.isInt=m[2].includes('.')?'0':'1';
-    if(!reduce)el.textContent=m[1]+'0'+m[3];
-    parsed.push(el);
-  });
   if(reduce)return;
-  const ease=t=>1-Math.pow(1-t,3);
-  const run=el=>{
-    const target=parseFloat(el.dataset.target);
-    const prefix=el.dataset.prefix;
-    const suffix=el.dataset.suffix;
-    const isInt=el.dataset.isInt==='1';
-    const duration=1400;
-    const t0=performance.now();
-    const step=now=>{
-      const p=Math.min(1,(now-t0)/duration);
-      const v=target*ease(p);
-      el.textContent=prefix+(isInt?Math.round(v):v.toFixed(1))+suffix;
-      if(p<1)requestAnimationFrame(step);
-      else el.textContent=prefix+(isInt?target:target.toFixed(1))+suffix;
-    };
-    requestAnimationFrame(step);
-  };
-  const countObs=new IntersectionObserver(entries=>{
-    entries.forEach(e=>{if(e.isIntersecting){run(e.target);countObs.unobserve(e.target);}});
+  const nodes=document.querySelectorAll('.cs-impact-stat-val');
+  nodes.forEach(el=>{
+    el.style.opacity='0';
+    el.style.transform='translateY(8px)';
+    el.style.transition='opacity .6s ease, transform .6s ease';
+  });
+  const fadeObs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.style.opacity='1';
+        e.target.style.transform='none';
+        fadeObs.unobserve(e.target);
+      }
+    });
   },{threshold:0.4});
-  parsed.forEach(el=>countObs.observe(el));
+  nodes.forEach(el=>fadeObs.observe(el));
 })();
 
 /* Perspective library showcase — scroll parallax on the tilted plane */
