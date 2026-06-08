@@ -137,6 +137,19 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-ba-list-item::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--border-h);flex-shrink:0;margin-top:8px;}
 .cs-ba-cell--after .cs-ba-list-item::before{background:var(--accent);}
 
+/* VOICES — research verbatims (inherited usability signal) */
+.cs-voices-head{margin-top:32px;}
+.cs-voices-tag{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:10px;}
+.cs-voices-lead{font-size:var(--fs-base);color:var(--ink-2);line-height:1.65;max-width:60ch;}
+.cs-voices-lead em{font-style:italic;color:var(--ink);}
+.cs-voices{margin-top:22px;display:flex;flex-direction:column;}
+.cs-voice{position:relative;padding:18px 0 18px 40px;border-bottom:1px solid var(--border);transition:border-color .3s;}
+.cs-voice:last-of-type{border-bottom:none;}
+.cs-voice::before{content:'\201C';position:absolute;left:0;top:18px;font-family:var(--font-display);font-size:var(--fs-3xl);font-weight:var(--fw-bold);line-height:.7;color:var(--accent);opacity:.45;}
+.cs-voice p{font-family:var(--font-display);font-size:clamp(var(--fs-md),2.4vw,var(--fs-lg));font-weight:var(--fw-regular);color:var(--ink);line-height:1.32;letter-spacing:-.02em;}
+.cs-voices-attr{margin-top:18px;display:flex;align-items:center;gap:9px;font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);}
+.cs-voices-attr::before{content:'';width:22px;height:1.5px;background:var(--accent);flex-shrink:0;}
+
 /* PROCESS — horizontal timeline with connected nodes */
 .cs-timeline{position:relative;margin-top:40px;padding-top:8px;}
 .cs-timeline-track{position:absolute;left:16px;right:16px;top:32px;height:2px;background:var(--border);border-radius:2px;overflow:hidden;}
@@ -151,7 +164,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 [data-theme="dark"] .cs-timeline-step--current .cs-timeline-node{box-shadow:0 0 0 6px rgba(1,201,154,.22);}
 .cs-timeline-phase{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
 .cs-timeline-title{font-family:var(--font-display);font-size:var(--fs-md);font-weight:var(--fw-semibold);color:var(--ink);letter-spacing:-.02em;line-height:1.15;margin-bottom:10px;}
-.cs-timeline-text{font-size:var(--fs-base);color:var(--ink-2);line-height:1.6;}
+.cs-timeline-text{font-size:var(--fs-sm);color:var(--ink-2);line-height:1.6;}
 @media(max-width:960px){
   .cs-timeline{padding-top:0;}
   .cs-timeline-row{grid-template-columns:1fr;gap:0;}
@@ -346,6 +359,17 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-impact-stat-val{font-family:var(--font-display);font-weight:var(--fw-bold);font-size:var(--fs-2xl);letter-spacing:-.03em;color:var(--accent);line-height:1;}
 .cs-impact-stat-lbl{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);}
 
+/* IMPACT — Apple-style big stats, no cards (ref: keynote spec row) */
+.cs-bigstats{display:grid;grid-template-columns:repeat(4,1fr);gap:40px 32px;margin-top:48px;}
+.cs-bigstat{display:flex;flex-direction:column;}
+.cs-bigstat-cap{font-size:var(--fs-sm);font-weight:var(--fw-semibold);color:var(--ink-3);letter-spacing:.01em;margin-bottom:6px;}
+.cs-bigstat-num{font-family:var(--font-display);font-weight:var(--fw-bold);font-size:clamp(var(--fs-2xl),4.5vw,var(--fs-4xl));letter-spacing:-.04em;line-height:.92;color:var(--ink);}
+.cs-bigstat--accent .cs-bigstat-num{color:var(--accent);}
+.cs-bigstat-desc{font-size:var(--fs-sm);color:var(--ink-3);line-height:1.5;margin-top:14px;max-width:22ch;}
+.cs-impact-note{margin-top:52px;padding-top:32px;border-top:1px solid var(--border);}
+@media(max-width:900px){.cs-bigstats{grid-template-columns:1fr 1fr;gap:40px 28px;}}
+@media(max-width:480px){.cs-bigstats{gap:32px 20px;}}
+
 /* PRINCIPLES — reflection grid */
 .cs-principles{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px;}
 .cs-principle{position:relative;border-radius:18px;border:1px solid var(--border);background:var(--surf);padding:26px 28px;display:flex;flex-direction:column;gap:10px;transition:background .4s,border-color .4s,transform .25s cubic-bezier(.22,1,.36,1);}
@@ -356,6 +380,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-reflection{margin-top:28px;padding:24px 28px;border-left:2px solid var(--accent);background:var(--bg-2);border-radius:0 14px 14px 0;}
 .cs-reflection-label{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;display:block;}
 .cs-reflection-text{font-size:var(--p1-size);font-weight:var(--p1-weight);color:var(--p1-color);line-height:var(--p1-line);letter-spacing:var(--p1-tracking);}
+/* The fork — a clean closing statement (no box); the struck word shows the path not taken */
+.cs-fork{margin-top:40px;}
+.cs-fork-label{display:block;font-family:var(--font-mono);font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+.cs-fork-line{margin:0;max-width:30ch;font-family:var(--font-display);font-size:clamp(var(--fs-lg),2.6vw,var(--fs-xl));font-weight:var(--fw-medium);line-height:1.38;letter-spacing:-.01em;color:var(--ink);}
+.cs-fork-line s{color:var(--ink-3);text-decoration-thickness:2px;}
+.cs-fork-line em{font-style:normal;color:var(--accent);font-weight:var(--fw-semibold);}
 @media(max-width:960px){.cs-principles{grid-template-columns:1fr;}}
 
 /* NEXT PROJECTS */
@@ -457,14 +487,184 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
 @media(max-width:767px){.cs-hmw-band{padding:76px 24px 104px;}.cs-hmw-eyebrow{margin-bottom:16px;}}
 @media(prefers-reduced-motion:reduce){.cs-hmw-band::before{display:none;}.cs-hmw-question{opacity:1;transform:none;transition:none;}}
 @media(max-width:960px){.cs-timeline-row--5{grid-template-columns:1fr;}}
+
+/* Final design — ONE section with ONE green gradient background (light UI pops; light & dark).
+   Entry (top) & exit (bottom) distances are px-anchored so they don't stretch with section height. */
+.cs-section--ondark{border-bottom:none;padding:0 0 392px;
+  background:linear-gradient(180deg,
+    var(--bg) 0,
+    #cdeae1 84px,#6fccb5 156px,#01A982 232px,#016b51 308px,#022c22 392px,
+    #022c22 calc(100% - 392px),
+    #024638 calc(100% - 274px),#016b51 calc(100% - 188px),#01A982 calc(100% - 116px),#6fccb5 calc(100% - 56px),#cdeae1 calc(100% - 18px),
+    var(--bg) 100%);}
+[data-theme="dark"] .cs-section--ondark{
+  background:linear-gradient(180deg,
+    var(--bg) 0,
+    #04241a 84px,#0a6149 190px,#04503a 278px,#06291e 392px,
+    #06291e calc(100% - 392px),
+    #063a2b calc(100% - 262px),#0a6149 calc(100% - 150px),#04241a calc(100% - 62px),
+    var(--bg) 100%);}
+.cs-section--ondark .cs-eyebrow{color:#9fe6cf;text-align:center;}
+.cs-section--ondark .cs-section-title{color:#fff;text-align:center;}
+.cs-section--ondark .cs-section-sub{color:rgba(245,245,245,.82);text-align:center;margin-left:auto;margin-right:auto;}
+.cs-section--ondark .cs-figure{box-shadow:0 20px 54px rgba(0,0,0,.30);}
+/* showcase content stays hidden until the turn line has shrunk back to its resting spot (class added by JS; no-JS shows it) */
+.cs-section--ondark.final-gated .cs-wrap{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s cubic-bezier(.22,1,.36,1);}
+.cs-section--ondark.final-gated.is-ready .cs-wrap{opacity:1;transform:none;}
+/* turn lead-in (now inside the section; bg comes from the section gradient) — title lands on the dark band */
+.cs-turn-band{position:relative;padding:392px 24px 108px;text-align:center;}
+.cs-turn-inner{max-width:600px;margin:0 auto;}
+/* quiet bridge line — deliberately secondary to the section title that follows */
+.cs-turn-title{font-family:var(--font-display);font-weight:var(--fw-regular);font-size:clamp(var(--fs-md),2.4vw,var(--fs-xl));line-height:1.3;letter-spacing:-.01em;color:rgba(245,245,245,.78);margin:0;transform-origin:center;will-change:transform;}
+.cs-turn-title em{font-style:normal;color:#9fe6cf;}
+@media(max-width:767px){
+  .cs-turn-band{padding:250px 22px 72px;}
+  .cs-section--ondark{padding-bottom:250px;
+    background:linear-gradient(180deg,var(--bg) 0,#cdeae1 58px,#6fccb5 108px,#01A982 158px,#016b51 208px,#022c22 250px,#022c22 calc(100% - 250px),#024638 calc(100% - 174px),#016b51 calc(100% - 118px),#01A982 calc(100% - 72px),#6fccb5 calc(100% - 36px),#cdeae1 calc(100% - 14px),var(--bg) 100%);}
+  [data-theme="dark"] .cs-section--ondark{background:linear-gradient(180deg,var(--bg) 0,#04241a 58px,#0a6149 122px,#04503a 178px,#06291e 250px,#06291e calc(100% - 250px),#063a2b calc(100% - 166px),#0a6149 calc(100% - 94px),#04241a calc(100% - 40px),var(--bg) 100%);}
+}
 .cs-figure{margin:28px 0 0;border-radius:16px;border:1px solid var(--border);background:var(--surf);overflow:hidden;transition:background .4s,border-color .3s,transform .25s cubic-bezier(.22,1,.36,1);}
 .cs-figure:hover{transform:translateY(-2px);border-color:var(--border-h);}
 .cs-figure > img{width:100%;display:block;}
 .cs-figure figcaption{padding:14px 20px;font-size:var(--fs-sm);color:var(--ink-3);line-height:1.55;border-top:1px solid var(--border);}
 .cs-figure figcaption strong{color:var(--ink-2);font-weight:var(--fw-semibold);}
+.cs-figure--noborder{border:none;background:none;border-radius:0;}
+.cs-figure--noborder figcaption{border-top:none;padding-left:0;padding-right:0;}
+/* The cut — feature triage (replaces the narrowing image) · editorial, no card */
+.cs-cut{margin-top:28px;}
+.cs-cut-head{padding:0 0 16px;border-bottom:1px solid var(--border);display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 18px;}
+.cs-cut-eyebrow{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);}
+.cs-cut-tally{font-size:var(--fs-sm);color:var(--ink-3);display:flex;align-items:center;gap:10px;}
+.cs-cut-arrow{color:var(--ink-3);}
+.cs-cut-to{color:var(--ink-2);}
+.cs-cut-to strong{font-family:var(--font-display);font-size:var(--fs-lg);font-weight:var(--fw-bold);color:var(--accent);letter-spacing:-.02em;margin-right:3px;vertical-align:-3px;}
+.cs-cut-cols{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:30px;}
+.cs-cut-col--out{padding-right:44px;border-right:1px solid var(--border);}
+.cs-cut-col--in{padding-left:44px;}
+.cs-cut-coltitle{display:flex;align-items:baseline;gap:10px;font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px;}
+.cs-cut-n{font-family:var(--font-display);font-size:var(--fs-xl);font-weight:var(--fw-bold);letter-spacing:-.03em;line-height:.9;}
+.cs-cut-col--out .cs-cut-n{color:var(--ink-3);}
+.cs-cut-col--in .cs-cut-n{color:var(--accent);}
+.cs-cut-col--out .cs-cut-coltitle{color:var(--ink-3);}
+.cs-cut-col--in .cs-cut-coltitle{color:var(--accent);}
+.cs-cut-x,.cs-cut-check{width:19px;height:19px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;line-height:1;flex-shrink:0;}
+.cs-cut-x{background:rgba(120,120,128,.16);color:var(--ink-3);}
+.cs-cut-check{background:var(--accent);color:#fff;}
+.cs-cut-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;}
+.cs-cut-list li{font-size:var(--fs-base);line-height:1.35;}
+.cs-cut-col--out .cs-cut-list li{color:var(--ink-3);text-decoration:line-through;text-decoration-thickness:2px;text-decoration-color:rgba(209,69,59,.55);}
+.cs-cut-col--in .cs-cut-list li{color:var(--ink);font-weight:var(--fw-medium);}
+@media(max-width:620px){.cs-cut-cols{grid-template-columns:1fr;}.cs-cut-col--out{padding-right:0;border-right:none;padding-bottom:26px;border-bottom:1px solid var(--border);}.cs-cut-col--in{padding-left:0;padding-top:26px;}}
 .cs-figrow{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px;}
 .cs-figrow .cs-figure{margin-top:0;}
 @media(max-width:760px){.cs-figrow{grid-template-columns:1fr;}}
+
+/* ITERATION VERSIONS — per-round v1→v2 carousel; horizontal scroll; per-image zoom + drag pan (matches Adaptive Plan) */
+.cs-iter-block{margin-top:44px;}
+.cs-iter-block:first-of-type{margin-top:28px;}
+.cs-iter-block-title{font-size:var(--fs-md);font-weight:var(--fw-semibold);color:var(--ink);letter-spacing:-.02em;line-height:1.2;margin-bottom:6px;}
+.cs-iter-block-title .cs-iter-block-round{display:inline-block;font-family:var(--font-mono);font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-right:10px;vertical-align:middle;}
+.cs-iter-block-text{font-size:var(--fs-sm);color:var(--ink-2);line-height:1.6;max-width:64ch;margin-bottom:4px;}
+.cs-iter-versions{display:flex;gap:20px;margin-top:20px;overflow-x:auto;overflow-y:hidden;padding:4px 4px 20px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--border-h,#ccc) transparent;}
+.cs-iter-versions::-webkit-scrollbar{height:8px;}
+.cs-iter-versions::-webkit-scrollbar-track{background:transparent;}
+.cs-iter-versions::-webkit-scrollbar-thumb{background:var(--border-h,#ccc);border-radius:4px;}
+.cs-iter-version{margin:0;display:flex;flex-direction:column;gap:14px;flex:0 0 clamp(320px,75%,720px);scroll-snap-align:start;}
+.cs-iter-version-img{position:relative;overflow:hidden;border-radius:14px;background:var(--bg-2);border:1px solid var(--border);touch-action:pan-x pan-y;user-select:none;
+cursor:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><circle cx='14' cy='14' r='8.5' fill='white' stroke='%23222' stroke-width='1.6'/><line x1='14' y1='10' x2='14' y2='18' stroke='%23222' stroke-width='1.8' stroke-linecap='round'/><line x1='10' y1='14' x2='18' y2='14' stroke='%23222' stroke-width='1.8' stroke-linecap='round'/><line x1='20.5' y1='20.5' x2='28' y2='28' stroke='%23222' stroke-width='2.6' stroke-linecap='round'/></svg>") 14 14, zoom-in;
+}
+.cs-iter-version-img[data-at-max]{cursor:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><circle cx='14' cy='14' r='8.5' fill='white' stroke='%23222' stroke-width='1.6'/><line x1='10' y1='14' x2='18' y2='14' stroke='%23222' stroke-width='1.8' stroke-linecap='round'/><line x1='20.5' y1='20.5' x2='28' y2='28' stroke='%23222' stroke-width='2.6' stroke-linecap='round'/></svg>") 14 14, zoom-out;}
+.cs-iter-version-img[data-zoomed]{touch-action:none;}
+.cs-iter-version-img[data-panning]{cursor:grabbing;}
+.cs-iter-version-img img{display:block;width:100%;height:100%;object-fit:contain;opacity:0;
+transform:translate(var(--pan-x,0px),var(--pan-y,0px)) scale(var(--zoom,1));
+transform-origin:var(--zoom-x,50%) var(--zoom-y,50%);
+transition:opacity .35s ease,transform .3s cubic-bezier(.22,1,.36,1);}
+.cs-iter-version-img[data-panning] img{transition:opacity .35s ease;}
+.cs-iter-version-img img.is-loaded{opacity:1;}
+[data-theme="dark"] .cs-iter-version-img:has(img){background:#ffffff;border-color:#e5e5e5;}
+/* Empty placeholder card — not interactive, keeps surface styling in both themes */
+.cs-iter-version-img--ph{cursor:default;touch-action:auto;}
+.cs-iter-ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:0 26px;}
+.cs-iter-ph-icon{font-size:var(--fs-lg);opacity:.24;}
+.cs-iter-ph-label{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);}
+.cs-iter-ph-sub{font-size:var(--fs-xs);color:var(--ink-3);opacity:.85;max-width:36ch;line-height:1.5;}
+.cs-iter-zoom-hint{position:absolute;top:12px;right:12px;z-index:3;width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;color:#fff;pointer-events:none;transition:opacity .3s ease,transform .3s cubic-bezier(.22,1,.36,1);}
+.cs-iter-zoom-hint svg{width:16px;height:16px;}
+.cs-iter-zoom-hint .icon-zoom-out{display:none;}
+.cs-iter-version-img[data-at-max] .cs-iter-zoom-hint .icon-zoom-in{display:none;}
+.cs-iter-version-img[data-at-max] .cs-iter-zoom-hint .icon-zoom-out{display:block;}
+.cs-iter-version-img[data-zoomed]:not([data-at-max]) .cs-iter-zoom-hint{opacity:.4;}
+.cs-iter-version-img[data-panning] .cs-iter-zoom-hint{opacity:0;}
+.cs-iter-zoom-out-btn{position:absolute;top:12px;left:12px;z-index:4;width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;color:#fff;border:0;cursor:pointer;padding:0;opacity:0;pointer-events:none;transition:opacity .3s ease,background .15s ease,transform .15s ease;}
+.cs-iter-zoom-out-btn:hover{background:rgba(0,0,0,.78);transform:scale(1.06);}
+.cs-iter-zoom-out-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.cs-iter-zoom-out-btn svg{width:16px;height:16px;}
+.cs-iter-version-img[data-zoomed] .cs-iter-zoom-out-btn{opacity:1;pointer-events:auto;}
+.cs-iter-version-label{font-size:var(--fs-sm);font-weight:var(--fw-semibold);color:var(--ink-2);letter-spacing:.02em;line-height:1.4;padding:0 4px;}
+.cs-iter-version-label-tag{display:inline-block;font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-right:8px;}
+@media(max-width:600px){.cs-iter-version{flex-basis:88%;}}
+/* Figure placeholder — drop-in slot for an image inside a .cs-figure */
+.cs-fig-ph{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:24px 26px;background:var(--bg-2);transition:background .4s;}
+/* Exploration grid — medium cards for the "pile of features" */
+.cs-explore-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px;}
+.cs-explore-grid .cs-figure{margin-top:0;}
+.cs-explore-grid .cs-figure figcaption{padding:14px 18px;}
+@media(max-width:900px){.cs-explore-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.cs-explore-grid{grid-template-columns:1fr;}}
+
+/* no divider between Explore and Iterate */
+#explore{border-bottom:none;}
+/* ===== EXPLORE — either/or decisions (segmented control) + feature browser (accordion) ===== */
+.xp{display:flex;flex-direction:column;gap:22px;margin-top:36px;}
+.xp-card{background:var(--bg-2);border-radius:28px;padding:40px 44px;transition:background .4s;}
+/* shared placeholder media */
+.xp .ph{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--ink-3);background:radial-gradient(120% 120% at 28% 18%,rgba(1,169,130,.12),transparent 58%),var(--surf);}
+.xp .ph-ic{width:32px;height:32px;opacity:.4;}
+.xp .ph-lbl{font-family:var(--font-mono);font-size:var(--fs-2xs);font-weight:var(--fw-bold);letter-spacing:.08em;text-transform:uppercase;opacity:.75;}
+/* the two either/or decisions, stacked together; controls left, big image right */
+.xp-decision + .xp-decision{margin-top:34px;padding-top:34px;border-top:1px solid var(--border);}
+.xp-dec-row{display:grid;grid-template-columns:minmax(260px,320px) 1fr;gap:40px;align-items:center;}
+.xp-dec-panel{display:flex;flex-direction:column;gap:14px;}
+.xp-dec-media{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:16/9;background:var(--surf);box-shadow:0 16px 44px rgba(0,0,0,.10);}
+.xp-dec-media .m{position:absolute;inset:0;transition:opacity .26s ease,transform .26s ease;}
+.xp-dec-media.fading .m{opacity:0;transform:scale(.985);}
+.xp-dec-media img{width:100%;height:100%;object-fit:cover;display:block;}
+.xp-dec-media .ph{position:absolute;inset:0;}
+/* segmented control with a sliding thumb */
+.xp-seg{position:relative;display:inline-flex;align-self:flex-start;background:rgba(120,120,128,.14);border-radius:100px;padding:4px;}
+.xp-seg-thumb{position:absolute;top:4px;bottom:4px;left:4px;width:0;border-radius:100px;background:var(--surf);box-shadow:0 1px 3px rgba(0,0,0,.14);transition:left .28s cubic-bezier(.22,1,.36,1),width .28s cubic-bezier(.22,1,.36,1);}
+.xp-seg-btn{position:relative;z-index:1;border:0;background:transparent;border-radius:100px;padding:8px 20px;font-family:var(--font-body);font-size:var(--fs-sm);font-weight:var(--fw-semibold);color:var(--ink-2);cursor:pointer;transition:color .2s;white-space:nowrap;}
+.xp-seg-btn.active{color:var(--ink);}
+.xp-dec-t{font-family:var(--font-display);font-size:var(--fs-md);font-weight:var(--fw-semibold);letter-spacing:-.02em;}
+.xp-dec-d{font-size:var(--fs-sm);color:var(--ink-2);line-height:1.6;}
+/* feature browser — image accordion */
+.xp-acclbl{font-family:var(--font-mono);font-size:var(--fs-2xs);font-weight:var(--fw-bold);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:22px;}
+.xp-accgrid{display:grid;grid-template-columns:minmax(260px,320px) 1fr;gap:40px;align-items:start;}
+.xp-list{display:flex;flex-direction:column;}
+.xp-item{border-bottom:1px solid var(--border);}
+.xp-item:first-of-type{border-top:1px solid var(--border);}
+.xp-item h3{margin:0;}
+.xp-btn{width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 2px;background:none;border:0;cursor:pointer;text-align:left;}
+.xp-itemt{font-family:var(--font-display);font-size:var(--fs-md);font-weight:var(--fw-semibold);letter-spacing:-.02em;line-height:1.15;color:var(--ink-3);transition:color .25s;}
+.xp-btn:hover .xp-itemt{color:var(--ink-2);}
+.xp-item.active .xp-itemt{color:var(--ink);}
+.xp-chev{flex-shrink:0;width:18px;height:18px;color:var(--ink-3);transition:transform .34s cubic-bezier(.2,1,.36,1),color .25s;}
+.xp-item.active .xp-chev{transform:rotate(180deg);color:var(--ink);}
+.xp-tray{display:grid;grid-template-rows:0fr;transition:grid-template-rows .36s cubic-bezier(.22,1,.36,1);}
+.xp-item.active .xp-tray{grid-template-rows:1fr;}
+.xp-tray-inner{overflow:hidden;}
+.xp-itemd{font-size:var(--fs-sm);color:var(--ink-2);line-height:1.6;max-width:44ch;padding:0 2px 20px;opacity:0;transition:opacity .3s ease .04s;}
+.xp-item.active .xp-itemd{opacity:1;}
+.xp-stage{position:relative;min-height:clamp(300px,30vw,400px);}
+.xp-stage .m{position:absolute;inset:0;display:flex;align-items:flex-start;justify-content:center;transition:opacity .28s ease,transform .28s ease;}
+.xp-stage.fading .m{opacity:0;transform:scale(.985);}
+.xp-stage img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block;border-radius:14px;box-shadow:0 20px 54px rgba(0,0,0,.16);}
+.xp-stage .ph{position:absolute;inset:6%;border-radius:18px;box-shadow:0 20px 54px rgba(0,0,0,.10);}
+.xp-stage .ph-ic{width:40px;height:40px;}
+@media(max-width:760px){.xp-dec-row{grid-template-columns:1fr;}.xp-dec-media{order:-1;}.xp-accgrid{grid-template-columns:1fr;}.xp-card{padding:28px;}.xp-stage{order:-1;min-height:280px;margin-bottom:8px;}}
+@media(prefers-reduced-motion:reduce){.xp-seg-thumb,.xp-dec-media .m,.xp-stage .m,.xp-chev,.xp-tray{transition:none !important;}}
+
 .cs-chiplist{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px;}
 .cs-chiplist span{display:inline-flex;align-items:center;gap:8px;padding:7px 15px;border-radius:100px;background:var(--surf);border:1px solid var(--border);font-size:var(--fs-sm);font-weight:var(--fw-medium);color:var(--ink-2);transition:background .4s,border-color .3s;}
 .cs-chiplist span::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);}
@@ -473,6 +673,29 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
 .cs-statement-label{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;display:block;}
 .cs-statement p{font-family:var(--font-display);font-size:clamp(var(--fs-lg),3.2vw,var(--fs-2xl));font-weight:var(--fw-semibold);line-height:1.18;letter-spacing:-.02em;color:var(--ink);}
 @media(max-width:767px){.cs-statement{padding:24px 22px;}}
+
+/* TENSION — full-width band, clean trajectory into a tangle (no card) */
+.cs-tension-band{position:relative;width:100%;margin:8px 0;padding:72px 52px;border-bottom:1px solid var(--border);background:linear-gradient(180deg,var(--bg) 0%,rgba(1,169,130,.045) 50%,var(--bg) 100%);overflow:hidden;}
+[data-theme="dark"] .cs-tension-band{background:linear-gradient(180deg,var(--bg) 0%,rgba(1,201,154,.06) 50%,var(--bg) 100%);}
+.cs-tension-inner{max-width:1080px;margin:0 auto;}
+.cs-tension-label{font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;display:block;}
+.cs-tension-quote{font-family:var(--font-display);font-size:clamp(var(--fs-lg),3.2vw,var(--fs-2xl));font-weight:var(--fw-semibold);line-height:1.18;letter-spacing:-.02em;color:var(--ink);margin:0;max-width:30ch;}
+.cs-tension-quote em{font-style:normal;color:var(--accent);}
+.cs-tension-moment{display:flex;align-items:center;gap:10px;margin-top:24px;font-family:var(--font-mono);font-size:var(--fs-xs);font-weight:var(--fw-medium);letter-spacing:.01em;color:var(--ink-3);}
+.cs-tension-moment::before{content:'';width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(1,169,130,.16);flex-shrink:0;}
+[data-theme="dark"] .cs-tension-moment::before{box-shadow:0 0 0 4px rgba(1,201,154,.2);}
+.cs-tension-visual{margin-bottom:40px;}
+.cs-tension-visual svg{width:100%;height:auto;display:block;overflow:visible;}
+.cs-tension-line{fill:none;stroke:var(--ink-2);stroke-width:1.6;vector-effect:non-scaling-stroke;stroke-linecap:round;stroke-linejoin:round;}
+/* hand-drawn boil — the animated wobble filter runs perpetually (SMIL in the SVG) */
+.cs-tension-strokes{filter:url(#td-sketch);}
+/* draw-on (left → right) is driven in JS via getTotalLength — see the tension-draw script */
+@media(prefers-reduced-motion:reduce){
+  .cs-tension-strokes{filter:none;}
+  .cs-tension-line{stroke-dasharray:none!important;stroke-dashoffset:0!important;}
+}
+@media(max-width:960px){.cs-tension-band{padding:56px 32px;}}
+@media(max-width:767px){.cs-tension-band{padding:44px 24px;}.cs-tension-visual{margin-bottom:28px;}}
 </style>
 </head>
 <body>
@@ -643,19 +866,17 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
         <h2 class="cs-section-title">What is<br>Consumption Analytics?</h2>
         <p class="cs-section-sub reveal">HPE GreenLake Consumption Analytics helps organizations monitor and manage how they use IT resources and services &mdash; surfacing usage patterns, resource allocation, and cost efficiency. Picture the user: a <strong>system administrator at a medium&#8209;sized IT company</strong> who wants to optimize resource usage, cut costs, and find the soft spots across their infrastructure. The product already existed and had traction &mdash; my job wasn&rsquo;t to invent it, but to make it bend to how each admin actually reads their data.</p>
 
-        <div class="cs-before-after reveal" style="grid-template-columns:1fr;">
-          <div class="cs-ba-cell cs-ba-cell--after">
-            <span class="cs-ba-tag">The signal we inherited</span>
-            <div class="cs-ba-title">A customization wish&#8209;list from earlier usability testing</div>
-            <div class="cs-ba-text">Before I joined, the CA team had run rounds of usability testing. One theme kept surfacing: users wanted to make the dashboard <em>theirs</em>. The asks clustered into four:</div>
-            <div class="cs-ba-list" style="margin-top:2px;">
-              <div class="cs-ba-list-item">Move charts around the dashboard</div>
-              <div class="cs-ba-list-item">Make charts larger to see more detail</div>
-              <div class="cs-ba-list-item">Delete and re&#8209;add charts freely</div>
-              <div class="cs-ba-list-item">Customize charts with color and a preferred styling</div>
-            </div>
-          </div>
+        <div class="cs-voices-head reveal">
+          <span class="cs-voices-tag">The signal we inherited</span>
+          <p class="cs-voices-lead">Before I joined, the CA team had run rounds of usability testing. One theme kept surfacing: users wanted to make the dashboard <em>theirs</em> &mdash; four asks, in their own words:</p>
         </div>
+        <div class="cs-voices reveal">
+          <div class="cs-voice"><p>I want to move my charts around the dashboard.</p></div>
+          <div class="cs-voice"><p>Let me blow a chart up so I can dig into the detail.</p></div>
+          <div class="cs-voice"><p>I should be able to add and remove charts myself.</p></div>
+          <div class="cs-voice"><p>Can I change the colors and styling to my own preference?</p></div>
+        </div>
+        <div class="cs-voices-attr reveal">Usability&#8209;test participants, pre&#8209;internship</div>
 
         <div class="cs-sub reveal">
           <div class="cs-sub-label">The challenge</div>
@@ -724,26 +945,20 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
     <!-- 02 RESEARCH -->
     <section class="cs-section" id="research">
       <div class="cs-wrap">
-        <span class="cs-eyebrow">Research &middot; My track</span>
+        <span class="cs-eyebrow">Research</span>
         <h2 class="cs-section-title">Learn from everyone<br>else first</h2>
-        <p class="cs-section-sub reveal">I led the research. The goal was simple to say and hard to do: understand how chart customization is handled <em>both</em> by our competitors and inside HPE&rsquo;s own products, then turn earlier usability findings into directions we could actually design against. I benchmarked five platforms &mdash; HPE, AWS, Google Cloud, Grafana, and Microsoft Azure &mdash; and audited HPE&rsquo;s existing dashboards heuristically.</p>
+        <p class="cs-section-sub reveal">I led the research: how do competitors and HPE&rsquo;s own products handle chart customization? I benchmarked five platforms &mdash; HPE, AWS, Google Cloud, Grafana, Azure &mdash; and audited HPE&rsquo;s own dashboards against earlier usability findings. The takeaway: customization wasn&rsquo;t one feature but a spectrum, from re&#8209;arranging tiles to fine&#8209;tuning a single chart&rsquo;s color and line weight &mdash; and naming that spectrum is what let us scope it.</p>
 
-        <figure class="cs-figure reveal">
-          <img src="assets/images/hpe/research-competitive.png" alt="Competitive analysis matrix comparing chart-customization features across HPE, AWS, Grafana, Google Cloud, and Azure" loading="lazy">
-          <figcaption><strong>Competitive analysis.</strong> Feature&#8209;by&#8209;feature, HPE lagged on the table stakes &mdash; resizing charts, setting a preferred styling, and expanding a chart to see detail. But it was the only platform shipping predefined overview charts and inline annotations. That gap map became our backlog: close the basics, protect what was already ahead.</figcaption>
+        <figure class="cs-figure cs-figure--noborder reveal">
+          <img src="assets/images/hpe/competitive-analysis.png" alt="Competitive analysis matrix comparing chart-customization features across HPE, AWS, Grafana, Google Cloud, and Azure" loading="lazy">
+          <figcaption><strong>Competitive analysis.</strong> Feature&#8209;by&#8209;feature, HPE lagged on the table stakes &mdash; resize, preferred styling, expand&#8209;to&#8209;detail &mdash; but led on predefined overview charts and inline annotations. That gap map became our backlog: close the basics, protect the lead.</figcaption>
         </figure>
-
-        <div class="cs-reflection reveal">
-          <span class="cs-reflection-label">What the research settled</span>
-          <p class="cs-reflection-text">Customization wasn&rsquo;t one feature &mdash; it was a spectrum, from re&#8209;arranging tiles to fine&#8209;tuning a single chart&rsquo;s color and line weight. Naming that spectrum is what let us scope it instead of trying to build all of it at once.</p>
-        </div>
       </div>
     </section>
 
     <!-- HMW — research synthesized into the design question that launches ideation -->
     <div class="cs-hmw-band reveal">
       <div class="cs-hmw-inner">
-        <span class="cs-hmw-eyebrow">The problem, framed</span>
         <p class="cs-hmw-question">How might we give users the <em class="cs-hmw-key">customization</em> abilities to <em class="cs-hmw-key">empower</em> them with their visualizations?</p>
       </div>
     </div>
@@ -753,86 +968,215 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
       <div class="cs-wrap">
         <span class="cs-eyebrow">Explore</span>
         <h2 class="cs-section-title">Two structures,<br>a pile of features</h2>
-        <p class="cs-section-sub reveal">With the research in hand, we split the solution space in two. First the skeleton &mdash; <em>how</em> charts should live on a dashboard. Then the features layered on top. We deliberately over&#8209;generated here; the point was to put every plausible direction on the table before critique started cutting.</p>
+        <p class="cs-section-sub reveal">With the research in hand, we split the solution space in two &mdash; first the skeleton (<em>how</em> charts should live on a dashboard), then the features layered on top. I deliberately kept the net wide here: the goal was to get every plausible direction on the table before critique started cutting.</p>
 
-        <figure class="cs-figure reveal">
-          <img src="assets/images/hpe/explore-structure.png" alt="Dashboard structure exploration — a rigid tiled grid versus a freeform draggable canvas" loading="lazy">
-          <figcaption><strong>Skeleton first.</strong> A <strong>tiled structure</strong> &mdash; rigid, snap&#8209;to&#8209;grid, predictable &mdash; against a <strong>freeform structure</strong> where charts float and resize anywhere. The tension between order and flexibility shaped every decision that followed.</figcaption>
-        </figure>
+        <!-- Decisions are either/or (segmented control); features are browsable (accordion).
+             To fill a placeholder, add the image to the EX data in the explore script below. -->
+        <div class="xp reveal">
 
-        <figure class="cs-figure reveal">
-          <img src="assets/images/hpe/explore-features.png" alt="Feature exploration — customizing an individual chart versus applying styling across multiple charts at once" loading="lazy">
-          <figcaption><strong>Then the features.</strong> My thread: <strong>customize an individual chart</strong> &mdash; focus on one chart&rsquo;s specifics and see how changes affect the detail &mdash; versus <strong>customize multiple charts at once</strong> with a side drawer, trading precision for speed. Which one we&rsquo;d keep wasn&rsquo;t obvious yet.</figcaption>
-        </figure>
+          <div class="xp-card">
+            <div class="xp-decision">
+              <div class="xp-dec-row">
+                <div class="xp-dec-panel">
+                  <div class="xp-seg" id="xpStructSeg" role="tablist" aria-label="Dashboard skeleton — choose a direction"></div>
+                  <div class="xp-dec-t" id="xpStructTitle"></div>
+                  <div class="xp-dec-d" id="xpStructDesc"></div>
+                </div>
+                <div class="xp-dec-media" id="xpStructMedia"></div>
+              </div>
+            </div>
+            <div class="xp-decision">
+              <div class="xp-dec-row">
+                <div class="xp-dec-panel">
+                  <div class="xp-seg" id="xpCustSeg" role="tablist" aria-label="Customizing — choose a direction"></div>
+                  <div class="xp-dec-t" id="xpCustTitle"></div>
+                  <div class="xp-dec-d" id="xpCustDesc"></div>
+                </div>
+                <div class="xp-dec-media" id="xpCustMedia"></div>
+              </div>
+            </div>
+          </div>
 
-        <div class="cs-chiplist reveal" aria-label="Features explored">
-          <span>Tiled grid</span>
-          <span>Freeform canvas</span>
-          <span>Resize charts</span>
-          <span>Pin charts</span>
-          <span>Expand &amp; collapse</span>
-          <span>Add&#8209;charts modal</span>
-          <span>Customize &mdash; color</span>
-          <span>Customize &mdash; style series</span>
+          <div class="xp-card">
+            <div class="xp-acclbl">Features explored</div>
+            <div class="xp-accgrid">
+              <div class="xp-list" id="xpAccList"></div>
+              <div><div class="xp-stage" id="xpAccStage"></div></div>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
 
     <!-- 04 ITERATE -->
-    <section class="cs-section" id="iterate">
+    <section class="cs-section" id="iterate" style="border-bottom:none;">
       <div class="cs-wrap">
         <span class="cs-eyebrow">Iterate &middot; 3 rounds</span>
         <h2 class="cs-section-title">Critique,<br>narrow, repeat</h2>
         <p class="cs-section-sub reveal">Every round was anchored by a UX critique and a stakeholder check&#8209;in, and every round was an exercise in subtraction. We walked into the first stakeholder meeting &mdash; a product manager, developers, and researchers &mdash; with one thing painfully clear:</p>
+      </div>
 
-        <div class="cs-statement reveal">
-          <span class="cs-statement-label">The tension</span>
-          <p>Too many ideas spark unexpected, innovative solutions &mdash; but an overloaded UX overwhelms users and makes the product hard to use.</p>
+      <!-- The tension — full-width band -->
+      <div class="cs-tension-band reveal">
+        <div class="cs-tension-inner">
+          <div class="cs-tension-visual" aria-hidden="true">
+            <svg viewBox="-515 -20 2470 665" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A hand-drawn line running left to right, tangling into a knot before it straightens out again">
+              <defs>
+                <filter id="td-sketch" x="-5%" y="-15%" width="110%" height="130%">
+                  <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="1" result="noise">
+                    <animate attributeName="seed" values="1;3;5;7;9;6;2" dur="0.7s" calcMode="discrete" repeatCount="indefinite"/>
+                  </feTurbulence>
+                  <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" xChannelSelector="R" yChannelSelector="G"/>
+                </filter>
+              </defs>
+              <g class="cs-tension-strokes">
+                <path class="cs-tension-line" d="M-515 430.235C-515 430.235 -409 216.235 -118 204.235C173 192.235 398.5 422.735 469.5 490.235M578.5 523.235L595 466.735L683 386.735C451.338 307.301 399.757 310.926 420.5 386.735C459.33 417.27 464.37 607.561 527.5 386.735C500.641 372.358 486.209 375.705 462 411.735L474.5 492.735L511.5 571.735L578.5 523.235ZM420.5 386.735C592.465 485.076 558.349 576.633 445.5 523.235C397.9 514.873 398.709 523.924 420.5 550.235H462C449.161 599.465 486.184 586.251 550 564.735C579.189 610.029 568.797 622.637 483.5 613.235C450.057 610.762 442.238 596.4 445.5 550.235C387.758 555.98 348.65 563.597 401.5 497.235L392.5 463.235C388.513 409.036 388.221 381.333 445.5 411.735C445.5 411.735 464.5 369.735 483.5 375.735C502.5 381.735 499.5 358.735 499.5 358.735H558C607.082 363.284 617.818 375.792 614 411.735C578.49 404.146 574.889 415.542 572.5 439.735M420.5 386.735C424.468 361.771 422.368 346.005 474.5 340.735C510.094 371.468 527.5 380.235 550 330.735C572.5 281.235 603.572 338.545 620 367.735C613.234 418.334 634.266 428.904 683 439.735C642.826 468.243 620.387 484.227 683 512.735C698.607 559.223 702.125 581.268 665 587.235C584.126 556.987 576.121 578.323 550 604.235C514.858 493.888 584.692 472.199 683 421.735C673.066 512.843 681.963 571.572 578.5 613.235C556.65 572.775 552.776 553.809 614 550.235C624.178 502.547 634.727 498.299 665 543.235C717.699 508.817 725.301 489.211 665 453.235M578.5 523.235L645.5 474.735C598.622 485.855 572.446 491.951 572.5 439.735M572.5 439.735C525.752 480.63 519.069 445.145 499.5 404.735L511.5 526.235C363.662 498.271 302.201 483.576 397 466.735C414.792 421.303 442.183 421.803 511.5 453.235L539 411.735C562.551 424.934 539 490.235 539 490.235C727.971 389.082 852.386 243.21 1121 236.283C1240.54 233.233 1384 311.783 1478.5 311.783C1573 311.783 1773.94 229.723 1931.5 0.283203"/>
+              </g>
+            </svg>
+          </div>
+          <div class="cs-tension-text">
+            <span class="cs-tension-label">The tension</span>
+            <p class="cs-tension-quote">Too many ideas spark <em>innovative</em> solutions &mdash; but every one of them landed on the same dashboard at once, and the path turned into a <em>knot</em> that overwhelms users.</p>
+          </div>
         </div>
+      </div>
 
-        <p class="cs-section-sub reveal" style="margin-top:36px;">So before going further, we sat down with our managers and re&#8209;evaluated everything: what to keep, what to cut, and whether to stay on Consumption Analytics at all. The result was a hard line through the feature list.</p>
+      <div class="cs-wrap">
+        <p class="cs-section-sub reveal" style="margin-top:36px;">So before going further, we sat down with our managers and re&#8209;evaluated everything &mdash; what to keep, what to cut, and the harder call underneath it all: <s>pivot</s>, or stay. We stayed &mdash; <em>depth had earned more than breadth</em> &mdash; and drew a hard line through the feature list:</p>
 
-        <figure class="cs-figure reveal">
-          <img src="assets/images/hpe/narrowing.png" alt="Narrowing the focus — a two-column list splitting features into Not Continued and Continued" loading="lazy">
-          <figcaption><strong>Narrowing our focus.</strong> We cut custom and template dashboards, collapse/remove, drag&#8209;to&#8209;move, pinning, and axis/legend/threshold controls &mdash; and committed to five we could do well: tiled design, resize, view/expand, color customization, and style&#8209;series customization.</figcaption>
-        </figure>
+        <div class="cs-cut reveal">
+          <div class="cs-cut-cols">
+            <div class="cs-cut-col cs-cut-col--out">
+              <div class="cs-cut-coltitle"><span class="cs-cut-n">5</span>Cut</div>
+              <ul class="cs-cut-list">
+                <li>Custom &amp; template dashboards</li>
+                <li>Collapse / remove</li>
+                <li>Drag&#8209;to&#8209;move</li>
+                <li>Pinning</li>
+                <li>Axis / legend / threshold controls</li>
+              </ul>
+            </div>
+            <div class="cs-cut-col cs-cut-col--in">
+              <div class="cs-cut-coltitle"><span class="cs-cut-n">5</span>Kept</div>
+              <ul class="cs-cut-list">
+                <li>Tiled design</li>
+                <li>Resize</li>
+                <li>View / expand</li>
+                <li>Color customization</li>
+                <li>Style&#8209;series customization</li>
+              </ul>
+            </div>
+          </div>
+        </div>
 
         <div class="cs-sub reveal">
           <div class="cs-sub-label">My iterations</div>
           <div class="cs-sub-title">Cutting choices until they helped</div>
           <div class="cs-sub-text">Across the rounds I reworked the customization flows. The pattern repeated: a critique would flag that I&rsquo;d given users <em>too much</em>, and the fix was almost always to constrain the options and add a visual cue.</div>
 
-          <figure class="cs-figure reveal">
-            <img src="assets/images/hpe/iterate-add.png" alt="Iteration 1 — adding charts moves from drag-and-drop on the canvas to a focused full-screen modal" loading="lazy">
-            <figcaption><strong>Round 1 &middot; Adding charts.</strong> Drag&#8209;and&#8209;drop onto a freeform canvas caused responsiveness issues and lacked any drag affordance. I moved it into a full&#8209;screen modal of selectable, fixed&#8209;size cards &mdash; preventing distraction and the accidental clicks that came from editing in place.</figcaption>
-          </figure>
+          <!-- Each round is a v1 → v2 carousel. To swap a placeholder for the real high-fidelity
+               prototype screen, replace the `.cs-iter-version-img--ph` block with:
+               <div class="cs-iter-version-img" style="aspect-ratio:16/10;">
+                 <button class="cs-iter-zoom-out-btn" type="button" aria-label="Reset zoom"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8a6 6 0 1 0 1.7-4.2"/><polyline points="2 1.5 2 4 4.5 4"/></svg></button>
+                 <span class="cs-iter-zoom-hint" aria-hidden="true">
+                   <svg class="icon-zoom-in" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/><path d="M7 4.5v5M4.5 7h5"/></svg>
+                   <svg class="icon-zoom-out" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/><path d="M4.5 7h5"/></svg>
+                 </span>
+                 <img src="assets/images/hpe/…png" alt="…" loading="lazy" onload="this.classList.add('is-loaded')">
+               </div>  -->
 
-          <figure class="cs-figure reveal">
-            <img src="assets/images/hpe/iterate-styling.png" alt="Iteration 2 — preferred styling shifts from a multi-chart side drawer to single-chart focus" loading="lazy">
-            <figcaption><strong>Round 2 &middot; Preferred styling.</strong> Applying one style across many charts at once was risky on a shared, public dashboard &mdash; and there was no version history to undo it. I shifted focus to customizing individual charts, with radio buttons since you can only pick one palette at a time.</figcaption>
-          </figure>
+          <!-- Round 1 · Adding charts -->
+          <div class="cs-iter-block reveal">
+            <div class="cs-iter-block-title"><span class="cs-iter-block-round">Round 1</span>Adding charts</div>
+            <p class="cs-iter-block-text">Drag&#8209;and&#8209;drop onto a freeform canvas caused responsiveness issues and gave no drag affordance. I moved adding charts into a full&#8209;screen modal of selectable, fixed&#8209;size cards &mdash; preventing distraction and the accidental clicks that came from editing in place.</p>
+            <div class="cs-iter-versions">
+              <figure class="cs-iter-version">
+                <div class="cs-iter-version-img cs-iter-version-img--ph" style="aspect-ratio:16/10;">
+                  <div class="cs-iter-ph"><span class="cs-iter-ph-icon">&#128247;</span><span class="cs-iter-ph-label">v1 prototype</span><span class="cs-iter-ph-sub">Drag&#8209;and&#8209;drop charts on the edit page</span></div>
+                </div>
+                <figcaption class="cs-iter-version-label"><span class="cs-iter-version-label-tag">v1</span>Before &mdash; freeform drag&#8209;and&#8209;drop canvas</figcaption>
+              </figure>
+              <figure class="cs-iter-version">
+                <div class="cs-iter-version-img cs-iter-version-img--ph" style="aspect-ratio:16/10;">
+                  <div class="cs-iter-ph"><span class="cs-iter-ph-icon">&#128247;</span><span class="cs-iter-ph-label">v2 prototype</span><span class="cs-iter-ph-sub">Full&#8209;screen modal of selectable chart cards</span></div>
+                </div>
+                <figcaption class="cs-iter-version-label"><span class="cs-iter-version-label-tag">v2</span>After &mdash; focused full&#8209;screen modal</figcaption>
+              </figure>
+            </div>
+          </div>
 
-          <div class="cs-figrow reveal">
-            <figure class="cs-figure">
-              <img src="assets/images/hpe/iterate-color.png" alt="Iteration 2 — color customization simplifies palette names and adds color previews" loading="lazy">
-              <figcaption><strong>Round 2 &middot; Color.</strong> &ldquo;Qualitative&rdquo; and &ldquo;sequential&rdquo; confused people. I renamed them to <em>contrast</em> and <em>gradient</em>, added swatch previews, and dropped the header so nothing pulled users off&#8209;task.</figcaption>
-            </figure>
-            <figure class="cs-figure">
-              <img src="assets/images/hpe/iterate-style.png" alt="Iteration 3 — style-series customization limits line-weight options and adds visual previews" loading="lazy">
-              <figcaption><strong>Round 3 &middot; Style series.</strong> The line&#8209;weight picker had too many options and no visual cue. I cut it to three weights, each with a preview &mdash; so a choice took a glance, not a guess.</figcaption>
-            </figure>
+          <!-- Round 2 · Preferred styling -->
+          <div class="cs-iter-block reveal">
+            <div class="cs-iter-block-title"><span class="cs-iter-block-round">Round 2</span>Preferred styling</div>
+            <p class="cs-iter-block-text">Applying one style across many charts at once was risky on a shared, public dashboard &mdash; and there was no version history to undo it. I shifted focus to customizing individual charts, with radio buttons since you can only pick one palette at a time.</p>
+            <div class="cs-iter-versions">
+              <figure class="cs-iter-version">
+                <div class="cs-iter-version-img cs-iter-version-img--ph" style="aspect-ratio:16/10;">
+                  <div class="cs-iter-ph"><span class="cs-iter-ph-icon">&#128247;</span><span class="cs-iter-ph-label">v1 prototype</span><span class="cs-iter-ph-sub">Widespread styling across charts via a side drawer</span></div>
+                </div>
+                <figcaption class="cs-iter-version-label"><span class="cs-iter-version-label-tag">v1</span>Before &mdash; multi&#8209;chart side drawer</figcaption>
+              </figure>
+              <figure class="cs-iter-version">
+                <div class="cs-iter-version-img cs-iter-version-img--ph" style="aspect-ratio:16/10;">
+                  <div class="cs-iter-ph"><span class="cs-iter-ph-icon">&#128247;</span><span class="cs-iter-ph-label">v2 prototype</span><span class="cs-iter-ph-sub">Single&#8209;chart focus with radio&#8209;button palettes</span></div>
+                </div>
+                <figcaption class="cs-iter-version-label"><span class="cs-iter-version-label-tag">v2</span>After &mdash; single&#8209;chart focus</figcaption>
+              </figure>
+            </div>
+          </div>
+
+          <!-- Round 2 · Color customization -->
+          <div class="cs-iter-block reveal">
+            <div class="cs-iter-block-title"><span class="cs-iter-block-round">Round 2</span>Color customization</div>
+            <p class="cs-iter-block-text">&ldquo;Qualitative&rdquo; and &ldquo;sequential&rdquo; confused people, and the header offered too many ways to navigate away mid&#8209;task. I renamed them to <em>contrast</em> and <em>gradient</em>, added swatch previews, and dropped the header into a full&#8209;screen modal.</p>
+            <div class="cs-iter-versions">
+              <figure class="cs-iter-version">
+                <div class="cs-iter-version-img cs-iter-version-img--ph" style="aspect-ratio:16/10;">
+                  <div class="cs-iter-ph"><span class="cs-iter-ph-icon">&#128247;</span><span class="cs-iter-ph-label">v1 prototype</span><span class="cs-iter-ph-sub">Complex palette names with no visual identifier</span></div>
+                </div>
+                <figcaption class="cs-iter-version-label"><span class="cs-iter-version-label-tag">v1</span>Before &mdash; jargon palette names</figcaption>
+              </figure>
+              <figure class="cs-iter-version">
+                <div class="cs-iter-version-img cs-iter-version-img--ph" style="aspect-ratio:16/10;">
+                  <div class="cs-iter-ph"><span class="cs-iter-ph-icon">&#128247;</span><span class="cs-iter-ph-label">v2 prototype</span><span class="cs-iter-ph-sub">Plain&#8209;language palettes with swatch previews</span></div>
+                </div>
+                <figcaption class="cs-iter-version-label"><span class="cs-iter-version-label-tag">v2</span>After &mdash; previews &amp; plain language</figcaption>
+              </figure>
+            </div>
+          </div>
+
+          <!-- Round 3 · Style-series customization -->
+          <div class="cs-iter-block reveal">
+            <div class="cs-iter-block-title"><span class="cs-iter-block-round">Round 3</span>Style&#8209;series customization</div>
+            <p class="cs-iter-block-text">Too many line&#8209;weight options made users stress over the choice, and there were no visual cues. I cut it to three weights, each with a preview &mdash; so a choice took a glance, not a guess.</p>
+            <div class="cs-iter-versions">
+              <figure class="cs-iter-version">
+                <div class="cs-iter-version-img cs-iter-version-img--ph" style="aspect-ratio:16/10;">
+                  <div class="cs-iter-ph"><span class="cs-iter-ph-icon">&#128247;</span><span class="cs-iter-ph-label">v1 prototype</span><span class="cs-iter-ph-sub">Many line&#8209;weight options, no visual cues</span></div>
+                </div>
+                <figcaption class="cs-iter-version-label"><span class="cs-iter-version-label-tag">v1</span>Before &mdash; overloaded weight picker</figcaption>
+              </figure>
+              <figure class="cs-iter-version">
+                <div class="cs-iter-version-img cs-iter-version-img--ph" style="aspect-ratio:16/10;">
+                  <div class="cs-iter-ph"><span class="cs-iter-ph-icon">&#128247;</span><span class="cs-iter-ph-label">v2 prototype</span><span class="cs-iter-ph-sub">Three weights, each with a preview</span></div>
+                </div>
+                <figcaption class="cs-iter-version-label"><span class="cs-iter-version-label-tag">v2</span>After &mdash; three previewed weights</figcaption>
+              </figure>
+            </div>
           </div>
         </div>
 
-        <div class="cs-reflection reveal">
-          <span class="cs-reflection-label">The fork at the end</span>
-          <p class="cs-reflection-text">By the third round we hit a real decision &mdash; pivot, or stop here. We chose to stay: we&rsquo;d found more value in <strong>depth than breadth</strong>, and we&rsquo;d found the <em>right</em> few things to go deep on.</p>
-        </div>
       </div>
     </section>
 
-    <!-- 05 FINAL -->
-    <section class="cs-section" id="final">
+    <!-- 05 FINAL — turn lead-in + showcase on one gradient background -->
+    <section class="cs-section cs-section--ondark" id="final">
+      <div class="cs-turn-band">
+        <div class="cs-turn-inner reveal">
+          <p class="cs-turn-title">The design it all <em>led to</em>.</p>
+        </div>
+      </div>
       <div class="cs-wrap">
         <span class="cs-eyebrow">Final &middot; Showcase</span>
         <h2 class="cs-section-title">A modular,<br>high&#8209;fidelity dashboard</h2>
@@ -866,32 +1210,33 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
       <div class="cs-wrap">
         <span class="cs-eyebrow">Impact</span>
         <h2 class="cs-section-title">What the summer<br>added up to</h2>
-        <p class="cs-section-sub reveal">It was an internship, so the honest measure isn&rsquo;t a launch metric &mdash; it&rsquo;s the quality of the direction we handed back. We turned an open&#8209;ended &ldquo;let users customize&rdquo; into a scoped, research&#8209;backed, demoed system.</p>
-        <div class="cs-impact-phases reveal">
-          <div class="cs-impact-phase">
-            <div class="cs-impact-phase-head">
-              <span class="cs-impact-phase-num">The work</span>
-              <span class="cs-impact-phase-tag">14 weeks</span>
-            </div>
-            <div class="cs-impact-phase-title">From wish&#8209;list<br>to a built direction</div>
-            <div class="cs-impact-phase-text">Competitive research across five platforms, three critique&#8209;driven iteration rounds, and a high&#8209;fidelity dashboard with a full chart&#8209;customization flow &mdash; presented to the team at the end&#8209;of&#8209;summer demo.</div>
-            <div class="cs-impact-phase-stats">
-              <div class="cs-impact-stat"><span class="cs-impact-stat-val">3</span><span class="cs-impact-stat-lbl">Iteration rounds</span></div>
-              <div class="cs-impact-stat"><span class="cs-impact-stat-val">5</span><span class="cs-impact-stat-lbl">Platforms benchmarked</span></div>
-            </div>
+        <p class="cs-section-sub reveal">It was an internship, so there&rsquo;s no shipped&#8209;product KPI to point to &mdash; the win was turning an open&#8209;ended &ldquo;let users customize&rdquo; into a scoped, research&#8209;backed, demoed system. The numbers below measure that: how hard we tested the direction, and how well it held up.</p>
+        <div class="cs-bigstats reveal">
+          <div class="cs-bigstat cs-bigstat--accent">
+            <span class="cs-bigstat-cap">Up&nbsp;to</span>
+            <span class="cs-bigstat-num">+30%</span>
+            <span class="cs-bigstat-desc">more users completed their target task in usability testing</span>
           </div>
-          <div class="cs-impact-phase cs-impact-phase--accent">
-            <div class="cs-impact-phase-head">
-              <span class="cs-impact-phase-num">The outcome</span>
-              <span class="cs-impact-phase-tag">Approved</span>
-            </div>
-            <div class="cs-impact-phase-title">Approved &amp; validated<br>in user testing</div>
-            <div class="cs-impact-phase-text">The design was approved by both the design&#8209;system team and the Consumption Analytics team, then validated by the research team in usability testing &mdash; where the new zoom, restyle, and grid&#8209;resize controls let <strong>30% more participants complete their target analysis task</strong> than the previous, fixed dashboard could, informing which feature the teams would implement first. The narrowing, not the feature list, was the real deliverable: a defended point of view that depth beats breadth.</div>
-            <div class="cs-impact-phase-stats">
-              <div class="cs-impact-stat"><span class="cs-impact-stat-val">+30%</span><span class="cs-impact-stat-lbl">Adoption in testing</span></div>
-              <div class="cs-impact-stat"><span class="cs-impact-stat-val">50+</span><span class="cs-impact-stat-lbl">Stakeholders aligned</span></div>
-            </div>
+          <div class="cs-bigstat">
+            <span class="cs-bigstat-cap">Across</span>
+            <span class="cs-bigstat-num">3</span>
+            <span class="cs-bigstat-desc">critique&#8209;driven iteration rounds</span>
           </div>
+          <div class="cs-bigstat">
+            <span class="cs-bigstat-cap">Against</span>
+            <span class="cs-bigstat-num">5</span>
+            <span class="cs-bigstat-desc">competitor platforms benchmarked</span>
+          </div>
+          <div class="cs-bigstat">
+            <span class="cs-bigstat-cap">With</span>
+            <span class="cs-bigstat-num">50+</span>
+            <span class="cs-bigstat-desc">stakeholders aligned across the org</span>
+          </div>
+        </div>
+
+        <div class="cs-body cs-impact-note reveal">
+          <p>Both the design&#8209;system team and the Consumption Analytics team approved the direction, and the research team validated it in usability testing &mdash; the new zoom, restyle, and grid&#8209;resize controls are what moved that completion number, and informed which feature the teams would build first.</p>
+          <p>The real deliverable wasn&rsquo;t the feature list &mdash; it was the <strong>narrowing</strong>: a defended point of view that depth beats breadth.</p>
         </div>
       </div>
     </section>
@@ -1023,7 +1368,7 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 /* Count-up for impact numbers */
 (function(){
   const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const nodes=document.querySelectorAll('.cs-impact-stat-val');
+  const nodes=document.querySelectorAll('.cs-impact-stat-val,.cs-bigstat-num');
   const parsed=[];
   nodes.forEach(el=>{
     const m=el.textContent.trim().match(/^([+\-]?)(\d+(?:\.\d+)?)(.*)$/);
@@ -1057,6 +1402,197 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
     entries.forEach(e=>{if(e.isIntersecting){run(e.target);countObs.unobserve(e.target);}});
   },{threshold:0.4});
   parsed.forEach(el=>countObs.observe(el));
+})();
+
+/* Iteration versions — click-to-zoom + drag-to-pan on each version image (skips empty placeholders) */
+(()=>{
+  document.querySelectorAll('.cs-iter-version-img').forEach(el=>{
+    if(!el.querySelector('img'))return;
+    let zoom=1, panX=0, panY=0;
+    let panDragging=false, panStart=null, downAt=null;
+    const MIN=1,MAX=3,STEP=1,DRAG_THRESHOLD=4;
+    const setPan=(x,y)=>{panX=x;panY=y;el.style.setProperty('--pan-x',panX+'px');el.style.setProperty('--pan-y',panY+'px');};
+    const applyZoomState=()=>{
+      el.style.setProperty('--zoom',zoom);
+      if(zoom>=MAX)el.setAttribute('data-at-max','');else el.removeAttribute('data-at-max');
+      if(zoom>1)el.setAttribute('data-zoomed','');else el.removeAttribute('data-zoomed');
+    };
+    el.addEventListener('pointerdown',e=>{
+      if(e.target.closest('.cs-iter-zoom-out-btn'))return;
+      downAt={x:e.clientX,y:e.clientY,id:e.pointerId};
+      if(zoom>1){panStart={x:e.clientX-panX,y:e.clientY-panY};}
+    });
+    const zoomOutBtn=el.querySelector('.cs-iter-zoom-out-btn');
+    if(zoomOutBtn){
+      zoomOutBtn.addEventListener('click',e=>{
+        e.stopPropagation();
+        zoom=MIN;
+        setPan(0,0);
+        applyZoomState();
+      });
+    }
+    el.addEventListener('pointermove',e=>{
+      if(!downAt||downAt.id!==e.pointerId)return;
+      const dx=e.clientX-downAt.x, dy=e.clientY-downAt.y;
+      if(!panDragging && panStart && Math.hypot(dx,dy)>DRAG_THRESHOLD){
+        panDragging=true;
+        el.setAttribute('data-panning','');
+        try{el.setPointerCapture(e.pointerId);}catch(_){}
+      }
+      if(panDragging){
+        setPan(e.clientX-panStart.x, e.clientY-panStart.y);
+        e.preventDefault();
+      }
+    });
+    const endPointer=(e)=>{
+      if(!downAt||downAt.id!==e.pointerId)return;
+      const moved=Math.hypot(e.clientX-downAt.x, e.clientY-downAt.y);
+      const wasDrag=panDragging;
+      if(panDragging){
+        panDragging=false;
+        el.removeAttribute('data-panning');
+        try{el.releasePointerCapture(e.pointerId);}catch(_){}
+      }
+      panStart=null;
+      if(!wasDrag && moved<DRAG_THRESHOLD){
+        const rect=el.getBoundingClientRect();
+        const px=Math.max(0,Math.min(100,((e.clientX-rect.left)/rect.width)*100));
+        const py=Math.max(0,Math.min(100,((e.clientY-rect.top)/rect.height)*100));
+        el.style.setProperty('--zoom-x',px+'%');
+        el.style.setProperty('--zoom-y',py+'%');
+        zoom=zoom>=MAX?MIN:zoom+STEP;
+        if(zoom===MIN)setPan(0,0);
+        applyZoomState();
+      }
+      downAt=null;
+    };
+    el.addEventListener('pointerup',endPointer);
+    el.addEventListener('pointercancel',endPointer);
+  });
+})();
+
+/* Tension stroke — draw left → right on reveal (length measured at runtime) */
+(function(){
+  const path=document.querySelector('.cs-tension-line');
+  const band=document.querySelector('.cs-tension-band');
+  if(!path||!band)return;
+  const len=path.getTotalLength();
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    path.style.strokeDasharray='none';path.style.strokeDashoffset='0';return;
+  }
+  path.style.strokeDasharray=len;
+  path.style.strokeDashoffset=len;
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        path.style.transition='stroke-dashoffset 2.8s cubic-bezier(.22,1,.36,1)';
+        path.style.strokeDashoffset='0';
+        io.unobserve(e.target);
+      }
+    });
+  },{threshold:0.25});
+  io.observe(band);
+})();
+
+/* ===== EXPLORE — either/or decisions + feature accordion ===== */
+(()=>{
+  const EX=[
+    {s:'Tiled',          t:'Tiled structure',            d:'Bringing rigid, visualized structure to the dashboard.', img:'assets/images/hpe/tiled-design.png'},
+    {s:'Freeform',       t:'Freeform structure',         d:'Presenting flexibility of the layout of charts.', img:'assets/images/hpe/freeform-structure.png'},
+    {s:'Resize',         t:'Resize charts',              d:'Make charts larger or smaller, effortlessly adjusting chart dimensions on the dashboard.', img:'assets/images/hpe/resize.png'},
+    {s:'Pin',            t:'Pin charts',                 d:'Pin charts to maintain critical data at the forefront, depending on what’s most important to you.', img:'assets/images/hpe/pin.png'},
+    {s:'View / expand',  t:'View / expand charts',       d:'See all of the hard-to-see details in a chart.', img:'assets/images/hpe/expand.png'},
+    {s:'Collapse',       t:'Collapse charts',            d:'Optimize screen space, especially when multiple charts are present on the dashboard.', img:'assets/images/hpe/collapse.png'},
+    {s:'Customize one',  t:'Customize an individual chart', d:'Style each chart on its own, with full control over its specifics — the flexible path when charts need to differ.', img:'assets/images/hpe/customize-one.png'},
+    {s:'Customize many', t:'Customize multiple charts',  d:'Recolor your whole dashboard in one click — apply one palette across every chart at once. Fast and consistent, but not flexible.', img:'assets/images/hpe/customize-multiple.png'},
+  ];
+  const GLYPH='<svg class="ph-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2.5"/><circle cx="8.5" cy="8.5" r="1.6"/><path d="M21 15.5l-5.5-5.5L4 21.5"/></svg>';
+  const media=x=>x.img
+    ? '<div class="m"><img src="'+x.img+'" alt="'+x.t+'" loading="lazy"></div>'
+    : '<div class="m ph">'+GLYPH+'<span class="ph-lbl">'+x.t+'</span></div>';
+
+  /* either/or decisions — segmented control with sliding thumb */
+  const segReg=[];
+  function segDecision(p,a,b){
+    const seg=document.getElementById(p+'Seg'),
+          mediaEl=document.getElementById(p+'Media'),
+          titleEl=document.getElementById(p+'Title'),
+          descEl=document.getElementById(p+'Desc'),
+          items=[a,b];
+    seg.innerHTML='<span class="xp-seg-thumb" aria-hidden="true"></span>'+
+      items.map((x,i)=>'<button class="xp-seg-btn'+(i===0?' active':'')+'" type="button" role="tab" aria-selected="'+(i===0)+'" data-i="'+i+'">Direction '+(i+1)+'</button>').join('');
+    const thumb=seg.querySelector('.xp-seg-thumb');
+    const setThumb=btn=>{thumb.style.left=btn.offsetLeft+'px';thumb.style.width=btn.offsetWidth+'px';};
+    const show=i=>{
+      mediaEl.classList.add('fading');
+      setTimeout(()=>{mediaEl.innerHTML=media(items[i]);mediaEl.classList.remove('fading');},170);
+      titleEl.textContent=items[i].t;descEl.textContent=items[i].d;
+    };
+    seg.querySelectorAll('.xp-seg-btn').forEach(btn=>btn.addEventListener('click',()=>{
+      seg.querySelectorAll('.xp-seg-btn').forEach(o=>{o.classList.remove('active');o.setAttribute('aria-selected','false');});
+      btn.classList.add('active');btn.setAttribute('aria-selected','true');
+      setThumb(btn);show(+btn.dataset.i);
+    }));
+    mediaEl.innerHTML=media(items[0]);titleEl.textContent=items[0].t;descEl.textContent=items[0].d;
+    requestAnimationFrame(()=>setThumb(seg.querySelector('.xp-seg-btn.active')));
+    segReg.push(seg);
+  }
+  segDecision('xpStruct',EX[0],EX[1]);
+  segDecision('xpCust',EX[6],EX[7]);
+  window.addEventListener('resize',()=>segReg.forEach(seg=>{
+    const a=seg.querySelector('.xp-seg-btn.active'),t=seg.querySelector('.xp-seg-thumb');
+    if(a&&t){t.style.left=a.offsetLeft+'px';t.style.width=a.offsetWidth+'px';}
+  }));
+
+  /* features — image accordion */
+  (()=>{
+    const feats=EX.slice(2,6);
+    const list=document.getElementById('xpAccList'),stage=document.getElementById('xpAccStage');
+    list.innerHTML=feats.map((x,k)=>'<div class="xp-item'+(k===0?' active':'')+'" data-k="'+k+'">'+
+        '<h3><button class="xp-btn" type="button" aria-expanded="'+(k===0)+'">'+
+          '<span class="xp-itemt">'+x.t+'</span>'+
+          '<svg class="xp-chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 8 11 13 6"/></svg>'+
+        '</button></h3>'+
+        '<div class="xp-tray"><div class="xp-tray-inner"><p class="xp-itemd">'+x.d+'</p></div></div>'+
+      '</div>').join('');
+    const show=k=>{stage.classList.add('fading');setTimeout(()=>{stage.innerHTML=media(feats[k]);stage.classList.remove('fading');},190);};
+    list.querySelectorAll('.xp-item').forEach(it=>it.querySelector('.xp-btn').addEventListener('click',()=>{
+      if(it.classList.contains('active'))return;
+      list.querySelectorAll('.xp-item').forEach(o=>{o.classList.remove('active');o.querySelector('.xp-btn').setAttribute('aria-expanded','false');});
+      it.classList.add('active');it.querySelector('.xp-btn').setAttribute('aria-expanded','true');
+      show(+it.dataset.k);
+    }));
+    stage.innerHTML=media(feats[0]);
+  })();
+})();
+
+/* Turn line — scroll-scale: starts large on entry, shrinks to its resting size as you scroll, then holds */
+(()=>{
+  const inner=document.querySelector('.cs-turn-inner');
+  const title=document.querySelector('.cs-turn-title');
+  const section=document.getElementById('final');
+  if(!inner||!title||!section)return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;  // no gating, no animation
+  section.classList.add('final-gated');          // hide the showcase content until the line settles
+  const MAX_EXTRA=0.95;            // entry scale = 1.95×, resting = 1×
+  const RISE=130;                  // entry sits ~130px higher, then drops back to its resting position
+  let raf=null, maxP=0;            // progress only ever increases → shrink is one-way (no growing back on scroll-up)
+  const apply=()=>{
+    raf=null;
+    const r=inner.getBoundingClientRect();       // layout box, unaffected by the title's transform
+    const vh=window.innerHeight||document.documentElement.clientHeight;
+    const center=r.top+r.height/2;
+    let p=(vh-center)/(vh*0.70);                  // 0 as it enters bottom → 1 once it reaches the upper third
+    p=Math.max(0,Math.min(1,p));
+    if(p>maxP) maxP=p;                            // latch — only shrink on the way down, never enlarge on the way up
+    const inv=1-maxP;
+    title.style.transform='translateY('+(inv*-RISE).toFixed(1)+'px) scale('+(1+inv*MAX_EXTRA).toFixed(3)+')';
+    if(maxP>=0.96) section.classList.add('is-ready');  // line has returned to its resting spot → reveal content (latched)
+  };
+  const onScroll=()=>{if(!raf)raf=requestAnimationFrame(apply);};
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',onScroll);
+  apply();
 })();
 
 </script>
