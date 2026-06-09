@@ -624,20 +624,20 @@ transition:opacity .35s ease,transform .3s cubic-bezier(.22,1,.36,1);}
 .xp .ph-lbl{font-family:var(--font-mono);font-size:var(--fs-2xs);font-weight:var(--fw-bold);letter-spacing:.08em;text-transform:uppercase;opacity:.75;}
 /* the two either/or decisions, stacked together; controls left, big image right */
 .xp-decision + .xp-decision{margin-top:34px;padding-top:34px;border-top:1px solid var(--border);}
-.xp-dec-row{display:grid;grid-template-columns:minmax(260px,320px) 1fr;gap:40px;align-items:center;}
-.xp-dec-panel{display:flex;flex-direction:column;gap:14px;}
-.xp-dec-media{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:16/9;background:var(--surf);box-shadow:0 16px 44px rgba(0,0,0,.10);}
+.xp-dec-row{display:flex;flex-direction:column;gap:20px;align-items:center;text-align:center;}
+.xp-dec-media{position:relative;width:100%;border-radius:10px;overflow:hidden;aspect-ratio:16/9;background:var(--surf);box-shadow:0 16px 44px rgba(0,0,0,.10);}
 .xp-dec-media .m{position:absolute;inset:0;transition:opacity .26s ease,transform .26s ease;}
 .xp-dec-media.fading .m{opacity:0;transform:scale(.985);}
 .xp-dec-media img{width:100%;height:100%;object-fit:cover;display:block;}
 .xp-dec-media .ph{position:absolute;inset:0;}
 /* segmented control with a sliding thumb */
-.xp-seg{position:relative;display:inline-flex;align-self:flex-start;background:rgba(120,120,128,.14);border-radius:100px;padding:4px;}
-.xp-seg-thumb{position:absolute;top:4px;bottom:4px;left:4px;width:0;border-radius:100px;background:var(--surf);box-shadow:0 1px 3px rgba(0,0,0,.14);transition:left .28s cubic-bezier(.22,1,.36,1),width .28s cubic-bezier(.22,1,.36,1);}
-.xp-seg-btn{position:relative;z-index:1;border:0;background:transparent;border-radius:100px;padding:8px 20px;font-family:var(--font-body);font-size:var(--fs-sm);font-weight:var(--fw-semibold);color:var(--ink-2);cursor:pointer;transition:color .2s;white-space:nowrap;}
-.xp-seg-btn.active{color:var(--ink);}
+.xp-seg{position:relative;display:inline-flex;align-items:center;background:rgba(120,120,128,.14);border-radius:100px;padding:4px;}
+.xp-seg-lead{position:relative;z-index:1;display:inline-flex;align-items:center;padding:8px 12px 8px 14px;font-family:var(--font-mono);font-size:var(--fs-2xs);font-weight:var(--fw-bold);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);pointer-events:none;}
+.xp-seg-thumb{position:absolute;top:4px;bottom:4px;left:4px;width:0;border-radius:100px;background:var(--ink);box-shadow:0 2px 8px rgba(0,0,0,.22);transition:left .28s cubic-bezier(.22,1,.36,1),width .28s cubic-bezier(.22,1,.36,1);}
+.xp-seg-btn{position:relative;z-index:1;border:0;background:transparent;border-radius:100px;min-width:44px;padding:8px 16px;font-family:var(--font-body);font-size:var(--fs-sm);font-weight:var(--fw-semibold);color:var(--ink-2);cursor:pointer;transition:color .2s;white-space:nowrap;text-align:center;}
+.xp-seg-btn.active{color:var(--bg);}
 .xp-dec-t{font-family:var(--font-display);font-size:var(--fs-md);font-weight:var(--fw-semibold);letter-spacing:-.02em;}
-.xp-dec-d{font-size:var(--fs-sm);color:var(--ink-2);line-height:1.6;}
+.xp-dec-d{font-size:var(--fs-base);color:var(--ink-2);line-height:1.6;max-width:70ch;}
 /* feature browser — image accordion */
 .xp-acclbl{font-family:var(--font-mono);font-size:var(--fs-2xs);font-weight:var(--fw-bold);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:22px;}
 .xp-accgrid{display:grid;grid-template-columns:minmax(260px,320px) 1fr;gap:40px;align-items:start;}
@@ -654,15 +654,15 @@ transition:opacity .35s ease,transform .3s cubic-bezier(.22,1,.36,1);}
 .xp-tray{display:grid;grid-template-rows:0fr;transition:grid-template-rows .36s cubic-bezier(.22,1,.36,1);}
 .xp-item.active .xp-tray{grid-template-rows:1fr;}
 .xp-tray-inner{overflow:hidden;}
-.xp-itemd{font-size:var(--fs-sm);color:var(--ink-2);line-height:1.6;max-width:44ch;padding:0 2px 20px;opacity:0;transition:opacity .3s ease .04s;}
+.xp-itemd{font-size:var(--fs-base);color:var(--ink-2);line-height:1.6;max-width:44ch;padding:0 2px 20px;opacity:0;transition:opacity .3s ease .04s;}
 .xp-item.active .xp-itemd{opacity:1;}
 .xp-stage{position:relative;min-height:clamp(300px,30vw,400px);}
-.xp-stage .m{position:absolute;inset:0;display:flex;align-items:flex-start;justify-content:center;transition:opacity .28s ease,transform .28s ease;}
+.xp-stage .m{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:opacity .28s ease,transform .28s ease;}
 .xp-stage.fading .m{opacity:0;transform:scale(.985);}
 .xp-stage img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block;border-radius:14px;box-shadow:0 20px 54px rgba(0,0,0,.16);}
 .xp-stage .ph{position:absolute;inset:6%;border-radius:18px;box-shadow:0 20px 54px rgba(0,0,0,.10);}
 .xp-stage .ph-ic{width:40px;height:40px;}
-@media(max-width:760px){.xp-dec-row{grid-template-columns:1fr;}.xp-dec-media{order:-1;}.xp-accgrid{grid-template-columns:1fr;}.xp-card{padding:28px;}.xp-stage{order:-1;min-height:280px;margin-bottom:8px;}}
+@media(max-width:760px){.xp-accgrid{grid-template-columns:1fr;}.xp-card{padding:28px;}.xp-stage{order:-1;min-height:280px;margin-bottom:8px;}}
 @media(prefers-reduced-motion:reduce){.xp-seg-thumb,.xp-dec-media .m,.xp-stage .m,.xp-chev,.xp-tray{transition:none !important;}}
 
 .cs-chiplist{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px;}
@@ -968,7 +968,7 @@ transition:opacity .35s ease,transform .3s cubic-bezier(.22,1,.36,1);}
       <div class="cs-wrap">
         <span class="cs-eyebrow">Explore</span>
         <h2 class="cs-section-title">Two structures,<br>a pile of features</h2>
-        <p class="cs-section-sub reveal">With the research in hand, we split the solution space in two &mdash; first the skeleton (<em>how</em> charts should live on a dashboard), then the features layered on top. I deliberately kept the net wide here: the goal was to get every plausible direction on the table before critique started cutting.</p>
+        <p class="cs-section-sub reveal">With the research in hand, I opened up the solution space along three threads &mdash; how you <em>edit the dashboard</em> (how charts are laid out), how charts get <em>customized</em>, and the smaller <em>features</em> layered on top. The first two came down to either/or bets; the rest were capabilities to weigh. I kept the net wide on purpose &mdash; get every plausible direction on the table before critique started cutting.</p>
 
         <!-- Decisions are either/or (segmented control); features are browsable (accordion).
              To fill a placeholder, add the image to the EX data in the explore script below. -->
@@ -977,31 +977,33 @@ transition:opacity .35s ease,transform .3s cubic-bezier(.22,1,.36,1);}
           <div class="xp-card">
             <div class="xp-decision">
               <div class="xp-dec-row">
-                <div class="xp-dec-panel">
-                  <div class="xp-seg" id="xpStructSeg" role="tablist" aria-label="Dashboard skeleton — choose a direction"></div>
-                  <div class="xp-dec-t" id="xpStructTitle"></div>
-                  <div class="xp-dec-d" id="xpStructDesc"></div>
-                </div>
                 <div class="xp-dec-media" id="xpStructMedia"></div>
-              </div>
-            </div>
-            <div class="xp-decision">
-              <div class="xp-dec-row">
-                <div class="xp-dec-panel">
-                  <div class="xp-seg" id="xpCustSeg" role="tablist" aria-label="Customizing — choose a direction"></div>
-                  <div class="xp-dec-t" id="xpCustTitle"></div>
-                  <div class="xp-dec-d" id="xpCustDesc"></div>
-                </div>
-                <div class="xp-dec-media" id="xpCustMedia"></div>
+                <div class="xp-seg" id="xpStructSeg" role="tablist" aria-label="Dashboard skeleton — choose a direction"></div>
+                <div class="xp-dec-t" id="xpStructTitle"></div>
+                <div class="xp-dec-d" id="xpStructDesc"></div>
               </div>
             </div>
           </div>
 
           <div class="xp-card">
-            <div class="xp-acclbl">Features explored</div>
-            <div class="xp-accgrid">
-              <div class="xp-list" id="xpAccList"></div>
-              <div><div class="xp-stage" id="xpAccStage"></div></div>
+            <div class="xp-decision">
+              <div class="xp-dec-row">
+                <div class="xp-dec-media" id="xpCustMedia"></div>
+                <div class="xp-seg" id="xpCustSeg" role="tablist" aria-label="Customizing — choose a direction"></div>
+                <div class="xp-dec-t" id="xpCustTitle"></div>
+                <div class="xp-dec-d" id="xpCustDesc"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="xp-card">
+            <div class="xp-decision">
+              <div class="xp-dec-row">
+                <div class="xp-dec-media" id="xpFeatMedia"></div>
+                <div class="xp-seg" id="xpFeatSeg" role="tablist" aria-label="Features explored"></div>
+                <div class="xp-dec-t" id="xpFeatTitle"></div>
+                <div class="xp-dec-d" id="xpFeatDesc"></div>
+              </div>
             </div>
           </div>
 
@@ -1062,7 +1064,7 @@ transition:opacity .35s ease,transform .3s cubic-bezier(.22,1,.36,1);}
               <ul class="cs-cut-list">
                 <li>Tiled design</li>
                 <li>Resize</li>
-                <li>View / expand</li>
+                <li>Expand</li>
                 <li>Color customization</li>
                 <li>Style&#8209;series customization</li>
               </ul>
@@ -1086,22 +1088,32 @@ transition:opacity .35s ease,transform .3s cubic-bezier(.22,1,.36,1);}
                  <img src="assets/images/hpe/…png" alt="…" loading="lazy" onload="this.classList.add('is-loaded')">
                </div>  -->
 
-          <!-- Round 1 · Adding charts -->
+          <!-- Round 1 · Edit dashboard -->
           <div class="cs-iter-block reveal">
-            <div class="cs-iter-block-title"><span class="cs-iter-block-round">Round 1</span>Adding charts</div>
-            <p class="cs-iter-block-text">Drag&#8209;and&#8209;drop onto a freeform canvas caused responsiveness issues and gave no drag affordance. I moved adding charts into a full&#8209;screen modal of selectable, fixed&#8209;size cards &mdash; preventing distraction and the accidental clicks that came from editing in place.</p>
+            <div class="cs-iter-block-title"><span class="cs-iter-block-round">Round 1</span>Edit dashboard</div>
+            <p class="cs-iter-block-text">For the edit canvas I built two structures as separate iterations &mdash; a freeform layout where charts go anywhere, and a tiled, snap&#8209;to&#8209;grid layout. Tiled won: it keeps the dashboard legible however it&rsquo;s filled, without the responsiveness and alignment issues freeform introduced.</p>
             <div class="cs-iter-versions">
               <figure class="cs-iter-version">
-                <div class="cs-iter-version-img cs-iter-version-img--ph" style="aspect-ratio:16/10;">
-                  <div class="cs-iter-ph"><span class="cs-iter-ph-icon">&#128247;</span><span class="cs-iter-ph-label">v1 prototype</span><span class="cs-iter-ph-sub">Drag&#8209;and&#8209;drop charts on the edit page</span></div>
+                <div class="cs-iter-version-img" style="aspect-ratio:16/9;">
+                  <button class="cs-iter-zoom-out-btn" type="button" aria-label="Reset zoom"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8a6 6 0 1 0 1.7-4.2"/><polyline points="2 1.5 2 4 4.5 4"/></svg></button>
+                  <span class="cs-iter-zoom-hint" aria-hidden="true">
+                    <svg class="icon-zoom-in" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/><path d="M7 4.5v5M4.5 7h5"/></svg>
+                    <svg class="icon-zoom-out" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/><path d="M4.5 7h5"/></svg>
+                  </span>
+                  <img src="assets/images/hpe/freeform-structure.png" alt="Freeform edit canvas — charts dropped anywhere on the dashboard" loading="lazy" onload="this.classList.add('is-loaded')">
                 </div>
-                <figcaption class="cs-iter-version-label"><span class="cs-iter-version-label-tag">v1</span>Before &mdash; freeform drag&#8209;and&#8209;drop canvas</figcaption>
+                <figcaption class="cs-iter-version-label"><span class="cs-iter-version-label-tag">Freeform</span>Charts placed anywhere</figcaption>
               </figure>
               <figure class="cs-iter-version">
-                <div class="cs-iter-version-img cs-iter-version-img--ph" style="aspect-ratio:16/10;">
-                  <div class="cs-iter-ph"><span class="cs-iter-ph-icon">&#128247;</span><span class="cs-iter-ph-label">v2 prototype</span><span class="cs-iter-ph-sub">Full&#8209;screen modal of selectable chart cards</span></div>
+                <div class="cs-iter-version-img" style="aspect-ratio:16/9;">
+                  <button class="cs-iter-zoom-out-btn" type="button" aria-label="Reset zoom"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8a6 6 0 1 0 1.7-4.2"/><polyline points="2 1.5 2 4 4.5 4"/></svg></button>
+                  <span class="cs-iter-zoom-hint" aria-hidden="true">
+                    <svg class="icon-zoom-in" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/><path d="M7 4.5v5M4.5 7h5"/></svg>
+                    <svg class="icon-zoom-out" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/><path d="M4.5 7h5"/></svg>
+                  </span>
+                  <img src="assets/images/hpe/tiled-design.png" alt="Tiled edit grid — charts snapped into a structured tiled layout" loading="lazy" onload="this.classList.add('is-loaded')">
                 </div>
-                <figcaption class="cs-iter-version-label"><span class="cs-iter-version-label-tag">v2</span>After &mdash; focused full&#8209;screen modal</figcaption>
+                <figcaption class="cs-iter-version-label"><span class="cs-iter-version-label-tag">Tiled</span>Snap&#8209;to&#8209;grid structure</figcaption>
               </figure>
             </div>
           </div>
@@ -1182,26 +1194,33 @@ transition:opacity .35s ease,transform .3s cubic-bezier(.22,1,.36,1);}
         <h2 class="cs-section-title">A modular,<br>high&#8209;fidelity dashboard</h2>
         <p class="cs-section-sub reveal">The payoff was a clean Consumption Analytics dashboard where every chart is a tile you can move, resize, expand, and customize &mdash; built on the system we&rsquo;d narrowed our way toward. We demoed it on August 3rd.</p>
 
+        <!-- Edit dashboard -->
         <figure class="cs-figure reveal">
-          <img src="assets/images/hpe/final-dashboard.png" alt="Final Consumption Analytics dashboard — cost by service category, budget timeline by provider, and cost by account time series tiles inside HPE GreenLake Central" loading="lazy">
-          <figcaption><strong>The dashboard.</strong> Three signature widgets in the HPE GreenLake shell &mdash; a cost&#8209;by&#8209;service&#8209;category breakdown, a budget timeline with a forecast band (safe / warning / exceeding), and a cost&#8209;by&#8209;account time series &mdash; on a tiled, editable grid.</figcaption>
+          <img src="assets/images/hpe/final-edit.png" alt="Edit-dashboard mode — a tiled grid with add-charts and save actions and per-tile customize, resize, and remove menus" loading="lazy">
+          <figcaption><strong>Edit dashboard.</strong> Name the dashboard, set a time period, drop charts onto a tiled grid, and reach customize / resize / remove from each tile&rsquo;s menu.</figcaption>
         </figure>
 
         <div class="cs-figrow reveal">
           <figure class="cs-figure">
-            <img src="assets/images/hpe/final-edit.png" alt="Edit-dashboard mode — a tiled grid with add-charts and save actions and per-tile customize, resize, and remove menus" loading="lazy">
-            <figcaption><strong>Edit mode.</strong> Name the dashboard, set a time period, drop charts onto a tiled grid, and reach customize / resize / remove from each tile&rsquo;s menu.</figcaption>
+            <img src="assets/images/hpe/expand.png" alt="Expand chart view — a chart opened to full screen to reveal hard-to-see detail" loading="lazy">
+            <figcaption><strong>Expand chart view.</strong> Open any chart to full screen to read the detail that&rsquo;s hard to see inside a tile.</figcaption>
           </figure>
           <figure class="cs-figure">
-            <img src="assets/images/hpe/final-customize.png" alt="Single-chart customize screen with style series, axis, and legend tabs and line-weight and interpolation controls" loading="lazy">
-            <figcaption><strong>Customize a chart.</strong> Per&#8209;chart styling &mdash; style series, axis, legend &mdash; with the constrained line&#8209;weight and interpolation controls the iterations earned.</figcaption>
+            <img src="assets/images/hpe/resize.png" alt="Resize charts — a tile dragged to a larger size on the dashboard grid" loading="lazy">
+            <figcaption><strong>Resize charts.</strong> Drag a tile larger or smaller so the charts that matter get the room they need.</figcaption>
           </figure>
         </div>
 
-        <figure class="cs-figure reveal">
-          <img src="assets/images/hpe/final-color.png" alt="Color customization panel with plain-language palette options and swatch previews" loading="lazy">
-          <figcaption><strong>Color, with previews.</strong> The renamed, preview&#8209;backed palette picker in its final form &mdash; contrast vs. gradient, shading and texture as simple toggles.</figcaption>
-        </figure>
+        <div class="cs-figrow reveal">
+          <figure class="cs-figure">
+            <img src="assets/images/hpe/final-color.png" alt="Color customization panel with plain-language palette options and swatch previews" loading="lazy">
+            <figcaption><strong>Color customization.</strong> Plain&#8209;language palettes &mdash; contrast vs. gradient &mdash; with swatch previews, shading and texture as simple toggles.</figcaption>
+          </figure>
+          <figure class="cs-figure">
+            <img src="assets/images/hpe/final-customize.png" alt="Style customization — style-series controls for line weight and interpolation, each with a visual preview" loading="lazy">
+            <figcaption><strong>Style customization.</strong> Per&#8209;chart style series &mdash; constrained line&#8209;weight and interpolation options, each with a visual preview.</figcaption>
+          </figure>
+        </div>
       </div>
     </section>
 
@@ -1501,26 +1520,28 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
     {s:'Freeform',       t:'Freeform structure',         d:'Presenting flexibility of the layout of charts.', img:'assets/images/hpe/freeform-structure.png'},
     {s:'Resize',         t:'Resize charts',              d:'Make charts larger or smaller, effortlessly adjusting chart dimensions on the dashboard.', img:'assets/images/hpe/resize.png'},
     {s:'Pin',            t:'Pin charts',                 d:'Pin charts to maintain critical data at the forefront, depending on what’s most important to you.', img:'assets/images/hpe/pin.png'},
-    {s:'View / expand',  t:'View / expand charts',       d:'See all of the hard-to-see details in a chart.', img:'assets/images/hpe/expand.png'},
+    {s:'Expand',         t:'Expand charts',              d:'See all of the hard-to-see details in a chart.', img:'assets/images/hpe/expand.png'},
     {s:'Collapse',       t:'Collapse charts',            d:'Optimize screen space, especially when multiple charts are present on the dashboard.', img:'assets/images/hpe/collapse.png'},
     {s:'Customize one',  t:'Customize an individual chart', d:'Style each chart on its own, with full control over its specifics — the flexible path when charts need to differ.', img:'assets/images/hpe/customize-one.png'},
     {s:'Customize many', t:'Customize multiple charts',  d:'Recolor your whole dashboard in one click — apply one palette across every chart at once. Fast and consistent, but not flexible.', img:'assets/images/hpe/customize-multiple.png'},
+    {t:'Full-screen modal', d:'Add charts from a full-screen modal of fixed-size cards with checkboxes — pick what you want, then place it.', img:'assets/images/hpe/modal.png'},
   ];
   const GLYPH='<svg class="ph-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2.5"/><circle cx="8.5" cy="8.5" r="1.6"/><path d="M21 15.5l-5.5-5.5L4 21.5"/></svg>';
   const media=x=>x.img
     ? '<div class="m"><img src="'+x.img+'" alt="'+x.t+'" loading="lazy"></div>'
     : '<div class="m ph">'+GLYPH+'<span class="ph-lbl">'+x.t+'</span></div>';
 
-  /* either/or decisions — segmented control with sliding thumb */
+  /* segmented control with sliding thumb — used for both decisions (numbered) and features (named) */
   const segReg=[];
-  function segDecision(p,a,b){
+  function segDecision(p,items,opts){
+    opts=opts||{};
     const seg=document.getElementById(p+'Seg'),
           mediaEl=document.getElementById(p+'Media'),
           titleEl=document.getElementById(p+'Title'),
-          descEl=document.getElementById(p+'Desc'),
-          items=[a,b];
-    seg.innerHTML='<span class="xp-seg-thumb" aria-hidden="true"></span>'+
-      items.map((x,i)=>'<button class="xp-seg-btn'+(i===0?' active':'')+'" type="button" role="tab" aria-selected="'+(i===0)+'" data-i="'+i+'">Direction '+(i+1)+'</button>').join('');
+          descEl=document.getElementById(p+'Desc');
+    const lead=opts.lead?'<span class="xp-seg-lead" aria-hidden="true">'+opts.lead+'</span>':'';
+    seg.innerHTML='<span class="xp-seg-thumb" aria-hidden="true"></span>'+lead+
+      items.map((x,i)=>'<button class="xp-seg-btn'+(i===0?' active':'')+'" type="button" role="tab" aria-selected="'+(i===0)+'" aria-label="'+(opts.names?x.s:'Direction '+(i+1))+'" data-i="'+i+'">'+(opts.names?x.s:(i+1))+'</button>').join('');
     const thumb=seg.querySelector('.xp-seg-thumb');
     const setThumb=btn=>{thumb.style.left=btn.offsetLeft+'px';thumb.style.width=btn.offsetWidth+'px';};
     const show=i=>{
@@ -1537,33 +1558,13 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
     requestAnimationFrame(()=>setThumb(seg.querySelector('.xp-seg-btn.active')));
     segReg.push(seg);
   }
-  segDecision('xpStruct',EX[0],EX[1]);
-  segDecision('xpCust',EX[6],EX[7]);
+  segDecision('xpStruct',[EX[0],EX[1],EX[8]],{lead:'Direction'});  /* Tiled, Freeform, Full-screen modal */
+  segDecision('xpCust',[EX[6],EX[7]],{lead:'Direction'});
+  segDecision('xpFeat',[EX[2],EX[3],EX[4],EX[5]],{names:true});    /* Resize, Pin, View/expand, Collapse */
   window.addEventListener('resize',()=>segReg.forEach(seg=>{
     const a=seg.querySelector('.xp-seg-btn.active'),t=seg.querySelector('.xp-seg-thumb');
     if(a&&t){t.style.left=a.offsetLeft+'px';t.style.width=a.offsetWidth+'px';}
   }));
-
-  /* features — image accordion */
-  (()=>{
-    const feats=EX.slice(2,6);
-    const list=document.getElementById('xpAccList'),stage=document.getElementById('xpAccStage');
-    list.innerHTML=feats.map((x,k)=>'<div class="xp-item'+(k===0?' active':'')+'" data-k="'+k+'">'+
-        '<h3><button class="xp-btn" type="button" aria-expanded="'+(k===0)+'">'+
-          '<span class="xp-itemt">'+x.t+'</span>'+
-          '<svg class="xp-chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 8 11 13 6"/></svg>'+
-        '</button></h3>'+
-        '<div class="xp-tray"><div class="xp-tray-inner"><p class="xp-itemd">'+x.d+'</p></div></div>'+
-      '</div>').join('');
-    const show=k=>{stage.classList.add('fading');setTimeout(()=>{stage.innerHTML=media(feats[k]);stage.classList.remove('fading');},190);};
-    list.querySelectorAll('.xp-item').forEach(it=>it.querySelector('.xp-btn').addEventListener('click',()=>{
-      if(it.classList.contains('active'))return;
-      list.querySelectorAll('.xp-item').forEach(o=>{o.classList.remove('active');o.querySelector('.xp-btn').setAttribute('aria-expanded','false');});
-      it.classList.add('active');it.querySelector('.xp-btn').setAttribute('aria-expanded','true');
-      show(+it.dataset.k);
-    }));
-    stage.innerHTML=media(feats[0]);
-  })();
 })();
 
 /* Turn line — scroll-scale: starts large on entry, shrinks to its resting size as you scroll, then holds */
