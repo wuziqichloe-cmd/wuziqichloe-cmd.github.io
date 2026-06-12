@@ -147,6 +147,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-voice:last-of-type{border-bottom:none;}
 .cs-voice::before{content:'\201C';position:absolute;left:0;top:18px;font-family:var(--font-display);font-size:var(--fs-3xl);font-weight:var(--fw-bold);line-height:.7;color:var(--accent);opacity:.45;}
 .cs-voice p{font-family:var(--font-display);font-size:clamp(var(--fs-md),2.4vw,var(--fs-lg));font-weight:var(--fw-regular);color:var(--ink);line-height:1.32;letter-spacing:-.02em;}
+.cs-voices-people{display:flex;justify-content:center;margin-top:28px;}
+.cs-research-art{width:100%;max-width:600px;height:auto;display:block;mix-blend-mode:multiply;}
+[data-theme="dark"] .cs-research-art{mix-blend-mode:screen;filter:invert(1);}
 .cs-voices-attr{margin-top:18px;display:flex;align-items:center;gap:9px;font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);}
 .cs-voices-attr::before{content:'';width:22px;height:1.5px;background:var(--accent);flex-shrink:0;}
 
@@ -493,21 +496,34 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
 .cs-section--ondark{border-bottom:none;padding:0 0 392px;
   background:linear-gradient(180deg,
     var(--bg) 0,
-    #cdeae1 84px,#6fccb5 156px,#01A982 232px,#016b51 308px,#022c22 392px,
+    #cdeae1 70px,#9edbcb 108px,#6fccb5 146px,#38bb9c 182px,#01A982 218px,#018a6a 254px,#016b51 288px,#015844 320px,#024638 352px,#023528 374px,#022c22 392px,
     #022c22 calc(100% - 392px),
-    #024638 calc(100% - 274px),#016b51 calc(100% - 188px),#01A982 calc(100% - 116px),#6fccb5 calc(100% - 56px),#cdeae1 calc(100% - 18px),
+    #023528 calc(100% - 374px),#024638 calc(100% - 352px),#015844 calc(100% - 320px),#016b51 calc(100% - 288px),#018a6a calc(100% - 254px),#01A982 calc(100% - 218px),#38bb9c calc(100% - 182px),#6fccb5 calc(100% - 146px),#9edbcb calc(100% - 108px),#cdeae1 calc(100% - 70px),
     var(--bg) 100%);}
 [data-theme="dark"] .cs-section--ondark{
   background:linear-gradient(180deg,
     var(--bg) 0,
-    #04241a 84px,#0a6149 190px,#04503a 278px,#06291e 392px,
-    #06291e calc(100% - 392px),
-    #063a2b calc(100% - 262px),#0a6149 calc(100% - 150px),#04241a calc(100% - 62px),
+    #0a6149 78px,#095338 142px,#07452e 206px,#053826 268px,#052e1f 330px,#04241a 392px,
+    #04241a calc(100% - 392px),
+    #052e1f calc(100% - 330px),#053826 calc(100% - 268px),#07452e calc(100% - 206px),#095338 calc(100% - 142px),#0a6149 calc(100% - 78px),
     var(--bg) 100%);}
 .cs-section--ondark .cs-eyebrow{color:#9fe6cf;text-align:center;}
 .cs-section--ondark .cs-section-title{color:#fff;text-align:center;}
 .cs-section--ondark .cs-section-sub{color:rgba(245,245,245,.82);text-align:center;margin-left:auto;margin-right:auto;}
 .cs-section--ondark .cs-figure{box-shadow:0 20px 54px rgba(0,0,0,.30);}
+/* Final showcase — the 5 kept capabilities, each a video (alternating video/text rows) */
+.cs-final-features{display:flex;flex-direction:column;gap:128px;margin-top:108px;}
+.cs-final-feature{display:flex;flex-direction:column;align-items:center;text-align:center;gap:26px;}
+.cs-final-ftext{order:0;max-width:60ch;}
+.cs-final-media{order:1;width:100%;position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;box-shadow:0 20px 54px rgba(0,0,0,.32);}
+.cs-final-media video{width:100%;height:100%;object-fit:cover;display:block;}
+.cs-final-vph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:radial-gradient(120% 120% at 50% 32%,rgba(1,201,154,.16),transparent 60%),#0c1f18;color:rgba(255,255,255,.62);}
+.cs-final-vph svg{width:52px;height:52px;opacity:.75;}
+.cs-final-vph span{font-family:var(--font-mono);font-size:var(--fs-2xs);font-weight:var(--fw-bold);letter-spacing:.16em;text-transform:uppercase;}
+.cs-final-fnum{display:block;font-family:var(--font-mono);font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.14em;color:#9fe6cf;margin-bottom:12px;}
+.cs-final-ftitle{font-family:var(--font-display);font-size:clamp(var(--fs-lg),3vw,var(--fs-2xl));font-weight:var(--fw-semibold);letter-spacing:-.02em;line-height:1.1;color:#fff;margin-bottom:14px;}
+.cs-final-fdesc{font-size:var(--fs-base);color:rgba(245,245,245,.80);line-height:1.6;max-width:54ch;margin:0 auto;}
+@media(max-width:760px){.cs-final-features{gap:54px;}.cs-final-feature{gap:18px;}}
 /* showcase content stays hidden until the turn line has shrunk back to its resting spot (class added by JS; no-JS shows it) */
 .cs-section--ondark.final-gated .cs-wrap{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s cubic-bezier(.22,1,.36,1);}
 .cs-section--ondark.final-gated.is-ready .cs-wrap{opacity:1;transform:none;}
@@ -520,8 +536,8 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
 @media(max-width:767px){
   .cs-turn-band{padding:250px 22px 72px;}
   .cs-section--ondark{padding-bottom:250px;
-    background:linear-gradient(180deg,var(--bg) 0,#cdeae1 58px,#6fccb5 108px,#01A982 158px,#016b51 208px,#022c22 250px,#022c22 calc(100% - 250px),#024638 calc(100% - 174px),#016b51 calc(100% - 118px),#01A982 calc(100% - 72px),#6fccb5 calc(100% - 36px),#cdeae1 calc(100% - 14px),var(--bg) 100%);}
-  [data-theme="dark"] .cs-section--ondark{background:linear-gradient(180deg,var(--bg) 0,#04241a 58px,#0a6149 122px,#04503a 178px,#06291e 250px,#06291e calc(100% - 250px),#063a2b calc(100% - 166px),#0a6149 calc(100% - 94px),#04241a calc(100% - 40px),var(--bg) 100%);}
+    background:linear-gradient(180deg,var(--bg) 0,#cdeae1 44px,#9edbcb 70px,#6fccb5 96px,#38bb9c 120px,#01A982 144px,#018a6a 168px,#016b51 190px,#015844 212px,#024638 232px,#023528 244px,#022c22 250px,#022c22 calc(100% - 250px),#023528 calc(100% - 244px),#024638 calc(100% - 232px),#015844 calc(100% - 212px),#016b51 calc(100% - 190px),#018a6a calc(100% - 168px),#01A982 calc(100% - 144px),#38bb9c calc(100% - 120px),#6fccb5 calc(100% - 96px),#9edbcb calc(100% - 70px),#cdeae1 calc(100% - 44px),var(--bg) 100%);}
+  [data-theme="dark"] .cs-section--ondark{background:linear-gradient(180deg,var(--bg) 0,#0a6149 50px,#095338 96px,#07452e 144px,#053826 196px,#04241a 250px,#04241a calc(100% - 250px),#053826 calc(100% - 196px),#07452e calc(100% - 144px),#095338 calc(100% - 96px),#0a6149 calc(100% - 50px),var(--bg) 100%);}
 }
 .cs-figure{margin:28px 0 0;border-radius:16px;border:1px solid var(--border);background:var(--surf);overflow:hidden;transition:background .4s,border-color .3s,transform .25s cubic-bezier(.22,1,.36,1);}
 .cs-figure:hover{transform:translateY(-2px);border-color:var(--border-h);}
@@ -564,7 +580,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
 .cs-iter-block:first-of-type{margin-top:28px;}
 .cs-iter-block-title{font-size:var(--fs-md);font-weight:var(--fw-semibold);color:var(--ink);letter-spacing:-.02em;line-height:1.2;margin-bottom:6px;}
 .cs-iter-block-title .cs-iter-block-round{display:inline-block;font-family:var(--font-mono);font-size:var(--fs-xs);font-weight:var(--fw-bold);letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-right:10px;vertical-align:middle;}
-.cs-iter-block-text{font-size:var(--fs-sm);color:var(--ink-2);line-height:1.6;max-width:64ch;margin-bottom:4px;}
+.cs-iter-block-text{font-size:var(--p1-size);color:var(--ink-2);line-height:var(--p1-line);max-width:64ch;margin-bottom:4px;}
 .cs-iter-versions{display:flex;gap:20px;margin-top:20px;overflow-x:auto;overflow-y:hidden;padding:4px 4px 20px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--border-h,#ccc) transparent;}
 .cs-iter-versions::-webkit-scrollbar{height:8px;}
 .cs-iter-versions::-webkit-scrollbar-track{background:transparent;}
@@ -876,7 +892,9 @@ transition:opacity .35s ease,transform .3s cubic-bezier(.22,1,.36,1);}
           <div class="cs-voice"><p>I should be able to add and remove charts myself.</p></div>
           <div class="cs-voice"><p>Can I change the colors and styling to my own preference?</p></div>
         </div>
-        <div class="cs-voices-attr reveal">Usability&#8209;test participants, pre&#8209;internship</div>
+        <div class="cs-voices-people reveal" aria-hidden="true">
+          <img src="assets/images/hpe/research.png" alt="" loading="lazy" class="cs-research-art">
+        </div>
 
         <div class="cs-sub reveal">
           <div class="cs-sub-label">The challenge</div>
@@ -1074,8 +1092,6 @@ transition:opacity .35s ease,transform .3s cubic-bezier(.22,1,.36,1);}
 
         <div class="cs-sub reveal">
           <div class="cs-sub-label">My iterations</div>
-          <div class="cs-sub-title">Cutting choices until they helped</div>
-          <div class="cs-sub-text">Across the rounds I reworked the customization flows. The pattern repeated: a critique would flag that I&rsquo;d given users <em>too much</em>, and the fix was almost always to constrain the options and add a visual cue.</div>
 
           <!-- Each round is a v1 → v2 carousel. To swap a placeholder for the real high-fidelity
                prototype screen, replace the `.cs-iter-version-img--ph` block with:
@@ -1091,19 +1107,8 @@ transition:opacity .35s ease,transform .3s cubic-bezier(.22,1,.36,1);}
           <!-- Round 1 · Edit dashboard -->
           <div class="cs-iter-block reveal">
             <div class="cs-iter-block-title">Edit dashboard</div>
-            <p class="cs-iter-block-text">For the edit canvas I built two structures as separate iterations &mdash; a freeform layout where charts go anywhere, and a tiled, snap&#8209;to&#8209;grid layout. Tiled won: it keeps the dashboard legible however it&rsquo;s filled, without the responsiveness and alignment issues freeform introduced.</p>
+            <p class="cs-iter-block-text">For the edit canvas I explored three directions &mdash; freeform, tiled, and a full&#8209;screen add&#8209;charts modal &mdash; and out of the first stakeholder meeting committed to tiled. From there it took three passes. v1: the grid stopped dead at the bottom, so users couldn&rsquo;t tell they could add more cards. v2 removed the header for a focused view and ran the grid past the window edge to signal room below &mdash; but the save button could overlap the charts, and new charts dropped in at 1&times;1 instead of 3&times;3. v3 fixed the layout: bigger default grid squares, the save button moved to the top right, and share / delete&#8209;dashboard pulled out of edit mode.</p>
             <div class="cs-iter-versions">
-              <figure class="cs-iter-version">
-                <div class="cs-iter-version-img" style="aspect-ratio:16/9;">
-                  <button class="cs-iter-zoom-out-btn" type="button" aria-label="Reset zoom"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8a6 6 0 1 0 1.7-4.2"/><polyline points="2 1.5 2 4 4.5 4"/></svg></button>
-                  <span class="cs-iter-zoom-hint" aria-hidden="true">
-                    <svg class="icon-zoom-in" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/><path d="M7 4.5v5M4.5 7h5"/></svg>
-                    <svg class="icon-zoom-out" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/><path d="M4.5 7h5"/></svg>
-                  </span>
-                  <img src="assets/images/hpe/freeform-structure.png" alt="Freeform edit canvas — charts dropped anywhere on the dashboard" loading="lazy" onload="this.classList.add('is-loaded')">
-                </div>
-                <figcaption class="cs-iter-version-label"><span class="cs-iter-version-label-tag">v1</span>Freeform &mdash; charts placed anywhere</figcaption>
-              </figure>
               <figure class="cs-iter-version">
                 <div class="cs-iter-version-img" style="aspect-ratio:16/9;">
                   <button class="cs-iter-zoom-out-btn" type="button" aria-label="Reset zoom"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8a6 6 0 1 0 1.7-4.2"/><polyline points="2 1.5 2 4 4.5 4"/></svg></button>
@@ -1113,47 +1118,70 @@ transition:opacity .35s ease,transform .3s cubic-bezier(.22,1,.36,1);}
                   </span>
                   <img src="assets/images/hpe/tiled-design.png" alt="Tiled edit grid — charts snapped into a structured tiled layout" loading="lazy" onload="this.classList.add('is-loaded')">
                 </div>
-                <figcaption class="cs-iter-version-label"><span class="cs-iter-version-label-tag">v2</span>Tiled &mdash; snap&#8209;to&#8209;grid structure</figcaption>
+                <figcaption class="cs-iter-version-label"><span class="cs-iter-version-label-tag">v1</span>Grid stops at the bottom &mdash; no cue to add more</figcaption>
+              </figure>
+              <figure class="cs-iter-version">
+                <div class="cs-iter-version-img" style="aspect-ratio:16/9;">
+                  <button class="cs-iter-zoom-out-btn" type="button" aria-label="Reset zoom"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8a6 6 0 1 0 1.7-4.2"/><polyline points="2 1.5 2 4 4.5 4"/></svg></button>
+                  <span class="cs-iter-zoom-hint" aria-hidden="true">
+                    <svg class="icon-zoom-in" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/><path d="M7 4.5v5M4.5 7h5"/></svg>
+                    <svg class="icon-zoom-out" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/><path d="M4.5 7h5"/></svg>
+                  </span>
+                  <img src="assets/images/hpe/edit-v2.png" alt="Edit dashboard v2 — header removed for a focused view, the tiled grid extending past the window edge to signal more space below" loading="lazy" onload="this.classList.add('is-loaded')">
+                </div>
+                <figcaption class="cs-iter-version-label"><span class="cs-iter-version-label-tag">v2</span>Header removed; grid runs past the edge</figcaption>
+              </figure>
+              <figure class="cs-iter-version">
+                <div class="cs-iter-version-img" style="aspect-ratio:16/9;">
+                  <button class="cs-iter-zoom-out-btn" type="button" aria-label="Reset zoom"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8a6 6 0 1 0 1.7-4.2"/><polyline points="2 1.5 2 4 4.5 4"/></svg></button>
+                  <span class="cs-iter-zoom-hint" aria-hidden="true">
+                    <svg class="icon-zoom-in" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/><path d="M7 4.5v5M4.5 7h5"/></svg>
+                    <svg class="icon-zoom-out" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/><path d="M4.5 7h5"/></svg>
+                  </span>
+                  <img src="assets/images/hpe/final-edit.png" alt="Final tiled edit dashboard — the shipped edit-mode layout" loading="lazy" onload="this.classList.add('is-loaded')">
+                </div>
+                <figcaption class="cs-iter-version-label"><span class="cs-iter-version-label-tag">v3</span>Final &mdash; resized grid, save &amp; actions relocated</figcaption>
               </figure>
             </div>
           </div>
 
-          <!-- Round 2 · Preferred styling -->
-          <div class="cs-iter-block reveal">
-            <div class="cs-iter-block-title">Preferred styling</div>
-            <p class="cs-iter-block-text">Applying one style across many charts at once was risky on a shared, public dashboard &mdash; and there was no version history to undo it. I shifted focus to customizing individual charts, with radio buttons since you can only pick one palette at a time.</p>
-            <div class="cs-iter-versions">
-              <figure class="cs-iter-version">
-                <div class="cs-iter-version-img cs-iter-version-img--ph" style="aspect-ratio:16/10;">
-                  <div class="cs-iter-ph"><span class="cs-iter-ph-icon">&#128247;</span><span class="cs-iter-ph-label">v1 prototype</span><span class="cs-iter-ph-sub">Widespread styling across charts via a side drawer</span></div>
-                </div>
-                <figcaption class="cs-iter-version-label"><span class="cs-iter-version-label-tag">v1</span>Before &mdash; multi&#8209;chart side drawer</figcaption>
-              </figure>
-              <figure class="cs-iter-version">
-                <div class="cs-iter-version-img cs-iter-version-img--ph" style="aspect-ratio:16/10;">
-                  <div class="cs-iter-ph"><span class="cs-iter-ph-icon">&#128247;</span><span class="cs-iter-ph-label">v2 prototype</span><span class="cs-iter-ph-sub">Single&#8209;chart focus with radio&#8209;button palettes</span></div>
-                </div>
-                <figcaption class="cs-iter-version-label"><span class="cs-iter-version-label-tag">v2</span>After &mdash; single&#8209;chart focus</figcaption>
-              </figure>
-            </div>
-          </div>
-
-          <!-- Round 2 · Color customization -->
+          <!-- Color customization -->
           <div class="cs-iter-block reveal">
             <div class="cs-iter-block-title">Color customization</div>
-            <p class="cs-iter-block-text">&ldquo;Qualitative&rdquo; and &ldquo;sequential&rdquo; confused people, and the header offered too many ways to navigate away mid&#8209;task. I renamed them to <em>contrast</em> and <em>gradient</em>, added swatch previews, and dropped the header into a full&#8209;screen modal.</p>
+            <p class="cs-iter-block-text">Three passes, each gated by a critique. v1&rsquo;s palette names (&lsquo;qualitative&rsquo;, &lsquo;sequential&rsquo;) confused people, and its headers offered too many ways to wander off mid&#8209;task. v2 renamed them to <em>contrast</em> and <em>gradient</em>, added swatch previews, and dropped the header into a full&#8209;screen modal. A second meeting flagged that more than four options still overwhelmed users &mdash; and that the controls should reuse one select component &mdash; so v3 folded the previews into that select and turned texture and shading into simple toggles.</p>
             <div class="cs-iter-versions">
               <figure class="cs-iter-version">
-                <div class="cs-iter-version-img cs-iter-version-img--ph" style="aspect-ratio:16/10;">
-                  <div class="cs-iter-ph"><span class="cs-iter-ph-icon">&#128247;</span><span class="cs-iter-ph-label">v1 prototype</span><span class="cs-iter-ph-sub">Complex palette names with no visual identifier</span></div>
+                <div class="cs-iter-version-img" style="aspect-ratio:16/9;">
+                  <button class="cs-iter-zoom-out-btn" type="button" aria-label="Reset zoom"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8a6 6 0 1 0 1.7-4.2"/><polyline points="2 1.5 2 4 4.5 4"/></svg></button>
+                  <span class="cs-iter-zoom-hint" aria-hidden="true">
+                    <svg class="icon-zoom-in" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/><path d="M7 4.5v5M4.5 7h5"/></svg>
+                    <svg class="icon-zoom-out" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/><path d="M4.5 7h5"/></svg>
+                  </span>
+                  <img src="assets/images/hpe/color-v1.png" alt="Color customization v1 — jargon palette names and interrupting page headers" loading="lazy" onload="this.classList.add('is-loaded')">
                 </div>
-                <figcaption class="cs-iter-version-label"><span class="cs-iter-version-label-tag">v1</span>Before &mdash; jargon palette names</figcaption>
+                <figcaption class="cs-iter-version-label"><span class="cs-iter-version-label-tag">v1</span>Confusing names, interrupting headers</figcaption>
               </figure>
               <figure class="cs-iter-version">
-                <div class="cs-iter-version-img cs-iter-version-img--ph" style="aspect-ratio:16/10;">
-                  <div class="cs-iter-ph"><span class="cs-iter-ph-icon">&#128247;</span><span class="cs-iter-ph-label">v2 prototype</span><span class="cs-iter-ph-sub">Plain&#8209;language palettes with swatch previews</span></div>
+                <div class="cs-iter-version-img" style="aspect-ratio:16/9;">
+                  <button class="cs-iter-zoom-out-btn" type="button" aria-label="Reset zoom"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8a6 6 0 1 0 1.7-4.2"/><polyline points="2 1.5 2 4 4.5 4"/></svg></button>
+                  <span class="cs-iter-zoom-hint" aria-hidden="true">
+                    <svg class="icon-zoom-in" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/><path d="M7 4.5v5M4.5 7h5"/></svg>
+                    <svg class="icon-zoom-out" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/><path d="M4.5 7h5"/></svg>
+                  </span>
+                  <img src="assets/images/hpe/color-v2.png" alt="Color customization v2 — renamed palettes with swatch previews in a full-screen modal" loading="lazy" onload="this.classList.add('is-loaded')">
                 </div>
-                <figcaption class="cs-iter-version-label"><span class="cs-iter-version-label-tag">v2</span>After &mdash; previews &amp; plain language</figcaption>
+                <figcaption class="cs-iter-version-label"><span class="cs-iter-version-label-tag">v2</span>Renamed, previewed, full&#8209;screen modal</figcaption>
+              </figure>
+              <figure class="cs-iter-version">
+                <div class="cs-iter-version-img" style="aspect-ratio:16/9;">
+                  <button class="cs-iter-zoom-out-btn" type="button" aria-label="Reset zoom"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8a6 6 0 1 0 1.7-4.2"/><polyline points="2 1.5 2 4 4.5 4"/></svg></button>
+                  <span class="cs-iter-zoom-hint" aria-hidden="true">
+                    <svg class="icon-zoom-in" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/><path d="M7 4.5v5M4.5 7h5"/></svg>
+                    <svg class="icon-zoom-out" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/><path d="M4.5 7h5"/></svg>
+                  </span>
+                  <img src="assets/images/hpe/final-color.png" alt="Color customization v3 — previews inside the select component, texture and shading as toggles" loading="lazy" onload="this.classList.add('is-loaded')">
+                </div>
+                <figcaption class="cs-iter-version-label"><span class="cs-iter-version-label-tag">v3</span>Final &mdash; one select, toggle controls</figcaption>
               </figure>
             </div>
           </div>
@@ -1161,19 +1189,40 @@ transition:opacity .35s ease,transform .3s cubic-bezier(.22,1,.36,1);}
           <!-- Round 3 · Style-series customization -->
           <div class="cs-iter-block reveal">
             <div class="cs-iter-block-title">Style&#8209;series customization</div>
-            <p class="cs-iter-block-text">Too many line&#8209;weight options made users stress over the choice, and there were no visual cues. I cut it to three weights, each with a preview &mdash; so a choice took a glance, not a guess.</p>
+            <p class="cs-iter-block-text">Three passes. v1 piled on options &mdash; so many that users stalled on the choice. v2 cut scope: I dropped adding multiple line charts (data&#8209;dependent, out of scope) and the advanced axis, legend, and threshold controls. A second meeting flagged the options still lacked visual identifiers, meaning more clicking to see what each did. v3 settled it: a full&#8209;screen modal with just enough &mdash; line weight limited to three labeled options, with visual previews inside the select.</p>
             <div class="cs-iter-versions">
               <figure class="cs-iter-version">
-                <div class="cs-iter-version-img cs-iter-version-img--ph" style="aspect-ratio:16/10;">
-                  <div class="cs-iter-ph"><span class="cs-iter-ph-icon">&#128247;</span><span class="cs-iter-ph-label">v1 prototype</span><span class="cs-iter-ph-sub">Many line&#8209;weight options, no visual cues</span></div>
+                <div class="cs-iter-version-img" style="aspect-ratio:16/9;">
+                  <button class="cs-iter-zoom-out-btn" type="button" aria-label="Reset zoom"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8a6 6 0 1 0 1.7-4.2"/><polyline points="2 1.5 2 4 4.5 4"/></svg></button>
+                  <span class="cs-iter-zoom-hint" aria-hidden="true">
+                    <svg class="icon-zoom-in" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/><path d="M7 4.5v5M4.5 7h5"/></svg>
+                    <svg class="icon-zoom-out" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/><path d="M4.5 7h5"/></svg>
+                  </span>
+                  <img src="assets/images/hpe/style-v1.png" alt="Style-series v1 — too many options for line weight, axis, legend, and threshold" loading="lazy" onload="this.classList.add('is-loaded')">
                 </div>
-                <figcaption class="cs-iter-version-label"><span class="cs-iter-version-label-tag">v1</span>Before &mdash; overloaded weight picker</figcaption>
+                <figcaption class="cs-iter-version-label"><span class="cs-iter-version-label-tag">v1</span>Too many options, decision stress</figcaption>
               </figure>
               <figure class="cs-iter-version">
-                <div class="cs-iter-version-img cs-iter-version-img--ph" style="aspect-ratio:16/10;">
-                  <div class="cs-iter-ph"><span class="cs-iter-ph-icon">&#128247;</span><span class="cs-iter-ph-label">v2 prototype</span><span class="cs-iter-ph-sub">Three weights, each with a preview</span></div>
+                <div class="cs-iter-version-img" style="aspect-ratio:16/9;">
+                  <button class="cs-iter-zoom-out-btn" type="button" aria-label="Reset zoom"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8a6 6 0 1 0 1.7-4.2"/><polyline points="2 1.5 2 4 4.5 4"/></svg></button>
+                  <span class="cs-iter-zoom-hint" aria-hidden="true">
+                    <svg class="icon-zoom-in" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/><path d="M7 4.5v5M4.5 7h5"/></svg>
+                    <svg class="icon-zoom-out" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/><path d="M4.5 7h5"/></svg>
+                  </span>
+                  <img src="assets/images/hpe/style-v2.png" alt="Style-series v2 — scope cut to remove multi-chart styling and advanced axis/legend/threshold controls" loading="lazy" onload="this.classList.add('is-loaded')">
                 </div>
-                <figcaption class="cs-iter-version-label"><span class="cs-iter-version-label-tag">v2</span>After &mdash; three previewed weights</figcaption>
+                <figcaption class="cs-iter-version-label"><span class="cs-iter-version-label-tag">v2</span>Scope cut &mdash; advanced controls removed</figcaption>
+              </figure>
+              <figure class="cs-iter-version">
+                <div class="cs-iter-version-img" style="aspect-ratio:16/9;">
+                  <button class="cs-iter-zoom-out-btn" type="button" aria-label="Reset zoom"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8a6 6 0 1 0 1.7-4.2"/><polyline points="2 1.5 2 4 4.5 4"/></svg></button>
+                  <span class="cs-iter-zoom-hint" aria-hidden="true">
+                    <svg class="icon-zoom-in" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/><path d="M7 4.5v5M4.5 7h5"/></svg>
+                    <svg class="icon-zoom-out" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/><path d="M4.5 7h5"/></svg>
+                  </span>
+                  <img src="assets/images/hpe/style-v3.png" alt="Style-series v3 — full-screen modal with three labeled line-weight options and visual previews in the select" loading="lazy" onload="this.classList.add('is-loaded')">
+                </div>
+                <figcaption class="cs-iter-version-label"><span class="cs-iter-version-label-tag">v3</span>Final &mdash; 3 labeled weights with previews</figcaption>
               </figure>
             </div>
           </div>
@@ -1192,34 +1241,67 @@ transition:opacity .35s ease,transform .3s cubic-bezier(.22,1,.36,1);}
       <div class="cs-wrap">
         <span class="cs-eyebrow">Final &middot; Showcase</span>
         <h2 class="cs-section-title">A modular,<br>high&#8209;fidelity dashboard</h2>
-        <p class="cs-section-sub reveal">The payoff was a clean Consumption Analytics dashboard where every chart is a tile you can move, resize, expand, and customize &mdash; built on the system we&rsquo;d narrowed our way toward. We demoed it on August 3rd.</p>
+        <p class="cs-section-sub reveal">It all grew from one starting idea &mdash; let people <em>customize their dashboard</em>. Narrowing settled on five capabilities to do well: a tiled layout, resize, expand, color, and style. Here&rsquo;s each one in motion &mdash; we demoed it on August 3rd.</p>
 
-        <!-- Edit dashboard -->
-        <figure class="cs-figure reveal">
-          <img src="assets/images/hpe/final-edit.png" alt="Edit-dashboard mode — a tiled grid with add-charts and save actions and per-tile customize, resize, and remove menus" loading="lazy">
-          <figcaption><strong>Edit dashboard.</strong> Name the dashboard, set a time period, drop charts onto a tiled grid, and reach customize / resize / remove from each tile&rsquo;s menu.</figcaption>
-        </figure>
+        <!-- The 5 kept capabilities, each a video. To add a clip, replace a .cs-final-vph placeholder with:
+             <video src="assets/videos/hpe/<name>.mov" muted loop playsinline preload="metadata"></video> -->
+        <div class="cs-final-features">
 
-        <div class="cs-figrow reveal">
-          <figure class="cs-figure">
-            <img src="assets/images/hpe/expand.png" alt="Expand chart view — a chart opened to full screen to reveal hard-to-see detail" loading="lazy">
-            <figcaption><strong>Expand chart view.</strong> Open any chart to full screen to read the detail that&rsquo;s hard to see inside a tile.</figcaption>
-          </figure>
-          <figure class="cs-figure">
-            <img src="assets/images/hpe/resize.png" alt="Resize charts — a tile dragged to a larger size on the dashboard grid" loading="lazy">
-            <figcaption><strong>Resize charts.</strong> Drag a tile larger or smaller so the charts that matter get the room they need.</figcaption>
-          </figure>
-        </div>
+          <div class="cs-final-feature reveal">
+            <div class="cs-final-media">
+              <div class="cs-final-vph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M10 8.4l6 3.6-6 3.6z" fill="currentColor" stroke="none"/></svg><span>Video coming</span></div>
+            </div>
+            <div class="cs-final-ftext">
+              <span class="cs-final-fnum">01 &middot; Kept</span>
+              <h3 class="cs-final-ftitle">Tiled design</h3>
+              <p class="cs-final-fdesc">Charts live as tiles on a snap&#8209;to&#8209;grid canvas you arrange and edit in place &mdash; the structure every other capability builds on.</p>
+            </div>
+          </div>
 
-        <div class="cs-figrow reveal">
-          <figure class="cs-figure">
-            <img src="assets/images/hpe/final-color.png" alt="Color customization panel with plain-language palette options and swatch previews" loading="lazy">
-            <figcaption><strong>Color customization.</strong> Plain&#8209;language palettes &mdash; contrast vs. gradient &mdash; with swatch previews, shading and texture as simple toggles.</figcaption>
-          </figure>
-          <figure class="cs-figure">
-            <img src="assets/images/hpe/final-customize.png" alt="Style customization — style-series controls for line weight and interpolation, each with a visual preview" loading="lazy">
-            <figcaption><strong>Style customization.</strong> Per&#8209;chart style series &mdash; constrained line&#8209;weight and interpolation options, each with a visual preview.</figcaption>
-          </figure>
+          <div class="cs-final-feature reveal">
+            <div class="cs-final-media">
+              <div class="cs-final-vph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M10 8.4l6 3.6-6 3.6z" fill="currentColor" stroke="none"/></svg><span>Video coming</span></div>
+            </div>
+            <div class="cs-final-ftext">
+              <span class="cs-final-fnum">02 &middot; Kept</span>
+              <h3 class="cs-final-ftitle">Resize charts</h3>
+              <p class="cs-final-fdesc">Drag a tile larger or smaller so the charts that matter get the room they need.</p>
+            </div>
+          </div>
+
+          <div class="cs-final-feature reveal">
+            <div class="cs-final-media">
+              <div class="cs-final-vph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M10 8.4l6 3.6-6 3.6z" fill="currentColor" stroke="none"/></svg><span>Video coming</span></div>
+            </div>
+            <div class="cs-final-ftext">
+              <span class="cs-final-fnum">03 &middot; Kept</span>
+              <h3 class="cs-final-ftitle">Expand charts</h3>
+              <p class="cs-final-fdesc">Open any chart to full screen to read the detail that&rsquo;s hard to see inside a tile.</p>
+            </div>
+          </div>
+
+          <div class="cs-final-feature reveal">
+            <div class="cs-final-media">
+              <div class="cs-final-vph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M10 8.4l6 3.6-6 3.6z" fill="currentColor" stroke="none"/></svg><span>Video coming</span></div>
+            </div>
+            <div class="cs-final-ftext">
+              <span class="cs-final-fnum">04 &middot; Kept</span>
+              <h3 class="cs-final-ftitle">Color customization</h3>
+              <p class="cs-final-fdesc">Recolor charts with plain&#8209;language palettes &mdash; contrast vs. gradient &mdash; and live swatch previews.</p>
+            </div>
+          </div>
+
+          <div class="cs-final-feature reveal">
+            <div class="cs-final-media">
+              <div class="cs-final-vph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M10 8.4l6 3.6-6 3.6z" fill="currentColor" stroke="none"/></svg><span>Video coming</span></div>
+            </div>
+            <div class="cs-final-ftext">
+              <span class="cs-final-fnum">05 &middot; Kept</span>
+              <h3 class="cs-final-ftitle">Style customization</h3>
+              <p class="cs-final-fdesc">Tune line weight and interpolation per chart, each option with a visual preview.</p>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
