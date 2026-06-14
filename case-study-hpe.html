@@ -1249,43 +1249,21 @@ transition:opacity .35s ease,transform .3s cubic-bezier(.22,1,.36,1);}
 
           <div class="cs-final-feature reveal">
             <div class="cs-final-media">
-              <div class="cs-final-vph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M10 8.4l6 3.6-6 3.6z" fill="currentColor" stroke="none"/></svg><span>Video coming</span></div>
+              <video src="assets/videos/hpe/style.mp4" muted loop playsinline preload="metadata"></video>
             </div>
             <div class="cs-final-ftext">
               <span class="cs-final-fnum">01 &middot; Kept</span>
-              <h3 class="cs-final-ftitle">Tiled design</h3>
-              <p class="cs-final-fdesc">Charts live as tiles on a snap&#8209;to&#8209;grid canvas you arrange and edit in place &mdash; the structure every other capability builds on.</p>
+              <h3 class="cs-final-ftitle">Style customization</h3>
+              <p class="cs-final-fdesc">Tune line weight and interpolation per chart, each option with a visual preview.</p>
             </div>
           </div>
 
           <div class="cs-final-feature reveal">
             <div class="cs-final-media">
-              <div class="cs-final-vph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M10 8.4l6 3.6-6 3.6z" fill="currentColor" stroke="none"/></svg><span>Video coming</span></div>
+              <video src="assets/videos/hpe/color.mp4" muted loop playsinline preload="metadata"></video>
             </div>
             <div class="cs-final-ftext">
               <span class="cs-final-fnum">02 &middot; Kept</span>
-              <h3 class="cs-final-ftitle">Resize charts</h3>
-              <p class="cs-final-fdesc">Drag a tile larger or smaller so the charts that matter get the room they need.</p>
-            </div>
-          </div>
-
-          <div class="cs-final-feature reveal">
-            <div class="cs-final-media">
-              <div class="cs-final-vph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M10 8.4l6 3.6-6 3.6z" fill="currentColor" stroke="none"/></svg><span>Video coming</span></div>
-            </div>
-            <div class="cs-final-ftext">
-              <span class="cs-final-fnum">03 &middot; Kept</span>
-              <h3 class="cs-final-ftitle">Expand charts</h3>
-              <p class="cs-final-fdesc">Open any chart to full screen to read the detail that&rsquo;s hard to see inside a tile.</p>
-            </div>
-          </div>
-
-          <div class="cs-final-feature reveal">
-            <div class="cs-final-media">
-              <div class="cs-final-vph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M10 8.4l6 3.6-6 3.6z" fill="currentColor" stroke="none"/></svg><span>Video coming</span></div>
-            </div>
-            <div class="cs-final-ftext">
-              <span class="cs-final-fnum">04 &middot; Kept</span>
               <h3 class="cs-final-ftitle">Color customization</h3>
               <p class="cs-final-fdesc">Recolor charts with plain&#8209;language palettes &mdash; contrast vs. gradient &mdash; and live swatch previews.</p>
             </div>
@@ -1293,12 +1271,23 @@ transition:opacity .35s ease,transform .3s cubic-bezier(.22,1,.36,1);}
 
           <div class="cs-final-feature reveal">
             <div class="cs-final-media">
-              <div class="cs-final-vph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M10 8.4l6 3.6-6 3.6z" fill="currentColor" stroke="none"/></svg><span>Video coming</span></div>
+              <video src="assets/videos/hpe/resize.mp4" muted loop playsinline preload="metadata"></video>
             </div>
             <div class="cs-final-ftext">
-              <span class="cs-final-fnum">05 &middot; Kept</span>
-              <h3 class="cs-final-ftitle">Style customization</h3>
-              <p class="cs-final-fdesc">Tune line weight and interpolation per chart, each option with a visual preview.</p>
+              <span class="cs-final-fnum">03 &middot; Kept</span>
+              <h3 class="cs-final-ftitle">Resize charts</h3>
+              <p class="cs-final-fdesc">Drag a tile larger or smaller so the charts that matter get the room they need.</p>
+            </div>
+          </div>
+
+          <div class="cs-final-feature reveal">
+            <div class="cs-final-media">
+              <video src="assets/videos/hpe/view.mp4" muted loop playsinline preload="metadata"></video>
+            </div>
+            <div class="cs-final-ftext">
+              <span class="cs-final-fnum">04 &middot; Kept</span>
+              <h3 class="cs-final-ftitle">Expand charts</h3>
+              <p class="cs-final-fdesc">Open any chart to full screen to read the detail that&rsquo;s hard to see inside a tile.</p>
             </div>
           </div>
 
@@ -1678,6 +1667,48 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
   apply();
 })();
 
+</script>
+<script>
+/* Viewport-gated video playback.
+   Each <video> plays only while it's in view; pauses when scrolled away.
+   `data-loop-delay="<ms>"` adds a pause between loops (skipped if the video
+   leaves the viewport before the delay fires). */
+(function(){
+  const videos = document.querySelectorAll('video');
+  if(!videos.length) return;
+  const timers = new WeakMap();
+
+  videos.forEach(v => {
+    v.addEventListener('ended', () => {
+      const delay = parseInt(v.dataset.loopDelay, 10) || 0;
+      clearTimeout(timers.get(v));
+      timers.set(v, setTimeout(() => {
+        // Only restart if the element is still onscreen when the timer fires.
+        if(v.dataset.inView === 'true'){
+          v.currentTime = 0;
+          v.play().catch(()=>{});
+        }
+      }, delay));
+    });
+  });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const v = entry.target;
+      if(entry.isIntersecting){
+        v.dataset.inView = 'true';
+        if(v.ended) v.currentTime = 0;  // re-entering an already-finished video → restart
+        v.play().catch(()=>{});
+      } else {
+        v.dataset.inView = 'false';
+        v.pause();
+        clearTimeout(timers.get(v));
+      }
+    });
+  }, { threshold: 0.25 });
+
+  videos.forEach(v => io.observe(v));
+})();
 </script>
 </body>
 </html>
