@@ -531,7 +531,7 @@ nav {
   display:none;   /* hide bottom "Coming soon" link — top-left badge carries the status */
 }
 .proj-panel-soon-badge {
-  position:absolute; top:24px; left:28px; z-index:5;
+  position:absolute; top:16px; left:18px; z-index:5;
   display:inline-flex; align-items:center; gap:7px;
   padding:6px 13px; border-radius:100px;
   background:rgba(0,0,0,.38); backdrop-filter:blur(8px);
@@ -1116,10 +1116,63 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
      Shift the focal point right so the phone/watch mockup stays in view
      (overrides the inline `center/cover` shorthand on .proj-panel-bg). */
   .proj-panel-bg { background-position:right center !important; }
+
+  /* --- Art-directed vertical covers (Apple-style) ---
+     Panels with a portrait cover composed for mobile load that image
+     instead of the cropped landscape one, centered to fill the tall card. */
+  .proj-panel[data-p="0"] .proj-panel-bg {
+    background-image:url('assets/images/mobile/adaptiveplan-cover.jpg') !important;
+    background-position:center center !important;
+  }
+  .proj-panel[data-p="1"] .proj-panel-bg {
+    background-image:url('assets/images/mobile/designsystem-cover.jpg') !important;
+    background-position:center center !important;
+  }
+  .proj-panel[data-p="2"] .proj-panel-bg {
+    background-image:url('assets/images/mobile/hpe-cover.jpg') !important;
+    background-position:center center !important;
+  }
+  .proj-panel[data-p="3"] .proj-panel-bg {
+    background-image:url('assets/images/mobile/yearinreview-cover.jpg') !important;
+    background-position:center center !important;
+  }
+  .proj-panel[data-p="4"] .proj-panel-bg {
+    background-image:url('assets/images/mobile/whatnot-cover.jpg') !important;
+    background-position:center center !important;
+  }
+
   .proj-panel-info { padding:24px 20px; max-width:none; }
   .proj-panel-title { font-size:clamp(32px,8vw,48px); }
   .proj-panel-desc { font-size:var(--fs-sm); }
-  .proj-panel-metrics { gap:18px; }
+
+  /* --- Cover text contrast on small panels ---
+     Shorter mobile cards + right-shifted focal point push bright imagery
+     behind the overlay text, so strengthen the scrim, lift the dimmed text
+     opacities, and add a soft shadow as a safety net. */
+  .proj-panel::after, .proj-panel:hover::after,
+  .proj-panel--bright::after, .proj-panel--bright:hover::after {
+    background:linear-gradient(
+      to top,
+      rgba(0,0,0,.86) 0%,
+      rgba(0,0,0,.6) 34%,
+      rgba(0,0,0,.3) 60%,
+      transparent 84%
+    );
+  }
+  .proj-panel-title { text-shadow:0 1px 16px rgba(0,0,0,.55); }
+  .proj-panel-desc { color:rgba(255,255,255,.85); text-shadow:0 1px 10px rgba(0,0,0,.5); }
+  .proj-panel-tag {
+    color:rgba(255,255,255,.92);
+    background:rgba(0,0,0,.3);
+    border-color:rgba(255,255,255,.3);
+  }
+  /* Keep all three metrics on one row, each label on a single line */
+  .proj-panel-metrics { gap:16px; flex-wrap:nowrap; }
+  .proj-panel-met-val { font-size:var(--fs-md); }
+  .proj-panel-met-lbl {
+    color:rgba(255,255,255,.72);
+    font-size:var(--fs-xs); letter-spacing:.03em; white-space:nowrap;
+  }
   .proj-panel-ghost { font-size:var(--fs-4xl); top:16px; right:16px; }
   .proj-panel-icon { width:56px; height:56px; font-size:var(--fs-md); }
 
@@ -1352,7 +1405,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
           <div class="proj-panel-tags">
             <span class="proj-panel-tag">Strategy</span>
             <span class="proj-panel-tag">UX</span>
-            <span class="proj-panel-tag">Whatnot</span>
+            <span class="proj-panel-tag">TV</span>
           </div>
           <div class="proj-panel-title">Mobile to TV Experience</div>
           <div class="proj-panel-desc">Designed Whatnot’s cross-device live event experience and repositioned the marketplace as a community-first platform.</div>
@@ -1577,7 +1630,7 @@ const PROJS = [
     metrics:[{v:'+78%',l:'Revenue'},{v:'+124%',l:'Shares'},{v:'+33%',l:'Views'}],
   },
   {
-    tags:['Strategy','UX','Whatnot'],
+    tags:['Strategy','UX','TV'],
     name:'Mobile to TV\nExperience',
     desc:"Designed Whatnot's cross-device live event experience and repositioned the marketplace as community-first.",
     metrics:[{v:'+35%',l:'Satisfaction'},{v:'2',l:'Platforms'},{v:'↑',l:'Roadmap Impact'}],
