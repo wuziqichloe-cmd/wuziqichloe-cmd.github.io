@@ -480,6 +480,8 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
 .dsx-shot{width:100%;height:auto;display:block;background:#0e0e10;box-sizing:border-box;padding:12% 13% 15%;}
 .dsx-shot--sm{padding:18% 30%;}
 .dsx-shot--lg{padding:24px;}
+/* Low-ink dark crops (menu, app bars, lists) — lift the inner surface a touch so the faint UI reads against the near-black tile instead of vanishing into it */
+.dsx-shot--lift{background:#18181b;padding:9% 10% 11%;}
 @media(max-width:1000px){.dsx-plane{column-count:4;column-gap:18px;}}
 @media(max-width:680px){.dsx-plane{column-count:3;column-gap:14px;transform:rotateX(26deg) rotateZ(-15deg);}.dsx-head{padding:0 28px;}}
 @media(prefers-reduced-motion:reduce){.dsx-stage{transform:none;}}
@@ -759,26 +761,26 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
       <div class="dsx-stage">
         <div class="dsx-plane">
           <!-- Row 1 — far (dimmed by depth) · whitest crops recede here -->
-          <figure class="dsx-tile"><span class="dsx-tag">Input</span><img class="dsx-shot" src="assets/images/design-system/mobile/dark/input.png" alt="Input — dark theme" loading="lazy"></figure>
-          <figure class="dsx-tile"><span class="dsx-tag">Search</span><img class="dsx-shot" src="assets/images/design-system/mobile/dark/search.png" alt="Search — dark theme" loading="lazy"></figure>
-          <figure class="dsx-tile"><span class="dsx-tag">Chips</span><img class="dsx-shot" src="assets/images/design-system/mobile/dark/chips.png" alt="Chips — dark theme" loading="lazy"></figure>
-          <figure class="dsx-tile"><span class="dsx-tag">Control</span><img class="dsx-shot dsx-shot--sm" src="assets/images/design-system/mobile/dark/control.png" alt="Control — dark theme" loading="lazy"></figure>
-          <figure class="dsx-tile"><span class="dsx-tag">App&nbsp;bar</span><img class="dsx-shot" src="assets/images/design-system/mobile/dark/app-bars.png" alt="App bars — dark theme" loading="lazy"></figure>
-          <figure class="dsx-tile"><span class="dsx-tag">Tabs</span><img class="dsx-shot" src="assets/images/design-system/mobile/dark/tabs.png" alt="Tabs — dark theme" loading="lazy"></figure>
-          <figure class="dsx-tile"><span class="dsx-tag">Segmented</span><img class="dsx-shot dsx-shot--lg" src="assets/images/design-system/mobile/dark/segmented-buttons.png" alt="Segmented buttons — dark theme" loading="lazy"></figure>
+          <figure class="dsx-tile"><span class="dsx-tag">Input</span><img class="dsx-shot" src="assets/images/design-system/mobile/dark/input.png" alt="Input — dark theme"></figure>
+          <figure class="dsx-tile"><span class="dsx-tag">Search</span><img class="dsx-shot" src="assets/images/design-system/mobile/dark/search.png" alt="Search — dark theme"></figure>
+          <figure class="dsx-tile"><span class="dsx-tag">Chips</span><img class="dsx-shot" src="assets/images/design-system/mobile/dark/chips.png" alt="Chips — dark theme"></figure>
+          <figure class="dsx-tile"><span class="dsx-tag">Control</span><img class="dsx-shot dsx-shot--sm" src="assets/images/design-system/mobile/dark/control.png" alt="Control — dark theme"></figure>
+          <figure class="dsx-tile"><span class="dsx-tag">App&nbsp;bar</span><img class="dsx-shot dsx-shot--lift" src="assets/images/design-system/mobile/dark/app-bars.png" alt="App bars — dark theme"></figure>
+          <figure class="dsx-tile"><span class="dsx-tag">Tabs</span><img class="dsx-shot" src="assets/images/design-system/mobile/dark/tabs.png" alt="Tabs — dark theme"></figure>
+          <figure class="dsx-tile"><span class="dsx-tag">Segmented</span><img class="dsx-shot dsx-shot--lg" src="assets/images/design-system/mobile/dark/segmented-buttons.png" alt="Segmented buttons — dark theme"></figure>
           <!-- Row 2 — mid -->
-          <figure class="dsx-tile"><span class="dsx-tag">Nav</span><img class="dsx-shot" src="assets/images/design-system/mobile/dark/navigation.png" alt="Navigation — dark theme" loading="lazy"></figure>
-          <figure class="dsx-tile"><span class="dsx-tag">Labels</span><img class="dsx-shot dsx-shot--sm" src="assets/images/design-system/mobile/dark/labels.png" alt="Labels — dark theme" loading="lazy"></figure>
-          <figure class="dsx-tile"><span class="dsx-tag">Sheet&nbsp;header</span><img class="dsx-shot" src="assets/images/design-system/mobile/dark/sheet-header.png" alt="Sheet header — dark theme" loading="lazy"></figure>
-          <figure class="dsx-tile"><span class="dsx-tag">Buttons</span><img class="dsx-shot" src="assets/images/design-system/mobile/dark/buttons.png" alt="Buttons — dark theme" loading="lazy"></figure>
-          <figure class="dsx-tile"><span class="dsx-tag">Cards</span><img class="dsx-shot" src="assets/images/design-system/mobile/dark/cards.png" alt="Cards — dark theme" loading="lazy"></figure>
+          <figure class="dsx-tile"><span class="dsx-tag">Nav</span><img class="dsx-shot" src="assets/images/design-system/mobile/dark/navigation.png" alt="Navigation — dark theme"></figure>
+          <figure class="dsx-tile"><span class="dsx-tag">Labels</span><img class="dsx-shot dsx-shot--sm" src="assets/images/design-system/mobile/dark/labels.png" alt="Labels — dark theme"></figure>
+          <figure class="dsx-tile"><span class="dsx-tag">Sheet&nbsp;header</span><img class="dsx-shot" src="assets/images/design-system/mobile/dark/sheet-header.png" alt="Sheet header — dark theme"></figure>
+          <figure class="dsx-tile"><span class="dsx-tag">Buttons</span><img class="dsx-shot" src="assets/images/design-system/mobile/dark/buttons.png" alt="Buttons — dark theme"></figure>
+          <figure class="dsx-tile"><span class="dsx-tag">Cards</span><img class="dsx-shot" src="assets/images/design-system/mobile/dark/cards.png" alt="Cards — dark theme"></figure>
           <!-- Row 3 — near (brightest) · richest dark crops up front -->
-          <figure class="dsx-tile"><span class="dsx-tag">Lists</span><img class="dsx-shot" src="assets/images/design-system/mobile/dark/lists.png" alt="Lists — dark theme" loading="lazy"></figure>
-          <figure class="dsx-tile"><span class="dsx-tag">Cells</span><img class="dsx-shot" src="assets/images/design-system/mobile/dark/cells.png" alt="Cells — dark theme" loading="lazy"></figure>
-          <figure class="dsx-tile"><span class="dsx-tag">Progress</span><img class="dsx-shot" src="assets/images/design-system/mobile/dark/progress-indicators.png" alt="Progress indicator — dark theme" loading="lazy"></figure>
-          <figure class="dsx-tile"><span class="dsx-tag">Menu</span><img class="dsx-shot" src="assets/images/design-system/mobile/dark/menu.png" alt="Menu — dark theme" loading="lazy"></figure>
-          <figure class="dsx-tile"><span class="dsx-tag">Dialog</span><img class="dsx-shot" src="assets/images/design-system/mobile/dark/dialog.png" alt="Dialog — dark theme" loading="lazy"></figure>
-          <figure class="dsx-tile"><span class="dsx-tag">Banner</span><img class="dsx-shot" src="assets/images/design-system/mobile/dark/banners.png" alt="Banner — dark theme" loading="lazy"></figure>
+          <figure class="dsx-tile"><span class="dsx-tag">Lists</span><img class="dsx-shot dsx-shot--lift" src="assets/images/design-system/mobile/dark/lists.png" alt="Lists — dark theme"></figure>
+          <figure class="dsx-tile"><span class="dsx-tag">Cells</span><img class="dsx-shot" src="assets/images/design-system/mobile/dark/cells.png" alt="Cells — dark theme"></figure>
+          <figure class="dsx-tile"><span class="dsx-tag">Progress</span><img class="dsx-shot" src="assets/images/design-system/mobile/dark/progress-indicators.png" alt="Progress indicator — dark theme"></figure>
+          <figure class="dsx-tile"><span class="dsx-tag">Menu</span><img class="dsx-shot dsx-shot--lift" src="assets/images/design-system/mobile/dark/menu.png" alt="Menu — dark theme"></figure>
+          <figure class="dsx-tile"><span class="dsx-tag">Dialog</span><img class="dsx-shot" src="assets/images/design-system/mobile/dark/dialog.png" alt="Dialog — dark theme"></figure>
+          <figure class="dsx-tile"><span class="dsx-tag">Banner</span><img class="dsx-shot" src="assets/images/design-system/mobile/dark/banners.png" alt="Banner — dark theme"></figure>
         </div>
       </div>
     </section>
