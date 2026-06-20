@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chloe Wu — Résumé</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Inter:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:    #313131;   /* grey/19 — primary text   */
+    --ink-2:  #4c4c4c;   /* body / descriptions       */
+    --muted:  #8c8c8c;   /* dates, meta, secondary    */
+    --accent: #955cff;   /* section heads + icons      */
+    --rule:   #e8e8e8;   /* dividers / pipes           */
+    --paper:  #ffffff;
+
+    --font-display: 'Boldonse', system-ui, sans-serif;
+    --font-ui:      'Inter', -apple-system, 'SF Pro Text', system-ui, sans-serif;
+    --font-head:    -apple-system, 'SF Pro Display', 'SF Pro Text', 'Inter', system-ui, sans-serif;
+    --font-body:    'SF Pro Rounded', -apple-system, 'SF Pro Text', system-ui, sans-serif;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ background:#ececec; }
+  body{
+    font-family:var(--font-body);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+
+  /* ---- A4 sheet (595 × 842 pt) ---- */
+  .sheet{
+    width:595pt;
+    min-height:842pt;
+    margin:24px auto;
+    padding:40pt;
+    background:var(--paper);
+    box-shadow:0 4px 24px rgba(0,0,0,.14);
+  }
+
+  /* ---- header ---- */
+  .header{ display:flex; gap:24pt; align-items:center; }
+  .h-left{ flex:1 1 0; min-width:0; display:flex; flex-direction:column; gap:4pt; }
+  .h-right{ flex:1 1 0; min-width:0; display:flex; flex-direction:column; gap:6pt; align-items:flex-end; }
+
+  .name{
+    font-family:var(--font-display);
+    font-weight:400;
+    font-size:28pt;
+    letter-spacing:-0.56pt;
+    line-height:1.22;
+    color:var(--ink);
+  }
+  .subtitle{
+    font-family:var(--font-ui);
+    font-style:italic;
+    font-weight:400;
+    font-size:16pt;
+    letter-spacing:-0.32pt;
+    line-height:1.2;
+    color:var(--ink);
+  }
+  .subtitle .pre{ color:var(--muted); }
+
+  .contact-row{ display:flex; gap:4pt; align-items:center; justify-content:flex-end; }
+  .contact-row a, .contact-row span.txt{
+    font-family:var(--font-ui);
+    font-weight:400;
+    font-size:11pt;
+    letter-spacing:-0.22pt;
+    color:var(--ink);
+    text-align:right;
+    text-decoration:none;
+    white-space:nowrap;
+  }
+  .contact-row svg{ width:13pt; height:13pt; flex-shrink:0; fill:none; stroke:var(--accent); stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+
+  /* ---- two-column body ---- */
+  .body2col{ display:flex; gap:56pt; align-items:flex-start; margin-top:40pt; }
+  .col-left{ width:167pt; flex-shrink:0; display:flex; flex-direction:column; gap:20pt; }
+  .col-right{ flex:1 1 0; min-width:0; display:flex; flex-direction:column; gap:12pt; }
+
+  .section{ display:flex; flex-direction:column; gap:12pt; }
+  .sec-head{
+    font-family:var(--font-head);
+    font-weight:510;
+    font-size:13pt;
+    letter-spacing:-0.26pt;
+    color:var(--accent);
+    line-height:1.2;
+  }
+
+  /* ---- education ---- */
+  .edu-list{ display:flex; flex-direction:column; gap:16pt; }
+  .edu{ display:flex; flex-direction:column; gap:4pt; }
+  .edu .school{
+    font-family:var(--font-ui); font-weight:500; font-size:10pt;
+    letter-spacing:-0.2pt; line-height:1.3; color:var(--ink);
+  }
+  .edu .when{
+    font-family:var(--font-ui); font-weight:400; font-size:10pt;
+    letter-spacing:-0.2pt; line-height:1.25; color:var(--muted);
+  }
+  .edu .deg{
+    font-family:var(--font-body); font-weight:400; font-size:10pt;
+    line-height:1.22; letter-spacing:-0.1pt; color:var(--ink-2);
+  }
+  .pipe{ color:var(--rule); }
+
+  /* ---- skills ---- */
+  .skills-list{ display:flex; flex-direction:column; gap:13pt; }
+  .skill{ display:flex; flex-direction:column; gap:4pt; }
+  .skill .label{
+    font-family:var(--font-ui); font-weight:500; font-size:12pt;
+    letter-spacing:-0.24pt; line-height:1.3; color:var(--ink);
+  }
+  .skill .val{
+    font-family:var(--font-body); font-weight:400; font-size:10pt;
+    line-height:1.22; letter-spacing:-0.1pt; color:var(--ink-2);
+  }
+
+  /* ---- experience ---- */
+  .jobs{ display:flex; flex-direction:column; gap:18pt; }
+  .job{ display:flex; flex-direction:column; gap:9pt; }
+  .job-top{ display:flex; flex-direction:column; gap:2pt; }
+  .job-title-row{ display:flex; gap:6pt; align-items:center; }
+  .role, .company{
+    font-family:var(--font-ui); font-weight:500; font-size:12pt;
+    letter-spacing:-0.24pt; line-height:1.42; color:var(--ink); white-space:nowrap;
+  }
+  .vline{ width:1px; height:13pt; background:var(--rule); flex-shrink:0; }
+  .job-meta{
+    font-family:var(--font-ui); font-weight:400; font-size:10pt;
+    letter-spacing:-0.2pt; line-height:1.3; color:var(--muted);
+  }
+  .job-meta .dot{ color:var(--rule); }
+  .bullets{ list-style:none; display:flex; flex-direction:column; gap:4pt; }
+  .bullets li{
+    position:relative;
+    font-family:var(--font-body); font-weight:400; font-size:10pt;
+    line-height:1.22; letter-spacing:-0.1pt; color:var(--ink-2);
+    padding-left:13pt;
+  }
+  .bullets li::before{
+    content:"•";
+    position:absolute; left:3pt; top:0;
+    color:var(--ink-2);
+  }
+
+  /* ---- print ---- */
+  @page{ size:A4; margin:0; }
+  @media print{
+    html{ background:#fff; }
+    .sheet{ margin:0; box-shadow:none; width:auto; min-height:auto; }
+    a{ color:var(--ink) !important; }
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <!-- ================= HEADER ================= -->
+  <header class="header">
+    <div class="h-left">
+      <div class="name">CHLOE WU</div>
+      <div class="subtitle"><span class="pre">UI/UX →</span> Product Designer</div>
+    </div>
+    <div class="h-right">
+      <div class="contact-row">
+        <a href="https://www.ziqi-wu.com" target="_blank">ziqi-wu.com</a>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><line x1="2.5" y1="12" x2="21.5" y2="12"/><path d="M12 2.5a14.5 14.5 0 0 1 3.8 9.5 14.5 14.5 0 0 1-3.8 9.5 14.5 14.5 0 0 1-3.8-9.5A14.5 14.5 0 0 1 12 2.5z"/></svg>
+      </div>
+      <div class="contact-row">
+        <a href="https://www.linkedin.com/in/ziqi-chloe-wu" target="_blank">linkedin.com/in/ziqi-chloe-wu</a>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="9.8" r="3.3"/><path d="M5.9 19.2a6.6 6.6 0 0 1 12.2 0"/></svg>
+      </div>
+      <div class="contact-row">
+        <span class="txt">wuziqichloe@gmail.com</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2"/><polyline points="3.2,6 12,13 20.8,6"/></svg>
+      </div>
+      <div class="contact-row">
+        <span class="txt">415-527-7645</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 16.9v2.6a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 1.1 4.7 2 2 0 0 1 3.1 2.5h2.6a2 2 0 0 1 2 1.7c.1.9.3 1.7.6 2.5a2 2 0 0 1-.5 2.1L6.7 10a16 16 0 0 0 6 6l1.2-1.1a2 2 0 0 1 2.1-.5c.8.3 1.6.5 2.5.6a2 2 0 0 1 1.7 2z"/></svg>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= BODY ================= -->
+  <div class="body2col">
+
+    <!-- ---------- LEFT ---------- -->
+    <div class="col-left">
+
+      <section class="section">
+        <div class="sec-head">Education</div>
+        <div class="edu-list">
+          <div class="edu">
+            <div class="school">University of Southern California</div>
+            <div class="when">Aug 2021 – 2024</div>
+            <div class="deg">MS, Integrated Design, Business and Technology <span class="pipe">|</span> GPA: 3.97/4.0</div>
+          </div>
+          <div class="edu">
+            <div class="school">University of California, San Diego</div>
+            <div class="when">Sep 2015 – 2019</div>
+            <div class="deg">BS, Cognitive Science in Human-Computer Interaction <span class="pipe">|</span> GPA: 3.51/4.0</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="sec-head">Skills</div>
+        <div class="skills-list">
+          <div class="skill">
+            <div class="label">Methods</div>
+            <div class="val">User Research, Journey Mapping, Information Architecture, Interaction Design, Wireframing, Prototyping, Usability Testing, Heuristic Evaluation, A/B Testing, Accessibility (WCAG 2.2 AA), Responsive Design, Design Systems</div>
+          </div>
+          <div class="skill">
+            <div class="label">Tools</div>
+            <div class="val">Figma, Storybook, Framer, Miro, Lottie, Sketch, Adobe XD, Illustrator, InDesign, After Effects, Photoshop</div>
+          </div>
+          <div class="skill">
+            <div class="label">AI &amp; Tech</div>
+            <div class="val">Claude Code, VS Code, Generative AI, Prompt Engineering, AI-Assisted Design, Design-to-Code, Multi-Agent Workflow Automation, GitHub, HTML/CSS, JavaScript, Python</div>
+          </div>
+          <div class="skill">
+            <div class="label">Strategy</div>
+            <div class="val">Problem Definition, Competitive Analysis, Data Analysis &amp; Trend Awareness (e.g., Amplitude, AppTweak), KPI Definition, Agile (Jira), Strategic Alignment, Cross-Functional Collaboration</div>
+          </div>
+          <div class="skill">
+            <div class="label">Languages</div>
+            <div class="val">English, Mandarin, Cantonese</div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ---------- RIGHT ---------- -->
+    <div class="col-right">
+      <div class="sec-head">Experience</div>
+      <div class="jobs">
+
+        <div class="job">
+          <div class="job-top">
+            <div class="job-title-row"><span class="role">Product Designer</span><span class="vline"></span><span class="company">Jefit</span></div>
+            <div class="job-meta">Full-time <span class="dot">•</span> Mar 2024 – Present</div>
+          </div>
+          <ul class="bullets">
+            <li>Owned end-to-end product design across Android, iOS, web, and wearables for a 13M+ user fitness platform.</li>
+            <li>Designed the 0→1 AI-powered Adaptive Plan: the signals the model adapts to, plus trust controls that keep users in control — manual override, transparent reasoning, injury-safe swaps. Drove +42% adoption, +28% D30 retention, and a 14% soft-paywall CVR (7× our benchmark).</li>
+            <li>Conceived and shipped Year in Review 2025 — +78% revenue, +124% shares, and +33% views YoY.</li>
+            <li>Architected a cross-platform design system — 120+ components, 100% token-bound, WCAG 2.2 AA — via a custom multi-agent AI pipeline (builder + evaluator) automating component build and QA.</li>
+          </ul>
+        </div>
+
+        <div class="job">
+          <div class="job-top">
+            <div class="job-title-row"><span class="role">UI/UX Designer</span><span class="vline"></span><span class="company">Aware.ai</span></div>
+            <div class="job-meta">Internship <span class="dot">•</span> Dec 2023 – Mar 2024</div>
+          </div>
+          <ul class="bullets">
+            <li>Designed a rewards feature for a mental-health &amp; wellness app, validated through 5-user usability testing — lifting task completion 40%.</li>
+            <li>Delivered end-to-end user flows and wireframes for privacy-sensitive health &amp; wellness journeys.</li>
+          </ul>
+        </div>
+
+        <div class="job">
+          <div class="job-top">
+            <div class="job-title-row"><span class="role">Product Designer</span><span class="vline"></span><span class="company">Whatnot</span></div>
+            <div class="job-meta">Co-op <span class="dot">•</span> Oct – Dec 2023</div>
+          </div>
+          <ul class="bullets">
+            <li>Researched and proposed an end-to-end offsite experience concept for top creators, validated through usability testing with positive feedback.</li>
+            <li>Designed mobile-to-TV live-event interface concepts and a community-first marketplace direction.</li>
+          </ul>
+        </div>
+
+        <div class="job">
+          <div class="job-top">
+            <div class="job-title-row"><span class="role">UX Designer</span><span class="vline"></span><span class="company">Hewlett Packard Enterprise</span></div>
+            <div class="job-meta">Internship <span class="dot">•</span> May – Aug 2023</div>
+          </div>
+          <ul class="bullets">
+            <li>Designed a modular chart-customization system with the existing Storybook component library, driving a 30% lift in feature adoption in usability testing.</li>
+            <li>Facilitated 4 design critique sessions, surfacing 40+ actionable UI improvements across the product.</li>
+            <li>Delivered research-backed design recommendations to 50+ stakeholders, aligning UI strategy with business goals.</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
