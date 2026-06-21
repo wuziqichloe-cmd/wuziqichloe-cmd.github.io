@@ -44,6 +44,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .t-icon{display:block;width:20px;height:20px;color:var(--ink-3);z-index:1;transition:opacity .25s;flex-shrink:0;}
 .t-sun{opacity:0;}.t-moon{opacity:1;}
 [data-theme="dark"] .t-sun{opacity:1;}[data-theme="dark"] .t-moon{opacity:0;}
+/* Track turns accent (blue) when checked/dark — lift the exposed sun icon for contrast */
+.t-tog input:checked~.t-track .t-sun{color:var(--ink-2);}
 .t-knob{position:absolute;top:3px;left:3px;width:20px;height:20px;background:var(--surf);border-radius:50%;transition:transform .28s cubic-bezier(.4,0,.2,1);pointer-events:none;z-index:2;box-shadow:0 1px 3px rgba(0,0,0,.2);}
 .t-tog input:checked~.t-knob{transform:translateX(30px);}
 .hamburger{display:none;flex-direction:column;gap:4.5px;width:24px;cursor:pointer;padding:4px 0;border:none;background:none;}
@@ -1612,7 +1614,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
                 <div class="cs-card"><div class="cs-card-icon">&#129504;</div><div class="cs-card-title">Familiarity Module</div><div class="cs-card-text">I caught the generator swapping exercises week over week while dogfooding &mdash; each new movement was a fresh learning curve that pushed users to abandon their plans. I raised it with PM and backend; we shipped a gradual-ramp model that anchors in each user&rsquo;s proven history and introduces new movements slowly, so the learning curve flattens instead of stacking.</div></div>
                 <div class="cs-card"><div class="cs-card-icon">&#127919;</div><div class="cs-card-title">Two-Tier Experience</div><div class="cs-card-text">I designed the upgrade so users don&rsquo;t start over when they go paid &mdash; their history and preferences carry forward (same logic as the familiarity module). We shipped it as one continuous experience, so upgrading feels like the plan getting smarter, not a wall.</div></div>
                 <div class="cs-card"><div class="cs-card-icon">&#128200;</div><div class="cs-card-title">Habit-First Flow</div><div class="cs-card-text">I pulled retention data with growth to make the case for a later paywall &mdash; users hit peak value at days 10&ndash;14, after the first adaptation cycle. I held the line against day-one monetization pressure; we landed on a week-2 paywall. A split test against the day-one variant validated the call &mdash; the habit-first flow converted better.</div></div>
-                <div class="cs-card"><div class="cs-card-icon">&#128260;</div><div class="cs-card-title">Feedback Flywheel</div><div class="cs-card-text">I designed the post-workout feedback surface so each completed session feeds the engine in one tap &mdash; together with eng, we turned feedback from a chore into compounding signal.</div></div>
+                <div class="cs-card"><div class="cs-card-icon">&#128260;</div><div class="cs-card-title">Feedback Flywheel</div><div class="cs-card-text">Ending a workout already triggered a recalibration wait &mdash; so instead of a dead loading spinner, I put the one-tap feedback prompt in that exact window. The latency now does double duty: it sharpens the algorithm&rsquo;s accuracy <em>and</em> masks the wait, turning feedback into compounding signal.</div></div>
               </div>
             </div>
           </div>
