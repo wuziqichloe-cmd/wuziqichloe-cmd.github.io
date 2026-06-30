@@ -1,0 +1,15 @@
+# https://ziqi-wu.com/ — crawl rules
+User-agent: *
+Allow: /
+
+# Unpolished working files — keep out of search (sensitive pages use an in-page
+# noindex tag instead, so their filenames aren't advertised here)
+Disallow: /capture-intention-concepts.html
+Disallow: /flexible-intro-prototype.html
+Disallow: /intensity-shift-concepts.html
+Disallow: /movement-balance-concepts.html
+Disallow: /rebalance-3areas-concepts.html
+Disallow: /swap-exercises.html
+Disallow: /week-preview-concepts.html
+
+Sitemap: https://ziqi-wu.com/sitemap.xml

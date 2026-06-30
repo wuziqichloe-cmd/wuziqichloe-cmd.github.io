@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chloe Wu — Résumé</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -65,6 +66,13 @@
   }
   .subtitle .pre{ color:var(--muted); }
 
+  /* ---- summary ---- */
+  .summary{
+    font-family:var(--font-body); font-weight:400; font-size:10pt;
+    line-height:1.32; letter-spacing:-0.1pt; color:var(--ink-2);
+    margin-top:16pt;
+  }
+
   .contact-row{ display:flex; gap:4pt; align-items:center; justify-content:flex-end; }
   .contact-row a, .contact-row span.txt{
     font-family:var(--font-ui);
@@ -79,9 +87,9 @@
   .contact-row svg{ width:13pt; height:13pt; flex-shrink:0; fill:none; stroke:var(--accent); stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
 
   /* ---- two-column body ---- */
-  .body2col{ display:flex; gap:56pt; align-items:flex-start; margin-top:40pt; }
+  .body2col{ display:flex; gap:56pt; align-items:flex-start; margin-top:30pt; }
   .col-left{ width:167pt; flex-shrink:0; display:flex; flex-direction:column; gap:20pt; }
-  .col-right{ flex:1 1 0; min-width:0; display:flex; flex-direction:column; gap:10.6pt; }
+  .col-right{ flex:1 1 0; min-width:0; display:flex; flex-direction:column; gap:14pt; }
 
   .section{ display:flex; flex-direction:column; gap:12pt; }
   .sec-head{
@@ -123,7 +131,7 @@
   }
 
   /* ---- experience ---- */
-  .jobs{ display:flex; flex-direction:column; gap:18pt; }
+  .jobs{ display:flex; flex-direction:column; gap:20pt; }
   .job{ display:flex; flex-direction:column; gap:9pt; }
   .job-top{ display:flex; flex-direction:column; gap:2pt; }
   .job-title-row{ display:flex; gap:6pt; align-items:center; }
@@ -223,7 +231,7 @@
           </div>
           <div class="skill">
             <div class="label">AI &amp; Tech</div>
-            <div class="val">Claude Code, VS Code, Generative AI, Prompt Engineering, AI-Assisted Design, Design-to-Code, Multi-Agent Workflow Automation, GitHub, HTML/CSS, JavaScript, Python</div>
+            <div class="val">Claude Code, VS Code, Vibe Coding, Generative AI, Prompt Engineering, AI-Assisted Design, Design-to-Code, Interactive Prototyping, Multi-Agent Workflow Automation, GitHub, HTML/CSS, JavaScript, Python</div>
           </div>
           <div class="skill">
             <div class="label">Strategy</div>
@@ -250,9 +258,8 @@
           </div>
           <ul class="bullets">
             <li>Owned end-to-end product design across Android, iOS, web, and wearables for a 13M+ user fitness platform.</li>
-            <li>Designed the 0→1 AI-powered Adaptive Plan: the signals the model adapts to, plus trust controls that keep users in control — manual override, transparent reasoning, injury-safe swaps. Drove +42% adoption, +28% D30 retention, and a 14% soft-paywall CVR (7× our benchmark).</li>
-            <li>Conceived and shipped Year in Review 2025 — +78% revenue, +124% shares, and +33% views YoY.</li>
-            <li>Architected a cross-platform design system — 120+ components, 100% token-bound, WCAG 2.2 AA — via a custom multi-agent AI pipeline (builder + evaluator) automating component build and QA.</li>
+            <li>Designed the 0→1 AI-powered Adaptive Plan: the signals the model adapts to, plus trust controls that keep users in control — manual override, transparent reasoning, injury-safe swaps. Drove +42% adoption and +28% D30 retention, and designed the paywall conversion flow to a 14% CVR — 7× our benchmark.</li>
+            <li>Architected a cross-platform design system — 120+ components, 100% token-bound, WCAG 2.2 AA — via a custom multi-agent AI pipeline (builder + evaluator) that generates and QAs production component code.</li>
           </ul>
         </div>
 
@@ -273,8 +280,8 @@
             <div class="job-meta">Co-op <span class="dot">•</span> Oct – Dec 2023</div>
           </div>
           <ul class="bullets">
-            <li>Researched and proposed an end-to-end offsite experience concept for top creators, validated through usability testing with positive feedback.</li>
-            <li>Designed mobile-to-TV live-event interface concepts and a community-first marketplace direction.</li>
+            <li>Designed creator-facing live social experiences for a live-shopping/creator platform — an end-to-end offsite concept for top creators, validated through usability testing.</li>
+            <li>Designed mobile-to-TV live-event interfaces and a community-first social marketplace direction.</li>
           </ul>
         </div>
 
@@ -284,7 +291,7 @@
             <div class="job-meta">Internship <span class="dot">•</span> May – Aug 2023</div>
           </div>
           <ul class="bullets">
-            <li>Designed a modular chart-customization system with the existing Storybook component library, driving a 30% lift in feature adoption in usability testing.</li>
+            <li>Designed a modular chart-customization system for an enterprise, operator-facing analytics product, building on its existing Storybook component library — a 30% lift in feature adoption in usability testing.</li>
             <li>Facilitated 4 design critique sessions, surfacing 40+ actionable UI improvements across the product.</li>
             <li>Delivered research-backed design recommendations to 50+ stakeholders, aligning UI strategy with business goals.</li>
           </ul>
