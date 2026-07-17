@@ -615,43 +615,6 @@ nav {
   line-height:1; pointer-events:none; user-select:none;
 }
 
-/* PDF MODAL */
-.pdf-overlay {
-  position:fixed; inset:0; z-index:1000;
-  background:rgba(0,0,0,.65);
-  backdrop-filter:blur(14px);
-  display:none; align-items:center; justify-content:center;
-  padding:24px;
-}
-.pdf-overlay.open { display:flex; }
-.pdf-box {
-  width:min(900px,96vw);
-  height:min(92vh,1040px);
-  background:var(--surf);
-  border-radius:18px; overflow:hidden;
-  display:flex; flex-direction:column;
-  box-shadow:0 32px 80px rgba(0,0,0,.45);
-  border:1px solid var(--border-h);
-}
-.pdf-topbar {
-  display:flex; align-items:center; justify-content:space-between;
-  padding:13px 20px; border-bottom:1px solid var(--border);
-  flex-shrink:0;
-}
-.pdf-topbar-title {
-  font-family:var(--font-display);font-weight:var(--fw-semibold);
-  font-size:var(--fs-base); letter-spacing:.04em; color:var(--ink);
-}
-.pdf-close {
-  width:30px; height:30px; border-radius:50%; border:none;
-  background:var(--border-h); color:var(--ink); font-size:var(--fs-base);
-  cursor:pointer; display:flex; align-items:center; justify-content:center;
-  transition:background .2s;
-}
-.pdf-close:hover { background:var(--border); }
-.pdf-iframe { flex:1; border:none; width:100%; background:#f0f0f0; }
-
-
 
 /* ─────────────────────────────────────
    ABOUT — Compact Bento Persona
@@ -1595,29 +1558,12 @@ el.innerHTML=items+items;
 
 
 
-/* ── PDF MODAL ── */
+/* ── RESUME ── */
+// Open the résumé PDF in a new tab — Chrome's native viewer (download/zoom/print).
 const RESUME_PDF_URL = "assets/Chloe%20Wu%27s%20Resume_2026.pdf";
 function openResumePdf() {
-  // Mobile / touch: iframe-embedded PDFs render at native size with no fit-to-width.
-  // Open in a new tab so the OS PDF viewer can fit to screen.
-  const isMobile = matchMedia('(hover: none) and (pointer: coarse)').matches || window.innerWidth < 768;
-  if (isMobile) {
-    window.open(RESUME_PDF_URL, '_blank');
-    return;
-  }
-  const iframe = document.getElementById('pdfIframe');
-  const fitSrc = RESUME_PDF_URL + '#view=FitH&toolbar=1';
-  if (iframe.src !== fitSrc) iframe.src = fitSrc;
-  document.getElementById('pdfOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  window.open(RESUME_PDF_URL, '_blank', 'noopener');
 }
-function closePdf() {
-  document.getElementById('pdfOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closePdf();
-});
 
 /* ── HAMBURGER MENU ── */
 const hamburger    = document.getElementById('hamburger');
@@ -1825,22 +1771,6 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
   tObs.observe(el);
 })();
 </script>
-
-<!-- PDF Resume Modal -->
-<div class="pdf-overlay" id="pdfOverlay" onclick="if(event.target===this)closePdf()">
-  <div class="pdf-box">
-    <div class="pdf-topbar">
-      <span class="pdf-topbar-title">Chloe Wu — Resume 2026</span>
-      <button class="pdf-close" onclick="closePdf()">✕</button>
-    </div>
-    <iframe
-      class="pdf-iframe"
-      id="pdfIframe"
-      src=""
-      title="Chloe Wu Resume"
-    ></iframe>
-  </div>
-</div>
 
 </body>
 </html>
