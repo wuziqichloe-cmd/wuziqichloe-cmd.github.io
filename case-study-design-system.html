@@ -479,16 +479,27 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
 
 /* ───── COMPONENT SHOWCASE — dark perspective library (mobile → web interstitial) ─────
    An always-dark "moment" (like the hero); palette mirrors the color_dark tokens. */
-.dsx{position:relative;margin:0;padding:108px 0 132px;background:#0A0A0A;border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;isolation:isolate;
+.dsx{position:relative;margin:0;padding:108px 0 200px;background:#0A0A0A;border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;isolation:isolate;
   --d-surf:#1A1A1A;--d-surf2:#212121;--d-bg2:#121212;--d-line:rgba(245,245,245,.09);--d-line2:rgba(245,245,245,.17);--d-ink:#F5F5F5;--d-ink2:#8a8a8a;--d-acc:#3B82F6;}
 .dsx::before{content:'';position:absolute;left:50%;top:36%;width:120%;height:92%;transform:translate(-50%,-50%);background:radial-gradient(50% 50% at 50% 50%,rgba(59,130,246,.11),transparent 70%);pointer-events:none;z-index:0;}
+/* Edge dissolve — paints the section colour back over the top/bottom of the plane so it
+   melts into the band. Replaces the old radial mask on .dsx-stage: that masked the stage's
+   own box, but the rotated plane overflows that box, so which tiles landed in the fade
+   changed with every viewport width (whole tiles could drop to ~0 alpha). This overlay is
+   geometry-independent — it only ever softens the section's own edges. */
+.dsx::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:2;
+  background:linear-gradient(180deg,#0A0A0A 0%,rgba(10,10,10,0) 12%,rgba(10,10,10,0) 84%,#0A0A0A 100%);}
 .dsx-head{position:relative;z-index:3;max-width:1080px;margin:0 auto;padding:0 52px;text-align:center;}
 .dsx-eyebrow{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.18em;text-transform:uppercase;color:var(--d-acc);display:block;margin-bottom:12px;}
 .dsx-title{font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:clamp(var(--fs-xl),4.4vw,var(--fs-3xl));line-height:1.06;letter-spacing:-.03em;color:var(--d-ink);margin-bottom:14px;}
 .dsx-sub{font-size:var(--fs-base);font-weight:var(--fw-light);color:var(--d-ink2);line-height:1.7;max-width:56ch;margin:0 auto;}
-.dsx-stage{position:relative;z-index:1;margin-top:18px;perspective:2200px;perspective-origin:50% 22%;transform:translateY(calc(var(--dsx-p,0) * -22px));-webkit-mask:radial-gradient(125% 82% at 50% 34%,#000 36%,transparent 88%);mask:radial-gradient(125% 82% at 50% 34%,#000 36%,transparent 88%);}
-/* masonry — each tile keeps its component's real aspect ratio (no uniform crop) */
-.dsx-plane{width:min(1180px,92%);margin:0 auto;column-count:5;column-gap:22px;transform-style:preserve-3d;transform:rotateX(30deg) rotateZ(calc(-22deg + var(--dsx-p,0) * 3deg));}
+/* margin-top clears the head: rotateX lifts the far row well above the stage's own box,
+   so the gap has to cover that overhang, not just the visual spacing you want. */
+.dsx-stage{position:relative;z-index:1;margin-top:128px;perspective:2200px;perspective-origin:50% 22%;transform:translateY(calc(var(--dsx-p,0) * -22px));}
+/* masonry — each tile keeps its component's real aspect ratio (no uniform crop).
+   Width is held back from the section edge so the rotateZ tilt has room to swing
+   without pushing the outermost tiles under the section's overflow:hidden. */
+.dsx-plane{width:min(1120px,84%);margin:0 auto;column-count:5;column-gap:22px;transform-style:preserve-3d;transform:rotateX(30deg) rotateZ(calc(-22deg + var(--dsx-p,0) * 3deg));}
 .dsx-tile{position:relative;display:block;break-inside:avoid;-webkit-column-break-inside:avoid;margin:0 0 22px;border-radius:13px;background:#0e0e10;border:1px solid var(--d-line2);box-shadow:0 24px 50px -20px rgba(0,0,0,.82),inset 0 1px 0 rgba(255,255,255,.04);overflow:hidden;transition:transform .4s cubic-bezier(.22,1,.36,1),box-shadow .4s,filter .4s;will-change:transform;}
 .dsx-tile:hover{transform:translateZ(46px);box-shadow:0 42px 72px -24px rgba(0,0,0,.92),0 0 0 1px rgba(59,130,246,.42);filter:brightness(1.14);z-index:5;}
 /* organic depth — gentle scattered dimming so the field reads 3-D */
@@ -502,8 +513,11 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
 .dsx-shot--lg{padding:24px;}
 /* Low-ink dark crops (menu, app bars, lists) — lift the inner surface a touch so the faint UI reads against the near-black tile instead of vanishing into it */
 .dsx-shot--lift{background:#18181b;padding:9% 10% 11%;}
-@media(max-width:1000px){.dsx-plane{column-count:4;column-gap:18px;}}
-@media(max-width:680px){.dsx-plane{column-count:3;column-gap:14px;transform:rotateX(26deg) rotateZ(-15deg);}.dsx-head{padding:0 28px;}}
+/* Fewer columns → taller plane → the tilt swings wider, so ease the angle back as it narrows */
+@media(max-width:1000px){.dsx-stage{margin-top:64px;}.dsx-plane{width:min(1120px,78%);column-count:4;column-gap:18px;transform:rotateX(30deg) rotateZ(calc(-18deg + var(--dsx-p,0) * 3deg));}}
+/* 3 columns makes the plane far taller than it is wide, and it's the plane's HEIGHT that
+   swings sideways under rotateZ — so ease the angle rather than shrinking the tiles further. */
+@media(max-width:680px){.dsx-stage{margin-top:32px;}.dsx-plane{width:75%;column-count:3;column-gap:14px;transform:rotateX(22deg) rotateZ(-8deg);}.dsx-head{padding:0 28px;}}
 @media(prefers-reduced-motion:reduce){.dsx-stage{transform:none;}}
 </style>
 </head>
