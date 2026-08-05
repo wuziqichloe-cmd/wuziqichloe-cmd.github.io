@@ -325,7 +325,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 [data-theme="dark"] .cs-shot[data-section="web-breadcrumbs"] .cs-shot-thumb,
 [data-theme="dark"] .cs-shot[data-section="web-footers"] .cs-shot-thumb,
 [data-theme="dark"] .cs-shot[data-section="web-modals"] .cs-shot-thumb,
-[data-theme="dark"] .cs-shot:has(.cs-theme-dark) .cs-shot-thumb,
+[data-theme="dark"] .cs-gallery--swap .cs-shot-thumb,
 [data-theme="dark"] #watch .cs-shot-thumb,
 [data-theme="dark"] .cs-shot-thumb--empty{background:var(--bg-2);}
 .cs-shot-thumb img{width:100%;height:100%;display:block;object-fit:contain;object-position:center;}
@@ -500,7 +500,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
    Width is held back from the section edge so the rotateZ tilt has room to swing
    without pushing the outermost tiles under the section's overflow:hidden. */
 .dsx-plane{width:min(1120px,84%);margin:0 auto;column-count:5;column-gap:22px;transform-style:preserve-3d;transform:rotateX(30deg) rotateZ(calc(-22deg + var(--dsx-p,0) * 3deg));}
-.dsx-tile{position:relative;display:block;break-inside:avoid;-webkit-column-break-inside:avoid;margin:0 0 22px;border-radius:13px;background:#0e0e10;border:1px solid var(--d-line2);box-shadow:0 24px 50px -20px rgba(0,0,0,.82),inset 0 1px 0 rgba(255,255,255,.04);overflow:hidden;transition:transform .4s cubic-bezier(.22,1,.36,1),box-shadow .4s,filter .4s;will-change:transform;}
+.dsx-tile{position:relative;display:block;break-inside:avoid;-webkit-column-break-inside:avoid;margin:0 0 22px;border-radius:13px;background:#0e0e10;border:1px solid var(--d-line2);box-shadow:0 24px 50px -20px rgba(0,0,0,.82),inset 0 1px 0 rgba(255,255,255,.04);overflow:hidden;transition:transform .4s cubic-bezier(.22,1,.36,1),box-shadow .4s,filter .4s;}
 .dsx-tile:hover{transform:translateZ(46px);box-shadow:0 42px 72px -24px rgba(0,0,0,.92),0 0 0 1px rgba(59,130,246,.42);filter:brightness(1.14);z-index:5;}
 /* organic depth — gentle scattered dimming so the field reads 3-D */
 .dsx-tile:nth-child(3n){filter:brightness(.88);}
@@ -513,6 +513,11 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
 .dsx-shot--lg{padding:24px;}
 /* Low-ink dark crops (menu, app bars, lists) — lift the inner surface a touch so the faint UI reads against the near-black tile instead of vanishing into it */
 .dsx-shot--lift{background:#18181b;padding:9% 10% 11%;}
+/* App bar · labels · lists · menu are near-black cards with hairline light UI. Scaled into the small 3-D tiles those 1px strokes wash out — worse in WebKit, whose image downscaling drops them entirely. Exempt these four from the depth-dimming filter and lift their luminance so the strokes survive in Safari. */
+.dsx-tile--ink{background:#202024;border-color:rgba(255,255,255,.16);}
+.dsx-tile--ink:not(:hover){filter:none;}
+/* Surface lives on the figure (menu.png is 25% opaque, labels.png a tiny 144px crop) — a block background paints reliably in Safari's 3-D/multicol context where an <img> background does not, so the transparent tiles still read as defined cards. */
+.dsx-tile--ink .dsx-shot{background:transparent;filter:brightness(1.95) contrast(1.16) saturate(1.05);}
 /* Fewer columns → taller plane → the tilt swings wider, so ease the angle back as it narrows */
 @media(max-width:1000px){.dsx-stage{margin-top:64px;}.dsx-plane{width:min(1120px,78%);column-count:4;column-gap:18px;transform:rotateX(30deg) rotateZ(calc(-18deg + var(--dsx-p,0) * 3deg));}}
 /* 3 columns makes the plane far taller than it is wide, and it's the plane's HEIGHT that
@@ -761,7 +766,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
           <div class="cs-sub-label">Components</div>
           <div class="cs-sub-title">The componentized library</div>
           <div class="cs-sub-text">Each rebuilt as a true Figma component &mdash; variants, booleans, instance swap, text properties, nested instances &mdash; with every value bound to a token.</div>
-          <div class="cs-shot-gallery" aria-label="Mobile component primitives">
+          <div class="cs-shot-gallery cs-gallery--swap" aria-label="Mobile component primitives">
             <figure class="cs-shot"><div class="cs-shot-thumb"><img class="cs-theme-img cs-theme-light" src="assets/images/design-system/mobile/light/app-bars.png" alt="App bars — top and bottom bars with title, back, icon, and button slots across variants and states" loading="lazy"><img class="cs-theme-img cs-theme-dark" src="assets/images/design-system/mobile/dark/app-bars.png" alt="App bars, dark theme — the same bars remapped for dark surfaces" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">App bars</div><div class="cs-shot-desc">Top bars with title, back, and trailing action slots</div></figcaption></figure>
             <figure class="cs-shot"><div class="cs-shot-thumb"><img class="cs-theme-img cs-theme-light" src="assets/images/design-system/mobile/light/navigation.png" alt="Navigation — bottom navbar with Discover, Workout, and Progress tabs in default and active states" loading="lazy"><img class="cs-theme-img cs-theme-dark" src="assets/images/design-system/mobile/dark/navigation.png" alt="Navigation, dark theme — the same bottom navbar remapped for dark surfaces" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Navigation</div><div class="cs-shot-desc">Bottom navigation bar, default &amp; active states</div></figcaption></figure>
             <figure class="cs-shot"><div class="cs-shot-thumb"><img class="cs-theme-img cs-theme-light" src="assets/images/design-system/mobile/light/tabs.png" alt="Tabs — segmented and underline tab bars across states" loading="lazy"><img class="cs-theme-img cs-theme-dark" src="assets/images/design-system/mobile/dark/tabs.png" alt="Tabs, dark theme — the same segmented and underline tab bars remapped for dark surfaces" loading="lazy"></div><figcaption class="cs-shot-cap"><div class="cs-shot-name">Tabs</div><div class="cs-shot-desc">Segmented &amp; underline tab bars</div></figcaption></figure>
@@ -786,7 +791,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
     </section>
 
     <!-- ── COMPONENT LIBRARY SHOWCASE — dark perspective interstitial (mobile → web) ── -->
-    <section class="dsx" aria-label="The mobile component library at a glance">
+    <section class="dsx" id="dsxband" aria-label="The mobile component library at a glance">
       <div class="dsx-head reveal">
         <span class="dsx-eyebrow">The library, at a glance</span>
         <h2 class="dsx-title">One token core,<br>the whole dark system</h2>
@@ -799,20 +804,20 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
           <figure class="dsx-tile"><span class="dsx-tag">Search</span><img class="dsx-shot" src="assets/images/design-system/mobile/dark/search.png" alt="Search — dark theme"></figure>
           <figure class="dsx-tile"><span class="dsx-tag">Chips</span><img class="dsx-shot" src="assets/images/design-system/mobile/dark/chips.png" alt="Chips — dark theme"></figure>
           <figure class="dsx-tile"><span class="dsx-tag">Control</span><img class="dsx-shot dsx-shot--sm" src="assets/images/design-system/mobile/dark/control.png" alt="Control — dark theme"></figure>
-          <figure class="dsx-tile"><span class="dsx-tag">App&nbsp;bar</span><img class="dsx-shot dsx-shot--lift" src="assets/images/design-system/mobile/dark/app-bars.png" alt="App bars — dark theme"></figure>
+          <figure class="dsx-tile dsx-tile--ink"><span class="dsx-tag">App&nbsp;bar</span><img class="dsx-shot dsx-shot--lift" src="assets/images/design-system/mobile/dark/app-bars.png" alt="App bars — dark theme"></figure>
           <figure class="dsx-tile"><span class="dsx-tag">Tabs</span><img class="dsx-shot" src="assets/images/design-system/mobile/dark/tabs.png" alt="Tabs — dark theme"></figure>
           <figure class="dsx-tile"><span class="dsx-tag">Segmented</span><img class="dsx-shot dsx-shot--lg" src="assets/images/design-system/mobile/dark/segmented-buttons.png" alt="Segmented buttons — dark theme"></figure>
           <!-- Row 2 — mid -->
           <figure class="dsx-tile"><span class="dsx-tag">Nav</span><img class="dsx-shot" src="assets/images/design-system/mobile/dark/navigation.png" alt="Navigation — dark theme"></figure>
-          <figure class="dsx-tile"><span class="dsx-tag">Labels</span><img class="dsx-shot dsx-shot--sm" src="assets/images/design-system/mobile/dark/labels.png" alt="Labels — dark theme"></figure>
+          <figure class="dsx-tile dsx-tile--ink"><span class="dsx-tag">Labels</span><img class="dsx-shot dsx-shot--sm" src="assets/images/design-system/mobile/dark/labels.png" alt="Labels — dark theme"></figure>
           <figure class="dsx-tile"><span class="dsx-tag">Sheet&nbsp;header</span><img class="dsx-shot" src="assets/images/design-system/mobile/dark/sheet-header.png" alt="Sheet header — dark theme"></figure>
           <figure class="dsx-tile"><span class="dsx-tag">Buttons</span><img class="dsx-shot" src="assets/images/design-system/mobile/dark/buttons.png" alt="Buttons — dark theme"></figure>
           <figure class="dsx-tile"><span class="dsx-tag">Cards</span><img class="dsx-shot" src="assets/images/design-system/mobile/dark/cards.png" alt="Cards — dark theme"></figure>
           <!-- Row 3 — near (brightest) · richest dark crops up front -->
-          <figure class="dsx-tile"><span class="dsx-tag">Lists</span><img class="dsx-shot dsx-shot--lift" src="assets/images/design-system/mobile/dark/lists.png" alt="Lists — dark theme"></figure>
+          <figure class="dsx-tile dsx-tile--ink"><span class="dsx-tag">Lists</span><img class="dsx-shot dsx-shot--lift" src="assets/images/design-system/mobile/dark/lists.png" alt="Lists — dark theme"></figure>
           <figure class="dsx-tile"><span class="dsx-tag">Cells</span><img class="dsx-shot" src="assets/images/design-system/mobile/dark/cells.png" alt="Cells — dark theme"></figure>
           <figure class="dsx-tile"><span class="dsx-tag">Progress</span><img class="dsx-shot" src="assets/images/design-system/mobile/dark/progress-indicators.png" alt="Progress indicator — dark theme"></figure>
-          <figure class="dsx-tile"><span class="dsx-tag">Menu</span><img class="dsx-shot dsx-shot--lift" src="assets/images/design-system/mobile/dark/menu.png" alt="Menu — dark theme"></figure>
+          <figure class="dsx-tile dsx-tile--ink"><span class="dsx-tag">Menu</span><img class="dsx-shot dsx-shot--lift" src="assets/images/design-system/mobile/dark/menu.png" alt="Menu — dark theme"></figure>
           <figure class="dsx-tile"><span class="dsx-tag">Dialog</span><img class="dsx-shot" src="assets/images/design-system/mobile/dark/dialog.png" alt="Dialog — dark theme"></figure>
           <figure class="dsx-tile"><span class="dsx-tag">Banner</span><img class="dsx-shot" src="assets/images/design-system/mobile/dark/banners.png" alt="Banner — dark theme"></figure>
         </div>
