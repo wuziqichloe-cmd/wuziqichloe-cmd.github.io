@@ -199,6 +199,18 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;display:flex;ali
 .cs-metric-lbl{font-size:var(--fs-sm);font-weight:var(--fw-bold);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);}
 .cs-metric-desc{font-size:var(--fs-base);color:var(--ink-2);margin-top:6px;line-height:1.55;}
 
+/* NDA redaction — figure withheld, no value present in markup */
+.cs-nda{display:inline-flex;align-items:center;gap:12px;vertical-align:baseline;}
+.cs-nda-bar{display:inline-block;width:2.1ch;height:.66em;border-radius:7px;background:currentColor;opacity:.30;filter:blur(9px);}
+.cs-nda-lock{flex:none;width:.34em;height:.34em;min-width:16px;min-height:16px;color:var(--ink-3);}
+.cs-nda--ink{color:var(--ink);}
+
+/* NDA disclaimer note */
+.cs-note{display:flex;gap:11px;align-items:flex-start;margin-top:20px;padding:14px 17px;border:1px solid var(--warn-border);border-radius:12px;background:var(--warn-bg);max-width:64ch;}
+.cs-note svg{flex:none;width:16px;height:16px;margin-top:1px;color:var(--warn);}
+.cs-note p{font-size:var(--fs-sm);color:var(--ink-2);line-height:1.55;margin:0;}
+.cs-note strong{color:var(--warn);font-weight:var(--fw-semibold);}
+
 /* SECTIONS */
 .cs-section{padding:96px 0;border-bottom:1px solid var(--border);}
 .cs-section:last-child{border-bottom:none;}
@@ -1154,19 +1166,19 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
     <!-- METRICS -->
     <div class="cs-metrics reveal">
       <div class="cs-metric">
-        <div class="cs-metric-val">+42%</div>
+        <div class="cs-metric-val"><span class="cs-nda" role="img" aria-label="Figure withheld under NDA"><span class="cs-nda-bar"></span><svg class="cs-nda-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span></div>
         <div class="cs-metric-lbl">Feature Adoption</div>
         <div class="cs-metric-desc">Highest adoption of any feature</div>
       </div>
       <div class="cs-metric">
-        <div class="cs-metric-val">+28%</div>
+        <div class="cs-metric-val"><span class="cs-nda" role="img" aria-label="Figure withheld under NDA"><span class="cs-nda-bar"></span><svg class="cs-nda-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span></div>
         <div class="cs-metric-lbl">D30 Retention</div>
-        <div class="cs-metric-desc">Users active 30 days post-adoption</div>
+        <div class="cs-metric-desc">A clear lift over the static plan it replaced</div>
       </div>
       <div class="cs-metric">
-        <div class="cs-metric-val">7x</div>
+        <div class="cs-metric-val"><span class="cs-nda" role="img" aria-label="Figure withheld under NDA"><span class="cs-nda-bar"></span><svg class="cs-nda-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span></div>
         <div class="cs-metric-lbl">Paywall CVR</div>
-        <div class="cs-metric-desc">14% vs. 2% soft paywall industry average</div>
+        <div class="cs-metric-desc">Multiple times the soft paywall industry average</div>
       </div>
     </div>
 
@@ -1265,14 +1277,13 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
       </div>
       <div class="cs-pain-stats reveal">
         <div class="cs-pain-stat">
-          <div class="cs-pain-stat-val">60.7%</div>
+          <div class="cs-pain-stat-val"><span class="cs-nda cs-nda--ink" role="img" aria-label="Figure withheld under NDA"><span class="cs-nda-bar"></span><svg class="cs-nda-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span></div>
           <div class="cs-pain-stat-lbl">churned by Day 7</div>
         </div>
         <div class="cs-pain-stat">
-          <div class="cs-pain-stat-val">78.8%</div>
+          <div class="cs-pain-stat-val"><span class="cs-nda cs-nda--ink" role="img" aria-label="Figure withheld under NDA"><span class="cs-nda-bar"></span><svg class="cs-nda-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span></div>
           <div class="cs-pain-stat-lbl">churned by Day 30</div>
         </div>
-        <div class="cs-pain-stats-source">Source &middot; Amplitude funnel, paid users</div>
       </div>
       <!--
         Archived: VOC review cards (Storm / Chaire L. / Morty G.).
@@ -1336,7 +1347,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
         <div class="cs-stats-strip">
           <!--
             Archived: "Week 0 → Week 1 is the steepest cliff" stat card.
-            Removed to avoid restating Problem's 60.7% Day 7 figure.
+            Removed to avoid restating the Day 7 churn figure from Problem.
             If restored, flip .cs-stats-strip back to repeat(3,1fr) in CSS.
           <div class="cs-stat">
             <svg class="cs-stat-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -1763,8 +1774,12 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
       <div class="cs-wrap">
       <span class="cs-eyebrow">Outcomes</span>
       <h2 class="cs-section-title">Impact at Scale</h2>
+      <div class="cs-note" role="note" style="margin-top:0;margin-bottom:26px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        <p><strong>Under NDA</strong> &mdash; adoption, retention, and conversion figures for this feature are Jefit-internal and can&rsquo;t be published. The shape of each outcome is described here; the underlying numbers are withheld.</p>
+      </div>
       <div class="cs-body reveal">
-        <p>Launched company-wide to all 13M+ Jefit users in Q1 2026. The static plan it replaced lost 78.8% of paid users by Day&nbsp;30; after adoption, D30 retention climbed +28% &mdash; the lift four onboarding fixes never delivered. <strong>And it&rsquo;s not a one-time release:</strong> the team still ships improvements across iOS, Android, and watchOS, week over week.</p>
+        <p>Launched company-wide to all 13M+ Jefit users in Q1 2026. The static plan it replaced was losing most of its paid users within the first month; after adoption, D30 retention climbed &mdash; the lift four onboarding fixes never delivered. <strong>And it&rsquo;s not a one-time release:</strong> the team still ships improvements across iOS, Android, and watchOS, week over week.</p>
       </div>
       <div class="cs-impact-strip reveal">
         <div class="cs-impact-col">
@@ -1775,7 +1790,7 @@ footer{background:var(--ink);color:var(--bg);padding:48px;display:flex;justify-c
         <div class="cs-impact-col">
           <div class="cs-impact-col-eyebrow">Conversion</div>
           <h3 class="cs-impact-col-head">#1 paywall in Jefit&rsquo;s portfolio.</h3>
-          <p class="cs-impact-col-body">14% conversion vs. the 2% soft paywall industry average, and a +131% upgrade rate vs. baseline &mdash; the single most profitable premium feature in company history.</p>
+          <p class="cs-impact-col-body">Converted at several times the soft paywall industry average and lifted the upgrade rate well past baseline &mdash; the single most profitable premium feature in company history.</p>
         </div>
         <div class="cs-impact-col">
           <div class="cs-impact-col-eyebrow">Strategy</div>
